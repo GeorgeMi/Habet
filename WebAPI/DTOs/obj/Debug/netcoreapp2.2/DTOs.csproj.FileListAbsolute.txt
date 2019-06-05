@@ -6,3 +6,12 @@ D:\project\Habet\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.AssemblyInfoInputs.cac
 D:\project\Habet\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.AssemblyInfo.cs
 D:\project\Habet\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.dll
 D:\project\Habet\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.pdb
+F:\workspace\projects\Habet-master\WebAPI\DTOs\bin\Debug\netcoreapp2.2\DTOs.deps.json
+F:\workspace\projects\Habet-master\WebAPI\DTOs\bin\Debug\netcoreapp2.2\DTOs.dll
+F:\workspace\projects\Habet-master\WebAPI\DTOs\bin\Debug\netcoreapp2.2\DTOs.pdb
+F:\workspace\projects\Habet-master\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.csprojAssemblyReference.cache
+F:\workspace\projects\Habet-master\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.csproj.CoreCompileInputs.cache
+F:\workspace\projects\Habet-master\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.AssemblyInfoInputs.cache
+F:\workspace\projects\Habet-master\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.AssemblyInfo.cs
+F:\workspace\projects\Habet-master\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.dll
+F:\workspace\projects\Habet-master\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.pdb

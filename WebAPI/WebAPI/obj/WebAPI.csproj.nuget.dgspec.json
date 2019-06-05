@@ -1,26 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\project\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj": {}
+    "F:\\workspace\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj": {}
   },
   "projects": {
-    "D:\\project\\Habet\\WebAPI\\DTOs\\DTOs.csproj": {
+    "F:\\workspace\\Habet\\WebAPI\\DTOs\\DTOs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\project\\Habet\\WebAPI\\DTOs\\DTOs.csproj",
+        "projectUniqueName": "F:\\workspace\\Habet\\WebAPI\\DTOs\\DTOs.csproj",
         "projectName": "DTOs",
-        "projectPath": "D:\\project\\Habet\\WebAPI\\DTOs\\DTOs.csproj",
-        "packagesPath": "C:\\Users\\p3700660\\.nuget\\packages\\",
-        "outputPath": "D:\\project\\Habet\\WebAPI\\DTOs\\obj\\",
+        "projectPath": "F:\\workspace\\Habet\\WebAPI\\DTOs\\DTOs.csproj",
+        "packagesPath": "C:\\Users\\georg\\.nuget\\packages\\",
+        "outputPath": "F:\\workspace\\Habet\\WebAPI\\DTOs\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\p3700660\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
+          "C:\\Users\\georg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
@@ -58,23 +56,21 @@
         }
       }
     },
-    "D:\\project\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj": {
+    "F:\\workspace\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\project\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj",
+        "projectUniqueName": "F:\\workspace\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj",
         "projectName": "WebAPI",
-        "projectPath": "D:\\project\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj",
-        "packagesPath": "C:\\Users\\p3700660\\.nuget\\packages\\",
-        "outputPath": "D:\\project\\Habet\\WebAPI\\WebAPI\\obj\\",
+        "projectPath": "F:\\workspace\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj",
+        "packagesPath": "C:\\Users\\georg\\.nuget\\packages\\",
+        "outputPath": "F:\\workspace\\Habet\\WebAPI\\WebAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\p3700660\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
+          "C:\\Users\\georg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
@@ -86,8 +82,8 @@
         "frameworks": {
           "netcoreapp2.2": {
             "projectReferences": {
-              "D:\\project\\Habet\\WebAPI\\DTOs\\DTOs.csproj": {
-                "projectPath": "D:\\project\\Habet\\WebAPI\\DTOs\\DTOs.csproj"
+              "F:\\workspace\\Habet\\WebAPI\\DTOs\\DTOs.csproj": {
+                "projectPath": "F:\\workspace\\Habet\\WebAPI\\DTOs\\DTOs.csproj"
               }
             }
           }
@@ -107,24 +103,11 @@
               "version": "[2.2.0, )",
               "autoReferenced": true
             },
-            "Microsoft.AspNetCore.Razor.Design": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[2.2.4, )"
-            },
             "Microsoft.NETCore.App": {
               "suppressParent": "All",
               "target": "Package",
               "version": "[2.2.0, )",
               "autoReferenced": true
-            },
-            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
-              "target": "Package",
-              "version": "[1.4.10, )"
             }
           },
           "imports": [

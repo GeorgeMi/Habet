@@ -8,3 +8,14 @@ D:\project\Habet\WebAPI\BLL\bin\Debug\netcoreapp2.2\BLL.dll
 D:\project\Habet\WebAPI\BLL\bin\Debug\netcoreapp2.2\BLL.pdb
 D:\project\Habet\WebAPI\BLL\obj\Debug\netcoreapp2.2\BLL.dll
 D:\project\Habet\WebAPI\BLL\obj\Debug\netcoreapp2.2\BLL.pdb
+F:\workspace\projects\Habet-master\WebAPI\BLL\bin\Debug\netcoreapp2.2\BLL.deps.json
+F:\workspace\projects\Habet-master\WebAPI\BLL\bin\Debug\netcoreapp2.2\BLL.runtimeconfig.json
+F:\workspace\projects\Habet-master\WebAPI\BLL\bin\Debug\netcoreapp2.2\BLL.runtimeconfig.dev.json
+F:\workspace\projects\Habet-master\WebAPI\BLL\bin\Debug\netcoreapp2.2\BLL.dll
+F:\workspace\projects\Habet-master\WebAPI\BLL\bin\Debug\netcoreapp2.2\BLL.pdb
+F:\workspace\projects\Habet-master\WebAPI\BLL\obj\Debug\netcoreapp2.2\BLL.csprojAssemblyReference.cache
+F:\workspace\projects\Habet-master\WebAPI\BLL\obj\Debug\netcoreapp2.2\BLL.csproj.CoreCompileInputs.cache
+F:\workspace\projects\Habet-master\WebAPI\BLL\obj\Debug\netcoreapp2.2\BLL.AssemblyInfoInputs.cache
+F:\workspace\projects\Habet-master\WebAPI\BLL\obj\Debug\netcoreapp2.2\BLL.AssemblyInfo.cs
+F:\workspace\projects\Habet-master\WebAPI\BLL\obj\Debug\netcoreapp2.2\BLL.dll
+F:\workspace\projects\Habet-master\WebAPI\BLL\obj\Debug\netcoreapp2.2\BLL.pdb
