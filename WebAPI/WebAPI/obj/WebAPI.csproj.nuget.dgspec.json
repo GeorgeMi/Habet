@@ -1,24 +1,84 @@
 {
   "format": 1,
   "restore": {
-    "F:\\workspace\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj": {}
+    "D:\\project\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj": {}
   },
   "projects": {
-    "F:\\workspace\\Habet\\WebAPI\\DTOs\\DTOs.csproj": {
+    "D:\\project\\Habet\\WebAPI\\DAL\\DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\workspace\\Habet\\WebAPI\\DTOs\\DTOs.csproj",
-        "projectName": "DTOs",
-        "projectPath": "F:\\workspace\\Habet\\WebAPI\\DTOs\\DTOs.csproj",
-        "packagesPath": "C:\\Users\\georg\\.nuget\\packages\\",
-        "outputPath": "F:\\workspace\\Habet\\WebAPI\\DTOs\\obj\\",
+        "projectUniqueName": "D:\\project\\Habet\\WebAPI\\DAL\\DAL.csproj",
+        "projectName": "DAL",
+        "projectPath": "D:\\project\\Habet\\WebAPI\\DAL\\DAL.csproj",
+        "packagesPath": "C:\\Users\\p3700660\\.nuget\\packages\\",
+        "outputPath": "D:\\project\\Habet\\WebAPI\\DAL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\georg\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\p3700660\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[2.2.4, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "D:\\project\\Habet\\WebAPI\\DTOs\\DTOs.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\project\\Habet\\WebAPI\\DTOs\\DTOs.csproj",
+        "projectName": "DTOs",
+        "projectPath": "D:\\project\\Habet\\WebAPI\\DTOs\\DTOs.csproj",
+        "packagesPath": "C:\\Users\\p3700660\\.nuget\\packages\\",
+        "outputPath": "D:\\project\\Habet\\WebAPI\\DTOs\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\p3700660\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
@@ -56,21 +116,23 @@
         }
       }
     },
-    "F:\\workspace\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj": {
+    "D:\\project\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\workspace\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj",
+        "projectUniqueName": "D:\\project\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj",
         "projectName": "WebAPI",
-        "projectPath": "F:\\workspace\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj",
-        "packagesPath": "C:\\Users\\georg\\.nuget\\packages\\",
-        "outputPath": "F:\\workspace\\Habet\\WebAPI\\WebAPI\\obj\\",
+        "projectPath": "D:\\project\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj",
+        "packagesPath": "C:\\Users\\p3700660\\.nuget\\packages\\",
+        "outputPath": "D:\\project\\Habet\\WebAPI\\WebAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\georg\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\p3700660\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
@@ -82,8 +144,11 @@
         "frameworks": {
           "netcoreapp2.2": {
             "projectReferences": {
-              "F:\\workspace\\Habet\\WebAPI\\DTOs\\DTOs.csproj": {
-                "projectPath": "F:\\workspace\\Habet\\WebAPI\\DTOs\\DTOs.csproj"
+              "D:\\project\\Habet\\WebAPI\\DAL\\DAL.csproj": {
+                "projectPath": "D:\\project\\Habet\\WebAPI\\DAL\\DAL.csproj"
+              },
+              "D:\\project\\Habet\\WebAPI\\DTOs\\DTOs.csproj": {
+                "projectPath": "D:\\project\\Habet\\WebAPI\\DTOs\\DTOs.csproj"
               }
             }
           }
@@ -108,6 +173,10 @@
               "target": "Package",
               "version": "[2.2.0, )",
               "autoReferenced": true
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[2.2.3, )"
             }
           },
           "imports": [

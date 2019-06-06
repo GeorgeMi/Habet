@@ -32,3 +32,5 @@ F:\workspace\projects\Habet-master\WebAPI\WebAPI\obj\Debug\netcoreapp2.2\WebAPI.
 F:\workspace\projects\Habet-master\WebAPI\WebAPI\obj\Debug\netcoreapp2.2\WebAPI.csproj.CopyComplete
 F:\workspace\projects\Habet-master\WebAPI\WebAPI\obj\Debug\netcoreapp2.2\WebAPI.dll
 F:\workspace\projects\Habet-master\WebAPI\WebAPI\obj\Debug\netcoreapp2.2\WebAPI.pdb
+D:\project\Habet\WebAPI\WebAPI\bin\Debug\netcoreapp2.2\DAL.dll
+D:\project\Habet\WebAPI\WebAPI\bin\Debug\netcoreapp2.2\DAL.pdb

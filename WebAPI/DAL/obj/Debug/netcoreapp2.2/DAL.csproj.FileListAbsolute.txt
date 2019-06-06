@@ -19,3 +19,4 @@ F:\workspace\projects\Habet-master\WebAPI\DAL\obj\Debug\netcoreapp2.2\DAL.Assemb
 F:\workspace\projects\Habet-master\WebAPI\DAL\obj\Debug\netcoreapp2.2\DAL.AssemblyInfo.cs
 F:\workspace\projects\Habet-master\WebAPI\DAL\obj\Debug\netcoreapp2.2\DAL.dll
 F:\workspace\projects\Habet-master\WebAPI\DAL\obj\Debug\netcoreapp2.2\DAL.pdb
+D:\project\Habet\WebAPI\DAL\obj\Debug\netcoreapp2.2\DAL.csprojAssemblyReference.cache

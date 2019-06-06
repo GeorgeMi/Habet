@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-//using WebAPI.Models;
+using WebAPI.Models;
 
 namespace WebAPI
 {
@@ -22,6 +22,8 @@ namespace WebAPI
         {
            // services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("List"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddDbContext<GHContext>(options => options.UseSqlServer(Configuration.GetConnectionString("GHDatabase")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

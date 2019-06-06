@@ -29,8 +29,7 @@ namespace WebAPI.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=188.121.44.217;Database=GH;Trusted_Connection=False;user id=Gabriel;pwd=Habetpassword123;");
+
             }
         }
 
