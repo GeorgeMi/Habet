@@ -1,14 +1,8 @@
 ﻿declare var require: any
+import { Layout } from "./Components/Layout";
 
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-export class Hello extends React.Component {
-    render() {
-        return (
-            <h1>Welcome to React!!</h1>
-        );
-    }
-}
 
-ReactDOM.render(<Hello />, document.getElementById('root'));
+ReactDOM.render(<Layout/>, document.getElementById('root'));

@@ -86,10 +86,10 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./app.tsx":
-/*!*****************!*\
-  !*** ./app.tsx ***!
-  \*****************/
+/***/ "./Components/Footer.js":
+/*!******************************!*\
+  !*** ./Components/Footer.js ***!
+  \******************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -110,19 +110,118 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var ReactDOM = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-var Hello = /** @class */ (function (_super) {
-    __extends(Hello, _super);
-    function Hello() {
+var Footer = /** @class */ (function (_super) {
+    __extends(Footer, _super);
+    function Footer() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    Hello.prototype.render = function () {
-        return (React.createElement("h1", null, "Welcome to React!!"));
+    Footer.prototype.render = function () {
+        return (React.createElement("div", null, "footer"));
     };
-    return Hello;
+    return Footer;
 }(React.Component));
-exports.Hello = Hello;
-ReactDOM.render(React.createElement(Hello, null), document.getElementById('root'));
+exports.Footer = Footer;
+//# sourceMappingURL=Footer.js.map
+
+/***/ }),
+
+/***/ "./Components/Header.js":
+/*!******************************!*\
+  !*** ./Components/Header.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var Header = /** @class */ (function (_super) {
+    __extends(Header, _super);
+    function Header() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Header.prototype.render = function () {
+        return (React.createElement("div", null, "header"));
+    };
+    return Header;
+}(React.Component));
+exports.Header = Header;
+//# sourceMappingURL=Header.js.map
+
+/***/ }),
+
+/***/ "./Components/Layout.js":
+/*!******************************!*\
+  !*** ./Components/Layout.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var Footer_1 = __webpack_require__(/*! ./Footer */ "./Components/Footer.js");
+var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var Layout = /** @class */ (function (_super) {
+    __extends(Layout, _super);
+    function Layout() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Layout.prototype.render = function () {
+        return (React.createElement("div", null,
+            React.createElement(Header_1.Header, null),
+            React.createElement("h1", null, "Welcome"),
+            React.createElement(Footer_1.Footer, null)));
+    };
+    return Layout;
+}(React.Component));
+exports.Layout = Layout;
+//# sourceMappingURL=Layout.js.map
+
+/***/ }),
+
+/***/ "./app.tsx":
+/*!*****************!*\
+  !*** ./app.tsx ***!
+  \*****************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Layout_1 = __webpack_require__(/*! ./Components/Layout */ "./Components/Layout.js");
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var ReactDOM = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+ReactDOM.render(React.createElement(Layout_1.Layout, null), document.getElementById('root'));
 
 
 /***/ }),
