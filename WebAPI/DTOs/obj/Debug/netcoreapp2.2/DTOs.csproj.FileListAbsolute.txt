@@ -1,11 +1,3 @@
-D:\project\Habet\WebAPI\DTOs\bin\Debug\netcoreapp2.2\DTOs.deps.json
-D:\project\Habet\WebAPI\DTOs\bin\Debug\netcoreapp2.2\DTOs.dll
-D:\project\Habet\WebAPI\DTOs\bin\Debug\netcoreapp2.2\DTOs.pdb
-D:\project\Habet\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.csproj.CoreCompileInputs.cache
-D:\project\Habet\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.AssemblyInfoInputs.cache
-D:\project\Habet\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.AssemblyInfo.cs
-D:\project\Habet\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.dll
-D:\project\Habet\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.pdb
 F:\workspace\projects\Habet-master\WebAPI\DTOs\bin\Debug\netcoreapp2.2\DTOs.deps.json
 F:\workspace\projects\Habet-master\WebAPI\DTOs\bin\Debug\netcoreapp2.2\DTOs.dll
 F:\workspace\projects\Habet-master\WebAPI\DTOs\bin\Debug\netcoreapp2.2\DTOs.pdb
@@ -15,3 +7,12 @@ F:\workspace\projects\Habet-master\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.Asse
 F:\workspace\projects\Habet-master\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.AssemblyInfo.cs
 F:\workspace\projects\Habet-master\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.dll
 F:\workspace\projects\Habet-master\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.pdb
+D:\project\Habet\WebAPI\DTOs\bin\Debug\netcoreapp2.2\DTOs.deps.json
+D:\project\Habet\WebAPI\DTOs\bin\Debug\netcoreapp2.2\DTOs.dll
+D:\project\Habet\WebAPI\DTOs\bin\Debug\netcoreapp2.2\DTOs.pdb
+D:\project\Habet\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.csproj.CoreCompileInputs.cache
+D:\project\Habet\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.AssemblyInfoInputs.cache
+D:\project\Habet\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.AssemblyInfo.cs
+D:\project\Habet\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.dll
+D:\project\Habet\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.pdb
+D:\project\Habet\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.csprojAssemblyReference.cache

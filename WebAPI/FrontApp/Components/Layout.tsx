@@ -1,6 +1,9 @@
 ﻿declare var require: any
-import { Footer } from "./Footer";
+
 import { Header } from './Header'
+import { Intro } from "./Intro";
+import { Main } from "./Main";
+import { Footer } from "./Footer";
 
 var React = require('react');
 
@@ -9,7 +12,8 @@ export class Layout extends React.Component {
         return (
             <div>
                 <Header />
-                <h1>Welcome</h1>
+                <Intro />
+                <Main />
                 <Footer />
             </div>
         );

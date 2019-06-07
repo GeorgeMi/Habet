@@ -20,7 +20,38 @@ var Header = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Header.prototype.render = function () {
-        return (React.createElement("div", null, "header"));
+        return (React.createElement("header", { id: "header" },
+            React.createElement("div", { class: "container-fluid" },
+                React.createElement("div", { id: "logo", class: "pull-left" },
+                    React.createElement("h1", null,
+                        React.createElement("a", { href: "#intro", class: "scrollto" }, "GabrielHabet")),
+                    React.createElement("a", { href: "#intro" },
+                        React.createElement("img", { src: "img/logo.png", alt: "", title: "" }))),
+                React.createElement("nav", { id: "nav-menu-container" },
+                    React.createElement("ul", { class: "nav-menu" },
+                        React.createElement("li", { class: "menu-active" },
+                            React.createElement("a", { href: "#intro" }, "Home")),
+                        React.createElement("li", null,
+                            React.createElement("a", { href: "#about" }, "About Us")),
+                        React.createElement("li", null,
+                            React.createElement("a", { href: "#services" }, "Services")),
+                        React.createElement("li", null,
+                            React.createElement("a", { href: "#portfolio" }, "Portfolio")),
+                        React.createElement("li", null,
+                            React.createElement("a", { href: "#team" }, "Team")),
+                        React.createElement("li", { class: "menu-has-children" },
+                            React.createElement("a", { href: "" }, "Drop Down"),
+                            React.createElement("ul", null,
+                                React.createElement("li", null,
+                                    React.createElement("a", { href: "#" }, "Drop Down 1")),
+                                React.createElement("li", null,
+                                    React.createElement("a", { href: "#" }, "Drop Down 3")),
+                                React.createElement("li", null,
+                                    React.createElement("a", { href: "#" }, "Drop Down 4")),
+                                React.createElement("li", null,
+                                    React.createElement("a", { href: "#" }, "Drop Down 5")))),
+                        React.createElement("li", null,
+                            React.createElement("a", { href: "#contact" }, "Contact")))))));
     };
     return Header;
 }(React.Component));

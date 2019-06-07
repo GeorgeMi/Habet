@@ -116,7 +116,74 @@ var Footer = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Footer.prototype.render = function () {
-        return (React.createElement("div", null, "footer"));
+        return (React.createElement("footer", { id: "footer" },
+            React.createElement("div", { class: "footer-top" },
+                React.createElement("div", { class: "container" },
+                    React.createElement("div", { class: "row" },
+                        React.createElement("div", { class: "col-lg-3 col-md-6 footer-info" },
+                            React.createElement("h3", null, "GabrielHabet"),
+                            React.createElement("p", null, "Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus. Scelerisque felis imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc congue.")),
+                        React.createElement("div", { class: "col-lg-3 col-md-6 footer-links" },
+                            React.createElement("h4", null, "Useful Links"),
+                            React.createElement("ul", null,
+                                React.createElement("li", null,
+                                    React.createElement("i", { class: "ion-ios-arrow-right" }),
+                                    " ",
+                                    React.createElement("a", { href: "#" }, "Home")),
+                                React.createElement("li", null,
+                                    React.createElement("i", { class: "ion-ios-arrow-right" }),
+                                    " ",
+                                    React.createElement("a", { href: "#" }, "About us")),
+                                React.createElement("li", null,
+                                    React.createElement("i", { class: "ion-ios-arrow-right" }),
+                                    " ",
+                                    React.createElement("a", { href: "#" }, "Services")),
+                                React.createElement("li", null,
+                                    React.createElement("i", { class: "ion-ios-arrow-right" }),
+                                    " ",
+                                    React.createElement("a", { href: "#" }, "Terms of service")),
+                                React.createElement("li", null,
+                                    React.createElement("i", { class: "ion-ios-arrow-right" }),
+                                    " ",
+                                    React.createElement("a", { href: "#" }, "Privacy policy")))),
+                        React.createElement("div", { class: "col-lg-3 col-md-6 footer-contact" },
+                            React.createElement("h4", null, "Contact Us"),
+                            React.createElement("p", null,
+                                "A108 Adam Street ",
+                                React.createElement("br", null),
+                                "New York, NY 535022",
+                                React.createElement("br", null),
+                                "United States ",
+                                React.createElement("br", null),
+                                React.createElement("strong", null, "Phone:"),
+                                " +1 5589 55488 55",
+                                React.createElement("br", null),
+                                React.createElement("strong", null, "Email:"),
+                                " info@example.com",
+                                React.createElement("br", null)),
+                            React.createElement("div", { class: "social-links" },
+                                React.createElement("a", { href: "#", class: "twitter" },
+                                    React.createElement("i", { class: "fa fa-twitter" })),
+                                React.createElement("a", { href: "#", class: "facebook" },
+                                    React.createElement("i", { class: "fa fa-facebook" })),
+                                React.createElement("a", { href: "#", class: "instagram" },
+                                    React.createElement("i", { class: "fa fa-instagram" })),
+                                React.createElement("a", { href: "#", class: "google-plus" },
+                                    React.createElement("i", { class: "fa fa-google-plus" })),
+                                React.createElement("a", { href: "#", class: "linkedin" },
+                                    React.createElement("i", { class: "fa fa-linkedin" })))),
+                        React.createElement("div", { class: "col-lg-3 col-md-6 footer-newsletter" },
+                            React.createElement("h4", null, "Our Newsletter"),
+                            React.createElement("p", null, "Tamen quem nulla quae legam multos aute sint culpa legam noster magna veniam enim veniam illum dolore legam minim quorum culpa amet magna export quem marada parida nodela caramase seza."),
+                            React.createElement("form", { action: "", method: "post" },
+                                React.createElement("input", { type: "email", name: "email" }),
+                                React.createElement("input", { type: "submit", value: "Subscribe" })))))),
+            React.createElement("div", { class: "container" },
+                React.createElement("div", { class: "copyright" },
+                    "\u00A9 Copyright ",
+                    React.createElement("strong", null, "BizPage"),
+                    ". All Rights Reserved"),
+                React.createElement("div", { class: "credits" }))));
     };
     return Footer;
 }(React.Component));
@@ -155,12 +222,132 @@ var Header = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Header.prototype.render = function () {
-        return (React.createElement("div", null, "header"));
+        return (React.createElement("header", { id: "header" },
+            React.createElement("div", { class: "container-fluid" },
+                React.createElement("div", { id: "logo", class: "pull-left" },
+                    React.createElement("h1", null,
+                        React.createElement("a", { href: "#intro", class: "scrollto" }, "GabrielHabet")),
+                    React.createElement("a", { href: "#intro" },
+                        React.createElement("img", { src: "img/logo.png", alt: "", title: "" }))),
+                React.createElement("nav", { id: "nav-menu-container" },
+                    React.createElement("ul", { class: "nav-menu" },
+                        React.createElement("li", { class: "menu-active" },
+                            React.createElement("a", { href: "#intro" }, "Home")),
+                        React.createElement("li", null,
+                            React.createElement("a", { href: "#about" }, "About Us")),
+                        React.createElement("li", null,
+                            React.createElement("a", { href: "#services" }, "Services")),
+                        React.createElement("li", null,
+                            React.createElement("a", { href: "#portfolio" }, "Portfolio")),
+                        React.createElement("li", null,
+                            React.createElement("a", { href: "#team" }, "Team")),
+                        React.createElement("li", { class: "menu-has-children" },
+                            React.createElement("a", { href: "" }, "Drop Down"),
+                            React.createElement("ul", null,
+                                React.createElement("li", null,
+                                    React.createElement("a", { href: "#" }, "Drop Down 1")),
+                                React.createElement("li", null,
+                                    React.createElement("a", { href: "#" }, "Drop Down 3")),
+                                React.createElement("li", null,
+                                    React.createElement("a", { href: "#" }, "Drop Down 4")),
+                                React.createElement("li", null,
+                                    React.createElement("a", { href: "#" }, "Drop Down 5")))),
+                        React.createElement("li", null,
+                            React.createElement("a", { href: "#contact" }, "Contact")))))));
     };
     return Header;
 }(React.Component));
 exports.Header = Header;
 //# sourceMappingURL=Header.js.map
+
+/***/ }),
+
+/***/ "./Components/Intro.js":
+/*!*****************************!*\
+  !*** ./Components/Intro.js ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var Intro = /** @class */ (function (_super) {
+    __extends(Intro, _super);
+    function Intro() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Intro.prototype.render = function () {
+        return (React.createElement("section", { id: "intro" },
+            React.createElement("div", { class: "intro-container" },
+                React.createElement("div", { id: "introCarousel", class: "carousel  slide carousel-fade", "data-ride": "carousel" },
+                    React.createElement("ol", { class: "carousel-indicators" }),
+                    React.createElement("div", { class: "carousel-inner", role: "listbox" },
+                        React.createElement("div", { class: "carousel-item active" },
+                            React.createElement("div", { class: "carousel-background" },
+                                React.createElement("img", { src: "img/intro-carousel/1.jpg", alt: "" })),
+                            React.createElement("div", { class: "carousel-container" },
+                                React.createElement("div", { class: "carousel-content" },
+                                    React.createElement("h2", null, "We are professional"),
+                                    React.createElement("p", null, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."),
+                                    React.createElement("a", { href: "#featured-services", class: "btn-get-started scrollto" }, "Get Started")))),
+                        React.createElement("div", { class: "carousel-item" },
+                            React.createElement("div", { class: "carousel-background" },
+                                React.createElement("img", { src: "img/intro-carousel/2.jpg", alt: "" })),
+                            React.createElement("div", { class: "carousel-container" },
+                                React.createElement("div", { class: "carousel-content" },
+                                    React.createElement("h2", null, "At vero eos et accusamus"),
+                                    React.createElement("p", null, "Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut."),
+                                    React.createElement("a", { href: "#featured-services", class: "btn-get-started scrollto" }, "Get Started")))),
+                        React.createElement("div", { class: "carousel-item" },
+                            React.createElement("div", { class: "carousel-background" },
+                                React.createElement("img", { src: "img/intro-carousel/3.jpg", alt: "" })),
+                            React.createElement("div", { class: "carousel-container" },
+                                React.createElement("div", { class: "carousel-content" },
+                                    React.createElement("h2", null, "Temporibus autem quibusdam"),
+                                    React.createElement("p", null, "Beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt omnis iste natus error sit voluptatem accusantium."),
+                                    React.createElement("a", { href: "#featured-services", class: "btn-get-started scrollto" }, "Get Started")))),
+                        React.createElement("div", { class: "carousel-item" },
+                            React.createElement("div", { class: "carousel-background" },
+                                React.createElement("img", { src: "img/intro-carousel/4.jpg", alt: "" })),
+                            React.createElement("div", { class: "carousel-container" },
+                                React.createElement("div", { class: "carousel-content" },
+                                    React.createElement("h2", null, "Nam libero tempore"),
+                                    React.createElement("p", null, "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum."),
+                                    React.createElement("a", { href: "#featured-services", class: "btn-get-started scrollto" }, "Get Started")))),
+                        React.createElement("div", { class: "carousel-item" },
+                            React.createElement("div", { class: "carousel-background" },
+                                React.createElement("img", { src: "img/intro-carousel/5.jpg", alt: "" })),
+                            React.createElement("div", { class: "carousel-container" },
+                                React.createElement("div", { class: "carousel-content" },
+                                    React.createElement("h2", null, "Magnam aliquam quaerat"),
+                                    React.createElement("p", null, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."),
+                                    React.createElement("a", { href: "#featured-services", class: "btn-get-started scrollto" }, "Get Started"))))),
+                    React.createElement("a", { class: "carousel-control-prev", href: "#introCarousel", role: "button", "data-slide": "prev" },
+                        React.createElement("span", { class: "carousel-control-prev-icon ion-chevron-left", "aria-hidden": "true" }),
+                        React.createElement("span", { class: "sr-only" }, "Previous")),
+                    React.createElement("a", { class: "carousel-control-next", href: "#introCarousel", role: "button", "data-slide": "next" },
+                        React.createElement("span", { class: "carousel-control-next-icon ion-chevron-right", "aria-hidden": "true" }),
+                        React.createElement("span", { class: "sr-only" }, "Next"))))));
+    };
+    return Intro;
+}(React.Component));
+exports.Intro = Intro;
+//# sourceMappingURL=Intro.js.map
 
 /***/ }),
 
@@ -187,8 +374,10 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Footer_1 = __webpack_require__(/*! ./Footer */ "./Components/Footer.js");
 var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
+var Intro_1 = __webpack_require__(/*! ./Intro */ "./Components/Intro.js");
+var Main_1 = __webpack_require__(/*! ./Main */ "./Components/Main.js");
+var Footer_1 = __webpack_require__(/*! ./Footer */ "./Components/Footer.js");
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var Layout = /** @class */ (function (_super) {
     __extends(Layout, _super);
@@ -198,13 +387,681 @@ var Layout = /** @class */ (function (_super) {
     Layout.prototype.render = function () {
         return (React.createElement("div", null,
             React.createElement(Header_1.Header, null),
-            React.createElement("h1", null, "Welcome"),
+            React.createElement(Intro_1.Intro, null),
+            React.createElement(Main_1.Main, null),
             React.createElement(Footer_1.Footer, null)));
     };
     return Layout;
 }(React.Component));
 exports.Layout = Layout;
 //# sourceMappingURL=Layout.js.map
+
+/***/ }),
+
+/***/ "./Components/Main.js":
+/*!****************************!*\
+  !*** ./Components/Main.js ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var SectionAboutUs_1 = __webpack_require__(/*! ./SectionAboutUs */ "./Components/SectionAboutUs.js");
+var SectionCallToAction_1 = __webpack_require__(/*! ./SectionCallToAction */ "./Components/SectionCallToAction.js");
+var SectionContact_1 = __webpack_require__(/*! ./SectionContact */ "./Components/SectionContact.js");
+var SectionFacts_1 = __webpack_require__(/*! ./SectionFacts */ "./Components/SectionFacts.js");
+var SectionFeaturedServices_1 = __webpack_require__(/*! ./SectionFeaturedServices */ "./Components/SectionFeaturedServices.js");
+var SectionPortfolio_1 = __webpack_require__(/*! ./SectionPortfolio */ "./Components/SectionPortfolio.js");
+var SectionServices_1 = __webpack_require__(/*! ./SectionServices */ "./Components/SectionServices.js");
+var SectionSkills_1 = __webpack_require__(/*! ./SectionSkills */ "./Components/SectionSkills.js");
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var Main = /** @class */ (function (_super) {
+    __extends(Main, _super);
+    function Main() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Main.prototype.render = function () {
+        return (React.createElement("main", { id: "main" },
+            React.createElement("div", null,
+                React.createElement(SectionFeaturedServices_1.SectionFeaturedServices, null),
+                React.createElement(SectionAboutUs_1.SectionAboutUs, null),
+                React.createElement(SectionServices_1.SectionServices, null),
+                React.createElement(SectionCallToAction_1.SectionCallToAction, null),
+                React.createElement(SectionSkills_1.SectionSkills, null),
+                React.createElement(SectionFacts_1.SectionFacts, null),
+                React.createElement(SectionFacts_1.SectionFacts, null),
+                React.createElement(SectionPortfolio_1.SectionPortfolio, null),
+                React.createElement(SectionContact_1.SectionContact, null))));
+    };
+    return Main;
+}(React.Component));
+exports.Main = Main;
+//# sourceMappingURL=Main.js.map
+
+/***/ }),
+
+/***/ "./Components/SectionAboutUs.js":
+/*!**************************************!*\
+  !*** ./Components/SectionAboutUs.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var SectionAboutUs = /** @class */ (function (_super) {
+    __extends(SectionAboutUs, _super);
+    function SectionAboutUs() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    SectionAboutUs.prototype.render = function () {
+        return (React.createElement("section", { id: "about" },
+            React.createElement("div", { class: "container" },
+                React.createElement("header", { class: "section-header" },
+                    React.createElement("h3", null, "About Us"),
+                    React.createElement("p", null, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.")),
+                React.createElement("div", { class: "row about-cols" },
+                    React.createElement("div", { class: "col-md-4 wow fadeInUp" },
+                        React.createElement("div", { class: "about-col" },
+                            React.createElement("div", { class: "img" },
+                                React.createElement("img", { src: "img/about-mission.jpg", alt: "", class: "img-fluid" }),
+                                React.createElement("div", { class: "icon" },
+                                    React.createElement("i", { class: "ion-ios-speedometer-outline" }))),
+                            React.createElement("h2", { class: "title" },
+                                React.createElement("a", { href: "#" }, "Our Mission")),
+                            React.createElement("p", null, "Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."))),
+                    React.createElement("div", { class: "col-md-4 wow fadeInUp", "data-wow-delay": "0.1s" },
+                        React.createElement("div", { class: "about-col" },
+                            React.createElement("div", { class: "img" },
+                                React.createElement("img", { src: "img/about-plan.jpg", alt: "", class: "img-fluid" }),
+                                React.createElement("div", { class: "icon" },
+                                    React.createElement("i", { class: "ion-ios-list-outline" }))),
+                            React.createElement("h2", { class: "title" },
+                                React.createElement("a", { href: "#" }, "Our Plan")),
+                            React.createElement("p", null, "Sed ut perspiciatis unde omnis iste natus error sit voluptatem  doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."))),
+                    React.createElement("div", { class: "col-md-4 wow fadeInUp", "data-wow-delay": "0.2s" },
+                        React.createElement("div", { class: "about-col" },
+                            React.createElement("div", { class: "img" },
+                                React.createElement("img", { src: "img/about-vision.jpg", alt: "", class: "img-fluid" }),
+                                React.createElement("div", { class: "icon" },
+                                    React.createElement("i", { class: "ion-ios-eye-outline" }))),
+                            React.createElement("h2", { class: "title" },
+                                React.createElement("a", { href: "#" }, "Our Vision")),
+                            React.createElement("p", null, "Nemo enim ipsam voluptatem quia voluptas sit aut odit aut fugit, sed quia magni dolores eos qui ratione voluptatem sequi nesciunt Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.")))))));
+    };
+    return SectionAboutUs;
+}(React.Component));
+exports.SectionAboutUs = SectionAboutUs;
+//# sourceMappingURL=SectionAboutUs.js.map
+
+/***/ }),
+
+/***/ "./Components/SectionCallToAction.js":
+/*!*******************************************!*\
+  !*** ./Components/SectionCallToAction.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var SectionCallToAction = /** @class */ (function (_super) {
+    __extends(SectionCallToAction, _super);
+    function SectionCallToAction() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    SectionCallToAction.prototype.render = function () {
+        return (React.createElement("section", { id: "call-to-action", class: "wow fadeIn" },
+            React.createElement("div", { class: "container text-center" },
+                React.createElement("h3", null, "Call To Action"),
+                React.createElement("p", null, " Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
+                React.createElement("a", { class: "cta-btn", href: "#" }, "Call To Action"))));
+    };
+    return SectionCallToAction;
+}(React.Component));
+exports.SectionCallToAction = SectionCallToAction;
+//# sourceMappingURL=SectionCallToAction.js.map
+
+/***/ }),
+
+/***/ "./Components/SectionContact.js":
+/*!**************************************!*\
+  !*** ./Components/SectionContact.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var SectionContact = /** @class */ (function (_super) {
+    __extends(SectionContact, _super);
+    function SectionContact() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    SectionContact.prototype.render = function () {
+        return (React.createElement("section", { id: "contact", class: "section-bg wow fadeInUp" },
+            React.createElement("div", { class: "container" },
+                React.createElement("div", { class: "section-header" },
+                    React.createElement("h3", null, "Contact Us"),
+                    React.createElement("p", null, "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque")),
+                React.createElement("div", { class: "row contact-info" },
+                    React.createElement("div", { class: "col-md-4" },
+                        React.createElement("div", { class: "contact-address" },
+                            React.createElement("i", { class: "ion-ios-location-outline" }),
+                            React.createElement("h3", null, "Address"),
+                            React.createElement("address", null, "A108 Adam Street, NY 535022, USA"))),
+                    React.createElement("div", { class: "col-md-4" },
+                        React.createElement("div", { class: "contact-phone" },
+                            React.createElement("i", { class: "ion-ios-telephone-outline" }),
+                            React.createElement("h3", null, "Phone Number"),
+                            React.createElement("p", null,
+                                React.createElement("a", { href: "tel:+155895548855" }, "+1 5589 55488 55")))),
+                    React.createElement("div", { class: "col-md-4" },
+                        React.createElement("div", { class: "contact-email" },
+                            React.createElement("i", { class: "ion-ios-email-outline" }),
+                            React.createElement("h3", null, "Email"),
+                            React.createElement("p", null,
+                                React.createElement("a", { href: "mailto:info@example.com" }, "info@example.com"))))),
+                React.createElement("div", { class: "form" },
+                    React.createElement("div", { id: "sendmessage" }, "Your message has been sent. Thank you!"),
+                    React.createElement("div", { id: "errormessage" }),
+                    React.createElement("form", { action: "", method: "post", role: "form", class: "contactForm" },
+                        React.createElement("div", { class: "form-row" },
+                            React.createElement("div", { class: "form-group col-md-6" },
+                                React.createElement("input", { type: "text", name: "name", class: "form-control", id: "name", placeholder: "Your Name", "data-rule": "minlen:4", "data-msg": "Please enter at least 4 chars" }),
+                                React.createElement("div", { class: "validation" })),
+                            React.createElement("div", { class: "form-group col-md-6" },
+                                React.createElement("input", { type: "email", class: "form-control", name: "email", id: "email", placeholder: "Your Email", "data-rule": "email", "data-msg": "Please enter a valid email" }),
+                                React.createElement("div", { class: "validation" }))),
+                        React.createElement("div", { class: "form-group" },
+                            React.createElement("input", { type: "text", class: "form-control", name: "subject", id: "subject", placeholder: "Subject", "data-rule": "minlen:4", "data-msg": "Please enter at least 8 chars of subject" }),
+                            React.createElement("div", { class: "validation" })),
+                        React.createElement("div", { class: "form-group" },
+                            React.createElement("textarea", { class: "form-control", name: "message", rows: "5", "data-rule": "required", "data-msg": "Please write something for us", placeholder: "Message" }),
+                            React.createElement("div", { class: "validation" })),
+                        React.createElement("div", { class: "text-center" },
+                            React.createElement("button", { type: "submit" }, "Send Message")))))));
+    };
+    return SectionContact;
+}(React.Component));
+exports.SectionContact = SectionContact;
+//# sourceMappingURL=SectionContact.js.map
+
+/***/ }),
+
+/***/ "./Components/SectionFacts.js":
+/*!************************************!*\
+  !*** ./Components/SectionFacts.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var SectionFacts = /** @class */ (function (_super) {
+    __extends(SectionFacts, _super);
+    function SectionFacts() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    SectionFacts.prototype.render = function () {
+        return (React.createElement("section", { id: "facts", class: "wow fadeIn" },
+            React.createElement("div", { class: "container" },
+                React.createElement("header", { class: "section-header" },
+                    React.createElement("h3", null, "Facts"),
+                    React.createElement("p", null, "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque")),
+                React.createElement("div", { class: "row counters" },
+                    React.createElement("div", { class: "col-lg-3 col-6 text-center" },
+                        React.createElement("span", { "data-toggle": "counter-up" }, "274"),
+                        React.createElement("p", null, "Clients")),
+                    React.createElement("div", { class: "col-lg-3 col-6 text-center" },
+                        React.createElement("span", { "data-toggle": "counter-up" }, "421"),
+                        React.createElement("p", null, "Projects")),
+                    React.createElement("div", { class: "col-lg-3 col-6 text-center" },
+                        React.createElement("span", { "data-toggle": "counter-up" }, "1,364"),
+                        React.createElement("p", null, "Hours Of Support")),
+                    React.createElement("div", { class: "col-lg-3 col-6 text-center" },
+                        React.createElement("span", { "data-toggle": "counter-up" }, "18"),
+                        React.createElement("p", null, "Hard Workers"))),
+                React.createElement("div", { class: "facts-img" },
+                    React.createElement("img", { src: "img/facts-img.png", alt: "", class: "img-fluid" })))));
+    };
+    return SectionFacts;
+}(React.Component));
+exports.SectionFacts = SectionFacts;
+//# sourceMappingURL=SectionFacts.js.map
+
+/***/ }),
+
+/***/ "./Components/SectionFeaturedServices.js":
+/*!***********************************************!*\
+  !*** ./Components/SectionFeaturedServices.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var SectionFeaturedServices = /** @class */ (function (_super) {
+    __extends(SectionFeaturedServices, _super);
+    function SectionFeaturedServices() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    SectionFeaturedServices.prototype.render = function () {
+        return (React.createElement("section", { id: "featured-services" },
+            React.createElement("div", { class: "container" },
+                React.createElement("div", { class: "row" },
+                    React.createElement("div", { class: "col-lg-4 box" },
+                        React.createElement("i", { class: "ion-ios-bookmarks-outline" }),
+                        React.createElement("h4", { class: "title" },
+                            React.createElement("a", { href: "" }, "Lorem Ipsum Delino")),
+                        React.createElement("p", { class: "description" }, "Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident")),
+                    React.createElement("div", { class: "col-lg-4 box box-bg" },
+                        React.createElement("i", { class: "ion-ios-stopwatch-outline" }),
+                        React.createElement("h4", { class: "title" },
+                            React.createElement("a", { href: "" }, "Dolor Sitema")),
+                        React.createElement("p", { class: "description" }, "Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata")),
+                    React.createElement("div", { class: "col-lg-4 box" },
+                        React.createElement("i", { class: "ion-ios-heart-outline" }),
+                        React.createElement("h4", { class: "title" },
+                            React.createElement("a", { href: "" }, "Sed ut perspiciatis")),
+                        React.createElement("p", { class: "description" }, "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur"))))));
+    };
+    return SectionFeaturedServices;
+}(React.Component));
+exports.SectionFeaturedServices = SectionFeaturedServices;
+//# sourceMappingURL=SectionFeaturedServices.js.map
+
+/***/ }),
+
+/***/ "./Components/SectionPortfolio.js":
+/*!****************************************!*\
+  !*** ./Components/SectionPortfolio.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var SectionPortfolio = /** @class */ (function (_super) {
+    __extends(SectionPortfolio, _super);
+    function SectionPortfolio() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    SectionPortfolio.prototype.render = function () {
+        return (React.createElement("section", { id: "portfolio", class: "section-bg" },
+            React.createElement("div", { class: "container" },
+                React.createElement("header", { class: "section-header" },
+                    React.createElement("h3", { class: "section-title" }, "Our Portfolio")),
+                React.createElement("div", { class: "row" },
+                    React.createElement("div", { class: "col-lg-12" },
+                        React.createElement("ul", { id: "portfolio-flters" },
+                            React.createElement("li", { "data-filter": "*", class: "filter-active" }, "All"),
+                            React.createElement("li", { "data-filter": ".filter-app" }, "App"),
+                            React.createElement("li", { "data-filter": ".filter-card" }, "Card"),
+                            React.createElement("li", { "data-filter": ".filter-web" }, "Web")))),
+                React.createElement("div", { class: "row portfolio-container" },
+                    React.createElement("div", { class: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
+                        React.createElement("div", { class: "portfolio-wrap" },
+                            React.createElement("figure", null,
+                                React.createElement("img", { src: "img/portfolio/app1.jpg", class: "img-fluid", alt: "" }),
+                                React.createElement("a", { href: "img/portfolio/app1.jpg", "data-lightbox": "portfolio", "data-title": "App 1", class: "link-preview", title: "Preview" },
+                                    React.createElement("i", { class: "ion ion-eye" })),
+                                React.createElement("a", { href: "#", class: "link-details", title: "More Details" },
+                                    React.createElement("i", { class: "ion ion-android-open" }))),
+                            React.createElement("div", { class: "portfolio-info" },
+                                React.createElement("h4", null,
+                                    React.createElement("a", { href: "#" }, "App 1")),
+                                React.createElement("p", null, "App")))),
+                    React.createElement("div", { class: "col-lg-4 col-md-6 portfolio-item filter-web wow fadeInUp", "data-wow-delay": "0.1s" },
+                        React.createElement("div", { class: "portfolio-wrap" },
+                            React.createElement("figure", null,
+                                React.createElement("img", { src: "img/portfolio/web3.jpg", class: "img-fluid", alt: "" }),
+                                React.createElement("a", { href: "img/portfolio/web3.jpg", class: "link-preview", "data-lightbox": "portfolio", "data-title": "Web 3", title: "Preview" },
+                                    React.createElement("i", { class: "ion ion-eye" })),
+                                React.createElement("a", { href: "#", class: "link-details", title: "More Details" },
+                                    React.createElement("i", { class: "ion ion-android-open" }))),
+                            React.createElement("div", { class: "portfolio-info" },
+                                React.createElement("h4", null,
+                                    React.createElement("a", { href: "#" }, "Web 3")),
+                                React.createElement("p", null, "Web")))),
+                    React.createElement("div", { class: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp", "data-wow-delay": "0.2s" },
+                        React.createElement("div", { class: "portfolio-wrap" },
+                            React.createElement("figure", null,
+                                React.createElement("img", { src: "img/portfolio/app2.jpg", class: "img-fluid", alt: "" }),
+                                React.createElement("a", { href: "img/portfolio/app2.jpg", class: "link-preview", "data-lightbox": "portfolio", "data-title": "App 2", title: "Preview" },
+                                    React.createElement("i", { class: "ion ion-eye" })),
+                                React.createElement("a", { href: "#", class: "link-details", title: "More Details" },
+                                    React.createElement("i", { class: "ion ion-android-open" }))),
+                            React.createElement("div", { class: "portfolio-info" },
+                                React.createElement("h4", null,
+                                    React.createElement("a", { href: "#" }, "App 2")),
+                                React.createElement("p", null, "App")))),
+                    React.createElement("div", { class: "col-lg-4 col-md-6 portfolio-item filter-card wow fadeInUp" },
+                        React.createElement("div", { class: "portfolio-wrap" },
+                            React.createElement("figure", null,
+                                React.createElement("img", { src: "img/portfolio/card2.jpg", class: "img-fluid", alt: "" }),
+                                React.createElement("a", { href: "img/portfolio/card2.jpg", class: "link-preview", "data-lightbox": "portfolio", "data-title": "Card 2", title: "Preview" },
+                                    React.createElement("i", { class: "ion ion-eye" })),
+                                React.createElement("a", { href: "#", class: "link-details", title: "More Details" },
+                                    React.createElement("i", { class: "ion ion-android-open" }))),
+                            React.createElement("div", { class: "portfolio-info" },
+                                React.createElement("h4", null,
+                                    React.createElement("a", { href: "#" }, "Card 2")),
+                                React.createElement("p", null, "Card")))),
+                    React.createElement("div", { class: "col-lg-4 col-md-6 portfolio-item filter-web wow fadeInUp", "data-wow-delay": "0.1s" },
+                        React.createElement("div", { class: "portfolio-wrap" },
+                            React.createElement("figure", null,
+                                React.createElement("img", { src: "img/portfolio/web2.jpg", class: "img-fluid", alt: "" }),
+                                React.createElement("a", { href: "img/portfolio/web2.jpg", class: "link-preview", "data-lightbox": "portfolio", "data-title": "Web 2", title: "Preview" },
+                                    React.createElement("i", { class: "ion ion-eye" })),
+                                React.createElement("a", { href: "#", class: "link-details", title: "More Details" },
+                                    React.createElement("i", { class: "ion ion-android-open" }))),
+                            React.createElement("div", { class: "portfolio-info" },
+                                React.createElement("h4", null,
+                                    React.createElement("a", { href: "#" }, "Web 2")),
+                                React.createElement("p", null, "Web")))),
+                    React.createElement("div", { class: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp", "data-wow-delay": "0.2s" },
+                        React.createElement("div", { class: "portfolio-wrap" },
+                            React.createElement("figure", null,
+                                React.createElement("img", { src: "img/portfolio/app3.jpg", class: "img-fluid", alt: "" }),
+                                React.createElement("a", { href: "img/portfolio/app3.jpg", class: "link-preview", "data-lightbox": "portfolio", "data-title": "App 3", title: "Preview" },
+                                    React.createElement("i", { class: "ion ion-eye" })),
+                                React.createElement("a", { href: "#", class: "link-details", title: "More Details" },
+                                    React.createElement("i", { class: "ion ion-android-open" }))),
+                            React.createElement("div", { class: "portfolio-info" },
+                                React.createElement("h4", null,
+                                    React.createElement("a", { href: "#" }, "App 3")),
+                                React.createElement("p", null, "App")))),
+                    React.createElement("div", { class: "col-lg-4 col-md-6 portfolio-item filter-card wow fadeInUp" },
+                        React.createElement("div", { class: "portfolio-wrap" },
+                            React.createElement("figure", null,
+                                React.createElement("img", { src: "img/portfolio/card1.jpg", class: "img-fluid", alt: "" }),
+                                React.createElement("a", { href: "img/portfolio/card1.jpg", class: "link-preview", "data-lightbox": "portfolio", "data-title": "Card 1", title: "Preview" },
+                                    React.createElement("i", { class: "ion ion-eye" })),
+                                React.createElement("a", { href: "#", class: "link-details", title: "More Details" },
+                                    React.createElement("i", { class: "ion ion-android-open" }))),
+                            React.createElement("div", { class: "portfolio-info" },
+                                React.createElement("h4", null,
+                                    React.createElement("a", { href: "#" }, "Card 1")),
+                                React.createElement("p", null, "Card")))),
+                    React.createElement("div", { class: "col-lg-4 col-md-6 portfolio-item filter-card wow fadeInUp", "data-wow-delay": "0.1s" },
+                        React.createElement("div", { class: "portfolio-wrap" },
+                            React.createElement("figure", null,
+                                React.createElement("img", { src: "img/portfolio/card3.jpg", class: "img-fluid", alt: "" }),
+                                React.createElement("a", { href: "img/portfolio/card3.jpg", class: "link-preview", "data-lightbox": "portfolio", "data-title": "Card 3", title: "Preview" },
+                                    React.createElement("i", { class: "ion ion-eye" })),
+                                React.createElement("a", { href: "#", class: "link-details", title: "More Details" },
+                                    React.createElement("i", { class: "ion ion-android-open" }))),
+                            React.createElement("div", { class: "portfolio-info" },
+                                React.createElement("h4", null,
+                                    React.createElement("a", { href: "#" }, "Card 3")),
+                                React.createElement("p", null, "Card")))),
+                    React.createElement("div", { class: "col-lg-4 col-md-6 portfolio-item filter-web wow fadeInUp", "data-wow-delay": "0.2s" },
+                        React.createElement("div", { class: "portfolio-wrap" },
+                            React.createElement("figure", null,
+                                React.createElement("img", { src: "img/portfolio/web1.jpg", class: "img-fluid", alt: "" }),
+                                React.createElement("a", { href: "img/portfolio/web1.jpg", class: "link-preview", "data-lightbox": "portfolio", "data-title": "Web 1", title: "Preview" },
+                                    React.createElement("i", { class: "ion ion-eye" })),
+                                React.createElement("a", { href: "#", class: "link-details", title: "More Details" },
+                                    React.createElement("i", { class: "ion ion-android-open" }))),
+                            React.createElement("div", { class: "portfolio-info" },
+                                React.createElement("h4", null,
+                                    React.createElement("a", { href: "#" }, "Web 1")),
+                                React.createElement("p", null, "Web"))))))));
+    };
+    return SectionPortfolio;
+}(React.Component));
+exports.SectionPortfolio = SectionPortfolio;
+//# sourceMappingURL=SectionPortfolio.js.map
+
+/***/ }),
+
+/***/ "./Components/SectionServices.js":
+/*!***************************************!*\
+  !*** ./Components/SectionServices.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var SectionServices = /** @class */ (function (_super) {
+    __extends(SectionServices, _super);
+    function SectionServices() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    SectionServices.prototype.render = function () {
+        return (React.createElement("section", { id: "services" },
+            React.createElement("div", { class: "container" },
+                React.createElement("header", { class: "section-header wow fadeInUp" },
+                    React.createElement("h3", null, "Services"),
+                    React.createElement("p", null, "Laudem latine persequeris id sed, ex fabulas delectus quo. No vel partiendo abhorreant vituperatoribus, ad pro quaestio laboramus. Ei ubique vivendum pro. At ius nisl accusam lorenta zanos paradigno tridexa panatarel.")),
+                React.createElement("div", { class: "row" },
+                    React.createElement("div", { class: "col-lg-4 col-md-6 box wow bounceInUp", "data-wow-duration": "1.4s" },
+                        React.createElement("div", { class: "icon" },
+                            React.createElement("i", { class: "ion-ios-analytics-outline" })),
+                        React.createElement("h4", { class: "title" },
+                            React.createElement("a", { href: "" }, "Lorem Ipsum")),
+                        React.createElement("p", { class: "description" }, "Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident")),
+                    React.createElement("div", { class: "col-lg-4 col-md-6 box wow bounceInUp", "data-wow-duration": "1.4s" },
+                        React.createElement("div", { class: "icon" },
+                            React.createElement("i", { class: "ion-ios-bookmarks-outline" })),
+                        React.createElement("h4", { class: "title" },
+                            React.createElement("a", { href: "" }, "Dolor Sitema")),
+                        React.createElement("p", { class: "description" }, "Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata")),
+                    React.createElement("div", { class: "col-lg-4 col-md-6 box wow bounceInUp", "data-wow-duration": "1.4s" },
+                        React.createElement("div", { class: "icon" },
+                            React.createElement("i", { class: "ion-ios-paper-outline" })),
+                        React.createElement("h4", { class: "title" },
+                            React.createElement("a", { href: "" }, "Sed ut perspiciatis")),
+                        React.createElement("p", { class: "description" }, "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur")),
+                    React.createElement("div", { class: "col-lg-4 col-md-6 box wow bounceInUp", "data-wow-delay": "0.1s", "data-wow-duration": "1.4s" },
+                        React.createElement("div", { class: "icon" },
+                            React.createElement("i", { class: "ion-ios-speedometer-outline" })),
+                        React.createElement("h4", { class: "title" },
+                            React.createElement("a", { href: "" }, "Magni Dolores")),
+                        React.createElement("p", { class: "description" }, "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum")),
+                    React.createElement("div", { class: "col-lg-4 col-md-6 box wow bounceInUp", "data-wow-delay": "0.1s", "data-wow-duration": "1.4s" },
+                        React.createElement("div", { class: "icon" },
+                            React.createElement("i", { class: "ion-ios-barcode-outline" })),
+                        React.createElement("h4", { class: "title" },
+                            React.createElement("a", { href: "" }, "Nemo Enim")),
+                        React.createElement("p", { class: "description" }, "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque")),
+                    React.createElement("div", { class: "col-lg-4 col-md-6 box wow bounceInUp", "data-wow-delay": "0.1s", "data-wow-duration": "1.4s" },
+                        React.createElement("div", { class: "icon" },
+                            React.createElement("i", { class: "ion-ios-people-outline" })),
+                        React.createElement("h4", { class: "title" },
+                            React.createElement("a", { href: "" }, "Eiusmod Tempor")),
+                        React.createElement("p", { class: "description" }, "Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi"))))));
+    };
+    return SectionServices;
+}(React.Component));
+exports.SectionServices = SectionServices;
+//# sourceMappingURL=SectionServices.js.map
+
+/***/ }),
+
+/***/ "./Components/SectionSkills.js":
+/*!*************************************!*\
+  !*** ./Components/SectionSkills.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var SectionSkills = /** @class */ (function (_super) {
+    __extends(SectionSkills, _super);
+    function SectionSkills() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    SectionSkills.prototype.render = function () {
+        return (React.createElement("section", { id: "skills" },
+            React.createElement("div", { class: "container" },
+                React.createElement("header", { class: "section-header" },
+                    React.createElement("h3", null, "Our Skills"),
+                    React.createElement("p", null, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip")),
+                React.createElement("div", { class: "skills-content" },
+                    React.createElement("div", { class: "progress" },
+                        React.createElement("div", { class: "progress-bar bg-success", role: "progressbar", "aria-valuenow": "100", "aria-valuemin": "0", "aria-valuemax": "100" },
+                            React.createElement("span", { class: "skill" },
+                                "HTML ",
+                                React.createElement("i", { class: "val" }, "100%")))),
+                    React.createElement("div", { class: "progress" },
+                        React.createElement("div", { class: "progress-bar bg-info", role: "progressbar", "aria-valuenow": "90", "aria-valuemin": "0", "aria-valuemax": "100" },
+                            React.createElement("span", { class: "skill" },
+                                "CSS ",
+                                React.createElement("i", { class: "val" }, "90%")))),
+                    React.createElement("div", { class: "progress" },
+                        React.createElement("div", { class: "progress-bar bg-warning", role: "progressbar", "aria-valuenow": "75", "aria-valuemin": "0", "aria-valuemax": "100" },
+                            React.createElement("span", { class: "skill" },
+                                "JavaScript ",
+                                React.createElement("i", { class: "val" }, "75%")))),
+                    React.createElement("div", { class: "progress" },
+                        React.createElement("div", { class: "progress-bar bg-danger", role: "progressbar", "aria-valuenow": "55", "aria-valuemin": "0", "aria-valuemax": "100" },
+                            React.createElement("span", { class: "skill" },
+                                "Photoshop ",
+                                React.createElement("i", { class: "val" }, "55%"))))))));
+    };
+    return SectionSkills;
+}(React.Component));
+exports.SectionSkills = SectionSkills;
+//# sourceMappingURL=SectionSkills.js.map
 
 /***/ }),
 

@@ -13,8 +13,10 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Footer_1 = require("./Footer");
 var Header_1 = require("./Header");
+var Intro_1 = require("./Intro");
+var Main_1 = require("./Main");
+var Footer_1 = require("./Footer");
 var React = require('react');
 var Layout = /** @class */ (function (_super) {
     __extends(Layout, _super);
@@ -24,7 +26,8 @@ var Layout = /** @class */ (function (_super) {
     Layout.prototype.render = function () {
         return (React.createElement("div", null,
             React.createElement(Header_1.Header, null),
-            React.createElement("h1", null, "Welcome"),
+            React.createElement(Intro_1.Intro, null),
+            React.createElement(Main_1.Main, null),
             React.createElement(Footer_1.Footer, null)));
     };
     return Layout;

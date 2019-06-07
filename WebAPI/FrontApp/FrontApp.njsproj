@@ -32,6 +32,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="css\style.css" />
     <Content Include="dist\app-bundle.js" />
     <Content Include="dist\app-bundle.js.map" />
     <Content Include="index.html">
@@ -55,13 +56,45 @@
     <TypeScriptCompile Include="Components\Header.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="Components\Intro.tsx">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="Components\Layout.tsx">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Components\Main.tsx">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Components\SectionContact.tsx" />
+    <TypeScriptCompile Include="Components\SectionPortfolio.tsx" />
+    <TypeScriptCompile Include="Components\SectionFacts.tsx" />
+    <TypeScriptCompile Include="Components\SectionSkills.tsx" />
+    <TypeScriptCompile Include="Components\SectionCallToAction.tsx" />
+    <TypeScriptCompile Include="Components\SectionServices.tsx" />
+    <TypeScriptCompile Include="Components\SectionAboutUs.tsx" />
+    <TypeScriptCompile Include="Components\SectionFeaturedServices.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="css\" />
     <Folder Include="dist\" />
     <Folder Include="Components\" />
+    <Folder Include="lib\" />
+    <Folder Include="lib\animate\" />
+    <Folder Include="lib\bootstrap\" />
+    <Folder Include="lib\counterup\" />
+    <Folder Include="lib\easing\" />
+    <Folder Include="lib\font-awesome\" />
+    <Folder Include="lib\ionicons\" />
+    <Folder Include="lib\isotope\" />
+    <Folder Include="lib\jquery\" />
+    <Folder Include="lib\lightbox\" />
+    <Folder Include="lib\owlcarousel\" />
+    <Folder Include="lib\superfish\" />
+    <Folder Include="lib\touchSwipe\" />
+    <Folder Include="lib\waypoints\" />
+    <Folder Include="lib\wow\" />
     <Folder Include="Pages\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
