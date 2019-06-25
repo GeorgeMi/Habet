@@ -787,12 +787,28 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var config = __webpack_require__(/*! config */ "config");
+var API_Path = config.API_Path;
 var SectionPortfolio = /** @class */ (function (_super) {
     __extends(SectionPortfolio, _super);
     function SectionPortfolio() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    SectionPortfolio.prototype.componentDidMount = function () {
+        this.ItemList();
+    };
+    //ItemList() {
+    //    $.getJSON(API_Path +'/Products')
+    //        .then(({ results }) => this.setState({ item: results }));
+    //}
     SectionPortfolio.prototype.render = function () {
+        //console.log(API_Path + '/api/');
+        //const persons = this.state.item.map((prod, i) => (
+        //    <div>
+        //        <h1>{prod.name.first}</h1>
+        //        <span>{prod.price}, {prod.description}</span>
+        //    </div>
+        //));
         return (React.createElement("section", { id: "portfolio", class: "section-bg" },
             React.createElement("div", { class: "container" },
                 React.createElement("header", { class: "section-header" },
@@ -25797,6 +25813,17 @@ try {
 
 module.exports = g;
 
+
+/***/ }),
+
+/***/ "config":
+/*!*****************************************************************!*\
+  !*** external "{\"API_Path\":\"https://localhost:44382/api\"}" ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = {"API_Path":"https://localhost:44382/api"};
 
 /***/ })
 

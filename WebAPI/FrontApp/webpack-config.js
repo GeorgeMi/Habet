@@ -18,5 +18,8 @@
                 }
             }
         ]
-    }
+    },
+    externals: {
+        'config': JSON.stringify({ API_Path: "https://localhost:44382/api" })
+        }
 }

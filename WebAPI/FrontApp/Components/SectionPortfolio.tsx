@@ -1,9 +1,32 @@
 ﻿declare var require: any
 
 var React = require('react');
+var config = require('config');
+var API_Path = config.API_Path;
+
 
 export class SectionPortfolio extends React.Component {
+    componentDidMount() {
+        this.ItemList();
+    }
+
+    ItemList() {
+        $.getJSON(API_Path +'/Products')
+            .then(({ results }) => this.setState({ item: results }));
+    }
+
     render() {
+
+        console.log(API_Path + '/api/');
+
+        const persons = this.state.item.map((prod, i) => (
+            <div>
+                <h1>{prod.name.first}</h1>
+                <span>{prod.price}, {prod.description}</span>
+            </div>
+        ));
+
+
         return (
             <section id="portfolio" class="section-bg">
                 <div class="container">

@@ -14,12 +14,28 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require('react');
+var config = require('config');
+var API_Path = config.API_Path;
 var SectionPortfolio = /** @class */ (function (_super) {
     __extends(SectionPortfolio, _super);
     function SectionPortfolio() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    SectionPortfolio.prototype.componentDidMount = function () {
+        this.ItemList();
+    };
+    //ItemList() {
+    //    $.getJSON(API_Path +'/Products')
+    //        .then(({ results }) => this.setState({ item: results }));
+    //}
     SectionPortfolio.prototype.render = function () {
+        //console.log(API_Path + '/api/');
+        //const persons = this.state.item.map((prod, i) => (
+        //    <div>
+        //        <h1>{prod.name.first}</h1>
+        //        <span>{prod.price}, {prod.description}</span>
+        //    </div>
+        //));
         return (React.createElement("section", { id: "portfolio", class: "section-bg" },
             React.createElement("div", { class: "container" },
                 React.createElement("header", { class: "section-header" },
