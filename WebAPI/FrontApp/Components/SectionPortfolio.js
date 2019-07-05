@@ -16,146 +16,191 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require('react');
 var config = require('config');
 var API_Path = config.API_Path;
+var axios = require('axios');
 var SectionPortfolio = /** @class */ (function (_super) {
     __extends(SectionPortfolio, _super);
-    function SectionPortfolio() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function SectionPortfolio(props) {
+        return _super.call(this, props) || this;
     }
     SectionPortfolio.prototype.componentDidMount = function () {
-        this.ItemList();
+        var _this = this;
+        var self = this;
+        axios.get(API_Path + '/Products', {
+            params: {
+                ID: 1
+            }
+        })
+            .then(function (response) {
+            console.log(response);
+            _this.setState({ isLoaded: true, items: response });
+        })
+            .catch(function (error) {
+            console.log(error);
+            _this.setState({ isLoaded: true, error: error });
+        })
+            .then();
+        console.log(self.state.items);
     };
-    //ItemList() {
-    //    $.getJSON(API_Path +'/Products')
-    //        .then(({ results }) => this.setState({ item: results }));
-    //}
     SectionPortfolio.prototype.render = function () {
-        //console.log(API_Path + '/api/');
-        //const persons = this.state.item.map((prod, i) => (
-        //    <div>
-        //        <h1>{prod.name.first}</h1>
-        //        <span>{prod.price}, {prod.description}</span>
-        //    </div>
-        //));
-        return (React.createElement("section", { id: "portfolio", class: "section-bg" },
-            React.createElement("div", { class: "container" },
-                React.createElement("header", { class: "section-header" },
-                    React.createElement("h3", { class: "section-title" }, "Our Portfolio")),
-                React.createElement("div", { class: "row" },
-                    React.createElement("div", { class: "col-lg-12" },
-                        React.createElement("ul", { id: "portfolio-flters" },
-                            React.createElement("li", { "data-filter": "*", class: "filter-active" }, "All"),
-                            React.createElement("li", { "data-filter": ".filter-app" }, "App"),
-                            React.createElement("li", { "data-filter": ".filter-card" }, "Card"),
-                            React.createElement("li", { "data-filter": ".filter-web" }, "Web")))),
-                React.createElement("div", { class: "row portfolio-container" },
-                    React.createElement("div", { class: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
-                        React.createElement("div", { class: "portfolio-wrap" },
-                            React.createElement("figure", null,
-                                React.createElement("img", { src: "img/portfolio/app1.jpg", class: "img-fluid", alt: "" }),
-                                React.createElement("a", { href: "img/portfolio/app1.jpg", "data-lightbox": "portfolio", "data-title": "App 1", class: "link-preview", title: "Preview" },
-                                    React.createElement("i", { class: "ion ion-eye" })),
-                                React.createElement("a", { href: "#", class: "link-details", title: "More Details" },
-                                    React.createElement("i", { class: "ion ion-android-open" }))),
-                            React.createElement("div", { class: "portfolio-info" },
-                                React.createElement("h4", null,
-                                    React.createElement("a", { href: "#" }, "App 1")),
-                                React.createElement("p", null, "App")))),
-                    React.createElement("div", { class: "col-lg-4 col-md-6 portfolio-item filter-web wow fadeInUp", "data-wow-delay": "0.1s" },
-                        React.createElement("div", { class: "portfolio-wrap" },
-                            React.createElement("figure", null,
-                                React.createElement("img", { src: "img/portfolio/web3.jpg", class: "img-fluid", alt: "" }),
-                                React.createElement("a", { href: "img/portfolio/web3.jpg", class: "link-preview", "data-lightbox": "portfolio", "data-title": "Web 3", title: "Preview" },
-                                    React.createElement("i", { class: "ion ion-eye" })),
-                                React.createElement("a", { href: "#", class: "link-details", title: "More Details" },
-                                    React.createElement("i", { class: "ion ion-android-open" }))),
-                            React.createElement("div", { class: "portfolio-info" },
-                                React.createElement("h4", null,
-                                    React.createElement("a", { href: "#" }, "Web 3")),
-                                React.createElement("p", null, "Web")))),
-                    React.createElement("div", { class: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp", "data-wow-delay": "0.2s" },
-                        React.createElement("div", { class: "portfolio-wrap" },
-                            React.createElement("figure", null,
-                                React.createElement("img", { src: "img/portfolio/app2.jpg", class: "img-fluid", alt: "" }),
-                                React.createElement("a", { href: "img/portfolio/app2.jpg", class: "link-preview", "data-lightbox": "portfolio", "data-title": "App 2", title: "Preview" },
-                                    React.createElement("i", { class: "ion ion-eye" })),
-                                React.createElement("a", { href: "#", class: "link-details", title: "More Details" },
-                                    React.createElement("i", { class: "ion ion-android-open" }))),
-                            React.createElement("div", { class: "portfolio-info" },
-                                React.createElement("h4", null,
-                                    React.createElement("a", { href: "#" }, "App 2")),
-                                React.createElement("p", null, "App")))),
-                    React.createElement("div", { class: "col-lg-4 col-md-6 portfolio-item filter-card wow fadeInUp" },
-                        React.createElement("div", { class: "portfolio-wrap" },
-                            React.createElement("figure", null,
-                                React.createElement("img", { src: "img/portfolio/card2.jpg", class: "img-fluid", alt: "" }),
-                                React.createElement("a", { href: "img/portfolio/card2.jpg", class: "link-preview", "data-lightbox": "portfolio", "data-title": "Card 2", title: "Preview" },
-                                    React.createElement("i", { class: "ion ion-eye" })),
-                                React.createElement("a", { href: "#", class: "link-details", title: "More Details" },
-                                    React.createElement("i", { class: "ion ion-android-open" }))),
-                            React.createElement("div", { class: "portfolio-info" },
-                                React.createElement("h4", null,
-                                    React.createElement("a", { href: "#" }, "Card 2")),
-                                React.createElement("p", null, "Card")))),
-                    React.createElement("div", { class: "col-lg-4 col-md-6 portfolio-item filter-web wow fadeInUp", "data-wow-delay": "0.1s" },
-                        React.createElement("div", { class: "portfolio-wrap" },
-                            React.createElement("figure", null,
-                                React.createElement("img", { src: "img/portfolio/web2.jpg", class: "img-fluid", alt: "" }),
-                                React.createElement("a", { href: "img/portfolio/web2.jpg", class: "link-preview", "data-lightbox": "portfolio", "data-title": "Web 2", title: "Preview" },
-                                    React.createElement("i", { class: "ion ion-eye" })),
-                                React.createElement("a", { href: "#", class: "link-details", title: "More Details" },
-                                    React.createElement("i", { class: "ion ion-android-open" }))),
-                            React.createElement("div", { class: "portfolio-info" },
-                                React.createElement("h4", null,
-                                    React.createElement("a", { href: "#" }, "Web 2")),
-                                React.createElement("p", null, "Web")))),
-                    React.createElement("div", { class: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp", "data-wow-delay": "0.2s" },
-                        React.createElement("div", { class: "portfolio-wrap" },
-                            React.createElement("figure", null,
-                                React.createElement("img", { src: "img/portfolio/app3.jpg", class: "img-fluid", alt: "" }),
-                                React.createElement("a", { href: "img/portfolio/app3.jpg", class: "link-preview", "data-lightbox": "portfolio", "data-title": "App 3", title: "Preview" },
-                                    React.createElement("i", { class: "ion ion-eye" })),
-                                React.createElement("a", { href: "#", class: "link-details", title: "More Details" },
-                                    React.createElement("i", { class: "ion ion-android-open" }))),
-                            React.createElement("div", { class: "portfolio-info" },
-                                React.createElement("h4", null,
-                                    React.createElement("a", { href: "#" }, "App 3")),
-                                React.createElement("p", null, "App")))),
-                    React.createElement("div", { class: "col-lg-4 col-md-6 portfolio-item filter-card wow fadeInUp" },
-                        React.createElement("div", { class: "portfolio-wrap" },
-                            React.createElement("figure", null,
-                                React.createElement("img", { src: "img/portfolio/card1.jpg", class: "img-fluid", alt: "" }),
-                                React.createElement("a", { href: "img/portfolio/card1.jpg", class: "link-preview", "data-lightbox": "portfolio", "data-title": "Card 1", title: "Preview" },
-                                    React.createElement("i", { class: "ion ion-eye" })),
-                                React.createElement("a", { href: "#", class: "link-details", title: "More Details" },
-                                    React.createElement("i", { class: "ion ion-android-open" }))),
-                            React.createElement("div", { class: "portfolio-info" },
-                                React.createElement("h4", null,
-                                    React.createElement("a", { href: "#" }, "Card 1")),
-                                React.createElement("p", null, "Card")))),
-                    React.createElement("div", { class: "col-lg-4 col-md-6 portfolio-item filter-card wow fadeInUp", "data-wow-delay": "0.1s" },
-                        React.createElement("div", { class: "portfolio-wrap" },
-                            React.createElement("figure", null,
-                                React.createElement("img", { src: "img/portfolio/card3.jpg", class: "img-fluid", alt: "" }),
-                                React.createElement("a", { href: "img/portfolio/card3.jpg", class: "link-preview", "data-lightbox": "portfolio", "data-title": "Card 3", title: "Preview" },
-                                    React.createElement("i", { class: "ion ion-eye" })),
-                                React.createElement("a", { href: "#", class: "link-details", title: "More Details" },
-                                    React.createElement("i", { class: "ion ion-android-open" }))),
-                            React.createElement("div", { class: "portfolio-info" },
-                                React.createElement("h4", null,
-                                    React.createElement("a", { href: "#" }, "Card 3")),
-                                React.createElement("p", null, "Card")))),
-                    React.createElement("div", { class: "col-lg-4 col-md-6 portfolio-item filter-web wow fadeInUp", "data-wow-delay": "0.2s" },
-                        React.createElement("div", { class: "portfolio-wrap" },
-                            React.createElement("figure", null,
-                                React.createElement("img", { src: "img/portfolio/web1.jpg", class: "img-fluid", alt: "" }),
-                                React.createElement("a", { href: "img/portfolio/web1.jpg", class: "link-preview", "data-lightbox": "portfolio", "data-title": "Web 1", title: "Preview" },
-                                    React.createElement("i", { class: "ion ion-eye" })),
-                                React.createElement("a", { href: "#", class: "link-details", title: "More Details" },
-                                    React.createElement("i", { class: "ion ion-android-open" }))),
-                            React.createElement("div", { class: "portfolio-info" },
-                                React.createElement("h4", null,
-                                    React.createElement("a", { href: "#" }, "Web 1")),
-                                React.createElement("p", null, "Web"))))))));
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items;
+        if (error) {
+            return React.createElement("div", null,
+                "Error: ",
+                error.message);
+        }
+        else if (!isLoaded) {
+            return React.createElement("div", null, "Loading...");
+        }
+        else {
+            return (React.createElement("ul", null, items.map(function (item) { return (React.createElement("li", { key: item.name.first },
+                item.name,
+                " ",
+                item.description)); })));
+        }
+        //    const responseList = this.state.data.map((item, i) => (
+        //        <div>
+        //            <h1>{item.name.first}</h1>
+        //            <span>{item.price}, {item.description}</span>
+        //        </div>
+        //    ));
+        // return (
+        //        <section id="portfolio" className="section-bg">
+        //            <div className="container">
+        //                <header className="section-header">
+        //                    <h3 className="section-title">Our Portfolio</h3>
+        //                </header>
+        //                <div className="row">
+        //                    <div className="col-lg-12">
+        //                        <ul id="portfolio-flters">
+        //                            <li data-filter="*" className="filter-active">All</li>
+        //                            <li data-filter=".filter-app">App</li>
+        //                            <li data-filter=".filter-card">Card</li>
+        //                            <li data-filter=".filter-web">Web</li>
+        //                        </ul>
+        //                    </div>
+        //                </div>
+        //                <div className="row portfolio-container">
+        //                    <div className="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
+        //                        <div className="portfolio-wrap">
+        //                            <figure>
+        //                                <img src="img/portfolio/app1.jpg" className="img-fluid" alt="" />
+        //                                <a href="img/portfolio/app1.jpg" data-lightbox="portfolio" data-title="App 1" className="link-preview" title="Preview"><i className="ion ion-eye"></i></a>
+        //                                <a href="#" className="link-details" title="More Details"><i className="ion ion-android-open"></i></a>
+        //                            </figure>
+        //                            <div className="portfolio-info">
+        //                                <h4><a href="#">App 1</a></h4>
+        //                                <p>App</p>
+        //                            </div>
+        //                        </div>
+        //                    </div>
+        //                    <div className="col-lg-4 col-md-6 portfolio-item filter-web wow fadeInUp" data-wow-delay="0.1s">
+        //                        <div className="portfolio-wrap">
+        //                            <figure>
+        //                                <img src="img/portfolio/web3.jpg" className="img-fluid" alt="" />
+        //                                <a href="img/portfolio/web3.jpg" className="link-preview" data-lightbox="portfolio" data-title="Web 3" title="Preview"><i className="ion ion-eye"></i></a>
+        //                                <a href="#" className="link-details" title="More Details"><i className="ion ion-android-open"></i></a>
+        //                            </figure>
+        //                            <div className="portfolio-info">
+        //                                <h4><a href="#">Web 3</a></h4>
+        //                                <p>Web</p>
+        //                            </div>
+        //                        </div>
+        //                    </div>
+        //                    <div className="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" data-wow-delay="0.2s">
+        //                        <div className="portfolio-wrap">
+        //                            <figure>
+        //                                <img src="img/portfolio/app2.jpg" className="img-fluid" alt="" />
+        //                                <a href="img/portfolio/app2.jpg" className="link-preview" data-lightbox="portfolio" data-title="App 2" title="Preview"><i className="ion ion-eye"></i></a>
+        //                                <a href="#" className="link-details" title="More Details"><i className="ion ion-android-open"></i></a>
+        //                            </figure>
+        //                            <div className="portfolio-info">
+        //                                <h4><a href="#">App 2</a></h4>
+        //                                <p>App</p>
+        //                            </div>
+        //                        </div>
+        //                    </div>
+        //                    <div className="col-lg-4 col-md-6 portfolio-item filter-card wow fadeInUp">
+        //                        <div className="portfolio-wrap">
+        //                            <figure>
+        //                                <img src="img/portfolio/card2.jpg" className="img-fluid" alt="" />
+        //                                <a href="img/portfolio/card2.jpg" className="link-preview" data-lightbox="portfolio" data-title="Card 2" title="Preview"><i className="ion ion-eye"></i></a>
+        //                                <a href="#" className="link-details" title="More Details"><i className="ion ion-android-open"></i></a>
+        //                            </figure>
+        //                            <div className="portfolio-info">
+        //                                <h4><a href="#">Card 2</a></h4>
+        //                                <p>Card</p>
+        //                            </div>
+        //                        </div>
+        //                    </div>
+        //                    <div className="col-lg-4 col-md-6 portfolio-item filter-web wow fadeInUp" data-wow-delay="0.1s">
+        //                        <div className="portfolio-wrap">
+        //                            <figure>
+        //                                <img src="img/portfolio/web2.jpg" className="img-fluid" alt="" />
+        //                                <a href="img/portfolio/web2.jpg" className="link-preview" data-lightbox="portfolio" data-title="Web 2" title="Preview"><i className="ion ion-eye"></i></a>
+        //                                <a href="#" className="link-details" title="More Details"><i className="ion ion-android-open"></i></a>
+        //                            </figure>
+        //                            <div className="portfolio-info">
+        //                                <h4><a href="#">Web 2</a></h4>
+        //                                <p>Web</p>
+        //                            </div>
+        //                        </div>
+        //                    </div>
+        //                    <div className="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" data-wow-delay="0.2s">
+        //                        <div className="portfolio-wrap">
+        //                            <figure>
+        //                                <img src="img/portfolio/app3.jpg" className="img-fluid" alt="" />
+        //                                <a href="img/portfolio/app3.jpg" className="link-preview" data-lightbox="portfolio" data-title="App 3" title="Preview"><i className="ion ion-eye"></i></a>
+        //                                <a href="#" className="link-details" title="More Details"><i className="ion ion-android-open"></i></a>
+        //                            </figure>
+        //                            <div className="portfolio-info">
+        //                                <h4><a href="#">App 3</a></h4>
+        //                                <p>App</p>
+        //                            </div>
+        //                        </div>
+        //                    </div>
+        //                    <div className="col-lg-4 col-md-6 portfolio-item filter-card wow fadeInUp">
+        //                        <div className="portfolio-wrap">
+        //                            <figure>
+        //                                <img src="img/portfolio/card1.jpg" className="img-fluid" alt="" />
+        //                                <a href="img/portfolio/card1.jpg" className="link-preview" data-lightbox="portfolio" data-title="Card 1" title="Preview"><i className="ion ion-eye"></i></a>
+        //                                <a href="#" className="link-details" title="More Details"><i className="ion ion-android-open"></i></a>
+        //                            </figure>
+        //                            <div className="portfolio-info">
+        //                                <h4><a href="#">Card 1</a></h4>
+        //                                <p>Card</p>
+        //                            </div>
+        //                        </div>
+        //                    </div>
+        //                    <div className="col-lg-4 col-md-6 portfolio-item filter-card wow fadeInUp" data-wow-delay="0.1s">
+        //                        <div className="portfolio-wrap">
+        //                            <figure>
+        //                                <img src="img/portfolio/card3.jpg" className="img-fluid" alt="" />
+        //                                <a href="img/portfolio/card3.jpg" className="link-preview" data-lightbox="portfolio" data-title="Card 3" title="Preview"><i className="ion ion-eye"></i></a>
+        //                                <a href="#" className="link-details" title="More Details"><i className="ion ion-android-open"></i></a>
+        //                            </figure>
+        //                            <div className="portfolio-info">
+        //                                <h4><a href="#">Card 3</a></h4>
+        //                                <p>Card</p>
+        //                            </div>
+        //                        </div>
+        //                    </div>
+        //                    <div className="col-lg-4 col-md-6 portfolio-item filter-web wow fadeInUp" data-wow-delay="0.2s">
+        //                        <div className="portfolio-wrap">
+        //                            <figure>
+        //                                <img src="img/portfolio/web1.jpg" className="img-fluid" alt="" />
+        //                                <a href="img/portfolio/web1.jpg" className="link-preview" data-lightbox="portfolio" data-title="Web 1" title="Preview"><i className="ion ion-eye"></i></a>
+        //                                <a href="#" className="link-details" title="More Details"><i className="ion ion-android-open"></i></a>
+        //                            </figure>
+        //                            <div className="portfolio-info">
+        //                                <h4><a href="#">Web 1</a></h4>
+        //                                <p>Web</p>
+        //                            </div>
+        //                        </div>
+        //                    </div>
+        //                </div>
+        //            </div>
+        //        </section>
+        //    );
     };
     return SectionPortfolio;
 }(React.Component));

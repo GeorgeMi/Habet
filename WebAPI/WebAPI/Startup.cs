@@ -15,12 +15,23 @@ namespace WebAPI
             Configuration = configuration;
         }
 
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-           // services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("List"));
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:1337");
+                });
+            });
+
+            // services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("List"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<GHContext>(options => options.UseSqlServer(Configuration.GetConnectionString("GHDatabase")));
@@ -38,6 +49,8 @@ namespace WebAPI
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseHttpsRedirection();
             app.UseMvc();

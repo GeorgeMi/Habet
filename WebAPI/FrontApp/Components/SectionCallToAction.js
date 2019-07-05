@@ -20,11 +20,11 @@ var SectionCallToAction = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     SectionCallToAction.prototype.render = function () {
-        return (React.createElement("section", { id: "call-to-action", class: "wow fadeIn" },
-            React.createElement("div", { class: "container text-center" },
+        return (React.createElement("section", { id: "call-to-action", className: "wow fadeIn" },
+            React.createElement("div", { className: "container text-center" },
                 React.createElement("h3", null, "Call To Action"),
                 React.createElement("p", null, " Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
-                React.createElement("a", { class: "cta-btn", href: "#" }, "Call To Action"))));
+                React.createElement("a", { className: "cta-btn", href: "#" }, "Call To Action"))));
     };
     return SectionCallToAction;
 }(React.Component));

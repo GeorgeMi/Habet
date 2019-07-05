@@ -14,7 +14,6 @@ D:\project\Habet\WebAPI\BLL\bin\Debug\netcoreapp2.2\BLL.runtimeconfig.json
 D:\project\Habet\WebAPI\BLL\bin\Debug\netcoreapp2.2\BLL.runtimeconfig.dev.json
 D:\project\Habet\WebAPI\BLL\bin\Debug\netcoreapp2.2\BLL.dll
 D:\project\Habet\WebAPI\BLL\bin\Debug\netcoreapp2.2\BLL.pdb
-D:\project\Habet\WebAPI\BLL\obj\Debug\netcoreapp2.2\BLL.csprojAssemblyReference.cache
 D:\project\Habet\WebAPI\BLL\obj\Debug\netcoreapp2.2\BLL.csproj.CoreCompileInputs.cache
 D:\project\Habet\WebAPI\BLL\obj\Debug\netcoreapp2.2\BLL.AssemblyInfoInputs.cache
 D:\project\Habet\WebAPI\BLL\obj\Debug\netcoreapp2.2\BLL.AssemblyInfo.cs

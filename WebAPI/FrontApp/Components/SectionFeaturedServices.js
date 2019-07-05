@@ -21,23 +21,23 @@ var SectionFeaturedServices = /** @class */ (function (_super) {
     }
     SectionFeaturedServices.prototype.render = function () {
         return (React.createElement("section", { id: "featured-services" },
-            React.createElement("div", { class: "container" },
-                React.createElement("div", { class: "row" },
-                    React.createElement("div", { class: "col-lg-4 box" },
-                        React.createElement("i", { class: "ion-ios-bookmarks-outline" }),
-                        React.createElement("h4", { class: "title" },
+            React.createElement("div", { className: "container" },
+                React.createElement("div", { className: "row" },
+                    React.createElement("div", { className: "col-lg-4 box" },
+                        React.createElement("i", { className: "ion-ios-bookmarks-outline" }),
+                        React.createElement("h4", { className: "title" },
                             React.createElement("a", { href: "" }, "Lorem Ipsum Delino")),
-                        React.createElement("p", { class: "description" }, "Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident")),
-                    React.createElement("div", { class: "col-lg-4 box box-bg" },
-                        React.createElement("i", { class: "ion-ios-stopwatch-outline" }),
-                        React.createElement("h4", { class: "title" },
+                        React.createElement("p", { className: "description" }, "Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident")),
+                    React.createElement("div", { className: "col-lg-4 box box-bg" },
+                        React.createElement("i", { className: "ion-ios-stopwatch-outline" }),
+                        React.createElement("h4", { className: "title" },
                             React.createElement("a", { href: "" }, "Dolor Sitema")),
-                        React.createElement("p", { class: "description" }, "Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata")),
-                    React.createElement("div", { class: "col-lg-4 box" },
-                        React.createElement("i", { class: "ion-ios-heart-outline" }),
-                        React.createElement("h4", { class: "title" },
+                        React.createElement("p", { className: "description" }, "Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata")),
+                    React.createElement("div", { className: "col-lg-4 box" },
+                        React.createElement("i", { className: "ion-ios-heart-outline" }),
+                        React.createElement("h4", { className: "title" },
                             React.createElement("a", { href: "" }, "Sed ut perspiciatis")),
-                        React.createElement("p", { class: "description" }, "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur"))))));
+                        React.createElement("p", { className: "description" }, "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur"))))));
     };
     return SectionFeaturedServices;
 }(React.Component));
