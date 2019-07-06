@@ -6046,19 +6046,19 @@
       ]
     },
     "Microsoft.CodeAnalysis.Analyzers/1.1.0": {
-      "sha512": "HS3iRWZKcUw/8eZ/08GXKY2Bn7xNzQPzf8gRPHGSowX7u7XXu9i9YEaBeBNKUXWfI7qjvT2zXtLUvbN0hds8vg==",
+      "sha512": "Nndy5RyDc2bNwYJL99PXdufJQ4E1acWiIr3ghyGP1FHOgwU+fQoD/WSOJyvtUI0VAaKV5UgH4leU4Gb74coKFw==",
       "type": "package",
       "path": "microsoft.codeanalysis.analyzers/1.1.0",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
-        "Microsoft.CodeAnalysis.Analyzers.1.1.0.nupkg.sha512",
-        "Microsoft.CodeAnalysis.Analyzers.nuspec",
         "ThirdPartyNotices.rtf",
         "analyzers/dotnet/cs/Microsoft.CodeAnalysis.Analyzers.dll",
         "analyzers/dotnet/cs/Microsoft.CodeAnalysis.CSharp.Analyzers.dll",
         "analyzers/dotnet/vb/Microsoft.CodeAnalysis.Analyzers.dll",
         "analyzers/dotnet/vb/Microsoft.CodeAnalysis.VisualBasic.Analyzers.dll",
+        "microsoft.codeanalysis.analyzers.1.1.0.nupkg.sha512",
+        "microsoft.codeanalysis.analyzers.nuspec",
         "tools/install.ps1",
         "tools/uninstall.ps1"
       ]
@@ -12969,23 +12969,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\p3700660\\.nuget\\packages\\": {},
+    "C:\\Users\\georg\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\project\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj",
+      "projectUniqueName": "F:\\workspace\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj",
       "projectName": "WebAPI",
-      "projectPath": "D:\\project\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj",
-      "packagesPath": "C:\\Users\\p3700660\\.nuget\\packages\\",
-      "outputPath": "D:\\project\\Habet\\WebAPI\\WebAPI\\obj\\",
+      "projectPath": "F:\\workspace\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj",
+      "packagesPath": "C:\\Users\\georg\\.nuget\\packages\\",
+      "outputPath": "F:\\workspace\\Habet\\WebAPI\\WebAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\p3700660\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\georg\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -12998,11 +12998,11 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
-            "D:\\project\\Habet\\WebAPI\\DAL\\DAL.csproj": {
-              "projectPath": "D:\\project\\Habet\\WebAPI\\DAL\\DAL.csproj"
+            "F:\\workspace\\Habet\\WebAPI\\DAL\\DAL.csproj": {
+              "projectPath": "F:\\workspace\\Habet\\WebAPI\\DAL\\DAL.csproj"
             },
-            "D:\\project\\Habet\\WebAPI\\DTOs\\DTOs.csproj": {
-              "projectPath": "D:\\project\\Habet\\WebAPI\\DTOs\\DTOs.csproj"
+            "F:\\workspace\\Habet\\WebAPI\\DTOs\\DTOs.csproj": {
+              "projectPath": "F:\\workspace\\Habet\\WebAPI\\DTOs\\DTOs.csproj"
             }
           }
         }
