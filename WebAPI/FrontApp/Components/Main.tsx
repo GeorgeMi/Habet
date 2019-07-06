@@ -1,5 +1,4 @@
-﻿declare var require: any
-
+﻿import * as React from 'react';
 import { SectionAboutUs } from './SectionAboutUs'
 import { SectionCallToAction } from "./SectionCallToAction";
 import { SectionContact } from "./SectionContact";
@@ -9,7 +8,6 @@ import { SectionPortfolio } from "./SectionPortfolio";
 import { SectionServices } from "./SectionServices";
 import { SectionSkills } from "./SectionSkills";
 
-var React = require('react');
 
 export class Main extends React.Component {
     render() {
@@ -21,7 +19,6 @@ export class Main extends React.Component {
                     <SectionServices />
                     <SectionCallToAction />
                     <SectionSkills />
-                    <SectionFacts />
                     <SectionFacts />
                     <SectionPortfolio />
                     <SectionContact />

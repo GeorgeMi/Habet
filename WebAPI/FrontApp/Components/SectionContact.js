@@ -13,7 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = require('react');
+var React = require("react");
 var SectionContact = /** @class */ (function (_super) {
     __extends(SectionContact, _super);
     function SectionContact() {
@@ -58,7 +58,7 @@ var SectionContact = /** @class */ (function (_super) {
                             React.createElement("input", { type: "text", className: "form-control", name: "subject", id: "subject", placeholder: "Subject", "data-rule": "minlen:4", "data-msg": "Please enter at least 8 chars of subject" }),
                             React.createElement("div", { className: "validation" })),
                         React.createElement("div", { className: "form-group" },
-                            React.createElement("textarea", { className: "form-control", name: "message", rows: "5", "data-rule": "required", "data-msg": "Please write something for us", placeholder: "Message" }),
+                            React.createElement("textarea", { className: "form-control", name: "message", "data-rule": "required", "data-msg": "Please write something for us", placeholder: "Message" }),
                             React.createElement("div", { className: "validation" })),
                         React.createElement("div", { className: "text-center" },
                             React.createElement("button", { type: "submit" }, "Send Message")))))));

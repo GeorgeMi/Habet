@@ -1,13 +1,10 @@
-﻿declare var require: any
-
-import { Header } from './Header'
+﻿import * as React from 'react';
+import { Header } from './Header';
 import { Intro } from "./Intro";
 import { Main } from "./Main";
 import { Footer } from "./Footer";
 
-var React = require('react');
-
-export class Layout extends React.Component {
+export class Layout extends React.Component<any, any> {
     render() {
         return (
             <div>
@@ -16,7 +13,7 @@ export class Layout extends React.Component {
                 <Main />
                 <Footer />
             </div>
-        );
+        )
 
     }
 }

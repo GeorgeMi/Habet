@@ -1,5 +1,4 @@
-﻿declare var require: any
-var React = require('react');
+﻿import * as React from 'react';
 
 export class Footer extends React.Component {
     render() {

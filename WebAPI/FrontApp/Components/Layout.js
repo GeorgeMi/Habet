@@ -13,11 +13,11 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+var React = require("react");
 var Header_1 = require("./Header");
 var Intro_1 = require("./Intro");
 var Main_1 = require("./Main");
 var Footer_1 = require("./Footer");
-var React = require('react');
 var Layout = /** @class */ (function (_super) {
     __extends(Layout, _super);
     function Layout() {

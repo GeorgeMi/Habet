@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+var React = require("react");
 var SectionAboutUs_1 = require("./SectionAboutUs");
 var SectionCallToAction_1 = require("./SectionCallToAction");
 var SectionContact_1 = require("./SectionContact");
@@ -21,7 +22,6 @@ var SectionFeaturedServices_1 = require("./SectionFeaturedServices");
 var SectionPortfolio_1 = require("./SectionPortfolio");
 var SectionServices_1 = require("./SectionServices");
 var SectionSkills_1 = require("./SectionSkills");
-var React = require('react');
 var Main = /** @class */ (function (_super) {
     __extends(Main, _super);
     function Main() {
@@ -35,7 +35,6 @@ var Main = /** @class */ (function (_super) {
                 React.createElement(SectionServices_1.SectionServices, null),
                 React.createElement(SectionCallToAction_1.SectionCallToAction, null),
                 React.createElement(SectionSkills_1.SectionSkills, null),
-                React.createElement(SectionFacts_1.SectionFacts, null),
                 React.createElement(SectionFacts_1.SectionFacts, null),
                 React.createElement(SectionPortfolio_1.SectionPortfolio, null),
                 React.createElement(SectionContact_1.SectionContact, null))));

@@ -1,6 +1,4 @@
-﻿declare var require: any
-
-var React = require('react');
+﻿import * as React from 'react';
 
 export class SectionContact extends React.Component {
     render() {
@@ -60,7 +58,7 @@ export class SectionContact extends React.Component {
                                 <div className="validation"></div>
                             </div>
                             <div className="form-group">
-                                <textarea className="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                                <textarea className="form-control" name="message" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
                                 <div className="validation"></div>
                             </div>
                             <div className="text-center"><button type="submit">Send Message</button></div>

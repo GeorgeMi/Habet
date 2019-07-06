@@ -374,11 +374,11 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
 var Intro_1 = __webpack_require__(/*! ./Intro */ "./Components/Intro.js");
 var Main_1 = __webpack_require__(/*! ./Main */ "./Components/Main.js");
 var Footer_1 = __webpack_require__(/*! ./Footer */ "./Components/Footer.js");
-var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var Layout = /** @class */ (function (_super) {
     __extends(Layout, _super);
     function Layout() {
@@ -421,6 +421,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var SectionAboutUs_1 = __webpack_require__(/*! ./SectionAboutUs */ "./Components/SectionAboutUs.js");
 var SectionCallToAction_1 = __webpack_require__(/*! ./SectionCallToAction */ "./Components/SectionCallToAction.js");
 var SectionContact_1 = __webpack_require__(/*! ./SectionContact */ "./Components/SectionContact.js");
@@ -429,7 +430,6 @@ var SectionFeaturedServices_1 = __webpack_require__(/*! ./SectionFeaturedService
 var SectionPortfolio_1 = __webpack_require__(/*! ./SectionPortfolio */ "./Components/SectionPortfolio.js");
 var SectionServices_1 = __webpack_require__(/*! ./SectionServices */ "./Components/SectionServices.js");
 var SectionSkills_1 = __webpack_require__(/*! ./SectionSkills */ "./Components/SectionSkills.js");
-var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var Main = /** @class */ (function (_super) {
     __extends(Main, _super);
     function Main() {
@@ -443,7 +443,6 @@ var Main = /** @class */ (function (_super) {
                 React.createElement(SectionServices_1.SectionServices, null),
                 React.createElement(SectionCallToAction_1.SectionCallToAction, null),
                 React.createElement(SectionSkills_1.SectionSkills, null),
-                React.createElement(SectionFacts_1.SectionFacts, null),
                 React.createElement(SectionFacts_1.SectionFacts, null),
                 React.createElement(SectionPortfolio_1.SectionPortfolio, null),
                 React.createElement(SectionContact_1.SectionContact, null))));
@@ -637,7 +636,7 @@ var SectionContact = /** @class */ (function (_super) {
                             React.createElement("input", { type: "text", className: "form-control", name: "subject", id: "subject", placeholder: "Subject", "data-rule": "minlen:4", "data-msg": "Please enter at least 8 chars of subject" }),
                             React.createElement("div", { className: "validation" })),
                         React.createElement("div", { className: "form-group" },
-                            React.createElement("textarea", { className: "form-control", name: "message", rows: "5", "data-rule": "required", "data-msg": "Please write something for us", placeholder: "Message" }),
+                            React.createElement("textarea", { className: "form-control", name: "message", "data-rule": "required", "data-msg": "Please write something for us", placeholder: "Message" }),
                             React.createElement("div", { className: "validation" })),
                         React.createElement("div", { className: "text-center" },
                             React.createElement("button", { type: "submit" }, "Send Message")))))));
@@ -795,9 +794,10 @@ var SectionPortfolio = /** @class */ (function (_super) {
     function SectionPortfolio(props) {
         var _this = _super.call(this, props) || this;
         _this.api_response = { isLoaded: null, items: null, error: null };
+        _this.state = { isLoaded: false, items: null, error: null };
         return _this;
     }
-    SectionPortfolio.prototype.componentDidMount = function () {
+    SectionPortfolio.prototype.componentWillMount = function () {
         var _this = this;
         var self = this;
         axios.get(API_Path + '/Products', {
@@ -806,21 +806,19 @@ var SectionPortfolio = /** @class */ (function (_super) {
             }
         })
             .then(function (response) {
-            console.log(response);
-            // this.setState({ isLoaded: true, items: response });
-            _this.api_response = { isLoaded: true, items: response.data, error: null };
+            //console.log(response);
+            _this.setState({ isLoaded: true, items: response.data });
         })
             .catch(function (error) {
             console.log(error);
-            //this.setState({ isLoaded: true, error });
-            _this.api_response = { isLoaded: true, items: null, error: error };
+            _this.setState({ isLoaded: true, error: error });
         })
             .then();
-        console.log(this.api_response);
     };
     SectionPortfolio.prototype.render = function () {
-        var _a = this.api_response, error = _a.error, isLoaded = _a.isLoaded, items = _a.items;
-        console.log('ok');
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items;
+        console.log(items);
+        console.log('render');
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -832,7 +830,7 @@ var SectionPortfolio = /** @class */ (function (_super) {
             return React.createElement("div", null, "Loading...");
         }
         else {
-            console.log('ok2');
+            console.log('done');
             return (React.createElement("section", { id: "portfolio", className: "section-bg" },
                 React.createElement("div", { className: "container" },
                     React.createElement("header", { className: "section-header" },
@@ -844,7 +842,7 @@ var SectionPortfolio = /** @class */ (function (_super) {
                                 React.createElement("li", { "data-filter": ".filter-app" }, "App"),
                                 React.createElement("li", { "data-filter": ".filter-card" }, "Card"),
                                 React.createElement("li", { "data-filter": ".filter-web" }, "Web")))),
-                    React.createElement("div", { className: "row portfolio-container" }, items.map(function (item) { return (React.createElement("div", { className: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
+                    React.createElement("div", { className: "row portfolio-container" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
                         React.createElement("div", { className: "portfolio-wrap" },
                             React.createElement("figure", null,
                                 React.createElement("img", { src: "img/portfolio/app1.jpg", className: "img-fluid", alt: "" }),
@@ -854,8 +852,8 @@ var SectionPortfolio = /** @class */ (function (_super) {
                                     React.createElement("i", { className: "ion ion-android-open" }))),
                             React.createElement("div", { className: "portfolio-info" },
                                 React.createElement("h4", null,
-                                    React.createElement("a", { href: "#" }, "App 1")),
-                                React.createElement("p", null, "App"))))); })))));
+                                    React.createElement("a", { href: "#" }, item.name)),
+                                React.createElement("p", null, item.description))))); })))));
         }
     };
     return SectionPortfolio;
@@ -980,27 +978,7 @@ var SectionSkills = /** @class */ (function (_super) {
                 React.createElement("header", { className: "section-header" },
                     React.createElement("h3", null, "Our Skills"),
                     React.createElement("p", null, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip")),
-                React.createElement("div", { className: "skills-content" },
-                    React.createElement("div", { className: "progress" },
-                        React.createElement("div", { className: "progress-bar bg-success", role: "progressbar", "aria-valuenow": "100", "aria-valuemin": "0", "aria-valuemax": "100" },
-                            React.createElement("span", { className: "skill" },
-                                "HTML ",
-                                React.createElement("i", { className: "val" }, "100%")))),
-                    React.createElement("div", { className: "progress" },
-                        React.createElement("div", { className: "progress-bar bg-info", role: "progressbar", "aria-valuenow": "90", "aria-valuemin": "0", "aria-valuemax": "100" },
-                            React.createElement("span", { className: "skill" },
-                                "CSS ",
-                                React.createElement("i", { className: "val" }, "90%")))),
-                    React.createElement("div", { className: "progress" },
-                        React.createElement("div", { className: "progress-bar bg-warning", role: "progressbar", "aria-valuenow": "75", "aria-valuemin": "0", "aria-valuemax": "100" },
-                            React.createElement("span", { className: "skill" },
-                                "JavaScript ",
-                                React.createElement("i", { className: "val" }, "75%")))),
-                    React.createElement("div", { className: "progress" },
-                        React.createElement("div", { className: "progress-bar bg-danger", role: "progressbar", "aria-valuenow": "55", "aria-valuemin": "0", "aria-valuemax": "100" },
-                            React.createElement("span", { className: "skill" },
-                                "Photoshop ",
-                                React.createElement("i", { className: "val" }, "55%"))))))));
+                React.createElement("div", { className: "skills-content" }))));
     };
     return SectionSkills;
 }(React.Component));
@@ -1019,9 +997,9 @@ exports.SectionSkills = SectionSkills;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Layout_1 = __webpack_require__(/*! ./Components/Layout */ "./Components/Layout.js");
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var ReactDOM = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+var Layout_1 = __webpack_require__(/*! ./Components/Layout */ "./Components/Layout.js");
 ReactDOM.render(React.createElement(Layout_1.Layout, null), document.getElementById('root'));
 
 

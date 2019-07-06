@@ -1,11 +1,9 @@
-﻿declare var require: any
-
-var React = require('react');
+﻿import * as React from 'react';
 var config = require('config');
 var API_Path = config.API_Path;
 const axios = require('axios');
 
-export class SectionPortfolio extends React.Component{
+export class SectionPortfolio extends React.Component<any,any>{
     api_response = { isLoaded: null, items: null, error:null };
     constructor(props) {
         super(props); 
@@ -21,26 +19,22 @@ export class SectionPortfolio extends React.Component{
             }
         })
             .then((response) => {
-                console.log(response);
-                 this.setState({ isLoaded: true, items: response });
-               // this.api_response = { isLoaded: true, items: response.data, error: null };
+                //console.log(response);
+                 this.setState({ isLoaded: true, items: response.data });
             })
             .catch((error) => {
                 console.log(error);
                 this.setState({ isLoaded: true, error });
-              //  this.api_response = { isLoaded: true, items: null, error: error };
             })
             .then(
-               // this.setState({this.api_response)
             );
-
-     //   console.log(this.api_response);
     }
 
     render() {
         
         const { error, isLoaded, items } = this.state;
-        console.log('ok');
+        console.log(items);
+        console.log('render');
         if (error) {
             console.log(error);
             return <div>Error: {error.message}</div>;
@@ -50,7 +44,7 @@ export class SectionPortfolio extends React.Component{
             return <div>Loading...</div>;
 
         } else {      
-            console.log('ok2');
+            console.log('done');
              return (
                 <section id="portfolio" className="section-bg">
                     <div className="container">
@@ -71,10 +65,10 @@ export class SectionPortfolio extends React.Component{
                         </div>
 
                         <div className="row portfolio-container">
+                             {
+                                 items.map((item,i) => (
 
-                             {items.map(item => (
-
-                                 <div className="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
+                                     <div key={i} className="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
                                      <div className="portfolio-wrap">
                                          <figure>
                                              <img src="img/portfolio/app1.jpg" className="img-fluid" alt="" />
@@ -83,8 +77,8 @@ export class SectionPortfolio extends React.Component{
                                          </figure>
 
                                          <div className="portfolio-info">
-                                             <h4><a href="#">App 1</a></h4>
-                                             <p>App</p>
+                                                 <h4><a href="#">{item.name}</a></h4>
+                                                 <p>{item.description}</p>
                                          </div>
                                      </div>
                                  </div>

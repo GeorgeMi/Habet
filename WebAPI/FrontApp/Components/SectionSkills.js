@@ -13,7 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = require('react');
+var React = require("react");
 var SectionSkills = /** @class */ (function (_super) {
     __extends(SectionSkills, _super);
     function SectionSkills() {
@@ -25,27 +25,7 @@ var SectionSkills = /** @class */ (function (_super) {
                 React.createElement("header", { className: "section-header" },
                     React.createElement("h3", null, "Our Skills"),
                     React.createElement("p", null, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip")),
-                React.createElement("div", { className: "skills-content" },
-                    React.createElement("div", { className: "progress" },
-                        React.createElement("div", { className: "progress-bar bg-success", role: "progressbar", "aria-valuenow": "100", "aria-valuemin": "0", "aria-valuemax": "100" },
-                            React.createElement("span", { className: "skill" },
-                                "HTML ",
-                                React.createElement("i", { className: "val" }, "100%")))),
-                    React.createElement("div", { className: "progress" },
-                        React.createElement("div", { className: "progress-bar bg-info", role: "progressbar", "aria-valuenow": "90", "aria-valuemin": "0", "aria-valuemax": "100" },
-                            React.createElement("span", { className: "skill" },
-                                "CSS ",
-                                React.createElement("i", { className: "val" }, "90%")))),
-                    React.createElement("div", { className: "progress" },
-                        React.createElement("div", { className: "progress-bar bg-warning", role: "progressbar", "aria-valuenow": "75", "aria-valuemin": "0", "aria-valuemax": "100" },
-                            React.createElement("span", { className: "skill" },
-                                "JavaScript ",
-                                React.createElement("i", { className: "val" }, "75%")))),
-                    React.createElement("div", { className: "progress" },
-                        React.createElement("div", { className: "progress-bar bg-danger", role: "progressbar", "aria-valuenow": "55", "aria-valuemin": "0", "aria-valuemax": "100" },
-                            React.createElement("span", { className: "skill" },
-                                "Photoshop ",
-                                React.createElement("i", { className: "val" }, "55%"))))))));
+                React.createElement("div", { className: "skills-content" }))));
     };
     return SectionSkills;
 }(React.Component));

@@ -25,7 +25,7 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<IEnumerable<Products>>> GetProducts()
         {
 
-            return new List<Products> { new Products { ProductId = 1, Name = "Name", Description = "Description" } };
+            return new List<Products> { new Products { ProductId = 1, Name = "Name", Description = "Description" }, new Products { ProductId = 2, Name = "Name2", Description = "Description2" } };
             return await _context.Products.ToListAsync();
         }
 

@@ -13,7 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = require('react');
+var React = require("react");
 var config = require('config');
 var API_Path = config.API_Path;
 var axios = require('axios');
@@ -22,9 +22,10 @@ var SectionPortfolio = /** @class */ (function (_super) {
     function SectionPortfolio(props) {
         var _this = _super.call(this, props) || this;
         _this.api_response = { isLoaded: null, items: null, error: null };
+        _this.state = { isLoaded: false, items: null, error: null };
         return _this;
     }
-    SectionPortfolio.prototype.componentDidMount = function () {
+    SectionPortfolio.prototype.componentWillMount = function () {
         var _this = this;
         var self = this;
         axios.get(API_Path + '/Products', {
@@ -33,21 +34,19 @@ var SectionPortfolio = /** @class */ (function (_super) {
             }
         })
             .then(function (response) {
-            console.log(response);
-            // this.setState({ isLoaded: true, items: response });
-            _this.api_response = { isLoaded: true, items: response.data, error: null };
+            //console.log(response);
+            _this.setState({ isLoaded: true, items: response.data });
         })
             .catch(function (error) {
             console.log(error);
-            //this.setState({ isLoaded: true, error });
-            _this.api_response = { isLoaded: true, items: null, error: error };
+            _this.setState({ isLoaded: true, error: error });
         })
             .then();
-        console.log(this.api_response);
     };
     SectionPortfolio.prototype.render = function () {
-        var _a = this.api_response, error = _a.error, isLoaded = _a.isLoaded, items = _a.items;
-        console.log('ok');
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items;
+        console.log(items);
+        console.log('render');
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -59,7 +58,7 @@ var SectionPortfolio = /** @class */ (function (_super) {
             return React.createElement("div", null, "Loading...");
         }
         else {
-            console.log('ok2');
+            console.log('done');
             return (React.createElement("section", { id: "portfolio", className: "section-bg" },
                 React.createElement("div", { className: "container" },
                     React.createElement("header", { className: "section-header" },
@@ -71,7 +70,7 @@ var SectionPortfolio = /** @class */ (function (_super) {
                                 React.createElement("li", { "data-filter": ".filter-app" }, "App"),
                                 React.createElement("li", { "data-filter": ".filter-card" }, "Card"),
                                 React.createElement("li", { "data-filter": ".filter-web" }, "Web")))),
-                    React.createElement("div", { className: "row portfolio-container" }, items.map(function (item) { return (React.createElement("div", { className: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
+                    React.createElement("div", { className: "row portfolio-container" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
                         React.createElement("div", { className: "portfolio-wrap" },
                             React.createElement("figure", null,
                                 React.createElement("img", { src: "img/portfolio/app1.jpg", className: "img-fluid", alt: "" }),
@@ -81,8 +80,8 @@ var SectionPortfolio = /** @class */ (function (_super) {
                                     React.createElement("i", { className: "ion ion-android-open" }))),
                             React.createElement("div", { className: "portfolio-info" },
                                 React.createElement("h4", null,
-                                    React.createElement("a", { href: "#" }, "App 1")),
-                                React.createElement("p", null, "App"))))); })))));
+                                    React.createElement("a", { href: "#" }, item.name)),
+                                React.createElement("p", null, item.description))))); })))));
         }
     };
     return SectionPortfolio;

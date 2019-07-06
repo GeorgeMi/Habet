@@ -1,8 +1,5 @@
-﻿declare var require: any
+﻿import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Layout } from "./Components/Layout";
-
-var React = require('react');
-var ReactDOM = require('react-dom');
-
 
 ReactDOM.render(<Layout/>, document.getElementById('root'));

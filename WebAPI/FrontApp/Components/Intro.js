@@ -13,7 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = require('react');
+var React = require("react");
 var Intro = /** @class */ (function (_super) {
     __extends(Intro, _super);
     function Intro() {

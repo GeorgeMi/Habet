@@ -1,6 +1,4 @@
-﻿declare var require: any
-
-var React = require('react');
+﻿import * as React from 'react';
 
 export class SectionFeaturedServices extends React.Component {
     render() {
