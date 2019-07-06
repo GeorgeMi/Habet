@@ -4,7 +4,7 @@ import { SectionCallToAction } from "./SectionCallToAction";
 import { SectionContact } from "./SectionContact";
 import { SectionFacts } from "./SectionFacts";
 import { SectionFeaturedServices } from "./SectionFeaturedServices";
-import { SectionPortfolio } from "./SectionPortfolio";
+import { SectionProducts } from "./SectionProducts";
 import { SectionServices } from "./SectionServices";
 import { SectionSkills } from "./SectionSkills";
 
@@ -20,7 +20,7 @@ export class Main extends React.Component {
                     <SectionCallToAction />
                     <SectionSkills />
                     <SectionFacts />
-                    <SectionPortfolio />
+                    <SectionProducts />
                     <SectionContact />
                 </div>
             </main>

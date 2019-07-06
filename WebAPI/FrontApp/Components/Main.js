@@ -19,7 +19,7 @@ var SectionCallToAction_1 = require("./SectionCallToAction");
 var SectionContact_1 = require("./SectionContact");
 var SectionFacts_1 = require("./SectionFacts");
 var SectionFeaturedServices_1 = require("./SectionFeaturedServices");
-var SectionPortfolio_1 = require("./SectionPortfolio");
+var SectionProducts_1 = require("./SectionProducts");
 var SectionServices_1 = require("./SectionServices");
 var SectionSkills_1 = require("./SectionSkills");
 var Main = /** @class */ (function (_super) {
@@ -36,7 +36,7 @@ var Main = /** @class */ (function (_super) {
                 React.createElement(SectionCallToAction_1.SectionCallToAction, null),
                 React.createElement(SectionSkills_1.SectionSkills, null),
                 React.createElement(SectionFacts_1.SectionFacts, null),
-                React.createElement(SectionPortfolio_1.SectionPortfolio, null),
+                React.createElement(SectionProducts_1.SectionProducts, null),
                 React.createElement(SectionContact_1.SectionContact, null))));
     };
     return Main;
