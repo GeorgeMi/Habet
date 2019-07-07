@@ -29,4 +29,3 @@ F:\workspace\Habet\WebAPI\BLL\obj\Debug\netcoreapp2.2\BLL.AssemblyInfoInputs.cac
 F:\workspace\Habet\WebAPI\BLL\obj\Debug\netcoreapp2.2\BLL.AssemblyInfo.cs
 F:\workspace\Habet\WebAPI\BLL\obj\Debug\netcoreapp2.2\BLL.dll
 F:\workspace\Habet\WebAPI\BLL\obj\Debug\netcoreapp2.2\BLL.pdb
-F:\workspace\Habet\WebAPI\BLL\obj\Debug\netcoreapp2.2\BLL.csprojAssemblyReference.cache

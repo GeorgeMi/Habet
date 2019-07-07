@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using WebAPI.DTOs;
 
 namespace WebAPI.Controllers
@@ -24,7 +26,7 @@ namespace WebAPI.Controllers
 
         // GET: api/Products
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDetails>>> GetProducts()
+        public async Task<ActionResult<Stream>> GetProducts()
         {
             List<ProductDetails> response = new List<ProductDetails>();
             var productList = await _context.Products.ToListAsync();
@@ -33,18 +35,27 @@ namespace WebAPI.Controllers
             {
                 var productsImages = _context.ProductsImages.FirstOrDefault(m => m.ProductId == product.ProductId);
                 MemoryStream ms = new MemoryStream(productsImages.Data);
-                response.Add(new ProductDetails
-                {
-                    ProductId = product.ProductId,
-                    Price = product.Price,
-                    Description = product.Description,
-                    Name = product.Name,
-                    Image = new FileStreamResult(ms, productsImages.ContentType)
-                });
+                
+                    response.Add(new ProductDetails
+                    {
+                        ProductId = product.ProductId,
+                        Price = product.Price,
+                        Description = product.Description,
+                        Name = product.Name,
+                        Image = new FileStreamResult(ms, productsImages.ContentType)
+                    });
+
+                return new FileStreamResult(ms, productsImages.ContentType);
 
             }
 
-            return response;
+            try {
+                var x = JsonConvert.SerializeObject(response);
+            }
+            catch (Exception ex)
+            { }
+            //  return response.ToList();
+            return null;
         }
 
         // GET: api/Products/5

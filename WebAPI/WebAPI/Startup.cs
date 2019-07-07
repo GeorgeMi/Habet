@@ -33,7 +33,9 @@ namespace WebAPI
             });
 
             // services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("List"));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc()
+                .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<GHContext>(options => options.UseSqlServer(Configuration.GetConnectionString("GHDatabase")));
         }
