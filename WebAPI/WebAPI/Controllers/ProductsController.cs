@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebAPI.Models;
+using WebAPI.DTOs;
 
 namespace WebAPI.Controllers
 {
@@ -22,11 +24,27 @@ namespace WebAPI.Controllers
 
         // GET: api/Products
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Products>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<ProductDetails>>> GetProducts()
         {
+            List<ProductDetails> response = new List<ProductDetails>();
+            var productList = await _context.Products.ToListAsync();
 
-            return new List<Products> { new Products { ProductId = 1, Name = "Name", Description = "Description" }, new Products { ProductId = 2, Name = "Name2", Description = "Description2" } };
-            return await _context.Products.ToListAsync();
+            foreach (var product in productList)
+            {
+                var productsImages = _context.ProductsImages.FirstOrDefault(m => m.ProductId == product.ProductId);
+                MemoryStream ms = new MemoryStream(productsImages.Data);
+                response.Add(new ProductDetails
+                {
+                    ProductId = product.ProductId,
+                    Price = product.Price,
+                    Description = product.Description,
+                    Name = product.Name,
+                    Image = new FileStreamResult(ms, productsImages.ContentType)
+                });
+
+            }
+
+            return response;
         }
 
         // GET: api/Products/5
@@ -75,16 +93,43 @@ namespace WebAPI.Controllers
 
         // POST: api/Products
         [HttpPost]
-        public async Task<ActionResult<Products>> PostProducts(Products products)
+        [Consumes("multipart/form-data")]
+        public async Task<ActionResult<Products>> PostProducts([FromForm]AddProduct product)
         {
-            _context.Products.Add(products);
+            _context.Products.Add(new Products {
+                ProductId = product.ProductId,
+                Price = product.Price,
+                Description = product.Description,
+                Name = product.Name
+            });
+
+            MemoryStream ms = new MemoryStream();
+            product.Image.OpenReadStream().CopyTo(ms);
+
+            System.Drawing.Image image = System.Drawing.Image.FromStream(ms);
+
+            ProductsImages imageEntity = new ProductsImages()
+            {
+                Id = Guid.NewGuid(),
+                Name = Encoding.ASCII.GetBytes(product.Image.Name),
+                Data = ms.ToArray(),
+                Width = image.Width,
+                Height = image.Height,
+                ContentType = product.Image.ContentType,
+                ProductId = product.ProductId
+            };
+
+            _context.ProductsImages.Add(imageEntity);
+
+            _context.SaveChanges();
+
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (ProductsExists(products.ProductId))
+                if (ProductsExists(product.ProductId))
                 {
                     return Conflict();
                 }
@@ -94,7 +139,7 @@ namespace WebAPI.Controllers
                 }
             }
 
-            return CreatedAtAction("GetProducts", new { id = products.ProductId }, products);
+            return CreatedAtAction("GetProducts", new { id = product.ProductId }, product);
         }
 
         // DELETE: api/Products/5

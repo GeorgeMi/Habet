@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace DAL.Models
+namespace WebAPI.DTOs
 {
-    public partial class ProductsImages
+    public class ImageDetails
     {
-        public Guid Id { get; set; }
-        public int ProductId { get; set; }
         public byte[] Name { get; set; }
         public byte[] Data { get; set; }
         public int Length { get; set; }

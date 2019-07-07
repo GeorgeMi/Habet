@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using WebAPI.Models;
+using DAL.Models;
 
 namespace WebAPI
 {
@@ -27,7 +27,8 @@ namespace WebAPI
                 options.AddPolicy(MyAllowSpecificOrigins,
                 builder =>
                 {
-                    builder.WithOrigins("http://localhost:1337");
+                    builder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod();
+                   // builder.WithOrigins("http://localhost:1337");
                 });
             });
 

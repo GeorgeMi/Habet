@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebAPI.Models;
+using DAL.Models;
+using System.IO;
 
 namespace WebAPI.Controllers
 {
@@ -20,32 +21,26 @@ namespace WebAPI.Controllers
             _context = context;
         }
 
-        // GET: api/ProductsImages
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductsImages>>> GetProductsImages()
-        {
-            return await _context.ProductsImages.ToListAsync();
-        }
-
         // GET: api/ProductsImages/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductsImages>> GetProductsImages(int id)
+        public async Task<ActionResult<ProductsImages>> GetProductsImages(Guid id)
         {
             var productsImages = await _context.ProductsImages.FindAsync(id);
-
             if (productsImages == null)
             {
                 return NotFound();
             }
 
-            return productsImages;
+            MemoryStream ms = new MemoryStream(productsImages.Data);
+
+            return new FileStreamResult(ms, productsImages.ContentType);
         }
 
         // PUT: api/ProductsImages/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProductsImages(int id, ProductsImages productsImages)
+        public async Task<IActionResult> PutProductsImages(Guid id, ProductsImages productsImages)
         {
-            if (id != productsImages.ProductImageId)
+            if (id != productsImages.Id)
             {
                 return BadRequest();
             }
@@ -82,7 +77,7 @@ namespace WebAPI.Controllers
             }
             catch (DbUpdateException)
             {
-                if (ProductsImagesExists(productsImages.ProductImageId))
+                if (ProductsImagesExists(productsImages.Id))
                 {
                     return Conflict();
                 }
@@ -92,12 +87,12 @@ namespace WebAPI.Controllers
                 }
             }
 
-            return CreatedAtAction("GetProductsImages", new { id = productsImages.ProductImageId }, productsImages);
+            return CreatedAtAction("GetProductsImages", new { id = productsImages.Id }, productsImages);
         }
 
         // DELETE: api/ProductsImages/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ProductsImages>> DeleteProductsImages(int id)
+        public async Task<ActionResult<ProductsImages>> DeleteProductsImages(Guid id)
         {
             var productsImages = await _context.ProductsImages.FindAsync(id);
             if (productsImages == null)
@@ -111,9 +106,9 @@ namespace WebAPI.Controllers
             return productsImages;
         }
 
-        private bool ProductsImagesExists(int id)
+        private bool ProductsImagesExists(Guid id)
         {
-            return _context.ProductsImages.Any(e => e.ProductImageId == id);
+            return _context.ProductsImages.Any(e => e.Id == id);
         }
     }
 }

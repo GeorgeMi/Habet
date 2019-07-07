@@ -30,3 +30,4 @@ F:\workspace\Habet\WebAPI\DAL\obj\Debug\netcoreapp2.2\DAL.AssemblyInfoInputs.cac
 F:\workspace\Habet\WebAPI\DAL\obj\Debug\netcoreapp2.2\DAL.AssemblyInfo.cs
 F:\workspace\Habet\WebAPI\DAL\obj\Debug\netcoreapp2.2\DAL.dll
 F:\workspace\Habet\WebAPI\DAL\obj\Debug\netcoreapp2.2\DAL.pdb
+F:\workspace\Habet\WebAPI\DAL\obj\Debug\netcoreapp2.2\DAL.csprojAssemblyReference.cache

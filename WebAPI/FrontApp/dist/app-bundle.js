@@ -427,7 +427,7 @@ var SectionCallToAction_1 = __webpack_require__(/*! ./SectionCallToAction */ "./
 var SectionContact_1 = __webpack_require__(/*! ./SectionContact */ "./Components/SectionContact.js");
 var SectionFacts_1 = __webpack_require__(/*! ./SectionFacts */ "./Components/SectionFacts.js");
 var SectionFeaturedServices_1 = __webpack_require__(/*! ./SectionFeaturedServices */ "./Components/SectionFeaturedServices.js");
-var SectionPortfolio_1 = __webpack_require__(/*! ./SectionPortfolio */ "./Components/SectionPortfolio.js");
+var SectionProducts_1 = __webpack_require__(/*! ./SectionProducts */ "./Components/SectionProducts.js");
 var SectionServices_1 = __webpack_require__(/*! ./SectionServices */ "./Components/SectionServices.js");
 var SectionSkills_1 = __webpack_require__(/*! ./SectionSkills */ "./Components/SectionSkills.js");
 var Main = /** @class */ (function (_super) {
@@ -444,7 +444,7 @@ var Main = /** @class */ (function (_super) {
                 React.createElement(SectionCallToAction_1.SectionCallToAction, null),
                 React.createElement(SectionSkills_1.SectionSkills, null),
                 React.createElement(SectionFacts_1.SectionFacts, null),
-                React.createElement(SectionPortfolio_1.SectionPortfolio, null),
+                React.createElement(SectionProducts_1.SectionProducts, null),
                 React.createElement(SectionContact_1.SectionContact, null))));
     };
     return Main;
@@ -762,10 +762,10 @@ exports.SectionFeaturedServices = SectionFeaturedServices;
 
 /***/ }),
 
-/***/ "./Components/SectionPortfolio.js":
-/*!****************************************!*\
-  !*** ./Components/SectionPortfolio.js ***!
-  \****************************************/
+/***/ "./Components/SectionProducts.js":
+/*!***************************************!*\
+  !*** ./Components/SectionProducts.js ***!
+  \***************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -789,36 +789,31 @@ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var config = __webpack_require__(/*! config */ "config");
 var API_Path = config.API_Path;
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-var SectionPortfolio = /** @class */ (function (_super) {
-    __extends(SectionPortfolio, _super);
-    function SectionPortfolio(props) {
+var SectionProducts = /** @class */ (function (_super) {
+    __extends(SectionProducts, _super);
+    function SectionProducts(props) {
         var _this = _super.call(this, props) || this;
-        _this.api_response = { isLoaded: null, items: null, error: null };
         _this.state = { isLoaded: false, items: null, error: null };
         return _this;
     }
-    SectionPortfolio.prototype.componentWillMount = function () {
+    SectionProducts.prototype.componentWillMount = function () {
         var _this = this;
-        var self = this;
         axios.get(API_Path + '/Products', {
             params: {
                 ID: 1
             }
         })
             .then(function (response) {
-            //console.log(response);
             _this.setState({ isLoaded: true, items: response.data });
         })
             .catch(function (error) {
-            console.log(error);
             _this.setState({ isLoaded: true, error: error });
         })
             .then();
     };
-    SectionPortfolio.prototype.render = function () {
+    SectionProducts.prototype.render = function () {
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items;
         console.log(items);
-        console.log('render');
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -826,11 +821,9 @@ var SectionPortfolio = /** @class */ (function (_super) {
                 error.message);
         }
         else if (!isLoaded) {
-            console.log('loading');
             return React.createElement("div", null, "Loading...");
         }
         else {
-            console.log('done');
             return (React.createElement("section", { id: "portfolio", className: "section-bg" },
                 React.createElement("div", { className: "container" },
                     React.createElement("header", { className: "section-header" },
@@ -845,8 +838,8 @@ var SectionPortfolio = /** @class */ (function (_super) {
                     React.createElement("div", { className: "row portfolio-container" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
                         React.createElement("div", { className: "portfolio-wrap" },
                             React.createElement("figure", null,
-                                React.createElement("img", { src: "img/portfolio/app1.jpg", className: "img-fluid", alt: "" }),
-                                React.createElement("a", { href: "img/portfolio/app1.jpg", "data-lightbox": "portfolio", "data-title": "App 1", className: "link-preview", title: "Preview" },
+                                React.createElement("img", { src: "{item.image}", className: "img-fluid", alt: "" }),
+                                React.createElement("a", { href: "{item.image}", "data-lightbox": "portfolio", "data-title": "App 1", className: "link-preview", title: "Preview" },
                                     React.createElement("i", { className: "ion ion-eye" })),
                                 React.createElement("a", { href: "#", className: "link-details", title: "More Details" },
                                     React.createElement("i", { className: "ion ion-android-open" }))),
@@ -856,10 +849,10 @@ var SectionPortfolio = /** @class */ (function (_super) {
                                 React.createElement("p", null, item.description))))); })))));
         }
     };
-    return SectionPortfolio;
+    return SectionProducts;
 }(React.Component));
-exports.SectionPortfolio = SectionPortfolio;
-//# sourceMappingURL=SectionPortfolio.js.map
+exports.SectionProducts = SectionProducts;
+//# sourceMappingURL=SectionProducts.js.map
 
 /***/ }),
 

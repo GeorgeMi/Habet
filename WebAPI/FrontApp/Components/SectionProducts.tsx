@@ -70,8 +70,8 @@ export class SectionProducts extends React.Component<any, any>
                                     <div key={i} className="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
                                         <div className="portfolio-wrap">
                                             <figure>
-                                                <img src="img/portfolio/app1.jpg" className="img-fluid" alt="" />
-                                                <a href="img/portfolio/app1.jpg" data-lightbox="portfolio" data-title="App 1" className="link-preview" title="Preview"><i className="ion ion-eye"></i></a>
+                                                <img src="{item.image}" className="img-fluid" alt="" />
+                                                <a href="{item.image}" data-lightbox="portfolio" data-title="App 1" className="link-preview" title="Preview"><i className="ion ion-eye"></i></a>
                                                 <a href="#" className="link-details" title="More Details"><i className="ion ion-android-open"></i></a>
                                             </figure>
 

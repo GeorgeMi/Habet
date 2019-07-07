@@ -24,3 +24,4 @@ F:\workspace\Habet\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.AssemblyInfoInputs.c
 F:\workspace\Habet\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.AssemblyInfo.cs
 F:\workspace\Habet\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.dll
 F:\workspace\Habet\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.pdb
+F:\workspace\Habet\WebAPI\DTOs\obj\Debug\netcoreapp2.2\DTOs.csprojAssemblyReference.cache

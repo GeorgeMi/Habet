@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace WebAPI.Models
+namespace DAL.Models
 {
     public partial class GHContext : DbContext
     {
@@ -29,7 +29,8 @@ namespace WebAPI.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=188.121.44.217;Database=GH;Trusted_Connection=False;user id=Gabriel;pwd=Habetpassword123;");
             }
         }
 
@@ -73,21 +74,18 @@ namespace WebAPI.Models
 
             modelBuilder.Entity<ProductsImages>(entity =>
             {
-                entity.HasKey(e => e.ProductImageId)
-                    .HasName("PK__Products__07B2B1B8EC96144A");
+                entity.Property(e => e.Id).ValueGeneratedNever();
 
-                entity.Property(e => e.ProductImageId).ValueGeneratedNever();
-
-                entity.Property(e => e.Link)
+                entity.Property(e => e.ContentType)
                     .IsRequired()
-                    .HasMaxLength(255)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.ProductsImages)
-                    .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__ProductsI__Produ__1B0907CE");
+                entity.Property(e => e.Data).IsRequired();
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(200);
             });
 
             modelBuilder.Entity<ProductsOrders>(entity =>
