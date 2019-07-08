@@ -14,6 +14,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
+var Dictionary_1 = require("./Dictionary");
 var config = require('config');
 var API_Path = config.API_Path;
 var axios = require('axios');
@@ -24,8 +25,18 @@ var SectionProducts = /** @class */ (function (_super) {
         _this.state = { isLoaded: false, items: null, error: null };
         return _this;
     }
+    SectionProducts.prototype.getImageForProduct = function (imageDictionary, productId) {
+        axios.get(API_Path + '/ProductsImages/' + productId)
+            .then(function (response) {
+            imageDictionary.Add(productId, response.data);
+        })
+            .catch(function (error) {
+        })
+            .then();
+    };
     SectionProducts.prototype.componentWillMount = function () {
         var _this = this;
+        var imageDictionary = new Dictionary_1.KeyedCollection();
         axios.get(API_Path + '/Products', {
             params: {
                 ID: 1

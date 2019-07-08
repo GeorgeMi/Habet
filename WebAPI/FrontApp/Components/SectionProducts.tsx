@@ -1,18 +1,34 @@
 ﻿import * as React from 'react';
+import { KeyedCollection } from './Dictionary';
+
 var config = require('config');
 var API_Path = config.API_Path;
 const axios = require('axios');
 
 export class SectionProducts extends React.Component<any, any>
 {
-    constructor(props)
+     constructor(props)
     {
         super(props);
-        this.state = { isLoaded: false, items: null, error: null };
+         this.state = { isLoaded: false, items: null, error: null, imageDictionary: null };
+   
+     }
+
+    public getImageForProduct(imageDictionary: KeyedCollection<number>, productId: number) {
+        axios.get(API_Path + '/ProductsImages/' + productId)
+            .then((response) => {
+                imageDictionary.Add(productId, response.data);
+            })
+            .catch((error) => {
+               
+            })
+            .then();
     }
 
     componentWillMount()
     {
+        var imgDictionary = new KeyedCollection<number>();
+
         axios.get(API_Path + '/Products',
             {
             params: {
@@ -21,7 +37,12 @@ export class SectionProducts extends React.Component<any, any>
         })
             .then((response) =>
             {
-                this.setState({ isLoaded: true, items: response.data });
+                response.data.map(product => (
+                    this.getImageForProduct(imgDictionary, product.ProductId)
+                ));
+
+                this.setState({ isLoaded: true, items: response.data, imageDictionary: imgDictionary });
+
             })
             .catch((error) =>
             {
@@ -31,7 +52,7 @@ export class SectionProducts extends React.Component<any, any>
     }
 
     render() {
-        const { error, isLoaded, items } = this.state;
+        const { error, isLoaded, items, imageDictionary} = this.state;
         console.log(items);
         if (error)
         {
@@ -70,7 +91,7 @@ export class SectionProducts extends React.Component<any, any>
                                     <div key={i} className="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
                                         <div className="portfolio-wrap">
                                             <figure>
-                                                <img src="{item.image}" className="img-fluid" alt="" />
+                                                <img src={imageDictionary[item.productId]} className="img-fluid" alt="" />
                                                 <a href="{item.image}" data-lightbox="portfolio" data-title="App 1" className="link-preview" title="Preview"><i className="ion ion-eye"></i></a>
                                                 <a href="#" className="link-details" title="More Details"><i className="ion ion-android-open"></i></a>
                                             </figure>

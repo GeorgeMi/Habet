@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
-using DAL.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using WebAPI.DTOs;
+using DAL.Models;
 
 namespace WebAPI.Controllers
 {
@@ -26,36 +22,9 @@ namespace WebAPI.Controllers
 
         // GET: api/Products
         [HttpGet]
-        public async Task<ActionResult<Stream>> GetProducts()
+        public async Task<ActionResult<IEnumerable<Products>>> GetProducts()
         {
-            List<ProductDetails> response = new List<ProductDetails>();
-            var productList = await _context.Products.ToListAsync();
-
-            foreach (var product in productList)
-            {
-                var productsImages = _context.ProductsImages.FirstOrDefault(m => m.ProductId == product.ProductId);
-                MemoryStream ms = new MemoryStream(productsImages.Data);
-                
-                    response.Add(new ProductDetails
-                    {
-                        ProductId = product.ProductId,
-                        Price = product.Price,
-                        Description = product.Description,
-                        Name = product.Name,
-                        Image = new FileStreamResult(ms, productsImages.ContentType)
-                    });
-
-                return new FileStreamResult(ms, productsImages.ContentType);
-
-            }
-
-            try {
-                var x = JsonConvert.SerializeObject(response);
-            }
-            catch (Exception ex)
-            { }
-            //  return response.ToList();
-            return null;
+            return await _context.Products.ToListAsync();
         }
 
         // GET: api/Products/5
@@ -104,43 +73,16 @@ namespace WebAPI.Controllers
 
         // POST: api/Products
         [HttpPost]
-        [Consumes("multipart/form-data")]
-        public async Task<ActionResult<Products>> PostProducts([FromForm]AddProduct product)
+        public async Task<ActionResult<Products>> PostProducts(Products products)
         {
-            _context.Products.Add(new Products {
-                ProductId = product.ProductId,
-                Price = product.Price,
-                Description = product.Description,
-                Name = product.Name
-            });
-
-            MemoryStream ms = new MemoryStream();
-            product.Image.OpenReadStream().CopyTo(ms);
-
-            System.Drawing.Image image = System.Drawing.Image.FromStream(ms);
-
-            ProductsImages imageEntity = new ProductsImages()
-            {
-                Id = Guid.NewGuid(),
-                Name = Encoding.ASCII.GetBytes(product.Image.Name),
-                Data = ms.ToArray(),
-                Width = image.Width,
-                Height = image.Height,
-                ContentType = product.Image.ContentType,
-                ProductId = product.ProductId
-            };
-
-            _context.ProductsImages.Add(imageEntity);
-
-            _context.SaveChanges();
-
+            _context.Products.Add(products);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (ProductsExists(product.ProductId))
+                if (ProductsExists(products.ProductId))
                 {
                     return Conflict();
                 }
@@ -150,7 +92,7 @@ namespace WebAPI.Controllers
                 }
             }
 
-            return CreatedAtAction("GetProducts", new { id = product.ProductId }, product);
+            return CreatedAtAction("GetProducts", new { id = products.ProductId }, products);
         }
 
         // DELETE: api/Products/5
