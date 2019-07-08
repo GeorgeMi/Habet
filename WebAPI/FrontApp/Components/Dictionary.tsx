@@ -1,20 +1,19 @@
 ﻿export interface IKeyedCollection<T> {
-    Add(key: number, value: T);
-    ContainsKey(key: number): boolean;
+    Add(key: string, value: T);
+    ContainsKey(key: string): boolean;
     Count(): number;
-    Item(key: number): T;
-    Keys(): number[];
-    Remove(key: number): T;
+    Item(key: string): T;
+    Keys(): string[];
+    Remove(key: string): T;
     Values(): T[];
 }
 
 export class KeyedCollection<T> implements IKeyedCollection<T> {
-
-    private items: { [index: number]: T } = {};
+    private items: { [index: string]: T } = {};
 
     private count: number = 0;
 
-    public ContainsKey(key: number): boolean {
+    public ContainsKey(key: string): boolean {
         return this.items.hasOwnProperty(key);
     }
 
@@ -22,38 +21,33 @@ export class KeyedCollection<T> implements IKeyedCollection<T> {
         return this.count;
     }
 
-    public Add(key: number, value: T) {
+    public Add(key: string, value: T) {
         if (!this.items.hasOwnProperty(key))
             this.count++;
 
         this.items[key] = value;
     }
 
-    public Remove(key: number): T {
+    public Remove(key: string): T {
         var val = this.items[key];
         delete this.items[key];
         this.count--;
         return val;
     }
 
-    public Item(key: number): T {
+    public Item(key: string): T {
         return this.items[key];
     }
 
-    //public Keys(): number[] {
-    //    var keySet: number[] = [];
+    public Keys(): string[] {
+        var keySet: string[] = [];
 
-    //    for (var prop in this.items) {
-    //        if (this.items.hasOwnProperty(prop)) {
-    //            keySet.push(prop);
-    //        }
-    //    }
+        for (var prop in this.items) {
+            if (this.items.hasOwnProperty(prop)) {
+                keySet.push(prop);
+            }
+        }
 
-    //    return keySet;
-    //}
-
-    public Keys(): number[] {
-        var keySet: number[] = [];
         return keySet;
     }
 

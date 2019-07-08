@@ -23,9 +23,9 @@ namespace WebAPI.Controllers
 
         // GET: api/ProductsImages/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductsImages>> GetProductsImages(Guid id)
+        public async Task<ActionResult<Stream>> GetProductsImages(int id)
         {
-            var productsImages = await _context.ProductsImages.FindAsync(id);
+            var productsImages = await _context.ProductsImages.FirstOrDefaultAsync(p => p.ProductId == id);
             if (productsImages == null)
             {
                 return NotFound();

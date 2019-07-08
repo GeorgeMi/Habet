@@ -22,13 +22,13 @@ var SectionProducts = /** @class */ (function (_super) {
     __extends(SectionProducts, _super);
     function SectionProducts(props) {
         var _this = _super.call(this, props) || this;
-        _this.state = { isLoaded: false, items: null, error: null };
+        _this.state = { isLoaded: false, items: null, error: null, imageDictionary: null };
         return _this;
     }
     SectionProducts.prototype.getImageForProduct = function (imageDictionary, productId) {
         axios.get(API_Path + '/ProductsImages/' + productId)
             .then(function (response) {
-            imageDictionary.Add(productId, response.data);
+            imageDictionary.Add('a' + productId, response);
         })
             .catch(function (error) {
         })
@@ -36,14 +36,15 @@ var SectionProducts = /** @class */ (function (_super) {
     };
     SectionProducts.prototype.componentWillMount = function () {
         var _this = this;
-        var imageDictionary = new Dictionary_1.KeyedCollection();
+        var imgDictionary = new Dictionary_1.KeyedCollection();
         axios.get(API_Path + '/Products', {
             params: {
                 ID: 1
             }
         })
             .then(function (response) {
-            _this.setState({ isLoaded: true, items: response.data });
+            response.data.map(function (product) { return (_this.getImageForProduct(imgDictionary, product.productId)); });
+            _this.setState({ isLoaded: true, items: response.data, imageDictionary: imgDictionary });
         })
             .catch(function (error) {
             _this.setState({ isLoaded: true, error: error });
@@ -51,8 +52,11 @@ var SectionProducts = /** @class */ (function (_super) {
             .then();
     };
     SectionProducts.prototype.render = function () {
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items;
-        console.log(items);
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, imageDictionary = _a.imageDictionary;
+        if (imageDictionary != null) {
+            console.log(imageDictionary);
+            console.log(imageDictionary.Count());
+        }
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -77,8 +81,8 @@ var SectionProducts = /** @class */ (function (_super) {
                     React.createElement("div", { className: "row portfolio-container" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
                         React.createElement("div", { className: "portfolio-wrap" },
                             React.createElement("figure", null,
-                                React.createElement("img", { src: "{item.image}", className: "img-fluid", alt: "" }),
-                                React.createElement("a", { href: "{item.image}", "data-lightbox": "portfolio", "data-title": "App 1", className: "link-preview", title: "Preview" },
+                                React.createElement("img", { src: imageDictionary[1], className: "img-fluid", alt: "" }),
+                                React.createElement("a", { href: imageDictionary[1], "data-lightbox": "portfolio", "data-title": item.name, className: "link-preview", title: "Preview" },
                                     React.createElement("i", { className: "ion ion-eye" })),
                                 React.createElement("a", { href: "#", className: "link-details", title: "More Details" },
                                     React.createElement("i", { className: "ion ion-android-open" }))),

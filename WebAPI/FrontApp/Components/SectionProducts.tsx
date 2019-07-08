@@ -17,7 +17,7 @@ export class SectionProducts extends React.Component<any, any>
     public getImageForProduct(imageDictionary: KeyedCollection<number>, productId: number) {
         axios.get(API_Path + '/ProductsImages/' + productId)
             .then((response) => {
-                imageDictionary.Add(productId, response.data);
+                imageDictionary.Add('a' + productId, response);    
             })
             .catch((error) => {
                
@@ -38,7 +38,7 @@ export class SectionProducts extends React.Component<any, any>
             .then((response) =>
             {
                 response.data.map(product => (
-                    this.getImageForProduct(imgDictionary, product.ProductId)
+                    this.getImageForProduct(imgDictionary, product.productId)
                 ));
 
                 this.setState({ isLoaded: true, items: response.data, imageDictionary: imgDictionary });
@@ -53,7 +53,11 @@ export class SectionProducts extends React.Component<any, any>
 
     render() {
         const { error, isLoaded, items, imageDictionary} = this.state;
-        console.log(items);
+        if (imageDictionary != null) {
+            console.log(imageDictionary);
+            console.log(imageDictionary.Count());
+        }
+
         if (error)
         {
             console.log(error);
@@ -91,8 +95,8 @@ export class SectionProducts extends React.Component<any, any>
                                     <div key={i} className="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
                                         <div className="portfolio-wrap">
                                             <figure>
-                                                <img src={imageDictionary[item.productId]} className="img-fluid" alt="" />
-                                                <a href="{item.image}" data-lightbox="portfolio" data-title="App 1" className="link-preview" title="Preview"><i className="ion ion-eye"></i></a>
+                                                <img src={imageDictionary[1]} className="img-fluid" alt="" />
+                                                <a href={imageDictionary[1]} data-lightbox="portfolio" data-title={item.name} className="link-preview" title="Preview"><i className="ion ion-eye"></i></a>
                                                 <a href="#" className="link-details" title="More Details"><i className="ion ion-android-open"></i></a>
                                             </figure>
 

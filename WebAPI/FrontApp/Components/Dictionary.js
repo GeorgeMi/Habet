@@ -25,17 +25,13 @@ var KeyedCollection = /** @class */ (function () {
     KeyedCollection.prototype.Item = function (key) {
         return this.items[key];
     };
-    //public Keys(): number[] {
-    //    var keySet: number[] = [];
-    //    for (var prop in this.items) {
-    //        if (this.items.hasOwnProperty(prop)) {
-    //            keySet.push(prop);
-    //        }
-    //    }
-    //    return keySet;
-    //}
     KeyedCollection.prototype.Keys = function () {
         var keySet = [];
+        for (var prop in this.items) {
+            if (this.items.hasOwnProperty(prop)) {
+                keySet.push(prop);
+            }
+        }
         return keySet;
     };
     KeyedCollection.prototype.Values = function () {

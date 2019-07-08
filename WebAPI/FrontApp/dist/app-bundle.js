@@ -86,6 +86,66 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./Components/Dictionary.js":
+/*!**********************************!*\
+  !*** ./Components/Dictionary.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var KeyedCollection = /** @class */ (function () {
+    function KeyedCollection() {
+        this.items = {};
+        this.count = 0;
+    }
+    KeyedCollection.prototype.ContainsKey = function (key) {
+        return this.items.hasOwnProperty(key);
+    };
+    KeyedCollection.prototype.Count = function () {
+        return this.count;
+    };
+    KeyedCollection.prototype.Add = function (key, value) {
+        if (!this.items.hasOwnProperty(key))
+            this.count++;
+        this.items[key] = value;
+    };
+    KeyedCollection.prototype.Remove = function (key) {
+        var val = this.items[key];
+        delete this.items[key];
+        this.count--;
+        return val;
+    };
+    KeyedCollection.prototype.Item = function (key) {
+        return this.items[key];
+    };
+    KeyedCollection.prototype.Keys = function () {
+        var keySet = [];
+        for (var prop in this.items) {
+            if (this.items.hasOwnProperty(prop)) {
+                keySet.push(prop);
+            }
+        }
+        return keySet;
+    };
+    KeyedCollection.prototype.Values = function () {
+        var values = [];
+        for (var prop in this.items) {
+            if (this.items.hasOwnProperty(prop)) {
+                values.push(this.items[prop]);
+            }
+        }
+        return values;
+    };
+    return KeyedCollection;
+}());
+exports.KeyedCollection = KeyedCollection;
+//# sourceMappingURL=Dictionary.js.map
+
+/***/ }),
+
 /***/ "./Components/Footer.js":
 /*!******************************!*\
   !*** ./Components/Footer.js ***!
@@ -786,6 +846,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
 var config = __webpack_require__(/*! config */ "config");
 var API_Path = config.API_Path;
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -793,18 +854,29 @@ var SectionProducts = /** @class */ (function (_super) {
     __extends(SectionProducts, _super);
     function SectionProducts(props) {
         var _this = _super.call(this, props) || this;
-        _this.state = { isLoaded: false, items: null, error: null };
+        _this.state = { isLoaded: false, items: null, error: null, imageDictionary: null };
         return _this;
     }
+    SectionProducts.prototype.getImageForProduct = function (imageDictionary, productId) {
+        axios.get(API_Path + '/ProductsImages/' + productId)
+            .then(function (response) {
+            imageDictionary.Add('a' + productId, response);
+        })
+            .catch(function (error) {
+        })
+            .then();
+    };
     SectionProducts.prototype.componentWillMount = function () {
         var _this = this;
+        var imgDictionary = new Dictionary_1.KeyedCollection();
         axios.get(API_Path + '/Products', {
             params: {
                 ID: 1
             }
         })
             .then(function (response) {
-            _this.setState({ isLoaded: true, items: response.data });
+            response.data.map(function (product) { return (_this.getImageForProduct(imgDictionary, product.productId)); });
+            _this.setState({ isLoaded: true, items: response.data, imageDictionary: imgDictionary });
         })
             .catch(function (error) {
             _this.setState({ isLoaded: true, error: error });
@@ -812,8 +884,11 @@ var SectionProducts = /** @class */ (function (_super) {
             .then();
     };
     SectionProducts.prototype.render = function () {
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items;
-        console.log(items);
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, imageDictionary = _a.imageDictionary;
+        if (imageDictionary != null) {
+            console.log(imageDictionary);
+            console.log(imageDictionary.Count());
+        }
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -838,8 +913,8 @@ var SectionProducts = /** @class */ (function (_super) {
                     React.createElement("div", { className: "row portfolio-container" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
                         React.createElement("div", { className: "portfolio-wrap" },
                             React.createElement("figure", null,
-                                React.createElement("img", { src: "{item.image}", className: "img-fluid", alt: "" }),
-                                React.createElement("a", { href: "{item.image}", "data-lightbox": "portfolio", "data-title": "App 1", className: "link-preview", title: "Preview" },
+                                React.createElement("img", { src: imageDictionary[1], className: "img-fluid", alt: "" }),
+                                React.createElement("a", { href: imageDictionary[1], "data-lightbox": "portfolio", "data-title": item.name, className: "link-preview", title: "Preview" },
                                     React.createElement("i", { className: "ion ion-eye" })),
                                 React.createElement("a", { href: "#", className: "link-details", title: "More Details" },
                                     React.createElement("i", { className: "ion ion-android-open" }))),
