@@ -14,7 +14,7 @@ export class SectionProducts extends React.Component<any, any>
    
      }
 
-    public getImageForProduct(imageDictionary: KeyedCollection<number>, productId: number) {
+    public getImageForProduct(imageDictionary: KeyedCollection<string>, productId: number) {
         axios.get(API_Path + '/ProductsImages/' + productId)
             .then((response) => {
                 imageDictionary.Add('a' + productId, response);    
@@ -27,7 +27,7 @@ export class SectionProducts extends React.Component<any, any>
 
     componentWillMount()
     {
-        var imgDictionary = new KeyedCollection<number>();
+        var imgDictionary = new KeyedCollection<string>();
 
         axios.get(API_Path + '/Products',
             {
