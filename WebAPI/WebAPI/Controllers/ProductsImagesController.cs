@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
 
         // GET: api/ProductsImages/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Stream>> GetProductsImages(int id)
+        public async Task<ActionResult<string>> GetProductsImages(int id)
         {
             var productsImages = await _context.ProductsImages.FirstOrDefaultAsync(p => p.ProductId == id);
             if (productsImages == null)
@@ -32,8 +32,12 @@ namespace WebAPI.Controllers
             }
 
             MemoryStream ms = new MemoryStream(productsImages.Data);
+            var fs = new FileStreamResult(ms, productsImages.ContentType);
 
-            return new FileStreamResult(ms, productsImages.ContentType);
+            string imageBase64Data = Convert.ToBase64String(productsImages.Data);
+            string imageDataURL = string.Format("data:{0};base64,{1}", productsImages.ContentType,imageBase64Data);
+
+            return imageDataURL;
         }
 
         // PUT: api/ProductsImages/5
