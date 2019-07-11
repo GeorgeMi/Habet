@@ -9,18 +9,17 @@ const axios = require('axios');
 export class SectionProducts extends React.Component<any, any>
 {
      constructor(props)
-    {
+     {
         super(props);
-         this.state = { isLoaded: false, items: null, error: null, imageDictionary: new KeyedCollection<number>()};
-   
+
+         var dictionary = new KeyedCollection<string>();
+         this.state = { isLoaded: false, items: null, error: null, imageDictionary: dictionary };  
+
+         this.getImageForProduct = this.getImageForProduct.bind(this);
      }
 
     componentWillMount()
     {
-        this.setState({
-            imageDictionary: new KeyedCollection<number>()
-        });
-
        axios.get(API_Path + '/Products',
             {
             params: {
@@ -29,8 +28,10 @@ export class SectionProducts extends React.Component<any, any>
         })
             .then((response) =>
             {
-                this.setState({ isLoaded: true, items: response.data});
-                response.data.map(item => (this.getImageForProduct(item.productId)));
+                var dictionary = this.state.imageDictionary;
+                this.setState({ isLoaded: true, items: response.data, imageDictionary: dictionary });
+
+                response.data.map(item => (this.getImageForProduct(item.productId)));         
             })
             .catch((error) =>
             {
@@ -43,17 +44,18 @@ export class SectionProducts extends React.Component<any, any>
         axios.get(API_Path + '/ProductsImages/' + productId)
             .then((response) => {
 
-                this.setState({
-                    imageDictionary: this.state.imageDictionary.Add(productId, response.data)
-                });               
+                var dictionary = this.state.imageDictionary;
+                dictionary.Add(productId, response.data);
+
+                this.setState({imageDictionary: dictionary});
             }).catch(err => {
-                console.log(err);              
+                console.log(productId + " .... " + this.state.imageDictionary);
+                //console.log(err);        
             })
     }
 
     render() {
         const { error, isLoaded, items, imageDictionary } = this.state;
-        
         if (error)
         {
             console.log(error);
@@ -66,12 +68,7 @@ export class SectionProducts extends React.Component<any, any>
         } else
         {
             
-            if (null != imageDictionary)
-            {
-                console.log(imageDictionary);
-                console.log(imageDictionary.Item(1));
-            }
-            return (
+             return (
                 <section id="portfolio" className="section-bg">
                     <div className="container">
 
@@ -97,8 +94,8 @@ export class SectionProducts extends React.Component<any, any>
                                     <div key={i} className="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
                                         <div className="portfolio-wrap">
                                             <figure>
-                                                <img src="A" className="img-fluid" alt="" />
-                                                <a href="test1" data-lightbox="portfolio" data-title={item.name} className="link-preview" title="Preview"><i className="ion ion-eye"></i></a>
+                                                <img src={imageDictionary.Item(item.productId)} className="img-fluid" alt="" />
+                                                <a href={imageDictionary.Item(item.productId)} data-lightbox="portfolio" data-title={item.name} className="link-preview" title="Preview"><i className="ion ion-eye"></i></a>
                                                 <a href="#" className="link-details" title="More Details"><i className="ion ion-android-open"></i></a>
                                             </figure>
 

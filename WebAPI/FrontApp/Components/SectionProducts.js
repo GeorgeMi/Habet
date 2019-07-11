@@ -22,21 +22,21 @@ var SectionProducts = /** @class */ (function (_super) {
     __extends(SectionProducts, _super);
     function SectionProducts(props) {
         var _this = _super.call(this, props) || this;
-        _this.state = { isLoaded: false, items: null, error: null, imageDictionary: new Dictionary_1.KeyedCollection() };
+        var dictionary = new Dictionary_1.KeyedCollection();
+        _this.state = { isLoaded: false, items: null, error: null, imageDictionary: dictionary };
+        _this.getImageForProduct = _this.getImageForProduct.bind(_this);
         return _this;
     }
     SectionProducts.prototype.componentWillMount = function () {
         var _this = this;
-        this.setState({
-            imageDictionary: new Dictionary_1.KeyedCollection()
-        });
         axios.get(API_Path + '/Products', {
             params: {
                 ID: 1
             }
         })
             .then(function (response) {
-            _this.setState({ isLoaded: true, items: response.data });
+            var dictionary = _this.state.imageDictionary;
+            _this.setState({ isLoaded: true, items: response.data, imageDictionary: dictionary });
             response.data.map(function (item) { return (_this.getImageForProduct(item.productId)); });
         })
             .catch(function (error) {
@@ -48,11 +48,12 @@ var SectionProducts = /** @class */ (function (_super) {
         var _this = this;
         axios.get(API_Path + '/ProductsImages/' + productId)
             .then(function (response) {
-            _this.setState({
-                imageDictionary: _this.state.imageDictionary.Add(productId, response.data)
-            });
+            var dictionary = _this.state.imageDictionary;
+            dictionary.Add(productId, response.data);
+            _this.setState({ imageDictionary: dictionary });
         }).catch(function (err) {
-            console.log(err);
+            console.log(productId + " .... " + _this.state.imageDictionary);
+            //console.log(err);        
         });
     };
     SectionProducts.prototype.render = function () {
@@ -67,11 +68,6 @@ var SectionProducts = /** @class */ (function (_super) {
             return React.createElement("div", null, "Loading...");
         }
         else {
-            if (null != imageDictionary) {
-                console.log(imageDictionary);
-                console.log(imageDictionary.Item(1));
-            }
-            //console.log(this.getImageForProduct(1)[0]);
             return (React.createElement("section", { id: "portfolio", className: "section-bg" },
                 React.createElement("div", { className: "container" },
                     React.createElement("header", { className: "section-header" },
@@ -86,8 +82,8 @@ var SectionProducts = /** @class */ (function (_super) {
                     React.createElement("div", { className: "row portfolio-container" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
                         React.createElement("div", { className: "portfolio-wrap" },
                             React.createElement("figure", null,
-                                React.createElement("img", { src: "A", className: "img-fluid", alt: "" }),
-                                React.createElement("a", { href: "test1", "data-lightbox": "portfolio", "data-title": item.name, className: "link-preview", title: "Preview" },
+                                React.createElement("img", { src: imageDictionary.Item(item.productId), className: "img-fluid", alt: "" }),
+                                React.createElement("a", { href: imageDictionary.Item(item.productId), "data-lightbox": "portfolio", "data-title": item.name, className: "link-preview", title: "Preview" },
                                     React.createElement("i", { className: "ion ion-eye" })),
                                 React.createElement("a", { href: "#", className: "link-details", title: "More Details" },
                                     React.createElement("i", { className: "ion ion-android-open" }))),
