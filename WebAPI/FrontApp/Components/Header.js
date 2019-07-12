@@ -30,7 +30,7 @@ var Header = /** @class */ (function (_super) {
                 React.createElement("nav", { id: "nav-menu-container" },
                     React.createElement("ul", { className: "nav-menu" },
                         React.createElement("li", { className: "menu-active" },
-                            React.createElement("a", { href: "#intro" }, "Home")),
+                            React.createElement("a", { href: "/#/" }, "Home")),
                         React.createElement("li", null,
                             React.createElement("a", { href: "#about" }, "About Us")),
                         React.createElement("li", null,
@@ -51,7 +51,7 @@ var Header = /** @class */ (function (_super) {
                                 React.createElement("li", null,
                                     React.createElement("a", { href: "#" }, "Drop Down 5")))),
                         React.createElement("li", null,
-                            React.createElement("a", { href: "#contact" }, "Contact")))))));
+                            React.createElement("a", { href: "/#/contact" }, "Contact")))))));
     };
     return Header;
 }(React.Component));

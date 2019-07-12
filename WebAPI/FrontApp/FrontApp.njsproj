@@ -59,16 +59,13 @@
     <TypeScriptCompile Include="Components\Header.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Components\Intro.tsx">
+    <TypeScriptCompile Include="Components\SectionIntro.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Components\Layout.tsx">
+    <TypeScriptCompile Include="Components\PageHome.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Components\Main.tsx">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="Components\SectionContact.tsx" />
+    <TypeScriptCompile Include="Components\PageContact.tsx" />
     <TypeScriptCompile Include="Components\SectionProducts.tsx" />
     <TypeScriptCompile Include="Components\SectionFacts.tsx" />
     <TypeScriptCompile Include="Components\SectionSkills.tsx" />
