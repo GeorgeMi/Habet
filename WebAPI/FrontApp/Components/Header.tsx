@@ -1,19 +1,31 @@
 ﻿import * as React from 'react';
+import { KeyedCollection } from './Dictionary';
 
-export class Header extends React.Component {
+export class Header extends React.Component<any, any> {
+    constructor(props) {
+        super(props);
+
+        var dictionary = new KeyedCollection<string>();
+        dictionary.Add(props.Active, 'menu-active');
+        console.log(dictionary);
+
+        this.state = {headerDictionary: dictionary };
+    }
+
     render() {
+        const { headerDictionary } = this.state;
         return (
             <header id="header">
                 <div className="container-fluid">
                     <div id="logo" className="pull-left">
-                        <h1><a href="#intro" className="scrollto">GabrielHabet</a></h1>
+                        <h1><a href="/#/" className="scrollto">GabrielHabet</a></h1>
                         
-               <a href="#intro"><img src="img/logo.png" alt="" title="" /></a>
+                        <a href="/#/"><img src="img/logo.png" alt="" title="" /></a>
             </div>
 
                     <nav id="nav-menu-container">
                         <ul className="nav-menu">
-                            <li className="menu-active"><a href="/#/">Home</a></li>
+                            <li className={headerDictionary.Item('Home')}><a href="/#/">Home</a></li>
                             <li><a href="#about">About Us</a></li>
                             <li><a href="#services">Services</a></li>
                             <li><a href="#portfolio">Portfolio</a></li>
@@ -27,7 +39,7 @@ export class Header extends React.Component {
                                     <li><a href="#">Drop Down 5</a></li>
                                 </ul>
                             </li>
-                            <li><a href="/#/contact">Contact</a></li>
+                            <li className={headerDictionary.Item('Contact')}><a href="/#/contact">Contact</a></li>
                         </ul>
                     </nav>
         </div>

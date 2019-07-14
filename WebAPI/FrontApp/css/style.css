@@ -125,14 +125,15 @@ h6 {
 --------------------------------------------------------------*/
 
 #header {
-  padding: 30px 0;
-  height: 92px;
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  transition: all 0.5s;
-  z-index: 997;
+    padding: 20px 0;
+    height: 63px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    transition: all 0.5s;
+    z-index: 997;
+    background-color: rgba(24, 210, 110, 0.8);
 }
 
 #header.header-scrolled {

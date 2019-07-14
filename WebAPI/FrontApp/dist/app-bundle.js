@@ -210,14 +210,14 @@ var Footer = /** @class */ (function (_super) {
                         React.createElement("div", { className: "col-lg-3 col-md-6 footer-contact" },
                             React.createElement("h4", null, "Contact Us"),
                             React.createElement("p", null,
-                                "A108 Adam Street ",
+                                "73 Somerfield Rd ",
                                 React.createElement("br", null),
-                                "New York, NY 535022",
+                                "Manchester M9 8AQ",
                                 React.createElement("br", null),
-                                "United States ",
+                                "United Kingdom ",
                                 React.createElement("br", null),
                                 React.createElement("strong", null, "Phone:"),
-                                " +1 5589 55488 55",
+                                " +44 161 258 2629",
                                 React.createElement("br", null),
                                 React.createElement("strong", null, "Email:"),
                                 " info@example.com",
@@ -241,9 +241,9 @@ var Footer = /** @class */ (function (_super) {
                                 React.createElement("input", { type: "submit", value: "Subscribe" })))))),
             React.createElement("div", { className: "container" },
                 React.createElement("div", { className: "copyright" },
-                    "\u00A9 Copyright ",
-                    React.createElement("strong", null, "BizPage"),
-                    ". All Rights Reserved"),
+                    "\u00A9 Made by ",
+                    React.createElement("strong", null, "George Miron"),
+                    " \u00A9 2019. All Rights Reserved"),
                 React.createElement("div", { className: "credits" }))));
     };
     return Footer;
@@ -277,22 +277,29 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
 var Header = /** @class */ (function (_super) {
     __extends(Header, _super);
-    function Header() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function Header(props) {
+        var _this = _super.call(this, props) || this;
+        var dictionary = new Dictionary_1.KeyedCollection();
+        dictionary.Add(props.Active, 'menu-active');
+        console.log(dictionary);
+        _this.state = { headerDictionary: dictionary };
+        return _this;
     }
     Header.prototype.render = function () {
+        var headerDictionary = this.state.headerDictionary;
         return (React.createElement("header", { id: "header" },
             React.createElement("div", { className: "container-fluid" },
                 React.createElement("div", { id: "logo", className: "pull-left" },
                     React.createElement("h1", null,
-                        React.createElement("a", { href: "#intro", className: "scrollto" }, "GabrielHabet")),
-                    React.createElement("a", { href: "#intro" },
+                        React.createElement("a", { href: "/#/", className: "scrollto" }, "GabrielHabet")),
+                    React.createElement("a", { href: "/#/" },
                         React.createElement("img", { src: "img/logo.png", alt: "", title: "" }))),
                 React.createElement("nav", { id: "nav-menu-container" },
                     React.createElement("ul", { className: "nav-menu" },
-                        React.createElement("li", { className: "menu-active" },
+                        React.createElement("li", { className: headerDictionary.Item('Home') },
                             React.createElement("a", { href: "/#/" }, "Home")),
                         React.createElement("li", null,
                             React.createElement("a", { href: "#about" }, "About Us")),
@@ -313,7 +320,7 @@ var Header = /** @class */ (function (_super) {
                                     React.createElement("a", { href: "#" }, "Drop Down 4")),
                                 React.createElement("li", null,
                                     React.createElement("a", { href: "#" }, "Drop Down 5")))),
-                        React.createElement("li", null,
+                        React.createElement("li", { className: headerDictionary.Item('Contact') },
                             React.createElement("a", { href: "/#/contact" }, "Contact")))))));
     };
     return Header;
@@ -347,54 +354,59 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
 var Contact = /** @class */ (function (_super) {
     __extends(Contact, _super);
     function Contact() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Contact.prototype.render = function () {
-        return (React.createElement("section", { id: "contact", className: "section-bg wow fadeInUp" },
-            React.createElement("div", { className: "container" },
-                React.createElement("div", { className: "section-header" },
-                    React.createElement("h3", null, "Contact Us"),
-                    React.createElement("p", null, "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque")),
-                React.createElement("div", { className: "row contact-info" },
-                    React.createElement("div", { className: "col-md-4" },
-                        React.createElement("div", { className: "contact-address" },
-                            React.createElement("i", { className: "ion-ios-location-outline" }),
-                            React.createElement("h3", null, "Address"),
-                            React.createElement("address", null, "A108 Adam Street, NY 535022, USA"))),
-                    React.createElement("div", { className: "col-md-4" },
-                        React.createElement("div", { className: "contact-phone" },
-                            React.createElement("i", { className: "ion-ios-telephone-outline" }),
-                            React.createElement("h3", null, "Phone Number"),
-                            React.createElement("p", null,
-                                React.createElement("a", { href: "tel:+155895548855" }, "+1 5589 55488 55")))),
-                    React.createElement("div", { className: "col-md-4" },
-                        React.createElement("div", { className: "contact-email" },
-                            React.createElement("i", { className: "ion-ios-email-outline" }),
-                            React.createElement("h3", null, "Email"),
-                            React.createElement("p", null,
-                                React.createElement("a", { href: "mailto:info@example.com" }, "info@example.com"))))),
-                React.createElement("div", { className: "form" },
-                    React.createElement("div", { id: "sendmessage" }, "Your message has been sent. Thank you!"),
-                    React.createElement("div", { id: "errormessage" }),
-                    React.createElement("form", { action: "", method: "post", role: "form", className: "contactForm" },
-                        React.createElement("div", { className: "form-row" },
-                            React.createElement("div", { className: "form-group col-md-6" },
-                                React.createElement("input", { type: "text", name: "name", className: "form-control", id: "name", placeholder: "Your Name", "data-rule": "minlen:4", "data-msg": "Please enter at least 4 chars" }),
+        return (React.createElement("div", null,
+            React.createElement(Header_1.Header, { Active: 'Contact' }),
+            React.createElement("br", null),
+            React.createElement("br", null),
+            React.createElement("section", { id: "contact", className: "section-bg wow fadeInUp" },
+                React.createElement("div", { className: "container" },
+                    React.createElement("div", { className: "section-header" },
+                        React.createElement("h3", null, "Contact Us"),
+                        React.createElement("p", null, "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque")),
+                    React.createElement("div", { className: "row contact-info" },
+                        React.createElement("div", { className: "col-md-4" },
+                            React.createElement("div", { className: "contact-address" },
+                                React.createElement("i", { className: "ion-ios-location-outline" }),
+                                React.createElement("h3", null, "Address"),
+                                React.createElement("address", null, "73 Somerfield Rd, Manchester M9 8AQ, UK"))),
+                        React.createElement("div", { className: "col-md-4" },
+                            React.createElement("div", { className: "contact-phone" },
+                                React.createElement("i", { className: "ion-ios-telephone-outline" }),
+                                React.createElement("h3", null, "Phone Number"),
+                                React.createElement("p", null,
+                                    React.createElement("a", { href: "tel:+441612582629" }, "+44 161 258 2629")))),
+                        React.createElement("div", { className: "col-md-4" },
+                            React.createElement("div", { className: "contact-email" },
+                                React.createElement("i", { className: "ion-ios-email-outline" }),
+                                React.createElement("h3", null, "Email"),
+                                React.createElement("p", null,
+                                    React.createElement("a", { href: "mailto:info@example.com" }, "info@example.com"))))),
+                    React.createElement("div", { className: "form" },
+                        React.createElement("div", { id: "sendmessage" }, "Your message has been sent. Thank you!"),
+                        React.createElement("div", { id: "errormessage" }),
+                        React.createElement("form", { action: "", method: "post", role: "form", className: "contactForm" },
+                            React.createElement("div", { className: "form-row" },
+                                React.createElement("div", { className: "form-group col-md-6" },
+                                    React.createElement("input", { type: "text", name: "name", className: "form-control", id: "name", placeholder: "Your Name", "data-rule": "minlen:4", "data-msg": "Please enter at least 4 chars" }),
+                                    React.createElement("div", { className: "validation" })),
+                                React.createElement("div", { className: "form-group col-md-6" },
+                                    React.createElement("input", { type: "email", className: "form-control", name: "email", id: "email", placeholder: "Your Email", "data-rule": "email", "data-msg": "Please enter a valid email" }),
+                                    React.createElement("div", { className: "validation" }))),
+                            React.createElement("div", { className: "form-group" },
+                                React.createElement("input", { type: "text", className: "form-control", name: "subject", id: "subject", placeholder: "Subject", "data-rule": "minlen:4", "data-msg": "Please enter at least 8 chars of subject" }),
                                 React.createElement("div", { className: "validation" })),
-                            React.createElement("div", { className: "form-group col-md-6" },
-                                React.createElement("input", { type: "email", className: "form-control", name: "email", id: "email", placeholder: "Your Email", "data-rule": "email", "data-msg": "Please enter a valid email" }),
-                                React.createElement("div", { className: "validation" }))),
-                        React.createElement("div", { className: "form-group" },
-                            React.createElement("input", { type: "text", className: "form-control", name: "subject", id: "subject", placeholder: "Subject", "data-rule": "minlen:4", "data-msg": "Please enter at least 8 chars of subject" }),
-                            React.createElement("div", { className: "validation" })),
-                        React.createElement("div", { className: "form-group" },
-                            React.createElement("textarea", { className: "form-control", name: "message", "data-rule": "required", "data-msg": "Please write something for us", placeholder: "Message" }),
-                            React.createElement("div", { className: "validation" })),
-                        React.createElement("div", { className: "text-center" },
-                            React.createElement("button", { type: "submit" }, "Send Message")))))));
+                            React.createElement("div", { className: "form-group" },
+                                React.createElement("textarea", { className: "form-control", name: "message", "data-rule": "required", "data-msg": "Please write something for us", placeholder: "Message" }),
+                                React.createElement("div", { className: "validation" })),
+                            React.createElement("div", { className: "text-center" },
+                                React.createElement("button", { type: "submit" }, "Send Message"))))))));
     };
     return Contact;
 }(React.Component));
@@ -427,14 +439,9 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var SectionAboutUs_1 = __webpack_require__(/*! ./SectionAboutUs */ "./Components/SectionAboutUs.js");
-var SectionCallToAction_1 = __webpack_require__(/*! ./SectionCallToAction */ "./Components/SectionCallToAction.js");
-var SectionFacts_1 = __webpack_require__(/*! ./SectionFacts */ "./Components/SectionFacts.js");
-var SectionFeaturedServices_1 = __webpack_require__(/*! ./SectionFeaturedServices */ "./Components/SectionFeaturedServices.js");
 var SectionProducts_1 = __webpack_require__(/*! ./SectionProducts */ "./Components/SectionProducts.js");
-var SectionServices_1 = __webpack_require__(/*! ./SectionServices */ "./Components/SectionServices.js");
-var SectionSkills_1 = __webpack_require__(/*! ./SectionSkills */ "./Components/SectionSkills.js");
 var SectionIntro_1 = __webpack_require__(/*! ./SectionIntro */ "./Components/SectionIntro.js");
+var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
 var Home = /** @class */ (function (_super) {
     __extends(Home, _super);
     function Home() {
@@ -443,19 +450,77 @@ var Home = /** @class */ (function (_super) {
     Home.prototype.render = function () {
         return (React.createElement("main", { id: "main" },
             React.createElement("div", null,
+                React.createElement(Header_1.Header, { Active: 'Home' }),
                 React.createElement(SectionIntro_1.SectionIntro, null),
-                React.createElement(SectionFeaturedServices_1.SectionFeaturedServices, null),
-                React.createElement(SectionAboutUs_1.SectionAboutUs, null),
-                React.createElement(SectionServices_1.SectionServices, null),
-                React.createElement(SectionCallToAction_1.SectionCallToAction, null),
-                React.createElement(SectionSkills_1.SectionSkills, null),
-                React.createElement(SectionFacts_1.SectionFacts, null),
+                React.createElement(SectionProducts_1.SectionProducts, null),
                 React.createElement(SectionProducts_1.SectionProducts, null))));
     };
     return Home;
 }(React.Component));
 exports.Home = Home;
 //# sourceMappingURL=PageHome.js.map
+
+/***/ }),
+
+/***/ "./Components/PageNotFound.js":
+/*!************************************!*\
+  !*** ./Components/PageNotFound.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
+var SectionServices_1 = __webpack_require__(/*! ./SectionServices */ "./Components/SectionServices.js");
+var SectionSkills_1 = __webpack_require__(/*! ./SectionSkills */ "./Components/SectionSkills.js");
+var SectionAboutUs_1 = __webpack_require__(/*! ./SectionAboutUs */ "./Components/SectionAboutUs.js");
+var SectionCallToAction_1 = __webpack_require__(/*! ./SectionCallToAction */ "./Components/SectionCallToAction.js");
+var SectionFacts_1 = __webpack_require__(/*! ./SectionFacts */ "./Components/SectionFacts.js");
+var SectionFeaturedServices_1 = __webpack_require__(/*! ./SectionFeaturedServices */ "./Components/SectionFeaturedServices.js");
+var NotFound = /** @class */ (function (_super) {
+    __extends(NotFound, _super);
+    function NotFound() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    NotFound.prototype.render = function () {
+        return (React.createElement("div", null,
+            React.createElement(Header_1.Header, null),
+            React.createElement("br", null),
+            React.createElement("br", null),
+            React.createElement("h2", null, "ARE YOU HAPPY NOW?"),
+            React.createElement("h3", null, "Just kidding! Our bad."),
+            React.createElement("br", null),
+            React.createElement("h1", null, "404 NOT FOUND"),
+            React.createElement("br", null),
+            React.createElement("br", null),
+            React.createElement("br", null),
+            React.createElement(SectionFeaturedServices_1.SectionFeaturedServices, null),
+            React.createElement(SectionAboutUs_1.SectionAboutUs, null),
+            React.createElement(SectionServices_1.SectionServices, null),
+            React.createElement(SectionCallToAction_1.SectionCallToAction, null),
+            React.createElement(SectionSkills_1.SectionSkills, null),
+            React.createElement(SectionFacts_1.SectionFacts, null)));
+    };
+    return NotFound;
+}(React.Component));
+exports.NotFound = NotFound;
+//# sourceMappingURL=PageNotFound.js.map
 
 /***/ }),
 
@@ -857,14 +922,7 @@ var SectionProducts = /** @class */ (function (_super) {
             return (React.createElement("section", { id: "portfolio", className: "section-bg" },
                 React.createElement("div", { className: "container" },
                     React.createElement("header", { className: "section-header" },
-                        React.createElement("h3", { className: "section-title" }, "Our Portfolio")),
-                    React.createElement("div", { className: "row" },
-                        React.createElement("div", { className: "col-lg-12" },
-                            React.createElement("ul", { id: "portfolio-flters" },
-                                React.createElement("li", { "data-filter": "*", className: "filter-active" }, "All"),
-                                React.createElement("li", { "data-filter": ".filter-app" }, "App"),
-                                React.createElement("li", { "data-filter": ".filter-card" }, "Card"),
-                                React.createElement("li", { "data-filter": ".filter-web" }, "Web")))),
+                        React.createElement("h3", { className: "section-title" }, "Purses")),
                     React.createElement("div", { className: "row portfolio-container" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
                         React.createElement("div", { className: "portfolio-wrap" },
                             React.createElement("figure", null,
@@ -1038,8 +1096,8 @@ var ReactDOM = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/in
 var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 var PageHome_1 = __webpack_require__(/*! ./Components/PageHome */ "./Components/PageHome.js");
 var PageContact_1 = __webpack_require__(/*! ./Components/PageContact */ "./Components/PageContact.js");
-var Header_1 = __webpack_require__(/*! ./Components/Header */ "./Components/Header.js");
 var Footer_1 = __webpack_require__(/*! ./Components/Footer */ "./Components/Footer.js");
+var PageNotFound_1 = __webpack_require__(/*! ./Components/PageNotFound */ "./Components/PageNotFound.js");
 var App = /** @class */ (function (_super) {
     __extends(App, _super);
     function App() {
@@ -1048,10 +1106,10 @@ var App = /** @class */ (function (_super) {
     App.prototype.render = function () {
         return (React.createElement(react_router_dom_1.HashRouter, null,
             React.createElement("div", null,
-                React.createElement(Header_1.Header, null),
                 React.createElement(react_router_dom_1.Switch, null,
                     React.createElement(react_router_dom_1.Route, { exact: true, path: "/", component: PageHome_1.Home }),
-                    React.createElement(react_router_dom_1.Route, { exact: true, path: "/contact", component: PageContact_1.Contact })),
+                    React.createElement(react_router_dom_1.Route, { exact: true, path: "/contact", component: PageContact_1.Contact }),
+                    React.createElement(react_router_dom_1.Route, { component: PageNotFound_1.NotFound })),
                 React.createElement(Footer_1.Footer, null))));
     };
     return App;

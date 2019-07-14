@@ -1,8 +1,13 @@
 ﻿import * as React from 'react';
+import { Header } from './Header';
 
 export class Contact extends React.Component {
     render() {
         return (
+            <div>
+            <Header Active={'Contact'}/>
+                <br />
+                <br />
             <section id="contact" className="section-bg wow fadeInUp">
                 <div className="container">
 
@@ -17,7 +22,7 @@ export class Contact extends React.Component {
                             <div className="contact-address">
                                 <i className="ion-ios-location-outline"></i>
                                 <h3>Address</h3>
-                                <address>A108 Adam Street, NY 535022, USA</address>
+                                <address>73 Somerfield Rd, Manchester M9 8AQ, UK</address>
                             </div>
                         </div>
 
@@ -25,7 +30,7 @@ export class Contact extends React.Component {
                             <div className="contact-phone">
                                 <i className="ion-ios-telephone-outline"></i>
                                 <h3>Phone Number</h3>
-                                <p><a href="tel:+155895548855">+1 5589 55488 55</a></p>
+                                <p><a href="tel:+441612582629">+44 161 258 2629</a></p>
                             </div>
                         </div>
 
@@ -65,8 +70,9 @@ export class Contact extends React.Component {
                         </form>
                     </div>
 
-                </div>
-            </section>
+                    </div>
+                </section>
+            </div>
         );
     }
 }

@@ -14,22 +14,29 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
+var Dictionary_1 = require("./Dictionary");
 var Header = /** @class */ (function (_super) {
     __extends(Header, _super);
-    function Header() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function Header(props) {
+        var _this = _super.call(this, props) || this;
+        var dictionary = new Dictionary_1.KeyedCollection();
+        dictionary.Add(props.Active, 'menu-active');
+        console.log(dictionary);
+        _this.state = { headerDictionary: dictionary };
+        return _this;
     }
     Header.prototype.render = function () {
+        var headerDictionary = this.state.headerDictionary;
         return (React.createElement("header", { id: "header" },
             React.createElement("div", { className: "container-fluid" },
                 React.createElement("div", { id: "logo", className: "pull-left" },
                     React.createElement("h1", null,
-                        React.createElement("a", { href: "#intro", className: "scrollto" }, "GabrielHabet")),
-                    React.createElement("a", { href: "#intro" },
+                        React.createElement("a", { href: "/#/", className: "scrollto" }, "GabrielHabet")),
+                    React.createElement("a", { href: "/#/" },
                         React.createElement("img", { src: "img/logo.png", alt: "", title: "" }))),
                 React.createElement("nav", { id: "nav-menu-container" },
                     React.createElement("ul", { className: "nav-menu" },
-                        React.createElement("li", { className: "menu-active" },
+                        React.createElement("li", { className: headerDictionary.Item('Home') },
                             React.createElement("a", { href: "/#/" }, "Home")),
                         React.createElement("li", null,
                             React.createElement("a", { href: "#about" }, "About Us")),
@@ -50,7 +57,7 @@ var Header = /** @class */ (function (_super) {
                                     React.createElement("a", { href: "#" }, "Drop Down 4")),
                                 React.createElement("li", null,
                                     React.createElement("a", { href: "#" }, "Drop Down 5")))),
-                        React.createElement("li", null,
+                        React.createElement("li", { className: headerDictionary.Item('Contact') },
                             React.createElement("a", { href: "/#/contact" }, "Contact")))))));
     };
     return Header;

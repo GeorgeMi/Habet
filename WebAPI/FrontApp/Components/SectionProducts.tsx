@@ -73,19 +73,8 @@ export class SectionProducts extends React.Component<any, any>
                     <div className="container">
 
                         <header className="section-header">
-                            <h3 className="section-title">Our Portfolio</h3>
-                        </header>
-
-                        <div className="row">
-                            <div className="col-lg-12">
-                                <ul id="portfolio-flters">
-                                    <li data-filter="*" className="filter-active">All</li>
-                                    <li data-filter=".filter-app">App</li>
-                                    <li data-filter=".filter-card">Card</li>
-                                    <li data-filter=".filter-web">Web</li>
-                                </ul>
-                            </div>
-                        </div>
+                            <h3 className="section-title">Purses</h3>
+                        </header>s
 
                         <div className="row portfolio-container">
                             {

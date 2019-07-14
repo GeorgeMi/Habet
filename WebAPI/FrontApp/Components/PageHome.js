@@ -14,14 +14,9 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var SectionAboutUs_1 = require("./SectionAboutUs");
-var SectionCallToAction_1 = require("./SectionCallToAction");
-var SectionFacts_1 = require("./SectionFacts");
-var SectionFeaturedServices_1 = require("./SectionFeaturedServices");
 var SectionProducts_1 = require("./SectionProducts");
-var SectionServices_1 = require("./SectionServices");
-var SectionSkills_1 = require("./SectionSkills");
 var SectionIntro_1 = require("./SectionIntro");
+var Header_1 = require("./Header");
 var Home = /** @class */ (function (_super) {
     __extends(Home, _super);
     function Home() {
@@ -30,13 +25,9 @@ var Home = /** @class */ (function (_super) {
     Home.prototype.render = function () {
         return (React.createElement("main", { id: "main" },
             React.createElement("div", null,
+                React.createElement(Header_1.Header, { Active: 'Home' }),
                 React.createElement(SectionIntro_1.SectionIntro, null),
-                React.createElement(SectionFeaturedServices_1.SectionFeaturedServices, null),
-                React.createElement(SectionAboutUs_1.SectionAboutUs, null),
-                React.createElement(SectionServices_1.SectionServices, null),
-                React.createElement(SectionCallToAction_1.SectionCallToAction, null),
-                React.createElement(SectionSkills_1.SectionSkills, null),
-                React.createElement(SectionFacts_1.SectionFacts, null),
+                React.createElement(SectionProducts_1.SectionProducts, null),
                 React.createElement(SectionProducts_1.SectionProducts, null))));
     };
     return Home;

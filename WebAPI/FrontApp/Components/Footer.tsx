@@ -27,10 +27,10 @@ export class Footer extends React.Component {
                             <div className="col-lg-3 col-md-6 footer-contact">
                                 <h4>Contact Us</h4>
                                 <p>
-                                    A108 Adam Street <br/>
-                                    New York, NY 535022<br/>
-                                    United States <br/>
-                                    <strong>Phone:</strong> +1 5589 55488 55<br/>
+                                    73 Somerfield Rd <br/>
+                                    Manchester M9 8AQ<br/>
+                                    United Kingdom <br />
+                                    <strong>Phone:</strong> +44 161 258 2629<br/>
                                     <strong>Email:</strong> info@example.com<br/>
                                 </p>
 
@@ -58,7 +58,7 @@ export class Footer extends React.Component {
 
                 <div className="container">
                     <div className="copyright">
-                        &copy; Copyright <strong>BizPage</strong>. All Rights Reserved
+                        &copy; Made by <strong>George Miron</strong> © 2019. All Rights Reserved
                     </div>
                     <div className="credits"></div>
                 </div>

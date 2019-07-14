@@ -4,18 +4,19 @@ import { HashRouter as Router, Route, Link, Switch } from 'react-router-dom'
 
 import { Home } from "./Components/PageHome";
 import { Contact } from './Components/PageContact';
-import { Header } from './Components/Header';
 import { Footer } from "./Components/Footer";
+import { NotFound } from "./Components/PageNotFound";
 
 class App extends React.Component {
     render() {
         return (
             <Router>
                 <div>
-                    <Header />
+                    
                     <Switch>
                         <Route exact path="/" component={Home} />
                         <Route exact path="/contact" component={Contact} />
+                        <Route component={NotFound} />
                     </Switch>
                     <Footer />
                 </div>

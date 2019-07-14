@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\project\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj": {}
+    "F:\\workspace\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj": {}
   },
   "projects": {
-    "D:\\project\\Habet\\WebAPI\\DAL\\DAL.csproj": {
+    "F:\\workspace\\Habet\\WebAPI\\DAL\\DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\project\\Habet\\WebAPI\\DAL\\DAL.csproj",
+        "projectUniqueName": "F:\\workspace\\Habet\\WebAPI\\DAL\\DAL.csproj",
         "projectName": "DAL",
-        "projectPath": "D:\\project\\Habet\\WebAPI\\DAL\\DAL.csproj",
-        "packagesPath": "C:\\Users\\p3700660\\.nuget\\packages\\",
-        "outputPath": "D:\\project\\Habet\\WebAPI\\DAL\\obj\\",
+        "projectPath": "F:\\workspace\\Habet\\WebAPI\\DAL\\DAL.csproj",
+        "packagesPath": "C:\\Users\\georg\\.nuget\\packages\\",
+        "outputPath": "F:\\workspace\\Habet\\WebAPI\\DAL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\p3700660\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\georg\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -60,20 +60,20 @@
         }
       }
     },
-    "D:\\project\\Habet\\WebAPI\\DTOs\\DTOs.csproj": {
+    "F:\\workspace\\Habet\\WebAPI\\DTOs\\DTOs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\project\\Habet\\WebAPI\\DTOs\\DTOs.csproj",
+        "projectUniqueName": "F:\\workspace\\Habet\\WebAPI\\DTOs\\DTOs.csproj",
         "projectName": "DTOs",
-        "projectPath": "D:\\project\\Habet\\WebAPI\\DTOs\\DTOs.csproj",
-        "packagesPath": "C:\\Users\\p3700660\\.nuget\\packages\\",
-        "outputPath": "D:\\project\\Habet\\WebAPI\\DTOs\\obj\\",
+        "projectPath": "F:\\workspace\\Habet\\WebAPI\\DTOs\\DTOs.csproj",
+        "packagesPath": "C:\\Users\\georg\\.nuget\\packages\\",
+        "outputPath": "F:\\workspace\\Habet\\WebAPI\\DTOs\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\p3700660\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\georg\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -112,20 +112,20 @@
         }
       }
     },
-    "D:\\project\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj": {
+    "F:\\workspace\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\project\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj",
+        "projectUniqueName": "F:\\workspace\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj",
         "projectName": "WebAPI",
-        "projectPath": "D:\\project\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj",
-        "packagesPath": "C:\\Users\\p3700660\\.nuget\\packages\\",
-        "outputPath": "D:\\project\\Habet\\WebAPI\\WebAPI\\obj\\",
+        "projectPath": "F:\\workspace\\Habet\\WebAPI\\WebAPI\\WebAPI.csproj",
+        "packagesPath": "C:\\Users\\georg\\.nuget\\packages\\",
+        "outputPath": "F:\\workspace\\Habet\\WebAPI\\WebAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\p3700660\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\georg\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -138,11 +138,11 @@
         "frameworks": {
           "netcoreapp2.2": {
             "projectReferences": {
-              "D:\\project\\Habet\\WebAPI\\DAL\\DAL.csproj": {
-                "projectPath": "D:\\project\\Habet\\WebAPI\\DAL\\DAL.csproj"
+              "F:\\workspace\\Habet\\WebAPI\\DAL\\DAL.csproj": {
+                "projectPath": "F:\\workspace\\Habet\\WebAPI\\DAL\\DAL.csproj"
               },
-              "D:\\project\\Habet\\WebAPI\\DTOs\\DTOs.csproj": {
-                "projectPath": "D:\\project\\Habet\\WebAPI\\DTOs\\DTOs.csproj"
+              "F:\\workspace\\Habet\\WebAPI\\DTOs\\DTOs.csproj": {
+                "projectPath": "F:\\workspace\\Habet\\WebAPI\\DTOs\\DTOs.csproj"
               }
             }
           }

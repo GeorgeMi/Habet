@@ -59,6 +59,8 @@
     <TypeScriptCompile Include="Components\Header.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="Components\PageProduct.tsx" />
+    <TypeScriptCompile Include="Components\PageNotFound.tsx" />
     <TypeScriptCompile Include="Components\SectionIntro.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>
