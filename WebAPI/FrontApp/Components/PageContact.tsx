@@ -1,7 +1,40 @@
 ﻿import * as React from 'react';
 import { Header } from './Header';
 
-export class Contact extends React.Component {
+var config = require('config');
+var API_Path = config.API_Path;
+const axios = require('axios');
+var querystring = require('querystring');
+
+export class Contact extends React.Component<any, any>{
+
+    constructor(props) {
+        super(props);
+
+        this.state = { name: '', email: '', subject: '', message: '', api_response: '' };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(event) {
+        this.setState({ [event.target.name]: event.target.value });
+    }
+
+    handleSubmit(event) {
+        console.log(this.state);
+        event.preventDefault();
+
+        axios.post(API_Path + '/Contact', querystring.stringify({ data: this.state }))
+            .then((response) => {
+                this.setState({ name: '', email: '', subject: '', message: '', api_response: response.data });
+            })
+            .catch((error) => {
+                this.setState({ isLoaded: true, error });
+            })
+            .then();
+    }
+
     render() {
         return (
             <div>
@@ -12,8 +45,8 @@ export class Contact extends React.Component {
                 <div className="container">
 
                     <div className="section-header">
-                        <h3>Contact Us</h3>
-                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
+                            <h3>Contact our Support and Sales team</h3>
+                            <p>Our team is happy to answer your questions. Fill out the form and we’ll be in touch as soon as possible.</p>
                     </div>
 
                     <div className="row contact-info">
@@ -38,7 +71,7 @@ export class Contact extends React.Component {
                             <div className="contact-email">
                                 <i className="ion-ios-email-outline"></i>
                                 <h3>Email</h3>
-                                <p><a href="mailto:info@example.com">info@example.com</a></p>
+                                <p><a href="mailto:habetgabriel@gmail.com">habetgabriel@gmail.com</a></p>
                             </div>
                         </div>
 
@@ -47,24 +80,24 @@ export class Contact extends React.Component {
                     <div className="form">
                         <div id="sendmessage">Your message has been sent. Thank you!</div>
                         <div id="errormessage"></div>
-                        <form action="" method="post" role="form" className="contactForm">
+                            <form action="" method="post" role="form" className="contactForm" onSubmit={this.handleSubmit}>
                             <div className="form-row">
                                 <div className="form-group col-md-6">
-                                    <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                        <input type="text" name="name" value={this.state.name} onChange={this.handleChange} className="form-control" id="name" placeholder="Your Name" pattern=".{3,}" required />
                                     <div className="validation"></div>
                                 </div>
                                 <div className="form-group col-md-6">
-                                    <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                                        <input type="email" className="form-control" name="email" value={this.state.email} onChange={this.handleChange} id="email" placeholder="Your Email" required/>
                                     <div className="validation"></div>
                                 </div>
                             </div>
                             <div className="form-group">
-                                <input type="text" className="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                                    <input type="text" className="form-control" name="subject" value={this.state.subject} onChange={this.handleChange} id="subject" placeholder="Subject" pattern=".{3,}" required/>
                                 <div className="validation"></div>
                             </div>
                             <div className="form-group">
-                                <textarea className="form-control" name="message" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
-                                <div className="validation"></div>
+                                    <textarea className="form-control" name="message" value={this.state.message} onChange={this.handleChange} data-msg="Please write something for us" placeholder="Message" required> </textarea>
+                            <div className="validation"></div>
                             </div>
                             <div className="text-center"><button type="submit">Send Message</button></div>
                         </form>

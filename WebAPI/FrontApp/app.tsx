@@ -6,6 +6,7 @@ import { Home } from "./Components/PageHome";
 import { Contact } from './Components/PageContact';
 import { Footer } from "./Components/Footer";
 import { NotFound } from "./Components/PageNotFound";
+import { Product } from "./Components/PageProduct";
 
 class App extends React.Component {
     render() {
@@ -15,6 +16,7 @@ class App extends React.Component {
                     
                     <Switch>
                         <Route exact path="/" component={Home} />
+                        <Route exact path="/product" component={Product} />
                         <Route exact path="/contact" component={Contact} />
                         <Route component={NotFound} />
                     </Switch>

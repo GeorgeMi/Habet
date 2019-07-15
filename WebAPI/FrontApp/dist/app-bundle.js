@@ -183,7 +183,7 @@ var Footer = /** @class */ (function (_super) {
                     React.createElement("div", { className: "row" },
                         React.createElement("div", { className: "col-lg-3 col-md-6 footer-info" },
                             React.createElement("h3", null, "GabrielHabet"),
-                            React.createElement("p", null, "Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus. Scelerisque felis imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc congue.")),
+                            React.createElement("p", null, "Butterfly Gabriel Habet is a fashion brand mainly known for its bag and belt designs for both women and men.")),
                         React.createElement("div", { className: "col-lg-3 col-md-6 footer-links" },
                             React.createElement("h4", null, "Useful Links"),
                             React.createElement("ul", null,
@@ -220,7 +220,7 @@ var Footer = /** @class */ (function (_super) {
                                 " +44 161 258 2629",
                                 React.createElement("br", null),
                                 React.createElement("strong", null, "Email:"),
-                                " info@example.com",
+                                " habetgabriel@gmail.com",
                                 React.createElement("br", null)),
                             React.createElement("div", { className: "social-links" },
                                 React.createElement("a", { href: "#", className: "twitter" },
@@ -235,7 +235,7 @@ var Footer = /** @class */ (function (_super) {
                                     React.createElement("i", { className: "fa fa-linkedin" })))),
                         React.createElement("div", { className: "col-lg-3 col-md-6 footer-newsletter" },
                             React.createElement("h4", null, "Our Newsletter"),
-                            React.createElement("p", null, "Tamen quem nulla quae legam multos aute sint culpa legam noster magna veniam enim veniam illum dolore legam minim quorum culpa amet magna export quem marada parida nodela caramase seza."),
+                            React.createElement("p", null, "I would like to receive emails from GabrielHabet with updates and special offers of GabrielHabet. I can unsubscribe any time by clicking the unsubscribe link in the email."),
                             React.createElement("form", { action: "", method: "post" },
                                 React.createElement("input", { type: "email", name: "email" }),
                                 React.createElement("input", { type: "submit", value: "Subscribe" })))))),
@@ -355,11 +355,36 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
+var config = __webpack_require__(/*! config */ "config");
+var API_Path = config.API_Path;
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+var querystring = __webpack_require__(/*! querystring */ "./node_modules/querystring-es3/index.js");
 var Contact = /** @class */ (function (_super) {
     __extends(Contact, _super);
-    function Contact() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function Contact(props) {
+        var _this = _super.call(this, props) || this;
+        _this.state = { name: '', email: '', subject: '', message: '', api_response: '' };
+        _this.handleChange = _this.handleChange.bind(_this);
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        return _this;
     }
+    Contact.prototype.handleChange = function (event) {
+        var _a;
+        this.setState((_a = {}, _a[event.target.name] = event.target.value, _a));
+    };
+    Contact.prototype.handleSubmit = function (event) {
+        var _this = this;
+        console.log(this.state);
+        event.preventDefault();
+        axios.post(API_Path + '/Contact', querystring.stringify({ data: this.state }))
+            .then(function (response) {
+            _this.setState({ name: '', email: '', subject: '', message: '', api_response: response.data });
+        })
+            .catch(function (error) {
+            _this.setState({ isLoaded: true, error: error });
+        })
+            .then();
+    };
     Contact.prototype.render = function () {
         return (React.createElement("div", null,
             React.createElement(Header_1.Header, { Active: 'Contact' }),
@@ -368,8 +393,8 @@ var Contact = /** @class */ (function (_super) {
             React.createElement("section", { id: "contact", className: "section-bg wow fadeInUp" },
                 React.createElement("div", { className: "container" },
                     React.createElement("div", { className: "section-header" },
-                        React.createElement("h3", null, "Contact Us"),
-                        React.createElement("p", null, "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque")),
+                        React.createElement("h3", null, "Contact our Support and Sales team"),
+                        React.createElement("p", null, "Our team is happy to answer your questions. Fill out the form and we\u2019ll be in touch as soon as possible.")),
                     React.createElement("div", { className: "row contact-info" },
                         React.createElement("div", { className: "col-md-4" },
                             React.createElement("div", { className: "contact-address" },
@@ -387,23 +412,23 @@ var Contact = /** @class */ (function (_super) {
                                 React.createElement("i", { className: "ion-ios-email-outline" }),
                                 React.createElement("h3", null, "Email"),
                                 React.createElement("p", null,
-                                    React.createElement("a", { href: "mailto:info@example.com" }, "info@example.com"))))),
+                                    React.createElement("a", { href: "mailto:habetgabriel@gmail.com" }, "habetgabriel@gmail.com"))))),
                     React.createElement("div", { className: "form" },
                         React.createElement("div", { id: "sendmessage" }, "Your message has been sent. Thank you!"),
                         React.createElement("div", { id: "errormessage" }),
-                        React.createElement("form", { action: "", method: "post", role: "form", className: "contactForm" },
+                        React.createElement("form", { action: "", method: "post", role: "form", className: "contactForm", onSubmit: this.handleSubmit },
                             React.createElement("div", { className: "form-row" },
                                 React.createElement("div", { className: "form-group col-md-6" },
-                                    React.createElement("input", { type: "text", name: "name", className: "form-control", id: "name", placeholder: "Your Name", "data-rule": "minlen:4", "data-msg": "Please enter at least 4 chars" }),
+                                    React.createElement("input", { type: "text", name: "name", value: this.state.name, onChange: this.handleChange, className: "form-control", id: "name", placeholder: "Your Name", pattern: ".{3,}", required: true }),
                                     React.createElement("div", { className: "validation" })),
                                 React.createElement("div", { className: "form-group col-md-6" },
-                                    React.createElement("input", { type: "email", className: "form-control", name: "email", id: "email", placeholder: "Your Email", "data-rule": "email", "data-msg": "Please enter a valid email" }),
+                                    React.createElement("input", { type: "email", className: "form-control", name: "email", value: this.state.email, onChange: this.handleChange, id: "email", placeholder: "Your Email", required: true }),
                                     React.createElement("div", { className: "validation" }))),
                             React.createElement("div", { className: "form-group" },
-                                React.createElement("input", { type: "text", className: "form-control", name: "subject", id: "subject", placeholder: "Subject", "data-rule": "minlen:4", "data-msg": "Please enter at least 8 chars of subject" }),
+                                React.createElement("input", { type: "text", className: "form-control", name: "subject", value: this.state.subject, onChange: this.handleChange, id: "subject", placeholder: "Subject", pattern: ".{3,}", required: true }),
                                 React.createElement("div", { className: "validation" })),
                             React.createElement("div", { className: "form-group" },
-                                React.createElement("textarea", { className: "form-control", name: "message", "data-rule": "required", "data-msg": "Please write something for us", placeholder: "Message" }),
+                                React.createElement("textarea", { className: "form-control", name: "message", value: this.state.message, onChange: this.handleChange, "data-msg": "Please write something for us", placeholder: "Message", required: true }, " "),
                                 React.createElement("div", { className: "validation" })),
                             React.createElement("div", { className: "text-center" },
                                 React.createElement("button", { type: "submit" }, "Send Message"))))))));
@@ -521,6 +546,109 @@ var NotFound = /** @class */ (function (_super) {
 }(React.Component));
 exports.NotFound = NotFound;
 //# sourceMappingURL=PageNotFound.js.map
+
+/***/ }),
+
+/***/ "./Components/PageProduct.js":
+/*!***********************************!*\
+  !*** ./Components/PageProduct.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
+var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
+var config = __webpack_require__(/*! config */ "config");
+var API_Path = config.API_Path;
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+var Product = /** @class */ (function (_super) {
+    __extends(Product, _super);
+    function Product(props) {
+        var _this = _super.call(this, props) || this;
+        var dictionary = new Dictionary_1.KeyedCollection();
+        _this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary };
+        _this.getImageForProduct = _this.getImageForProduct.bind(_this);
+        return _this;
+    }
+    Product.prototype.componentWillMount = function () {
+        var _this = this;
+        axios.get(API_Path + '/Products/1')
+            .then(function (response) {
+            var dictionary = _this.state.imageDictionary;
+            _this.setState({ isLoaded: true, item: response.data, imageDictionary: dictionary });
+            _this.getImageForProduct(response.data.productId);
+        })
+            .catch(function (error) {
+            _this.setState({ isLoaded: true, error: error });
+        })
+            .then();
+    };
+    Product.prototype.getImageForProduct = function (productId) {
+        var _this = this;
+        axios.get(API_Path + '/ProductsImages/' + productId)
+            .then(function (response) {
+            var dictionary = _this.state.imageDictionary;
+            dictionary.Add(productId, response.data);
+            _this.setState({ imageDictionary: dictionary });
+        }).catch(function (err) {
+            console.log(productId + " .... " + _this.state.imageDictionary);
+            //console.log(err);        
+        });
+    };
+    Product.prototype.render = function () {
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, item = _a.item, imageDictionary = _a.imageDictionary;
+        if (error) {
+            console.log(error);
+            return React.createElement("div", null,
+                "Error: ",
+                error.message);
+        }
+        else if (!isLoaded) {
+            return React.createElement("div", null, "Loading...");
+        }
+        else {
+            return (React.createElement("div", null,
+                React.createElement(Header_1.Header, null),
+                React.createElement("br", null),
+                React.createElement("br", null),
+                React.createElement("section", { id: "portfolio", className: "section-bg" },
+                    React.createElement("div", { className: "container" },
+                        React.createElement("div", { className: "row portfolio-container" },
+                            React.createElement("div", { className: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
+                                React.createElement("div", { className: "portfolio-wrap" },
+                                    React.createElement("figure", null,
+                                        React.createElement("img", { src: imageDictionary.Item(item.productId), className: "img-fluid", alt: "" }),
+                                        React.createElement("a", { href: imageDictionary.Item(item.productId), "data-lightbox": "portfolio", "data-title": item.name, className: "link-preview", title: "Preview" },
+                                            React.createElement("i", { className: "ion ion-eye" })),
+                                        React.createElement("a", { href: "#", className: "link-details", title: "More Details" },
+                                            React.createElement("i", { className: "ion ion-android-open" }))))),
+                            React.createElement("div", { className: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
+                                React.createElement("h4", null,
+                                    React.createElement("a", { href: "#" }, item.name)),
+                                React.createElement("p", null, item.description)))))));
+        }
+    };
+    return Product;
+}(React.Component));
+exports.Product = Product;
+//# sourceMappingURL=PageProduct.js.map
 
 /***/ }),
 
@@ -882,7 +1010,8 @@ var SectionProducts = /** @class */ (function (_super) {
         var _this = this;
         axios.get(API_Path + '/Products', {
             params: {
-                ID: 1
+                top: 20,
+                from: 0
             }
         })
             .then(function (response) {
@@ -923,6 +1052,7 @@ var SectionProducts = /** @class */ (function (_super) {
                 React.createElement("div", { className: "container" },
                     React.createElement("header", { className: "section-header" },
                         React.createElement("h3", { className: "section-title" }, "Purses")),
+                    "s",
                     React.createElement("div", { className: "row portfolio-container" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
                         React.createElement("div", { className: "portfolio-wrap" },
                             React.createElement("figure", null,
@@ -1098,6 +1228,7 @@ var PageHome_1 = __webpack_require__(/*! ./Components/PageHome */ "./Components/
 var PageContact_1 = __webpack_require__(/*! ./Components/PageContact */ "./Components/PageContact.js");
 var Footer_1 = __webpack_require__(/*! ./Components/Footer */ "./Components/Footer.js");
 var PageNotFound_1 = __webpack_require__(/*! ./Components/PageNotFound */ "./Components/PageNotFound.js");
+var PageProduct_1 = __webpack_require__(/*! ./Components/PageProduct */ "./Components/PageProduct.js");
 var App = /** @class */ (function (_super) {
     __extends(App, _super);
     function App() {
@@ -1108,6 +1239,7 @@ var App = /** @class */ (function (_super) {
             React.createElement("div", null,
                 React.createElement(react_router_dom_1.Switch, null,
                     React.createElement(react_router_dom_1.Route, { exact: true, path: "/", component: PageHome_1.Home }),
+                    React.createElement(react_router_dom_1.Route, { exact: true, path: "/product", component: PageProduct_1.Product }),
                     React.createElement(react_router_dom_1.Route, { exact: true, path: "/contact", component: PageContact_1.Contact }),
                     React.createElement(react_router_dom_1.Route, { component: PageNotFound_1.NotFound })),
                 React.createElement(Footer_1.Footer, null))));
@@ -5298,6 +5430,215 @@ if (true) {
 var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 
 module.exports = ReactPropTypesSecret;
+
+
+/***/ }),
+
+/***/ "./node_modules/querystring-es3/decode.js":
+/*!************************************************!*\
+  !*** ./node_modules/querystring-es3/decode.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+// If obj.hasOwnProperty has been overridden, then calling
+// obj.hasOwnProperty(prop) will break.
+// See: https://github.com/joyent/node/issues/1707
+function hasOwnProperty(obj, prop) {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
+}
+
+module.exports = function(qs, sep, eq, options) {
+  sep = sep || '&';
+  eq = eq || '=';
+  var obj = {};
+
+  if (typeof qs !== 'string' || qs.length === 0) {
+    return obj;
+  }
+
+  var regexp = /\+/g;
+  qs = qs.split(sep);
+
+  var maxKeys = 1000;
+  if (options && typeof options.maxKeys === 'number') {
+    maxKeys = options.maxKeys;
+  }
+
+  var len = qs.length;
+  // maxKeys <= 0 means that we should not limit keys count
+  if (maxKeys > 0 && len > maxKeys) {
+    len = maxKeys;
+  }
+
+  for (var i = 0; i < len; ++i) {
+    var x = qs[i].replace(regexp, '%20'),
+        idx = x.indexOf(eq),
+        kstr, vstr, k, v;
+
+    if (idx >= 0) {
+      kstr = x.substr(0, idx);
+      vstr = x.substr(idx + 1);
+    } else {
+      kstr = x;
+      vstr = '';
+    }
+
+    k = decodeURIComponent(kstr);
+    v = decodeURIComponent(vstr);
+
+    if (!hasOwnProperty(obj, k)) {
+      obj[k] = v;
+    } else if (isArray(obj[k])) {
+      obj[k].push(v);
+    } else {
+      obj[k] = [obj[k], v];
+    }
+  }
+
+  return obj;
+};
+
+var isArray = Array.isArray || function (xs) {
+  return Object.prototype.toString.call(xs) === '[object Array]';
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/querystring-es3/encode.js":
+/*!************************************************!*\
+  !*** ./node_modules/querystring-es3/encode.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+var stringifyPrimitive = function(v) {
+  switch (typeof v) {
+    case 'string':
+      return v;
+
+    case 'boolean':
+      return v ? 'true' : 'false';
+
+    case 'number':
+      return isFinite(v) ? v : '';
+
+    default:
+      return '';
+  }
+};
+
+module.exports = function(obj, sep, eq, name) {
+  sep = sep || '&';
+  eq = eq || '=';
+  if (obj === null) {
+    obj = undefined;
+  }
+
+  if (typeof obj === 'object') {
+    return map(objectKeys(obj), function(k) {
+      var ks = encodeURIComponent(stringifyPrimitive(k)) + eq;
+      if (isArray(obj[k])) {
+        return map(obj[k], function(v) {
+          return ks + encodeURIComponent(stringifyPrimitive(v));
+        }).join(sep);
+      } else {
+        return ks + encodeURIComponent(stringifyPrimitive(obj[k]));
+      }
+    }).join(sep);
+
+  }
+
+  if (!name) return '';
+  return encodeURIComponent(stringifyPrimitive(name)) + eq +
+         encodeURIComponent(stringifyPrimitive(obj));
+};
+
+var isArray = Array.isArray || function (xs) {
+  return Object.prototype.toString.call(xs) === '[object Array]';
+};
+
+function map (xs, f) {
+  if (xs.map) return xs.map(f);
+  var res = [];
+  for (var i = 0; i < xs.length; i++) {
+    res.push(f(xs[i], i));
+  }
+  return res;
+}
+
+var objectKeys = Object.keys || function (obj) {
+  var res = [];
+  for (var key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) res.push(key);
+  }
+  return res;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/querystring-es3/index.js":
+/*!***********************************************!*\
+  !*** ./node_modules/querystring-es3/index.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.decode = exports.parse = __webpack_require__(/*! ./decode */ "./node_modules/querystring-es3/decode.js");
+exports.encode = exports.stringify = __webpack_require__(/*! ./encode */ "./node_modules/querystring-es3/encode.js");
 
 
 /***/ }),

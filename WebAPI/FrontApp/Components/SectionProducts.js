@@ -31,7 +31,8 @@ var SectionProducts = /** @class */ (function (_super) {
         var _this = this;
         axios.get(API_Path + '/Products', {
             params: {
-                ID: 1
+                top: 20,
+                from: 0
             }
         })
             .then(function (response) {
@@ -72,6 +73,7 @@ var SectionProducts = /** @class */ (function (_super) {
                 React.createElement("div", { className: "container" },
                     React.createElement("header", { className: "section-header" },
                         React.createElement("h3", { className: "section-title" }, "Purses")),
+                    "s",
                     React.createElement("div", { className: "row portfolio-container" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
                         React.createElement("div", { className: "portfolio-wrap" },
                             React.createElement("figure", null,

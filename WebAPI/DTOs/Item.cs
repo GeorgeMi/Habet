@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace DTOs.Models
 {
-    public class Item
+    public class ProductInfo
     {
-        public long Id { get; set; }
+        public int ProductId { get; set; }
         public string Name { get; set; }
-        public bool IsComplete { get; set; }
+        public double Price { get; set; }
     }
 }

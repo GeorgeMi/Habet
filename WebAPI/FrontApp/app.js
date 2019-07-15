@@ -20,6 +20,7 @@ var PageHome_1 = require("./Components/PageHome");
 var PageContact_1 = require("./Components/PageContact");
 var Footer_1 = require("./Components/Footer");
 var PageNotFound_1 = require("./Components/PageNotFound");
+var PageProduct_1 = require("./Components/PageProduct");
 var App = /** @class */ (function (_super) {
     __extends(App, _super);
     function App() {
@@ -30,6 +31,7 @@ var App = /** @class */ (function (_super) {
             React.createElement("div", null,
                 React.createElement(react_router_dom_1.Switch, null,
                     React.createElement(react_router_dom_1.Route, { exact: true, path: "/", component: PageHome_1.Home }),
+                    React.createElement(react_router_dom_1.Route, { exact: true, path: "/product", component: PageProduct_1.Product }),
                     React.createElement(react_router_dom_1.Route, { exact: true, path: "/contact", component: PageContact_1.Contact }),
                     React.createElement(react_router_dom_1.Route, { component: PageNotFound_1.NotFound })),
                 React.createElement(Footer_1.Footer, null))));

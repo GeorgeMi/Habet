@@ -10,7 +10,7 @@ export class Footer extends React.Component {
 
                             <div className="col-lg-3 col-md-6 footer-info">
                                 <h3>GabrielHabet</h3>
-                                <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus. Scelerisque felis imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc congue.</p>
+                                <p>Butterfly Gabriel Habet is a fashion brand mainly known for its bag and belt designs for both women and men.</p>
                             </div>
 
                             <div className="col-lg-3 col-md-6 footer-links">
@@ -31,7 +31,7 @@ export class Footer extends React.Component {
                                     Manchester M9 8AQ<br/>
                                     United Kingdom <br />
                                     <strong>Phone:</strong> +44 161 258 2629<br/>
-                                    <strong>Email:</strong> info@example.com<br/>
+                                    <strong>Email:</strong> habetgabriel@gmail.com<br/>
                                 </p>
 
                                 <div className="social-links">
@@ -46,7 +46,7 @@ export class Footer extends React.Component {
 
                             <div className="col-lg-3 col-md-6 footer-newsletter">
                                 <h4>Our Newsletter</h4>
-                                <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna veniam enim veniam illum dolore legam minim quorum culpa amet magna export quem marada parida nodela caramase seza.</p>
+                                <p>I would like to receive emails from GabrielHabet with updates and special offers of GabrielHabet. I can unsubscribe any time by clicking the unsubscribe link in the email.</p>
                                 <form action="" method="post">
                                     <input type="email" name="email"/><input type="submit" value="Subscribe"/>
                                 </form>

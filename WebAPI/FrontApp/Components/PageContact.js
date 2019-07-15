@@ -15,11 +15,36 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var Header_1 = require("./Header");
+var config = require('config');
+var API_Path = config.API_Path;
+var axios = require('axios');
+var querystring = require('querystring');
 var Contact = /** @class */ (function (_super) {
     __extends(Contact, _super);
-    function Contact() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function Contact(props) {
+        var _this = _super.call(this, props) || this;
+        _this.state = { name: '', email: '', subject: '', message: '', api_response: '' };
+        _this.handleChange = _this.handleChange.bind(_this);
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        return _this;
     }
+    Contact.prototype.handleChange = function (event) {
+        var _a;
+        this.setState((_a = {}, _a[event.target.name] = event.target.value, _a));
+    };
+    Contact.prototype.handleSubmit = function (event) {
+        var _this = this;
+        console.log(this.state);
+        event.preventDefault();
+        axios.post(API_Path + '/Contact', querystring.stringify({ data: this.state }))
+            .then(function (response) {
+            _this.setState({ name: '', email: '', subject: '', message: '', api_response: response.data });
+        })
+            .catch(function (error) {
+            _this.setState({ isLoaded: true, error: error });
+        })
+            .then();
+    };
     Contact.prototype.render = function () {
         return (React.createElement("div", null,
             React.createElement(Header_1.Header, { Active: 'Contact' }),
@@ -28,8 +53,8 @@ var Contact = /** @class */ (function (_super) {
             React.createElement("section", { id: "contact", className: "section-bg wow fadeInUp" },
                 React.createElement("div", { className: "container" },
                     React.createElement("div", { className: "section-header" },
-                        React.createElement("h3", null, "Contact Us"),
-                        React.createElement("p", null, "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque")),
+                        React.createElement("h3", null, "Contact our Support and Sales team"),
+                        React.createElement("p", null, "Our team is happy to answer your questions. Fill out the form and we\u2019ll be in touch as soon as possible.")),
                     React.createElement("div", { className: "row contact-info" },
                         React.createElement("div", { className: "col-md-4" },
                             React.createElement("div", { className: "contact-address" },
@@ -47,23 +72,23 @@ var Contact = /** @class */ (function (_super) {
                                 React.createElement("i", { className: "ion-ios-email-outline" }),
                                 React.createElement("h3", null, "Email"),
                                 React.createElement("p", null,
-                                    React.createElement("a", { href: "mailto:info@example.com" }, "info@example.com"))))),
+                                    React.createElement("a", { href: "mailto:habetgabriel@gmail.com" }, "habetgabriel@gmail.com"))))),
                     React.createElement("div", { className: "form" },
                         React.createElement("div", { id: "sendmessage" }, "Your message has been sent. Thank you!"),
                         React.createElement("div", { id: "errormessage" }),
-                        React.createElement("form", { action: "", method: "post", role: "form", className: "contactForm" },
+                        React.createElement("form", { action: "", method: "post", role: "form", className: "contactForm", onSubmit: this.handleSubmit },
                             React.createElement("div", { className: "form-row" },
                                 React.createElement("div", { className: "form-group col-md-6" },
-                                    React.createElement("input", { type: "text", name: "name", className: "form-control", id: "name", placeholder: "Your Name", "data-rule": "minlen:4", "data-msg": "Please enter at least 4 chars" }),
+                                    React.createElement("input", { type: "text", name: "name", value: this.state.name, onChange: this.handleChange, className: "form-control", id: "name", placeholder: "Your Name", pattern: ".{3,}", required: true }),
                                     React.createElement("div", { className: "validation" })),
                                 React.createElement("div", { className: "form-group col-md-6" },
-                                    React.createElement("input", { type: "email", className: "form-control", name: "email", id: "email", placeholder: "Your Email", "data-rule": "email", "data-msg": "Please enter a valid email" }),
+                                    React.createElement("input", { type: "email", className: "form-control", name: "email", value: this.state.email, onChange: this.handleChange, id: "email", placeholder: "Your Email", required: true }),
                                     React.createElement("div", { className: "validation" }))),
                             React.createElement("div", { className: "form-group" },
-                                React.createElement("input", { type: "text", className: "form-control", name: "subject", id: "subject", placeholder: "Subject", "data-rule": "minlen:4", "data-msg": "Please enter at least 8 chars of subject" }),
+                                React.createElement("input", { type: "text", className: "form-control", name: "subject", value: this.state.subject, onChange: this.handleChange, id: "subject", placeholder: "Subject", pattern: ".{3,}", required: true }),
                                 React.createElement("div", { className: "validation" })),
                             React.createElement("div", { className: "form-group" },
-                                React.createElement("textarea", { className: "form-control", name: "message", "data-rule": "required", "data-msg": "Please write something for us", placeholder: "Message" }),
+                                React.createElement("textarea", { className: "form-control", name: "message", value: this.state.message, onChange: this.handleChange, "data-msg": "Please write something for us", placeholder: "Message", required: true }, " "),
                                 React.createElement("div", { className: "validation" })),
                             React.createElement("div", { className: "text-center" },
                                 React.createElement("button", { type: "submit" }, "Send Message"))))))));

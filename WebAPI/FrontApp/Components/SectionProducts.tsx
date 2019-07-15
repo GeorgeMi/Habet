@@ -23,7 +23,8 @@ export class SectionProducts extends React.Component<any, any>
        axios.get(API_Path + '/Products',
             {
             params: {
-                ID: 1
+                top: 20,
+                from: 0
             }
         })
             .then((response) =>
