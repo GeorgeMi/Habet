@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DAL.Models;
+using DTOs.Models;
 
 namespace WebAPI.Controllers
 {
@@ -22,29 +21,29 @@ namespace WebAPI.Controllers
 
         // GET: api/Products
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Products>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<ProductInfo>>> GetProducts(int top, int from)
         {
-            return await _context.Products.ToListAsync();
-            //int id = 1;
-            //return new List<Products> { new Products { Description = "Description1", Name = "Name1", Price = 1, ProductId = 1 },
-            //    new Products { Description = "Description2", Name = "Name2", Price = 2, ProductId = 2 }
-             // };
+            //return await _context.Products.Skip(from).Take(top).ToListAsync();
+
+            return new List<ProductInfo> { new ProductInfo { Name = "Name1", Price = 1, ProductId = 1 },
+                new ProductInfo { Name = "Name2", Price = 2, ProductId = 2 }
+             };
         }
 
         // GET: api/Products/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Products>> GetProducts(int id)
         {
-            var products = await _context.Products.FindAsync(id);
+            //var products = await _context.Products.FindAsync(id);
 
-            if (products == null)
-            {
-                return NotFound();
-            }
+            //if (products == null)
+            //{
+            //    return NotFound();
+            //}
 
-            return products;
+            //return products;
 
-         //return new Products { Description = "Description" + id, Name = "Name" + id, Price = id, ProductId = id };
+            return new Products { Description = "Description" + id, Name = "Name" + id, Price = id, ProductId = id };
         }
 
         // PUT: api/Products/5
