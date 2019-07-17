@@ -1,6 +1,7 @@
 ﻿import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { HashRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import { HashRouter as Router } from 'react-router-dom'
+import { Switch, Route } from 'react-router'
 
 import { Home } from "./Components/PageHome";
 import { Contact } from './Components/PageContact';
@@ -13,7 +14,6 @@ class App extends React.Component {
         return (
             <Router>
                 <div>
-                    
                     <Switch>
                         <Route exact path="/" component={Home} />
                         <Route exact path="/product" component={Product} />

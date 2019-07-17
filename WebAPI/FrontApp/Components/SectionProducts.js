@@ -23,7 +23,7 @@ var SectionProducts = /** @class */ (function (_super) {
     function SectionProducts(props) {
         var _this = _super.call(this, props) || this;
         var dictionary = new Dictionary_1.KeyedCollection();
-        _this.state = { isLoaded: false, items: null, error: null, imageDictionary: dictionary };
+        _this.state = { isLoaded: false, items: null, error: null, imageDictionary: dictionary, gender: props.Gender, type: props.Type, needsTitle: props.NeedsTitle };
         _this.getImageForProduct = _this.getImageForProduct.bind(_this);
         return _this;
     }
@@ -58,7 +58,7 @@ var SectionProducts = /** @class */ (function (_super) {
         });
     };
     SectionProducts.prototype.render = function () {
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, imageDictionary = _a.imageDictionary;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, imageDictionary = _a.imageDictionary, gender = _a.gender, type = _a.type, needsTitle = _a.needsTitle;
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -69,23 +69,47 @@ var SectionProducts = /** @class */ (function (_super) {
             return React.createElement("div", null, "Loading...");
         }
         else {
-            return (React.createElement("section", { id: "portfolio", className: "section-bg" },
-                React.createElement("div", { className: "container" },
-                    React.createElement("header", { className: "section-header" },
-                        React.createElement("h3", { className: "section-title" }, "Purses")),
-                    "s",
-                    React.createElement("div", { className: "row portfolio-container" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
-                        React.createElement("div", { className: "portfolio-wrap" },
-                            React.createElement("figure", null,
-                                React.createElement("img", { src: imageDictionary.Item(item.productId), className: "img-fluid", alt: "" }),
-                                React.createElement("a", { href: imageDictionary.Item(item.productId), "data-lightbox": "portfolio", "data-title": item.name, className: "link-preview", title: "Preview" },
-                                    React.createElement("i", { className: "ion ion-eye" })),
-                                React.createElement("a", { href: "#", className: "link-details", title: "More Details" },
-                                    React.createElement("i", { className: "ion ion-android-open" }))),
-                            React.createElement("div", { className: "portfolio-info" },
-                                React.createElement("h4", null,
-                                    React.createElement("a", { href: "#" }, item.name)),
-                                React.createElement("p", null, item.description))))); })))));
+            if (needsTitle == 'True') {
+                return (React.createElement("section", { id: gender + "-" + type + "-section", className: "portfolio section-bg" },
+                    React.createElement("div", { className: "container" },
+                        React.createElement("header", { className: "section-header", id: gender + "-section" },
+                            React.createElement("h3", { className: "section-title" },
+                                " ",
+                                gender,
+                                " ")),
+                        React.createElement("header", { className: "section-header" },
+                            React.createElement("h5", { className: "section-title" }, type)),
+                        React.createElement("div", { className: "row portfolio-container" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
+                            React.createElement("div", { className: "portfolio-wrap" },
+                                React.createElement("figure", null,
+                                    React.createElement("img", { src: imageDictionary.Item(item.productId), className: "img-fluid", alt: "" }),
+                                    React.createElement("a", { href: imageDictionary.Item(item.productId), "data-lightbox": "portfolio", "data-title": item.name, className: "link-preview", title: "Preview" },
+                                        React.createElement("i", { className: "ion ion-eye" })),
+                                    React.createElement("a", { href: "#", className: "link-details", title: "More Details" },
+                                        React.createElement("i", { className: "ion ion-android-open" }))),
+                                React.createElement("div", { className: "portfolio-info" },
+                                    React.createElement("h4", null,
+                                        React.createElement("a", { href: "#" }, item.name)),
+                                    React.createElement("p", null, item.description))))); })))));
+            }
+            else {
+                return (React.createElement("section", { id: gender + "-" + type + "-section", className: "portfolio section-bg" },
+                    React.createElement("div", { className: "container" },
+                        React.createElement("header", { className: "section-header" },
+                            React.createElement("h5", { className: "section-title" }, type)),
+                        React.createElement("div", { className: "row portfolio-container" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
+                            React.createElement("div", { className: "portfolio-wrap" },
+                                React.createElement("figure", null,
+                                    React.createElement("img", { src: imageDictionary.Item(item.productId), className: "img-fluid", alt: "" }),
+                                    React.createElement("a", { href: imageDictionary.Item(item.productId), "data-lightbox": "portfolio", "data-title": item.name, className: "link-preview", title: "Preview" },
+                                        React.createElement("i", { className: "ion ion-eye" })),
+                                    React.createElement("a", { href: "#", className: "link-details", title: "More Details" },
+                                        React.createElement("i", { className: "ion ion-android-open" }))),
+                                React.createElement("div", { className: "portfolio-info" },
+                                    React.createElement("h4", null,
+                                        React.createElement("a", { href: "#" }, item.name)),
+                                    React.createElement("p", null, item.description))))); })))));
+            }
         }
     };
     return SectionProducts;

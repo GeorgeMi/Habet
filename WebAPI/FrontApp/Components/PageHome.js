@@ -27,8 +27,10 @@ var Home = /** @class */ (function (_super) {
             React.createElement("div", null,
                 React.createElement(Header_1.Header, { Active: 'Home' }),
                 React.createElement(SectionIntro_1.SectionIntro, null),
-                React.createElement(SectionProducts_1.SectionProducts, null),
-                React.createElement(SectionProducts_1.SectionProducts, null))));
+                React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Bags', NeedsTitle: 'True' }),
+                React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Belts', NeedsTitle: 'False' }),
+                React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Men', Type: 'Bags', NeedsTitle: 'True' }),
+                React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Men', Type: 'Belts', NeedsTitle: 'False' }))));
     };
     return Home;
 }(React.Component));

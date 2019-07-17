@@ -182,7 +182,7 @@ var Footer = /** @class */ (function (_super) {
                 React.createElement("div", { className: "container" },
                     React.createElement("div", { className: "row" },
                         React.createElement("div", { className: "col-lg-3 col-md-6 footer-info" },
-                            React.createElement("h3", null, "GabrielHabet"),
+                            React.createElement("h4", null, "GabrielHabet"),
                             React.createElement("p", null, "Butterfly Gabriel Habet is a fashion brand mainly known for its bag and belt designs for both women and men.")),
                         React.createElement("div", { className: "col-lg-3 col-md-6 footer-links" },
                             React.createElement("h4", null, "Useful Links"),
@@ -225,13 +225,13 @@ var Footer = /** @class */ (function (_super) {
                             React.createElement("div", { className: "social-links" },
                                 React.createElement("a", { href: "#", className: "twitter" },
                                     React.createElement("i", { className: "fa fa-twitter" })),
-                                React.createElement("a", { href: "#", className: "facebook" },
+                                React.createElement("a", { href: "https://www.facebook.com/butterflygabrielhabet/", className: "facebook" },
                                     React.createElement("i", { className: "fa fa-facebook" })),
                                 React.createElement("a", { href: "#", className: "instagram" },
                                     React.createElement("i", { className: "fa fa-instagram" })),
                                 React.createElement("a", { href: "#", className: "google-plus" },
                                     React.createElement("i", { className: "fa fa-google-plus" })),
-                                React.createElement("a", { href: "#", className: "linkedin" },
+                                React.createElement("a", { href: "https://www.linkedin.com/in/gabriel-habet-b27a9bba/", className: "linkedin" },
                                     React.createElement("i", { className: "fa fa-linkedin" })))),
                         React.createElement("div", { className: "col-lg-3 col-md-6 footer-newsletter" },
                             React.createElement("h4", null, "Our Newsletter"),
@@ -278,6 +278,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
+var react_router_hash_link_1 = __webpack_require__(/*! react-router-hash-link */ "./node_modules/react-router-hash-link/lib/index.js");
 var Header = /** @class */ (function (_super) {
     __extends(Header, _super);
     function Header(props) {
@@ -301,25 +302,20 @@ var Header = /** @class */ (function (_super) {
                     React.createElement("ul", { className: "nav-menu" },
                         React.createElement("li", { className: headerDictionary.Item('Home') },
                             React.createElement("a", { href: "/#/" }, "Home")),
-                        React.createElement("li", null,
-                            React.createElement("a", { href: "#about" }, "About Us")),
-                        React.createElement("li", null,
-                            React.createElement("a", { href: "#services" }, "Services")),
-                        React.createElement("li", null,
-                            React.createElement("a", { href: "#portfolio" }, "Portfolio")),
-                        React.createElement("li", null,
-                            React.createElement("a", { href: "#team" }, "Team")),
-                        React.createElement("li", { className: "menu-has-children" },
-                            React.createElement("a", { href: "" }, "Drop Down"),
+                        React.createElement("li", { className: headerDictionary.Item('Women') },
+                            React.createElement(react_router_hash_link_1.HashLink, { to: "#Women-section" }, "Women"),
                             React.createElement("ul", null,
                                 React.createElement("li", null,
-                                    React.createElement("a", { href: "#" }, "Drop Down 1")),
+                                    React.createElement(react_router_hash_link_1.HashLink, { to: "#Women-Bags-section" }, "Bags")),
                                 React.createElement("li", null,
-                                    React.createElement("a", { href: "#" }, "Drop Down 3")),
+                                    React.createElement(react_router_hash_link_1.HashLink, { to: "#Women-Belts-section" }, "Belts")))),
+                        React.createElement("li", { className: headerDictionary.Item('Men') },
+                            React.createElement(react_router_hash_link_1.HashLink, { to: "#Men-section" }, "Men"),
+                            React.createElement("ul", null,
                                 React.createElement("li", null,
-                                    React.createElement("a", { href: "#" }, "Drop Down 4")),
+                                    React.createElement(react_router_hash_link_1.HashLink, { to: "#Men-Bags-section" }, "Bags")),
                                 React.createElement("li", null,
-                                    React.createElement("a", { href: "#" }, "Drop Down 5")))),
+                                    React.createElement(react_router_hash_link_1.HashLink, { to: "#Men-Belts-section" }, "Belts")))),
                         React.createElement("li", { className: headerDictionary.Item('Contact') },
                             React.createElement("a", { href: "/#/contact" }, "Contact")))))));
     };
@@ -366,6 +362,7 @@ var Contact = /** @class */ (function (_super) {
         _this.state = { name: '', email: '', subject: '', message: '', api_response: '' };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
+        console.log("asdasdasd");
         return _this;
     }
     Contact.prototype.handleChange = function (event) {
@@ -477,8 +474,10 @@ var Home = /** @class */ (function (_super) {
             React.createElement("div", null,
                 React.createElement(Header_1.Header, { Active: 'Home' }),
                 React.createElement(SectionIntro_1.SectionIntro, null),
-                React.createElement(SectionProducts_1.SectionProducts, null),
-                React.createElement(SectionProducts_1.SectionProducts, null))));
+                React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Bags', NeedsTitle: 'True' }),
+                React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Belts', NeedsTitle: 'False' }),
+                React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Men', Type: 'Bags', NeedsTitle: 'True' }),
+                React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Men', Type: 'Belts', NeedsTitle: 'False' }))));
     };
     return Home;
 }(React.Component));
@@ -1002,7 +1001,7 @@ var SectionProducts = /** @class */ (function (_super) {
     function SectionProducts(props) {
         var _this = _super.call(this, props) || this;
         var dictionary = new Dictionary_1.KeyedCollection();
-        _this.state = { isLoaded: false, items: null, error: null, imageDictionary: dictionary };
+        _this.state = { isLoaded: false, items: null, error: null, imageDictionary: dictionary, gender: props.Gender, type: props.Type, needsTitle: props.NeedsTitle };
         _this.getImageForProduct = _this.getImageForProduct.bind(_this);
         return _this;
     }
@@ -1037,7 +1036,7 @@ var SectionProducts = /** @class */ (function (_super) {
         });
     };
     SectionProducts.prototype.render = function () {
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, imageDictionary = _a.imageDictionary;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, imageDictionary = _a.imageDictionary, gender = _a.gender, type = _a.type, needsTitle = _a.needsTitle;
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -1048,23 +1047,47 @@ var SectionProducts = /** @class */ (function (_super) {
             return React.createElement("div", null, "Loading...");
         }
         else {
-            return (React.createElement("section", { id: "portfolio", className: "section-bg" },
-                React.createElement("div", { className: "container" },
-                    React.createElement("header", { className: "section-header" },
-                        React.createElement("h3", { className: "section-title" }, "Purses")),
-                    "s",
-                    React.createElement("div", { className: "row portfolio-container" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
-                        React.createElement("div", { className: "portfolio-wrap" },
-                            React.createElement("figure", null,
-                                React.createElement("img", { src: imageDictionary.Item(item.productId), className: "img-fluid", alt: "" }),
-                                React.createElement("a", { href: imageDictionary.Item(item.productId), "data-lightbox": "portfolio", "data-title": item.name, className: "link-preview", title: "Preview" },
-                                    React.createElement("i", { className: "ion ion-eye" })),
-                                React.createElement("a", { href: "#", className: "link-details", title: "More Details" },
-                                    React.createElement("i", { className: "ion ion-android-open" }))),
-                            React.createElement("div", { className: "portfolio-info" },
-                                React.createElement("h4", null,
-                                    React.createElement("a", { href: "#" }, item.name)),
-                                React.createElement("p", null, item.description))))); })))));
+            if (needsTitle == 'True') {
+                return (React.createElement("section", { id: gender + "-" + type + "-section", className: "portfolio section-bg" },
+                    React.createElement("div", { className: "container" },
+                        React.createElement("header", { className: "section-header", id: gender + "-section" },
+                            React.createElement("h3", { className: "section-title" },
+                                " ",
+                                gender,
+                                " ")),
+                        React.createElement("header", { className: "section-header" },
+                            React.createElement("h5", { className: "section-title" }, type)),
+                        React.createElement("div", { className: "row portfolio-container" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
+                            React.createElement("div", { className: "portfolio-wrap" },
+                                React.createElement("figure", null,
+                                    React.createElement("img", { src: imageDictionary.Item(item.productId), className: "img-fluid", alt: "" }),
+                                    React.createElement("a", { href: imageDictionary.Item(item.productId), "data-lightbox": "portfolio", "data-title": item.name, className: "link-preview", title: "Preview" },
+                                        React.createElement("i", { className: "ion ion-eye" })),
+                                    React.createElement("a", { href: "#", className: "link-details", title: "More Details" },
+                                        React.createElement("i", { className: "ion ion-android-open" }))),
+                                React.createElement("div", { className: "portfolio-info" },
+                                    React.createElement("h4", null,
+                                        React.createElement("a", { href: "#" }, item.name)),
+                                    React.createElement("p", null, item.description))))); })))));
+            }
+            else {
+                return (React.createElement("section", { id: gender + "-" + type + "-section", className: "portfolio section-bg" },
+                    React.createElement("div", { className: "container" },
+                        React.createElement("header", { className: "section-header" },
+                            React.createElement("h5", { className: "section-title" }, type)),
+                        React.createElement("div", { className: "row portfolio-container" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
+                            React.createElement("div", { className: "portfolio-wrap" },
+                                React.createElement("figure", null,
+                                    React.createElement("img", { src: imageDictionary.Item(item.productId), className: "img-fluid", alt: "" }),
+                                    React.createElement("a", { href: imageDictionary.Item(item.productId), "data-lightbox": "portfolio", "data-title": item.name, className: "link-preview", title: "Preview" },
+                                        React.createElement("i", { className: "ion ion-eye" })),
+                                    React.createElement("a", { href: "#", className: "link-details", title: "More Details" },
+                                        React.createElement("i", { className: "ion ion-android-open" }))),
+                                React.createElement("div", { className: "portfolio-info" },
+                                    React.createElement("h4", null,
+                                        React.createElement("a", { href: "#" }, item.name)),
+                                    React.createElement("p", null, item.description))))); })))));
+            }
         }
     };
     return SectionProducts;
@@ -1224,6 +1247,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var ReactDOM = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+var react_router_1 = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
 var PageHome_1 = __webpack_require__(/*! ./Components/PageHome */ "./Components/PageHome.js");
 var PageContact_1 = __webpack_require__(/*! ./Components/PageContact */ "./Components/PageContact.js");
 var Footer_1 = __webpack_require__(/*! ./Components/Footer */ "./Components/Footer.js");
@@ -1237,11 +1261,11 @@ var App = /** @class */ (function (_super) {
     App.prototype.render = function () {
         return (React.createElement(react_router_dom_1.HashRouter, null,
             React.createElement("div", null,
-                React.createElement(react_router_dom_1.Switch, null,
-                    React.createElement(react_router_dom_1.Route, { exact: true, path: "/", component: PageHome_1.Home }),
-                    React.createElement(react_router_dom_1.Route, { exact: true, path: "/product", component: PageProduct_1.Product }),
-                    React.createElement(react_router_dom_1.Route, { exact: true, path: "/contact", component: PageContact_1.Contact }),
-                    React.createElement(react_router_dom_1.Route, { component: PageNotFound_1.NotFound })),
+                React.createElement(react_router_1.Switch, null,
+                    React.createElement(react_router_1.Route, { exact: true, path: "/", component: PageHome_1.Home }),
+                    React.createElement(react_router_1.Route, { exact: true, path: "/product", component: PageProduct_1.Product }),
+                    React.createElement(react_router_1.Route, { exact: true, path: "/contact", component: PageContact_1.Contact }),
+                    React.createElement(react_router_1.Route, { component: PageNotFound_1.NotFound })),
                 React.createElement(Footer_1.Footer, null))));
     };
     return App;
@@ -27238,7 +27262,7 @@ if (false) {} else {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -27532,6 +27556,134 @@ if (true) {
 
 
 
+
+/***/ }),
+
+/***/ "./node_modules/react-router-hash-link/lib/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/react-router-hash-link/lib/index.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+exports.genericHashLink = genericHashLink;
+exports.HashLink = HashLink;
+exports.NavHashLink = NavHashLink;
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+var hashFragment = '';
+var observer = null;
+var asyncTimerId = null;
+var scrollFunction = null;
+
+function reset() {
+  hashFragment = '';
+  if (observer !== null) observer.disconnect();
+  if (asyncTimerId !== null) {
+    window.clearTimeout(asyncTimerId);
+    asyncTimerId = null;
+  }
+}
+
+function getElAndScroll() {
+  var element = document.getElementById(hashFragment);
+  if (element !== null) {
+    scrollFunction(element);
+    reset();
+    return true;
+  }
+  return false;
+}
+
+function hashLinkScroll() {
+  // Push onto callback queue so it runs after the DOM is updated
+  window.setTimeout(function () {
+    if (getElAndScroll() === false) {
+      if (observer === null) {
+        observer = new MutationObserver(getElAndScroll);
+      }
+      observer.observe(document, {
+        attributes: true,
+        childList: true,
+        subtree: true
+      });
+      // if the element doesn't show up in 10 seconds, stop checking
+      asyncTimerId = window.setTimeout(function () {
+        reset();
+      }, 10000);
+    }
+  }, 0);
+}
+
+function genericHashLink(props, As) {
+  function handleClick(e) {
+    reset();
+    if (props.onClick) props.onClick(e);
+    if (typeof props.to === 'string') {
+      hashFragment = props.to.split('#').slice(1).join('#');
+    } else if (_typeof(props.to) === 'object' && typeof props.to.hash === 'string') {
+      hashFragment = props.to.hash.replace('#', '');
+    }
+    if (hashFragment !== '') {
+      scrollFunction = props.scroll || function (el) {
+        return props.smooth ? el.scrollIntoView({ behavior: "smooth" }) : el.scrollIntoView();
+      };
+      hashLinkScroll();
+    }
+  }
+
+  var scroll = props.scroll,
+      smooth = props.smooth,
+      filteredProps = _objectWithoutProperties(props, ['scroll', 'smooth']);
+
+  return _react2.default.createElement(
+    As,
+    _extends({}, filteredProps, { onClick: handleClick }),
+    props.children
+  );
+}
+
+function HashLink(props) {
+  return genericHashLink(props, _reactRouterDom.Link);
+}
+
+function NavHashLink(props) {
+  return genericHashLink(props, _reactRouterDom.NavLink);
+}
+
+var propTypes = {
+  onClick: _propTypes2.default.func,
+  children: _propTypes2.default.node,
+  scroll: _propTypes2.default.func,
+  to: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.object])
+};
+
+HashLink.propTypes = propTypes;
+NavHashLink.propTypes = propTypes;
 
 /***/ }),
 

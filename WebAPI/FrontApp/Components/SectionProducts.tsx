@@ -13,7 +13,7 @@ export class SectionProducts extends React.Component<any, any>
         super(props);
 
          var dictionary = new KeyedCollection<string>();
-         this.state = { isLoaded: false, items: null, error: null, imageDictionary: dictionary };  
+         this.state = { isLoaded: false, items: null, error: null, imageDictionary: dictionary, gender: props.Gender, type: props.Type, needsTitle: props.NeedsTitle };  
 
          this.getImageForProduct = this.getImageForProduct.bind(this);
      }
@@ -56,7 +56,7 @@ export class SectionProducts extends React.Component<any, any>
     }
 
     render() {
-        const { error, isLoaded, items, imageDictionary } = this.state;
+        const { error, isLoaded, items, imageDictionary, gender, type, needsTitle  } = this.state;
         if (error)
         {
             console.log(error);
@@ -68,38 +68,75 @@ export class SectionProducts extends React.Component<any, any>
 
         } else
         {
-            
-             return (
-                <section id="portfolio" className="section-bg">
-                    <div className="container">
 
-                        <header className="section-header">
-                            <h3 className="section-title">Purses</h3>
-                        </header>s
+            if (needsTitle == 'True') {
+                return (
+                    <section id={gender+"-"+type+"-section"} className="portfolio section-bg">
+                        <div className="container">
 
-                        <div className="row portfolio-container">
-                            {
-                                items.map((item, i) => (
+                            <header className="section-header" id={gender + "-section"}>
+                                <h3 className="section-title" > {gender} </h3>
+                            </header>
+                            <header className="section-header">
+                                <h5 className="section-title">{type}</h5>
+                            </header>
 
-                                    <div key={i} className="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
-                                        <div className="portfolio-wrap">
-                                            <figure>
-                                                <img src={imageDictionary.Item(item.productId)} className="img-fluid" alt="" />
-                                                <a href={imageDictionary.Item(item.productId)} data-lightbox="portfolio" data-title={item.name} className="link-preview" title="Preview"><i className="ion ion-eye"></i></a>
-                                                <a href="#" className="link-details" title="More Details"><i className="ion ion-android-open"></i></a>
-                                            </figure>
+                            <div className="row portfolio-container">
+                                {
+                                    items.map((item, i) => (
 
-                                            <div className="portfolio-info">
-                                                <h4><a href="#">{item.name}</a></h4>
-                                                <p>{item.description}</p>
+                                        <div key={i} className="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
+                                            <div className="portfolio-wrap">
+                                                <figure>
+                                                    <img src={imageDictionary.Item(item.productId)} className="img-fluid" alt="" />
+                                                    <a href={imageDictionary.Item(item.productId)} data-lightbox="portfolio" data-title={item.name} className="link-preview" title="Preview"><i className="ion ion-eye"></i></a>
+                                                    <a href="#" className="link-details" title="More Details"><i className="ion ion-android-open"></i></a>
+                                                </figure>
+
+                                                <div className="portfolio-info">
+                                                    <h4><a href="#">{item.name}</a></h4>
+                                                    <p>{item.description}</p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    ))}
+                            </div>
                         </div>
-                    </div>
-                </section>
-            );
+                    </section>
+                );
+            }
+            else {
+                return (
+                    <section id={gender + "-" + type + "-section"} className="portfolio section-bg">
+                        <div className="container">
+                            <header className="section-header">
+                                <h5 className="section-title">{type}</h5>
+                            </header>
+
+                            <div className="row portfolio-container">
+                                {
+                                    items.map((item, i) => (
+
+                                        <div key={i} className="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
+                                            <div className="portfolio-wrap">
+                                                <figure>
+                                                    <img src={imageDictionary.Item(item.productId)} className="img-fluid" alt="" />
+                                                    <a href={imageDictionary.Item(item.productId)} data-lightbox="portfolio" data-title={item.name} className="link-preview" title="Preview"><i className="ion ion-eye"></i></a>
+                                                    <a href="#" className="link-details" title="More Details"><i className="ion ion-android-open"></i></a>
+                                                </figure>
+
+                                                <div className="portfolio-info">
+                                                    <h4><a href="#">{item.name}</a></h4>
+                                                    <p>{item.description}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                            </div>
+                        </div>
+                    </section>
+                );
+            }
         }
     }
 }

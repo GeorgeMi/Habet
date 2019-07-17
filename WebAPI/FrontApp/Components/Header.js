@@ -15,6 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var Dictionary_1 = require("./Dictionary");
+var react_router_hash_link_1 = require("react-router-hash-link");
 var Header = /** @class */ (function (_super) {
     __extends(Header, _super);
     function Header(props) {
@@ -38,25 +39,20 @@ var Header = /** @class */ (function (_super) {
                     React.createElement("ul", { className: "nav-menu" },
                         React.createElement("li", { className: headerDictionary.Item('Home') },
                             React.createElement("a", { href: "/#/" }, "Home")),
-                        React.createElement("li", null,
-                            React.createElement("a", { href: "#about" }, "About Us")),
-                        React.createElement("li", null,
-                            React.createElement("a", { href: "#services" }, "Services")),
-                        React.createElement("li", null,
-                            React.createElement("a", { href: "#portfolio" }, "Portfolio")),
-                        React.createElement("li", null,
-                            React.createElement("a", { href: "#team" }, "Team")),
-                        React.createElement("li", { className: "menu-has-children" },
-                            React.createElement("a", { href: "" }, "Drop Down"),
+                        React.createElement("li", { className: headerDictionary.Item('Women') },
+                            React.createElement(react_router_hash_link_1.HashLink, { to: "#Women-section" }, "Women"),
                             React.createElement("ul", null,
                                 React.createElement("li", null,
-                                    React.createElement("a", { href: "#" }, "Drop Down 1")),
+                                    React.createElement(react_router_hash_link_1.HashLink, { to: "#Women-Bags-section" }, "Bags")),
                                 React.createElement("li", null,
-                                    React.createElement("a", { href: "#" }, "Drop Down 3")),
+                                    React.createElement(react_router_hash_link_1.HashLink, { to: "#Women-Belts-section" }, "Belts")))),
+                        React.createElement("li", { className: headerDictionary.Item('Men') },
+                            React.createElement(react_router_hash_link_1.HashLink, { to: "#Men-section" }, "Men"),
+                            React.createElement("ul", null,
                                 React.createElement("li", null,
-                                    React.createElement("a", { href: "#" }, "Drop Down 4")),
+                                    React.createElement(react_router_hash_link_1.HashLink, { to: "#Men-Bags-section" }, "Bags")),
                                 React.createElement("li", null,
-                                    React.createElement("a", { href: "#" }, "Drop Down 5")))),
+                                    React.createElement(react_router_hash_link_1.HashLink, { to: "#Men-Belts-section" }, "Belts")))),
                         React.createElement("li", { className: headerDictionary.Item('Contact') },
                             React.createElement("a", { href: "/#/contact" }, "Contact")))))));
     };

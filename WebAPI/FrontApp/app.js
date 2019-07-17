@@ -16,6 +16,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var ReactDOM = require("react-dom");
 var react_router_dom_1 = require("react-router-dom");
+var react_router_1 = require("react-router");
 var PageHome_1 = require("./Components/PageHome");
 var PageContact_1 = require("./Components/PageContact");
 var Footer_1 = require("./Components/Footer");
@@ -29,11 +30,11 @@ var App = /** @class */ (function (_super) {
     App.prototype.render = function () {
         return (React.createElement(react_router_dom_1.HashRouter, null,
             React.createElement("div", null,
-                React.createElement(react_router_dom_1.Switch, null,
-                    React.createElement(react_router_dom_1.Route, { exact: true, path: "/", component: PageHome_1.Home }),
-                    React.createElement(react_router_dom_1.Route, { exact: true, path: "/product", component: PageProduct_1.Product }),
-                    React.createElement(react_router_dom_1.Route, { exact: true, path: "/contact", component: PageContact_1.Contact }),
-                    React.createElement(react_router_dom_1.Route, { component: PageNotFound_1.NotFound })),
+                React.createElement(react_router_1.Switch, null,
+                    React.createElement(react_router_1.Route, { exact: true, path: "/", component: PageHome_1.Home }),
+                    React.createElement(react_router_1.Route, { exact: true, path: "/product", component: PageProduct_1.Product }),
+                    React.createElement(react_router_1.Route, { exact: true, path: "/contact", component: PageContact_1.Contact }),
+                    React.createElement(react_router_1.Route, { component: PageNotFound_1.NotFound })),
                 React.createElement(Footer_1.Footer, null))));
     };
     return App;

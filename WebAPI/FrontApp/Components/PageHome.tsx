@@ -11,8 +11,10 @@ export class Home extends React.Component {
                 <div>
                     <Header Active={'Home'} />
                     <SectionIntro />
-                    <SectionProducts />
-                    <SectionProducts />
+                    <SectionProducts Gender={'Women'} Type={'Bags'} NeedsTitle= {'True'} />
+                    <SectionProducts Gender={'Women'} Type={'Belts'} NeedsTitle= {'False'} />
+                    <SectionProducts Gender={'Men'} Type={'Bags'} NeedsTitle= {'True'} />
+                    <SectionProducts Gender={'Men'} Type={'Belts'} NeedsTitle= {'False'} />
                 </div>
             </main>
         );

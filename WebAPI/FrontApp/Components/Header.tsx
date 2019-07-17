@@ -1,5 +1,6 @@
 ﻿import * as React from 'react';
 import { KeyedCollection } from './Dictionary';
+import { HashLink as Link } from 'react-router-hash-link';
 
 export class Header extends React.Component<any, any> {
     constructor(props) {
@@ -26,19 +27,21 @@ export class Header extends React.Component<any, any> {
                     <nav id="nav-menu-container">
                         <ul className="nav-menu">
                             <li className={headerDictionary.Item('Home')}><a href="/#/">Home</a></li>
-                            <li><a href="#about">About Us</a></li>
-                            <li><a href="#services">Services</a></li>
-                            <li><a href="#portfolio">Portfolio</a></li>
-                            <li><a href="#team">Team</a></li>
-                            <li className="menu-has-children">
-                                <a href="">Drop Down</a>
+                            <li className={headerDictionary.Item('Women')}>
+                                <Link to="#Women-section">Women</Link>
                                 <ul>
-                                    <li><a href="#">Drop Down 1</a></li>
-                                    <li><a href="#">Drop Down 3</a></li>
-                                    <li><a href="#">Drop Down 4</a></li>
-                                    <li><a href="#">Drop Down 5</a></li>
+                                    <li><Link to="#Women-Bags-section">Bags</Link></li>
+                                    <li><Link to="#Women-Belts-section">Belts</Link></li>
                                 </ul>
                             </li>
+                            <li className={headerDictionary.Item('Men')}>
+                                <Link to="#Men-section">Men</Link>
+                                <ul>
+                                    <li><Link to="#Men-Bags-section">Bags</Link></li>
+                                    <li><Link to="#Men-Belts-section">Belts</Link></li>
+                                </ul>
+                            </li>
+                           
                             <li className={headerDictionary.Item('Contact')}><a href="/#/contact">Contact</a></li>
                         </ul>
                     </nav>

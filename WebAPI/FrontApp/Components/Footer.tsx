@@ -9,7 +9,7 @@ export class Footer extends React.Component {
                         <div className="row">
 
                             <div className="col-lg-3 col-md-6 footer-info">
-                                <h3>GabrielHabet</h3>
+                                <h4>GabrielHabet</h4>
                                 <p>Butterfly Gabriel Habet is a fashion brand mainly known for its bag and belt designs for both women and men.</p>
                             </div>
 
@@ -36,10 +36,10 @@ export class Footer extends React.Component {
 
                                 <div className="social-links">
                                     <a href="#" className="twitter"><i className="fa fa-twitter"></i></a>
-                                    <a href="#" className="facebook"><i className="fa fa-facebook"></i></a>
+                                    <a href="https://www.facebook.com/butterflygabrielhabet/" className="facebook"><i className="fa fa-facebook"></i></a>
                                     <a href="#" className="instagram"><i className="fa fa-instagram"></i></a>
                                     <a href="#" className="google-plus"><i className="fa fa-google-plus"></i></a>
-                                    <a href="#" className="linkedin"><i className="fa fa-linkedin"></i></a>
+                                    <a href="https://www.linkedin.com/in/gabriel-habet-b27a9bba/" className="linkedin"><i className="fa fa-linkedin"></i></a>
                                 </div>
 
                             </div>

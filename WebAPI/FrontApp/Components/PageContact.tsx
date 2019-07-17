@@ -15,6 +15,8 @@ export class Contact extends React.Component<any, any>{
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
+        console.log("asdasdasd");
     }
 
     handleChange(event) {
