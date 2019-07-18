@@ -24,7 +24,11 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<IEnumerable<ProductInfo>>> GetProducts(int top, int from)
         {
             //var productList = await _context.Products.Skip(from).Take(top).ToListAsync();
-            var productList = new List<Products>() { new Products { Name = "Name1", Price = 1, ProductId = 1 }, new Products { Name = "Name2", Price = 2, ProductId = 2 } };
+            var productList = new List<Products>();
+            for (int i = 0; i < 9; i++)
+            {
+                productList.Add(new Products { Name = "Name"+i, Price = i, ProductId = i });
+            }
 
             List<ProductInfo> result = new List<ProductInfo>();
             foreach (var product in productList)

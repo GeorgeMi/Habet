@@ -32,7 +32,7 @@ export class SectionProducts extends React.Component<any, any>
 
 
     render() {
-        const { error, isLoaded, items, gender, type } = this.state;
+        const { error, isLoaded, items } = this.state;
         if (error) {
             console.log(error);
             return <div>Error: {error.message}</div>;

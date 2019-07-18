@@ -22,7 +22,6 @@ var Header = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         var dictionary = new Dictionary_1.KeyedCollection();
         dictionary.Add(props.Active, 'menu-active');
-        console.log(dictionary);
         _this.state = { headerDictionary: dictionary };
         return _this;
     }
@@ -38,7 +37,7 @@ var Header = /** @class */ (function (_super) {
                 React.createElement("nav", { id: "nav-menu-container" },
                     React.createElement("ul", { className: "nav-menu" },
                         React.createElement("li", { className: headerDictionary.Item('Home') },
-                            React.createElement("a", { href: "/#/" }, "Home")),
+                            React.createElement("a", { href: "#" }, "Home")),
                         React.createElement("li", { className: headerDictionary.Item('Women') },
                             React.createElement(react_router_hash_link_1.HashLink, { to: "#Women-section" }, "Women"),
                             React.createElement("ul", null,

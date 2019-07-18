@@ -26,7 +26,6 @@ var Contact = /** @class */ (function (_super) {
         _this.state = { name: '', email: '', subject: '', message: '', api_response: '' };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
-        console.log("asdasdasd");
         return _this;
     }
     Contact.prototype.handleChange = function (event) {
@@ -35,9 +34,15 @@ var Contact = /** @class */ (function (_super) {
     };
     Contact.prototype.handleSubmit = function (event) {
         var _this = this;
-        console.log(this.state);
+        var x = this.state;
+        console.log(x);
         event.preventDefault();
-        axios.post(API_Path + '/Contact', querystring.stringify({ data: this.state }))
+        axios.post(API_Path + '/Contact', {
+            name: this.state.name,
+            email: this.state.email,
+            subject: this.state.subject,
+            message: this.state.message
+        })
             .then(function (response) {
             _this.setState({ name: '', email: '', subject: '', message: '', api_response: response.data });
         })

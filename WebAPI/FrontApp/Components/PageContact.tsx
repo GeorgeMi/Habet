@@ -4,7 +4,6 @@ import { Header } from './Header';
 var config = require('config');
 var API_Path = config.API_Path;
 const axios = require('axios');
-var querystring = require('querystring');
 
 export class Contact extends React.Component<any, any>{
 
@@ -15,8 +14,6 @@ export class Contact extends React.Component<any, any>{
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-
-        console.log("asdasdasd");
     }
 
     handleChange(event) {
@@ -24,10 +21,16 @@ export class Contact extends React.Component<any, any>{
     }
 
     handleSubmit(event) {
-        console.log(this.state);
+        var x = this.state
+        console.log(x);
         event.preventDefault();
 
-        axios.post(API_Path + '/Contact', querystring.stringify({ data: this.state }))
+        axios.post(API_Path + '/Contact', {
+            name: this.state.name,
+            email: this.state.email,
+            subject: this.state.subject,
+            message: this.state.message
+        })
             .then((response) => {
                 this.setState({ name: '', email: '', subject: '', message: '', api_response: response.data });
             })

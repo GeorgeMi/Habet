@@ -8,7 +8,6 @@ export class Header extends React.Component<any, any> {
 
         var dictionary = new KeyedCollection<string>();
         dictionary.Add(props.Active, 'menu-active');
-        console.log(dictionary);
 
         this.state = {headerDictionary: dictionary };
     }
@@ -26,7 +25,7 @@ export class Header extends React.Component<any, any> {
 
                     <nav id="nav-menu-container">
                         <ul className="nav-menu">
-                            <li className={headerDictionary.Item('Home')}><a href="/#/">Home</a></li>
+                            <li className={headerDictionary.Item('Home')}><a href="#">Home</a></li>
                             <li className={headerDictionary.Item('Women')}>
                                 <Link to="#Women-section">Women</Link>
                                 <ul>

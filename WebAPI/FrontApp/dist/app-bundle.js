@@ -171,6 +171,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var react_router_hash_link_1 = __webpack_require__(/*! react-router-hash-link */ "./node_modules/react-router-hash-link/lib/index.js");
 var Footer = /** @class */ (function (_super) {
     __extends(Footer, _super);
     function Footer() {
@@ -194,19 +195,19 @@ var Footer = /** @class */ (function (_super) {
                                 React.createElement("li", null,
                                     React.createElement("i", { className: "ion-ios-arrow-right" }),
                                     " ",
-                                    React.createElement("a", { href: "#" }, "About us")),
+                                    React.createElement(react_router_hash_link_1.HashLink, { to: "#Women-section" }, "Women")),
                                 React.createElement("li", null,
                                     React.createElement("i", { className: "ion-ios-arrow-right" }),
                                     " ",
-                                    React.createElement("a", { href: "#" }, "Services")),
+                                    React.createElement(react_router_hash_link_1.HashLink, { to: "#Men-section" }, "Men")),
                                 React.createElement("li", null,
                                     React.createElement("i", { className: "ion-ios-arrow-right" }),
                                     " ",
-                                    React.createElement("a", { href: "#" }, "Terms of service")),
+                                    React.createElement("a", { href: "/#/contact" }, "Contact")),
                                 React.createElement("li", null,
                                     React.createElement("i", { className: "ion-ios-arrow-right" }),
                                     " ",
-                                    React.createElement("a", { href: "#" }, "Privacy policy")))),
+                                    React.createElement("a", { href: "/#/logIn" }, "LogIn")))),
                         React.createElement("div", { className: "col-lg-3 col-md-6 footer-contact" },
                             React.createElement("h4", null, "Contact Us"),
                             React.createElement("p", null,
@@ -285,7 +286,6 @@ var Header = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         var dictionary = new Dictionary_1.KeyedCollection();
         dictionary.Add(props.Active, 'menu-active');
-        console.log(dictionary);
         _this.state = { headerDictionary: dictionary };
         return _this;
     }
@@ -301,7 +301,7 @@ var Header = /** @class */ (function (_super) {
                 React.createElement("nav", { id: "nav-menu-container" },
                     React.createElement("ul", { className: "nav-menu" },
                         React.createElement("li", { className: headerDictionary.Item('Home') },
-                            React.createElement("a", { href: "/#/" }, "Home")),
+                            React.createElement("a", { href: "#" }, "Home")),
                         React.createElement("li", { className: headerDictionary.Item('Women') },
                             React.createElement(react_router_hash_link_1.HashLink, { to: "#Women-section" }, "Women"),
                             React.createElement("ul", null,
@@ -362,7 +362,6 @@ var Contact = /** @class */ (function (_super) {
         _this.state = { name: '', email: '', subject: '', message: '', api_response: '' };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
-        console.log("asdasdasd");
         return _this;
     }
     Contact.prototype.handleChange = function (event) {
@@ -371,9 +370,15 @@ var Contact = /** @class */ (function (_super) {
     };
     Contact.prototype.handleSubmit = function (event) {
         var _this = this;
-        console.log(this.state);
+        var x = this.state;
+        console.log(x);
         event.preventDefault();
-        axios.post(API_Path + '/Contact', querystring.stringify({ data: this.state }))
+        axios.post(API_Path + '/Contact', {
+            name: this.state.name,
+            email: this.state.email,
+            subject: this.state.subject,
+            message: this.state.message
+        })
             .then(function (response) {
             _this.setState({ name: '', email: '', subject: '', message: '', api_response: response.data });
         })
@@ -803,7 +808,7 @@ var SectionProducts = /** @class */ (function (_super) {
             .then();
     };
     SectionProducts.prototype.render = function () {
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, gender = _a.gender, type = _a.type;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items;
         if (error) {
             console.log(error);
             return React.createElement("div", null,

@@ -14,6 +14,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
+var react_router_hash_link_1 = require("react-router-hash-link");
 var Footer = /** @class */ (function (_super) {
     __extends(Footer, _super);
     function Footer() {
@@ -37,19 +38,19 @@ var Footer = /** @class */ (function (_super) {
                                 React.createElement("li", null,
                                     React.createElement("i", { className: "ion-ios-arrow-right" }),
                                     " ",
-                                    React.createElement("a", { href: "#" }, "About us")),
+                                    React.createElement(react_router_hash_link_1.HashLink, { to: "#Women-section" }, "Women")),
                                 React.createElement("li", null,
                                     React.createElement("i", { className: "ion-ios-arrow-right" }),
                                     " ",
-                                    React.createElement("a", { href: "#" }, "Services")),
+                                    React.createElement(react_router_hash_link_1.HashLink, { to: "#Men-section" }, "Men")),
                                 React.createElement("li", null,
                                     React.createElement("i", { className: "ion-ios-arrow-right" }),
                                     " ",
-                                    React.createElement("a", { href: "#" }, "Terms of service")),
+                                    React.createElement("a", { href: "/#/contact" }, "Contact")),
                                 React.createElement("li", null,
                                     React.createElement("i", { className: "ion-ios-arrow-right" }),
                                     " ",
-                                    React.createElement("a", { href: "#" }, "Privacy policy")))),
+                                    React.createElement("a", { href: "/#/logIn" }, "LogIn")))),
                         React.createElement("div", { className: "col-lg-3 col-md-6 footer-contact" },
                             React.createElement("h4", null, "Contact Us"),
                             React.createElement("p", null,

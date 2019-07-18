@@ -1,4 +1,5 @@
 ﻿import * as React from 'react';
+import { HashLink as Link } from 'react-router-hash-link';
 
 export class Footer extends React.Component {
     render() {
@@ -17,10 +18,10 @@ export class Footer extends React.Component {
                                 <h4>Useful Links</h4>
                                 <ul>
                                     <li><i className="ion-ios-arrow-right"></i> <a href="#">Home</a></li>
-                                    <li><i className="ion-ios-arrow-right"></i> <a href="#">About us</a></li>
-                                    <li><i className="ion-ios-arrow-right"></i> <a href="#">Services</a></li>
-                                    <li><i className="ion-ios-arrow-right"></i> <a href="#">Terms of service</a></li>
-                                    <li><i className="ion-ios-arrow-right"></i> <a href="#">Privacy policy</a></li>
+                                    <li><i className="ion-ios-arrow-right"></i> <Link to="#Women-section">Women</Link></li>
+                                    <li><i className="ion-ios-arrow-right"></i> <Link to="#Men-section">Men</Link></li>
+                                    <li><i className="ion-ios-arrow-right"></i> <a href="/#/contact">Contact</a></li>
+                                    <li><i className="ion-ios-arrow-right"></i> <a href="/#/logIn">LogIn</a></li>
                                 </ul>
                             </div>
 
