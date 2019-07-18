@@ -15,12 +15,6 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var Header_1 = require("./Header");
-var SectionServices_1 = require("./SectionServices");
-var SectionSkills_1 = require("./SectionSkills");
-var SectionAboutUs_1 = require("./SectionAboutUs");
-var SectionCallToAction_1 = require("./SectionCallToAction");
-var SectionFacts_1 = require("./SectionFacts");
-var SectionFeaturedServices_1 = require("./SectionFeaturedServices");
 var NotFound = /** @class */ (function (_super) {
     __extends(NotFound, _super);
     function NotFound() {
@@ -31,19 +25,13 @@ var NotFound = /** @class */ (function (_super) {
             React.createElement(Header_1.Header, null),
             React.createElement("br", null),
             React.createElement("br", null),
-            React.createElement("h2", null, "ARE YOU HAPPY NOW?"),
-            React.createElement("h3", null, "Just kidding! Our bad."),
             React.createElement("br", null),
-            React.createElement("h1", null, "404 NOT FOUND"),
-            React.createElement("br", null),
-            React.createElement("br", null),
-            React.createElement("br", null),
-            React.createElement(SectionFeaturedServices_1.SectionFeaturedServices, null),
-            React.createElement(SectionAboutUs_1.SectionAboutUs, null),
-            React.createElement(SectionServices_1.SectionServices, null),
-            React.createElement(SectionCallToAction_1.SectionCallToAction, null),
-            React.createElement(SectionSkills_1.SectionSkills, null),
-            React.createElement(SectionFacts_1.SectionFacts, null)));
+            React.createElement("section", { id: "contact", className: "section-bg wow fadeInUp" },
+                React.createElement("div", { className: "container" },
+                    React.createElement("div", { className: "section-header" },
+                        React.createElement("h3", null, "ARE YOU HAPPY NOW?"),
+                        React.createElement("p", null, "Just kidding! Our bad."),
+                        React.createElement("p", null, "404 NOT FOUND"))))));
     };
     return NotFound;
 }(React.Component));

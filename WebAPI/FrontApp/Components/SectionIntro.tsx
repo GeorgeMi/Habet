@@ -45,9 +45,6 @@ export class SectionIntro extends React.Component<any, any> {
             ));
             activeDictionary.Add(0, "active");
 
-            console.log(activeDictionary);
-            console.log(activeDictionary.Item(0));
-
             return (
                 <section id="intro">
                     <div className="intro-container">

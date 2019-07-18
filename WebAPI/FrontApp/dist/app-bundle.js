@@ -529,12 +529,6 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
-var SectionServices_1 = __webpack_require__(/*! ./SectionServices */ "./Components/SectionServices.js");
-var SectionSkills_1 = __webpack_require__(/*! ./SectionSkills */ "./Components/SectionSkills.js");
-var SectionAboutUs_1 = __webpack_require__(/*! ./SectionAboutUs */ "./Components/SectionAboutUs.js");
-var SectionCallToAction_1 = __webpack_require__(/*! ./SectionCallToAction */ "./Components/SectionCallToAction.js");
-var SectionFacts_1 = __webpack_require__(/*! ./SectionFacts */ "./Components/SectionFacts.js");
-var SectionFeaturedServices_1 = __webpack_require__(/*! ./SectionFeaturedServices */ "./Components/SectionFeaturedServices.js");
 var NotFound = /** @class */ (function (_super) {
     __extends(NotFound, _super);
     function NotFound() {
@@ -545,19 +539,13 @@ var NotFound = /** @class */ (function (_super) {
             React.createElement(Header_1.Header, null),
             React.createElement("br", null),
             React.createElement("br", null),
-            React.createElement("h2", null, "ARE YOU HAPPY NOW?"),
-            React.createElement("h3", null, "Just kidding! Our bad."),
             React.createElement("br", null),
-            React.createElement("h1", null, "404 NOT FOUND"),
-            React.createElement("br", null),
-            React.createElement("br", null),
-            React.createElement("br", null),
-            React.createElement(SectionFeaturedServices_1.SectionFeaturedServices, null),
-            React.createElement(SectionAboutUs_1.SectionAboutUs, null),
-            React.createElement(SectionServices_1.SectionServices, null),
-            React.createElement(SectionCallToAction_1.SectionCallToAction, null),
-            React.createElement(SectionSkills_1.SectionSkills, null),
-            React.createElement(SectionFacts_1.SectionFacts, null)));
+            React.createElement("section", { id: "contact", className: "section-bg wow fadeInUp" },
+                React.createElement("div", { className: "container" },
+                    React.createElement("div", { className: "section-header" },
+                        React.createElement("h3", null, "ARE YOU HAPPY NOW?"),
+                        React.createElement("p", null, "Just kidding! Our bad."),
+                        React.createElement("p", null, "404 NOT FOUND"))))));
     };
     return NotFound;
 }(React.Component));
@@ -669,234 +657,6 @@ exports.Product = Product;
 
 /***/ }),
 
-/***/ "./Components/SectionAboutUs.js":
-/*!**************************************!*\
-  !*** ./Components/SectionAboutUs.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var SectionAboutUs = /** @class */ (function (_super) {
-    __extends(SectionAboutUs, _super);
-    function SectionAboutUs() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    SectionAboutUs.prototype.render = function () {
-        return (React.createElement("section", { id: "about" },
-            React.createElement("div", { className: "container" },
-                React.createElement("header", { className: "section-header" },
-                    React.createElement("h3", null, "About Us"),
-                    React.createElement("p", null, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.")),
-                React.createElement("div", { className: "row about-cols" },
-                    React.createElement("div", { className: "col-md-4 wow fadeInUp" },
-                        React.createElement("div", { className: "about-col" },
-                            React.createElement("div", { className: "img" },
-                                React.createElement("img", { src: "img/about-mission.jpg", alt: "", className: "img-fluid" }),
-                                React.createElement("div", { className: "icon" },
-                                    React.createElement("i", { className: "ion-ios-speedometer-outline" }))),
-                            React.createElement("h2", { className: "title" },
-                                React.createElement("a", { href: "#" }, "Our Mission")),
-                            React.createElement("p", null, "Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."))),
-                    React.createElement("div", { className: "col-md-4 wow fadeInUp", "data-wow-delay": "0.1s" },
-                        React.createElement("div", { className: "about-col" },
-                            React.createElement("div", { className: "img" },
-                                React.createElement("img", { src: "img/about-plan.jpg", alt: "", className: "img-fluid" }),
-                                React.createElement("div", { className: "icon" },
-                                    React.createElement("i", { className: "ion-ios-list-outline" }))),
-                            React.createElement("h2", { className: "title" },
-                                React.createElement("a", { href: "#" }, "Our Plan")),
-                            React.createElement("p", null, "Sed ut perspiciatis unde omnis iste natus error sit voluptatem  doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."))),
-                    React.createElement("div", { className: "col-md-4 wow fadeInUp", "data-wow-delay": "0.2s" },
-                        React.createElement("div", { className: "about-col" },
-                            React.createElement("div", { className: "img" },
-                                React.createElement("img", { src: "img/about-vision.jpg", alt: "", className: "img-fluid" }),
-                                React.createElement("div", { className: "icon" },
-                                    React.createElement("i", { className: "ion-ios-eye-outline" }))),
-                            React.createElement("h2", { className: "title" },
-                                React.createElement("a", { href: "#" }, "Our Vision")),
-                            React.createElement("p", null, "Nemo enim ipsam voluptatem quia voluptas sit aut odit aut fugit, sed quia magni dolores eos qui ratione voluptatem sequi nesciunt Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.")))))));
-    };
-    return SectionAboutUs;
-}(React.Component));
-exports.SectionAboutUs = SectionAboutUs;
-//# sourceMappingURL=SectionAboutUs.js.map
-
-/***/ }),
-
-/***/ "./Components/SectionCallToAction.js":
-/*!*******************************************!*\
-  !*** ./Components/SectionCallToAction.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var SectionCallToAction = /** @class */ (function (_super) {
-    __extends(SectionCallToAction, _super);
-    function SectionCallToAction() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    SectionCallToAction.prototype.render = function () {
-        return (React.createElement("section", { id: "call-to-action", className: "wow fadeIn" },
-            React.createElement("div", { className: "container text-center" },
-                React.createElement("h3", null, "Call To Action"),
-                React.createElement("p", null, " Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
-                React.createElement("a", { className: "cta-btn", href: "#" }, "Call To Action"))));
-    };
-    return SectionCallToAction;
-}(React.Component));
-exports.SectionCallToAction = SectionCallToAction;
-//# sourceMappingURL=SectionCallToAction.js.map
-
-/***/ }),
-
-/***/ "./Components/SectionFacts.js":
-/*!************************************!*\
-  !*** ./Components/SectionFacts.js ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var SectionFacts = /** @class */ (function (_super) {
-    __extends(SectionFacts, _super);
-    function SectionFacts() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    SectionFacts.prototype.render = function () {
-        return (React.createElement("section", { id: "facts", className: "wow fadeIn" },
-            React.createElement("div", { className: "container" },
-                React.createElement("header", { className: "section-header" },
-                    React.createElement("h3", null, "Facts"),
-                    React.createElement("p", null, "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque")),
-                React.createElement("div", { className: "row counters" },
-                    React.createElement("div", { className: "col-lg-3 col-6 text-center" },
-                        React.createElement("span", { "data-toggle": "counter-up" }, "274"),
-                        React.createElement("p", null, "Clients")),
-                    React.createElement("div", { className: "col-lg-3 col-6 text-center" },
-                        React.createElement("span", { "data-toggle": "counter-up" }, "421"),
-                        React.createElement("p", null, "Projects")),
-                    React.createElement("div", { className: "col-lg-3 col-6 text-center" },
-                        React.createElement("span", { "data-toggle": "counter-up" }, "1,364"),
-                        React.createElement("p", null, "Hours Of Support")),
-                    React.createElement("div", { className: "col-lg-3 col-6 text-center" },
-                        React.createElement("span", { "data-toggle": "counter-up" }, "18"),
-                        React.createElement("p", null, "Hard Workers"))),
-                React.createElement("div", { className: "facts-img" },
-                    React.createElement("img", { src: "img/facts-img.png", alt: "", className: "img-fluid" })))));
-    };
-    return SectionFacts;
-}(React.Component));
-exports.SectionFacts = SectionFacts;
-//# sourceMappingURL=SectionFacts.js.map
-
-/***/ }),
-
-/***/ "./Components/SectionFeaturedServices.js":
-/*!***********************************************!*\
-  !*** ./Components/SectionFeaturedServices.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var SectionFeaturedServices = /** @class */ (function (_super) {
-    __extends(SectionFeaturedServices, _super);
-    function SectionFeaturedServices() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    SectionFeaturedServices.prototype.render = function () {
-        return (React.createElement("section", { id: "featured-services" },
-            React.createElement("div", { className: "container" },
-                React.createElement("div", { className: "row" },
-                    React.createElement("div", { className: "col-lg-4 box" },
-                        React.createElement("i", { className: "ion-ios-bookmarks-outline" }),
-                        React.createElement("h4", { className: "title" },
-                            React.createElement("a", { href: "" }, "Lorem Ipsum Delino")),
-                        React.createElement("p", { className: "description" }, "Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident")),
-                    React.createElement("div", { className: "col-lg-4 box box-bg" },
-                        React.createElement("i", { className: "ion-ios-stopwatch-outline" }),
-                        React.createElement("h4", { className: "title" },
-                            React.createElement("a", { href: "" }, "Dolor Sitema")),
-                        React.createElement("p", { className: "description" }, "Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata")),
-                    React.createElement("div", { className: "col-lg-4 box" },
-                        React.createElement("i", { className: "ion-ios-heart-outline" }),
-                        React.createElement("h4", { className: "title" },
-                            React.createElement("a", { href: "" }, "Sed ut perspiciatis")),
-                        React.createElement("p", { className: "description" }, "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur"))))));
-    };
-    return SectionFeaturedServices;
-}(React.Component));
-exports.SectionFeaturedServices = SectionFeaturedServices;
-//# sourceMappingURL=SectionFeaturedServices.js.map
-
-/***/ }),
-
 /***/ "./Components/SectionIntro.js":
 /*!************************************!*\
   !*** ./Components/SectionIntro.js ***!
@@ -963,8 +723,6 @@ var SectionIntro = /** @class */ (function (_super) {
             var activeDictionary = new Dictionary_1.KeyedCollection();
             items.map(function (item, i) { return (activeDictionary.Add(i, "")); });
             activeDictionary.Add(0, "active");
-            console.log(activeDictionary);
-            console.log(activeDictionary.Item(0));
             return (React.createElement("section", { id: "intro" },
                 React.createElement("div", { className: "intro-container" },
                     React.createElement("div", { id: "introCarousel", className: "carousel  slide carousel-fade", "data-ride": "carousel" },
@@ -1076,130 +834,6 @@ var SectionProducts = /** @class */ (function (_super) {
 }(React.Component));
 exports.SectionProducts = SectionProducts;
 //# sourceMappingURL=SectionProducts.js.map
-
-/***/ }),
-
-/***/ "./Components/SectionServices.js":
-/*!***************************************!*\
-  !*** ./Components/SectionServices.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var SectionServices = /** @class */ (function (_super) {
-    __extends(SectionServices, _super);
-    function SectionServices() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    SectionServices.prototype.render = function () {
-        return (React.createElement("section", { id: "services" },
-            React.createElement("div", { className: "container" },
-                React.createElement("header", { className: "section-header wow fadeInUp" },
-                    React.createElement("h3", null, "Services"),
-                    React.createElement("p", null, "Laudem latine persequeris id sed, ex fabulas delectus quo. No vel partiendo abhorreant vituperatoribus, ad pro quaestio laboramus. Ei ubique vivendum pro. At ius nisl accusam lorenta zanos paradigno tridexa panatarel.")),
-                React.createElement("div", { className: "row" },
-                    React.createElement("div", { className: "col-lg-4 col-md-6 box wow bounceInUp", "data-wow-duration": "1.4s" },
-                        React.createElement("div", { className: "icon" },
-                            React.createElement("i", { className: "ion-ios-analytics-outline" })),
-                        React.createElement("h4", { className: "title" },
-                            React.createElement("a", { href: "" }, "Lorem Ipsum")),
-                        React.createElement("p", { className: "description" }, "Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident")),
-                    React.createElement("div", { className: "col-lg-4 col-md-6 box wow bounceInUp", "data-wow-duration": "1.4s" },
-                        React.createElement("div", { className: "icon" },
-                            React.createElement("i", { className: "ion-ios-bookmarks-outline" })),
-                        React.createElement("h4", { className: "title" },
-                            React.createElement("a", { href: "" }, "Dolor Sitema")),
-                        React.createElement("p", { className: "description" }, "Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata")),
-                    React.createElement("div", { className: "col-lg-4 col-md-6 box wow bounceInUp", "data-wow-duration": "1.4s" },
-                        React.createElement("div", { className: "icon" },
-                            React.createElement("i", { className: "ion-ios-paper-outline" })),
-                        React.createElement("h4", { className: "title" },
-                            React.createElement("a", { href: "" }, "Sed ut perspiciatis")),
-                        React.createElement("p", { className: "description" }, "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur")),
-                    React.createElement("div", { className: "col-lg-4 col-md-6 box wow bounceInUp", "data-wow-delay": "0.1s", "data-wow-duration": "1.4s" },
-                        React.createElement("div", { className: "icon" },
-                            React.createElement("i", { className: "ion-ios-speedometer-outline" })),
-                        React.createElement("h4", { className: "title" },
-                            React.createElement("a", { href: "" }, "Magni Dolores")),
-                        React.createElement("p", { className: "description" }, "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum")),
-                    React.createElement("div", { className: "col-lg-4 col-md-6 box wow bounceInUp", "data-wow-delay": "0.1s", "data-wow-duration": "1.4s" },
-                        React.createElement("div", { className: "icon" },
-                            React.createElement("i", { className: "ion-ios-barcode-outline" })),
-                        React.createElement("h4", { className: "title" },
-                            React.createElement("a", { href: "" }, "Nemo Enim")),
-                        React.createElement("p", { className: "description" }, "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque")),
-                    React.createElement("div", { className: "col-lg-4 col-md-6 box wow bounceInUp", "data-wow-delay": "0.1s", "data-wow-duration": "1.4s" },
-                        React.createElement("div", { className: "icon" },
-                            React.createElement("i", { className: "ion-ios-people-outline" })),
-                        React.createElement("h4", { className: "title" },
-                            React.createElement("a", { href: "" }, "Eiusmod Tempor")),
-                        React.createElement("p", { className: "description" }, "Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi"))))));
-    };
-    return SectionServices;
-}(React.Component));
-exports.SectionServices = SectionServices;
-//# sourceMappingURL=SectionServices.js.map
-
-/***/ }),
-
-/***/ "./Components/SectionSkills.js":
-/*!*************************************!*\
-  !*** ./Components/SectionSkills.js ***!
-  \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var SectionSkills = /** @class */ (function (_super) {
-    __extends(SectionSkills, _super);
-    function SectionSkills() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    SectionSkills.prototype.render = function () {
-        return (React.createElement("section", { id: "skills" },
-            React.createElement("div", { className: "container" },
-                React.createElement("header", { className: "section-header" },
-                    React.createElement("h3", null, "Our Skills"),
-                    React.createElement("p", null, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip")),
-                React.createElement("div", { className: "skills-content" }))));
-    };
-    return SectionSkills;
-}(React.Component));
-exports.SectionSkills = SectionSkills;
-//# sourceMappingURL=SectionSkills.js.map
 
 /***/ }),
 

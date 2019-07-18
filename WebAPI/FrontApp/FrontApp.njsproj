@@ -69,14 +69,6 @@
     </TypeScriptCompile>
     <TypeScriptCompile Include="Components\PageContact.tsx" />
     <TypeScriptCompile Include="Components\SectionProducts.tsx" />
-    <TypeScriptCompile Include="Components\SectionFacts.tsx" />
-    <TypeScriptCompile Include="Components\SectionSkills.tsx" />
-    <TypeScriptCompile Include="Components\SectionCallToAction.tsx" />
-    <TypeScriptCompile Include="Components\SectionServices.tsx" />
-    <TypeScriptCompile Include="Components\SectionAboutUs.tsx" />
-    <TypeScriptCompile Include="Components\SectionFeaturedServices.tsx">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="css\" />

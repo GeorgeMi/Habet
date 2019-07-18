@@ -56,8 +56,6 @@ var SectionIntro = /** @class */ (function (_super) {
             var activeDictionary = new Dictionary_1.KeyedCollection();
             items.map(function (item, i) { return (activeDictionary.Add(i, "")); });
             activeDictionary.Add(0, "active");
-            console.log(activeDictionary);
-            console.log(activeDictionary.Item(0));
             return (React.createElement("section", { id: "intro" },
                 React.createElement("div", { className: "intro-container" },
                     React.createElement("div", { id: "introCarousel", className: "carousel  slide carousel-fade", "data-ride": "carousel" },
