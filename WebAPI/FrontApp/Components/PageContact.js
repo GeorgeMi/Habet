@@ -18,7 +18,6 @@ var Header_1 = require("./Header");
 var config = require('config');
 var API_Path = config.API_Path;
 var axios = require('axios');
-var querystring = require('querystring');
 var Contact = /** @class */ (function (_super) {
     __extends(Contact, _super);
     function Contact(props) {

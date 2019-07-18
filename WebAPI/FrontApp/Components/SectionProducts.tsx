@@ -51,11 +51,11 @@ export class SectionProducts extends React.Component<any, any>
                                     <figure>
                                         <img src={item.image} className="img-fluid" alt="" />
                                         <a href={item.image} data-lightbox="portfolio" data-title={item.name} className="link-preview" title="Preview"><i className="ion ion-eye"></i></a>
-                                        <a href="#" className="link-details" title="More Details"><i className="ion ion-android-open"></i></a>
+                                        <a href={"/#/item/" + item.productId} className="link-details" title="More Details"><i className="ion ion-android-open"></i></a>
                                     </figure>
 
                                     <div className="portfolio-info">
-                                        <h4><a href="#">{item.name}</a></h4>
+                                        <h4><a href={"/#/item/" + item.productId}>{item.name}</a></h4>
                                         <p>$ {item.price}</p>
                                     </div>
                                 </div>

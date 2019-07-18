@@ -32,7 +32,7 @@ var App = /** @class */ (function (_super) {
             React.createElement("div", null,
                 React.createElement(react_router_1.Switch, null,
                     React.createElement(react_router_1.Route, { exact: true, path: "/", component: PageHome_1.Home }),
-                    React.createElement(react_router_1.Route, { exact: true, path: "/product", component: PageProduct_1.Product }),
+                    React.createElement(react_router_1.Route, { exact: true, path: "/item/:id", component: PageProduct_1.Product }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/contact", component: PageContact_1.Contact }),
                     React.createElement(react_router_1.Route, { component: PageNotFound_1.NotFound })),
                 React.createElement(Footer_1.Footer, null))));

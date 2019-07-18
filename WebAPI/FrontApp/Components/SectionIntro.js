@@ -69,7 +69,7 @@ var SectionIntro = /** @class */ (function (_super) {
                                     React.createElement("p", null,
                                         "$ ",
                                         item.price),
-                                    React.createElement("a", { href: "#featured-services", className: "btn-get-started scrollto" }, "Details"))))); })),
+                                    React.createElement("a", { href: "/#/item/" + item.productId, className: "btn-get-started scrollto" }, "Details"))))); })),
                         React.createElement("a", { className: "carousel-control-prev", href: "#introCarousel", role: "button", "data-slide": "prev" },
                             React.createElement("span", { className: "carousel-control-prev-icon ion-chevron-left", "aria-hidden": "true" }),
                             React.createElement("span", { className: "sr-only" }, "Previous")),

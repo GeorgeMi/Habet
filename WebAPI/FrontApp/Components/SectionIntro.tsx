@@ -61,7 +61,7 @@ export class SectionIntro extends React.Component<any, any> {
                                                 <div className="carousel-content">
                                                     <h2>{item.name}</h2>
                                                     <p>$ {item.price}</p>
-                                                    <a href="#featured-services" className="btn-get-started scrollto">Details</a>
+                                                    <a href={"/#/item/"+item.productId} className="btn-get-started scrollto">Details</a>
                                                 </div>
                                             </div>
                                         </div>

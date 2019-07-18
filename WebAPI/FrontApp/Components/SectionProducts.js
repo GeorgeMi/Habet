@@ -58,11 +58,11 @@ var SectionProducts = /** @class */ (function (_super) {
                         React.createElement("img", { src: item.image, className: "img-fluid", alt: "" }),
                         React.createElement("a", { href: item.image, "data-lightbox": "portfolio", "data-title": item.name, className: "link-preview", title: "Preview" },
                             React.createElement("i", { className: "ion ion-eye" })),
-                        React.createElement("a", { href: "#", className: "link-details", title: "More Details" },
+                        React.createElement("a", { href: "/#/item/" + item.productId, className: "link-details", title: "More Details" },
                             React.createElement("i", { className: "ion ion-android-open" }))),
                     React.createElement("div", { className: "portfolio-info" },
                         React.createElement("h4", null,
-                            React.createElement("a", { href: "#" }, item.name)),
+                            React.createElement("a", { href: "/#/item/" + item.productId }, item.name)),
                         React.createElement("p", null,
                             "$ ",
                             item.price))))); })));
