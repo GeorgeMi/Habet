@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DAL.Models;
 using DTOs.Models;
+using System;
 
 namespace WebAPI.Controllers
 {
@@ -25,9 +26,10 @@ namespace WebAPI.Controllers
         {
             //var productList = await _context.Products.Skip(from).Take(top).ToListAsync();
             var productList = new List<Products>();
+            Random rnd = new Random();
             for (int i = 0; i < 9; i++)
             {
-                productList.Add(new Products { Name = "Name"+i, Price = i, ProductId = i });
+                productList.Add(new Products { Name = "Name"+i, Price = i, ProductId = rnd.Next(1, 131231) });
             }
 
             List<ProductInfo> result = new List<ProductInfo>();

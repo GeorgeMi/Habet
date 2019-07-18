@@ -11,7 +11,7 @@ export class Home extends React.Component {
                 <div>
                     <Header Active={'Home'} />
                     <SectionIntro />
-                    <section className="portfolio section-bg">
+                    <section className="product section-bg">
                         <div className="container">
                             <header className="section-header" id="Women-section">
                                 <h3 className="section-title" > Women </h3>

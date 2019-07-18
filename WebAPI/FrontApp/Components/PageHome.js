@@ -27,7 +27,7 @@ var Home = /** @class */ (function (_super) {
             React.createElement("div", null,
                 React.createElement(Header_1.Header, { Active: 'Home' }),
                 React.createElement(SectionIntro_1.SectionIntro, null),
-                React.createElement("section", { className: "portfolio section-bg" },
+                React.createElement("section", { className: "product section-bg" },
                     React.createElement("div", { className: "container" },
                         React.createElement("header", { className: "section-header", id: "Women-section" },
                             React.createElement("h3", { className: "section-title" }, " Women ")),

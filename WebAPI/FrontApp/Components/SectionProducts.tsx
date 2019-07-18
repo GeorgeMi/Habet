@@ -42,19 +42,19 @@ export class SectionProducts extends React.Component<any, any>
 
         } else {
             return (
-                <div className="row portfolio-container">
+                <div className="row product-container">
                     {
                         items.map((item, i) => (
 
-                            <div key={i} className="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
-                                <div className="portfolio-wrap">
+                            <div key={i} className="col-lg-4 col-md-6 product-item filter-app wow fadeInUp">
+                                <div className="product-wrap">
                                     <figure>
                                         <img src={item.image} className="img-fluid" alt="" />
-                                        <a href={item.image} data-lightbox="portfolio" data-title={item.name} className="link-preview" title="Preview"><i className="ion ion-eye"></i></a>
-                                        <a href={"/#/item/" + item.productId} className="link-details" title="More Details"><i className="ion ion-android-open"></i></a>
+                                        <a href={item.image} data-lightbox={item.name + item.productId}  data-title={item.name} data-footer={"$ " + item.price} className="link-preview" title="Preview"><i className="ion ion-eye"></i></a>
+                                        <a href={"/#/item/" + item.productId} className="link-details" title="More Details"><i className="ion ion-android-open"></i></a>                               
                                     </figure>
 
-                                    <div className="portfolio-info">
+                                    <div className="product-info">
                                         <h4><a href={"/#/item/" + item.productId}>{item.name}</a></h4>
                                         <p>$ {item.price}</p>
                                     </div>

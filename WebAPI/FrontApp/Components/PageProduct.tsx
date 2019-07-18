@@ -62,20 +62,20 @@ export class Product extends React.Component<any, any>
                     <Header />
                     <br />
                     <br />
-                <section id="portfolio" className="section-bg">
+                <section id="product" className="section-bg">
                     <div className="container">
-                        <div className="row portfolio-container">
-                                    <div className="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
-                                        <div className="portfolio-wrap">
+                        <div className="row product-container">
+                                    <div className="col-lg-4 col-md-6 product-item filter-app wow fadeInUp">
+                                        <div className="product-wrap">
                                             <figure>
                                                 <img src={imageDictionary.Item(item.productId)} className="img-fluid" alt="" />
-                                                <a href={imageDictionary.Item(item.productId)} data-lightbox="portfolio" data-title={item.name} className="link-preview" title="Preview"><i className="ion ion-eye"></i></a>
+                                                <a href={imageDictionary.Item(item.productId)} data-lightbox="product" data-title={item.name} className="link-preview" title="Preview"><i className="ion ion-eye"></i></a>
                                                 <a href="#" className="link-details" title="More Details"><i className="ion ion-android-open"></i></a>
                                             </figure>
                                                                                
                                         </div>
                             </div>
-                            <div className="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
+                            <div className="col-lg-4 col-md-6 product-item filter-app wow fadeInUp">
                                 <h4><a href="#">{item.name}</a></h4>
                                 <p>{item.description}</p>
                             </div>

@@ -52,15 +52,15 @@ var SectionProducts = /** @class */ (function (_super) {
             return React.createElement("div", null, "Loading...");
         }
         else {
-            return (React.createElement("div", { className: "row portfolio-container" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
-                React.createElement("div", { className: "portfolio-wrap" },
+            return (React.createElement("div", { className: "row product-container" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 product-item filter-app wow fadeInUp" },
+                React.createElement("div", { className: "product-wrap" },
                     React.createElement("figure", null,
                         React.createElement("img", { src: item.image, className: "img-fluid", alt: "" }),
-                        React.createElement("a", { href: item.image, "data-lightbox": "portfolio", "data-title": item.name, className: "link-preview", title: "Preview" },
+                        React.createElement("a", { href: item.image, "data-lightbox": item.name + item.productId, "data-title": item.name, "data-footer": "$ " + item.price, className: "link-preview", title: "Preview" },
                             React.createElement("i", { className: "ion ion-eye" })),
                         React.createElement("a", { href: "/#/item/" + item.productId, className: "link-details", title: "More Details" },
                             React.createElement("i", { className: "ion ion-android-open" }))),
-                    React.createElement("div", { className: "portfolio-info" },
+                    React.createElement("div", { className: "product-info" },
                         React.createElement("h4", null,
                             React.createElement("a", { href: "/#/item/" + item.productId }, item.name)),
                         React.createElement("p", null,
