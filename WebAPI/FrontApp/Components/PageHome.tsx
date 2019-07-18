@@ -11,10 +11,40 @@ export class Home extends React.Component {
                 <div>
                     <Header Active={'Home'} />
                     <SectionIntro />
-                    <SectionProducts Gender={'Women'} Type={'Bags'} NeedsTitle= {'True'} />
-                    <SectionProducts Gender={'Women'} Type={'Belts'} NeedsTitle= {'False'} />
-                    <SectionProducts Gender={'Men'} Type={'Bags'} NeedsTitle= {'True'} />
-                    <SectionProducts Gender={'Men'} Type={'Belts'} NeedsTitle= {'False'} />
+                    <section className="portfolio section-bg">
+                        <div className="container">
+                            <header className="section-header" id="Women-section">
+                                <h3 className="section-title" > Women </h3>
+                            </header>
+                            <section id="Women-Bags-section">
+                                <header className="section-header">
+                                    <h5 className="section-title">Bags</h5>
+                                </header>
+                                <SectionProducts Gender={'Women'} Type={'Bags'} />
+                            </section>
+                            <section id="Women-Belts-section">
+                                <header className="section-header">
+                                    <h5 className="section-title">Belts</h5>
+                                </header>
+                                <SectionProducts Gender={'Women'} Type={'Belts'} />
+                            </section>
+                            <header className="section-header" id="Men-section">
+                                <h3 className="section-title" > Men </h3>
+                            </header>
+                            <section id="Men-Bags-section">
+                                <header className="section-header">
+                                    <h5 className="section-title">Bags</h5>
+                                </header>
+                                <SectionProducts Gender={'Men'} Type={'Bags'}/>
+                            </section>
+                            <section id="Men-Belts-section">
+                                <header className="section-header">
+                                    <h5 className="section-title">Belts</h5>
+                                </header>
+                                <SectionProducts Gender={'Men'} Type={'Belts'}/>
+                            </section>
+                        </div>
+                    </section>
                 </div>
             </main>
         );

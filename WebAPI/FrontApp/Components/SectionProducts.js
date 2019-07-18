@@ -14,7 +14,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var Dictionary_1 = require("./Dictionary");
 var config = require('config');
 var API_Path = config.API_Path;
 var axios = require('axios');
@@ -22,9 +21,7 @@ var SectionProducts = /** @class */ (function (_super) {
     __extends(SectionProducts, _super);
     function SectionProducts(props) {
         var _this = _super.call(this, props) || this;
-        var dictionary = new Dictionary_1.KeyedCollection();
-        _this.state = { isLoaded: false, items: null, error: null, imageDictionary: dictionary, gender: props.Gender, type: props.Type, needsTitle: props.NeedsTitle };
-        _this.getImageForProduct = _this.getImageForProduct.bind(_this);
+        _this.state = { isLoaded: false, items: null, error: null, gender: props.Gender, type: props.Type };
         return _this;
     }
     SectionProducts.prototype.componentWillMount = function () {
@@ -36,29 +33,15 @@ var SectionProducts = /** @class */ (function (_super) {
             }
         })
             .then(function (response) {
-            var dictionary = _this.state.imageDictionary;
-            _this.setState({ isLoaded: true, items: response.data, imageDictionary: dictionary });
-            response.data.map(function (item) { return (_this.getImageForProduct(item.productId)); });
+            _this.setState({ isLoaded: true, items: response.data });
         })
             .catch(function (error) {
             _this.setState({ isLoaded: true, error: error });
         })
             .then();
     };
-    SectionProducts.prototype.getImageForProduct = function (productId) {
-        var _this = this;
-        axios.get(API_Path + '/ProductsImages/' + productId)
-            .then(function (response) {
-            var dictionary = _this.state.imageDictionary;
-            dictionary.Add(productId, response.data);
-            _this.setState({ imageDictionary: dictionary });
-        }).catch(function (err) {
-            console.log(productId + " .... " + _this.state.imageDictionary);
-            //console.log(err);        
-        });
-    };
     SectionProducts.prototype.render = function () {
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, imageDictionary = _a.imageDictionary, gender = _a.gender, type = _a.type, needsTitle = _a.needsTitle;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, gender = _a.gender, type = _a.type;
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -69,47 +52,20 @@ var SectionProducts = /** @class */ (function (_super) {
             return React.createElement("div", null, "Loading...");
         }
         else {
-            if (needsTitle == 'True') {
-                return (React.createElement("section", { id: gender + "-" + type + "-section", className: "portfolio section-bg" },
-                    React.createElement("div", { className: "container" },
-                        React.createElement("header", { className: "section-header", id: gender + "-section" },
-                            React.createElement("h3", { className: "section-title" },
-                                " ",
-                                gender,
-                                " ")),
-                        React.createElement("header", { className: "section-header" },
-                            React.createElement("h5", { className: "section-title" }, type)),
-                        React.createElement("div", { className: "row portfolio-container" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
-                            React.createElement("div", { className: "portfolio-wrap" },
-                                React.createElement("figure", null,
-                                    React.createElement("img", { src: imageDictionary.Item(item.productId), className: "img-fluid", alt: "" }),
-                                    React.createElement("a", { href: imageDictionary.Item(item.productId), "data-lightbox": "portfolio", "data-title": item.name, className: "link-preview", title: "Preview" },
-                                        React.createElement("i", { className: "ion ion-eye" })),
-                                    React.createElement("a", { href: "#", className: "link-details", title: "More Details" },
-                                        React.createElement("i", { className: "ion ion-android-open" }))),
-                                React.createElement("div", { className: "portfolio-info" },
-                                    React.createElement("h4", null,
-                                        React.createElement("a", { href: "#" }, item.name)),
-                                    React.createElement("p", null, item.description))))); })))));
-            }
-            else {
-                return (React.createElement("section", { id: gender + "-" + type + "-section", className: "portfolio section-bg" },
-                    React.createElement("div", { className: "container" },
-                        React.createElement("header", { className: "section-header" },
-                            React.createElement("h5", { className: "section-title" }, type)),
-                        React.createElement("div", { className: "row portfolio-container" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
-                            React.createElement("div", { className: "portfolio-wrap" },
-                                React.createElement("figure", null,
-                                    React.createElement("img", { src: imageDictionary.Item(item.productId), className: "img-fluid", alt: "" }),
-                                    React.createElement("a", { href: imageDictionary.Item(item.productId), "data-lightbox": "portfolio", "data-title": item.name, className: "link-preview", title: "Preview" },
-                                        React.createElement("i", { className: "ion ion-eye" })),
-                                    React.createElement("a", { href: "#", className: "link-details", title: "More Details" },
-                                        React.createElement("i", { className: "ion ion-android-open" }))),
-                                React.createElement("div", { className: "portfolio-info" },
-                                    React.createElement("h4", null,
-                                        React.createElement("a", { href: "#" }, item.name)),
-                                    React.createElement("p", null, item.description))))); })))));
-            }
+            return (React.createElement("div", { className: "row portfolio-container" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
+                React.createElement("div", { className: "portfolio-wrap" },
+                    React.createElement("figure", null,
+                        React.createElement("img", { src: item.image, className: "img-fluid", alt: "" }),
+                        React.createElement("a", { href: item.image, "data-lightbox": "portfolio", "data-title": item.name, className: "link-preview", title: "Preview" },
+                            React.createElement("i", { className: "ion ion-eye" })),
+                        React.createElement("a", { href: "#", className: "link-details", title: "More Details" },
+                            React.createElement("i", { className: "ion ion-android-open" }))),
+                    React.createElement("div", { className: "portfolio-info" },
+                        React.createElement("h4", null,
+                            React.createElement("a", { href: "#" }, item.name)),
+                        React.createElement("p", null,
+                            "$ ",
+                            item.price))))); })));
         }
     };
     return SectionProducts;

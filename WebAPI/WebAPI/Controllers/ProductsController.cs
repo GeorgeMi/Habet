@@ -23,11 +23,22 @@ namespace WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductInfo>>> GetProducts(int top, int from)
         {
-            //return await _context.Products.Skip(from).Take(top).ToListAsync();
+            //var productList = await _context.Products.Skip(from).Take(top).ToListAsync();
+            var productList = new List<Products>() { new Products { Name = "Name1", Price = 1, ProductId = 1 }, new Products { Name = "Name2", Price = 2, ProductId = 2 } };
 
-            return new List<ProductInfo> { new ProductInfo { Name = "Name1", Price = 1, ProductId = 1 },
-                new ProductInfo { Name = "Name2", Price = 2, ProductId = 2 }
-             };
+            List<ProductInfo> result = new List<ProductInfo>();
+            foreach (var product in productList)
+            {
+                result.Add(new ProductInfo
+                {
+                    Name = product.Name,
+                    Price = product.Price,
+                    ProductId = product.ProductId,
+                    Image = await ProductsImagesController.GetProductsImages(product.ProductId)
+                });
+            }
+
+            return result; 
         }
 
         // GET: api/Products/5

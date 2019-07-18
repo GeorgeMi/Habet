@@ -27,10 +27,28 @@ var Home = /** @class */ (function (_super) {
             React.createElement("div", null,
                 React.createElement(Header_1.Header, { Active: 'Home' }),
                 React.createElement(SectionIntro_1.SectionIntro, null),
-                React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Bags', NeedsTitle: 'True' }),
-                React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Belts', NeedsTitle: 'False' }),
-                React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Men', Type: 'Bags', NeedsTitle: 'True' }),
-                React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Men', Type: 'Belts', NeedsTitle: 'False' }))));
+                React.createElement("section", { className: "portfolio section-bg" },
+                    React.createElement("div", { className: "container" },
+                        React.createElement("header", { className: "section-header", id: "Women-section" },
+                            React.createElement("h3", { className: "section-title" }, " Women ")),
+                        React.createElement("section", { id: "Women-Bags-section" },
+                            React.createElement("header", { className: "section-header" },
+                                React.createElement("h5", { className: "section-title" }, "Bags")),
+                            React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Bags' })),
+                        React.createElement("section", { id: "Women-Belts-section" },
+                            React.createElement("header", { className: "section-header" },
+                                React.createElement("h5", { className: "section-title" }, "Belts")),
+                            React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Belts' })),
+                        React.createElement("header", { className: "section-header", id: "Men-section" },
+                            React.createElement("h3", { className: "section-title" }, " Men ")),
+                        React.createElement("section", { id: "Men-Bags-section" },
+                            React.createElement("header", { className: "section-header" },
+                                React.createElement("h5", { className: "section-title" }, "Bags")),
+                            React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Men', Type: 'Bags' })),
+                        React.createElement("section", { id: "Men-Belts-section" },
+                            React.createElement("header", { className: "section-header" },
+                                React.createElement("h5", { className: "section-title" }, "Belts")),
+                            React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Men', Type: 'Belts' })))))));
     };
     return Home;
 }(React.Component));

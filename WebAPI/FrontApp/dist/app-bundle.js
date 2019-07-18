@@ -474,10 +474,28 @@ var Home = /** @class */ (function (_super) {
             React.createElement("div", null,
                 React.createElement(Header_1.Header, { Active: 'Home' }),
                 React.createElement(SectionIntro_1.SectionIntro, null),
-                React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Bags', NeedsTitle: 'True' }),
-                React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Belts', NeedsTitle: 'False' }),
-                React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Men', Type: 'Bags', NeedsTitle: 'True' }),
-                React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Men', Type: 'Belts', NeedsTitle: 'False' }))));
+                React.createElement("section", { className: "portfolio section-bg" },
+                    React.createElement("div", { className: "container" },
+                        React.createElement("header", { className: "section-header", id: "Women-section" },
+                            React.createElement("h3", { className: "section-title" }, " Women ")),
+                        React.createElement("section", { id: "Women-Bags-section" },
+                            React.createElement("header", { className: "section-header" },
+                                React.createElement("h5", { className: "section-title" }, "Bags")),
+                            React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Bags' })),
+                        React.createElement("section", { id: "Women-Belts-section" },
+                            React.createElement("header", { className: "section-header" },
+                                React.createElement("h5", { className: "section-title" }, "Belts")),
+                            React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Belts' })),
+                        React.createElement("header", { className: "section-header", id: "Men-section" },
+                            React.createElement("h3", { className: "section-title" }, " Men ")),
+                        React.createElement("section", { id: "Men-Bags-section" },
+                            React.createElement("header", { className: "section-header" },
+                                React.createElement("h5", { className: "section-title" }, "Bags")),
+                            React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Men', Type: 'Bags' })),
+                        React.createElement("section", { id: "Men-Belts-section" },
+                            React.createElement("header", { className: "section-header" },
+                                React.createElement("h5", { className: "section-title" }, "Belts")),
+                            React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Men', Type: 'Belts' })))))));
     };
     return Home;
 }(React.Component));
@@ -903,63 +921,71 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
+var config = __webpack_require__(/*! config */ "config");
+var API_Path = config.API_Path;
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 var SectionIntro = /** @class */ (function (_super) {
     __extends(SectionIntro, _super);
-    function SectionIntro() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function SectionIntro(props) {
+        var _this = _super.call(this, props) || this;
+        _this.state = { isLoaded: false, items: null, error: null };
+        return _this;
     }
+    SectionIntro.prototype.componentWillMount = function () {
+        var _this = this;
+        axios.get(API_Path + '/Products', {
+            params: {
+                top: 20,
+                from: 0
+            }
+        })
+            .then(function (response) {
+            _this.setState({ isLoaded: true, items: response.data });
+        })
+            .catch(function (error) {
+            _this.setState({ isLoaded: true, error: error });
+        })
+            .then();
+    };
     SectionIntro.prototype.render = function () {
-        return (React.createElement("section", { id: "intro" },
-            React.createElement("div", { className: "intro-container" },
-                React.createElement("div", { id: "introCarousel", className: "carousel  slide carousel-fade", "data-ride": "carousel" },
-                    React.createElement("ol", { className: "carousel-indicators" }),
-                    React.createElement("div", { className: "carousel-inner", role: "listbox" },
-                        React.createElement("div", { className: "carousel-item active" },
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items;
+        if (error) {
+            console.log(error);
+            return React.createElement("div", null,
+                "Error: ",
+                error.message);
+        }
+        else if (!isLoaded) {
+            return React.createElement("div", null, "Loading...");
+        }
+        else {
+            var activeDictionary = new Dictionary_1.KeyedCollection();
+            items.map(function (item, i) { return (activeDictionary.Add(i, "")); });
+            activeDictionary.Add(0, "active");
+            console.log(activeDictionary);
+            console.log(activeDictionary.Item(0));
+            return (React.createElement("section", { id: "intro" },
+                React.createElement("div", { className: "intro-container" },
+                    React.createElement("div", { id: "introCarousel", className: "carousel  slide carousel-fade", "data-ride": "carousel" },
+                        React.createElement("ol", { className: "carousel-indicators" }),
+                        React.createElement("div", { className: "carousel-inner", role: "listbox" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: activeDictionary.Item(i) + " carousel-item" },
                             React.createElement("div", { className: "carousel-background" },
-                                React.createElement("img", { src: "img/intro-carousel/1.jpg", alt: "" })),
+                                React.createElement("img", { src: item.image, alt: "" })),
                             React.createElement("div", { className: "carousel-container" },
                                 React.createElement("div", { className: "carousel-content" },
-                                    React.createElement("h2", null, "We are professional"),
-                                    React.createElement("p", null, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."),
-                                    React.createElement("a", { href: "#featured-services", className: "btn-get-started scrollto" }, "Get Started")))),
-                        React.createElement("div", { className: "carousel-item" },
-                            React.createElement("div", { className: "carousel-background" },
-                                React.createElement("img", { src: "img/intro-carousel/2.jpg", alt: "" })),
-                            React.createElement("div", { className: "carousel-container" },
-                                React.createElement("div", { className: "carousel-content" },
-                                    React.createElement("h2", null, "At vero eos et accusamus"),
-                                    React.createElement("p", null, "Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut."),
-                                    React.createElement("a", { href: "#featured-services", className: "btn-get-started scrollto" }, "Get Started")))),
-                        React.createElement("div", { className: "carousel-item" },
-                            React.createElement("div", { className: "carousel-background" },
-                                React.createElement("img", { src: "img/intro-carousel/3.jpg", alt: "" })),
-                            React.createElement("div", { className: "carousel-container" },
-                                React.createElement("div", { className: "carousel-content" },
-                                    React.createElement("h2", null, "Temporibus autem quibusdam"),
-                                    React.createElement("p", null, "Beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt omnis iste natus error sit voluptatem accusantium."),
-                                    React.createElement("a", { href: "#featured-services", className: "btn-get-started scrollto" }, "Get Started")))),
-                        React.createElement("div", { className: "carousel-item" },
-                            React.createElement("div", { className: "carousel-background" },
-                                React.createElement("img", { src: "img/intro-carousel/4.jpg", alt: "" })),
-                            React.createElement("div", { className: "carousel-container" },
-                                React.createElement("div", { className: "carousel-content" },
-                                    React.createElement("h2", null, "Nam libero tempore"),
-                                    React.createElement("p", null, "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum."),
-                                    React.createElement("a", { href: "#featured-services", className: "btn-get-started scrollto" }, "Get Started")))),
-                        React.createElement("div", { className: "carousel-item" },
-                            React.createElement("div", { className: "carousel-background" },
-                                React.createElement("img", { src: "img/intro-carousel/5.jpg", alt: "" })),
-                            React.createElement("div", { className: "carousel-container" },
-                                React.createElement("div", { className: "carousel-content" },
-                                    React.createElement("h2", null, "Magnam aliquam quaerat"),
-                                    React.createElement("p", null, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."),
-                                    React.createElement("a", { href: "#featured-services", className: "btn-get-started scrollto" }, "Get Started"))))),
-                    React.createElement("a", { className: "carousel-control-prev", href: "#introCarousel", role: "button", "data-slide": "prev" },
-                        React.createElement("span", { className: "carousel-control-prev-icon ion-chevron-left", "aria-hidden": "true" }),
-                        React.createElement("span", { className: "sr-only" }, "Previous")),
-                    React.createElement("a", { className: "carousel-control-next", href: "#introCarousel", role: "button", "data-slide": "next" },
-                        React.createElement("span", { className: "carousel-control-next-icon ion-chevron-right", "aria-hidden": "true" }),
-                        React.createElement("span", { className: "sr-only" }, "Next"))))));
+                                    React.createElement("h2", null, item.name),
+                                    React.createElement("p", null,
+                                        "$ ",
+                                        item.price),
+                                    React.createElement("a", { href: "#featured-services", className: "btn-get-started scrollto" }, "Details"))))); })),
+                        React.createElement("a", { className: "carousel-control-prev", href: "#introCarousel", role: "button", "data-slide": "prev" },
+                            React.createElement("span", { className: "carousel-control-prev-icon ion-chevron-left", "aria-hidden": "true" }),
+                            React.createElement("span", { className: "sr-only" }, "Previous")),
+                        React.createElement("a", { className: "carousel-control-next", href: "#introCarousel", role: "button", "data-slide": "next" },
+                            React.createElement("span", { className: "carousel-control-next-icon ion-chevron-right", "aria-hidden": "true" }),
+                            React.createElement("span", { className: "sr-only" }, "Next"))))));
+        }
     };
     return SectionIntro;
 }(React.Component));
@@ -992,7 +1018,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
 var config = __webpack_require__(/*! config */ "config");
 var API_Path = config.API_Path;
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -1000,9 +1025,7 @@ var SectionProducts = /** @class */ (function (_super) {
     __extends(SectionProducts, _super);
     function SectionProducts(props) {
         var _this = _super.call(this, props) || this;
-        var dictionary = new Dictionary_1.KeyedCollection();
-        _this.state = { isLoaded: false, items: null, error: null, imageDictionary: dictionary, gender: props.Gender, type: props.Type, needsTitle: props.NeedsTitle };
-        _this.getImageForProduct = _this.getImageForProduct.bind(_this);
+        _this.state = { isLoaded: false, items: null, error: null, gender: props.Gender, type: props.Type };
         return _this;
     }
     SectionProducts.prototype.componentWillMount = function () {
@@ -1014,29 +1037,15 @@ var SectionProducts = /** @class */ (function (_super) {
             }
         })
             .then(function (response) {
-            var dictionary = _this.state.imageDictionary;
-            _this.setState({ isLoaded: true, items: response.data, imageDictionary: dictionary });
-            response.data.map(function (item) { return (_this.getImageForProduct(item.productId)); });
+            _this.setState({ isLoaded: true, items: response.data });
         })
             .catch(function (error) {
             _this.setState({ isLoaded: true, error: error });
         })
             .then();
     };
-    SectionProducts.prototype.getImageForProduct = function (productId) {
-        var _this = this;
-        axios.get(API_Path + '/ProductsImages/' + productId)
-            .then(function (response) {
-            var dictionary = _this.state.imageDictionary;
-            dictionary.Add(productId, response.data);
-            _this.setState({ imageDictionary: dictionary });
-        }).catch(function (err) {
-            console.log(productId + " .... " + _this.state.imageDictionary);
-            //console.log(err);        
-        });
-    };
     SectionProducts.prototype.render = function () {
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, imageDictionary = _a.imageDictionary, gender = _a.gender, type = _a.type, needsTitle = _a.needsTitle;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, gender = _a.gender, type = _a.type;
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -1047,47 +1056,20 @@ var SectionProducts = /** @class */ (function (_super) {
             return React.createElement("div", null, "Loading...");
         }
         else {
-            if (needsTitle == 'True') {
-                return (React.createElement("section", { id: gender + "-" + type + "-section", className: "portfolio section-bg" },
-                    React.createElement("div", { className: "container" },
-                        React.createElement("header", { className: "section-header", id: gender + "-section" },
-                            React.createElement("h3", { className: "section-title" },
-                                " ",
-                                gender,
-                                " ")),
-                        React.createElement("header", { className: "section-header" },
-                            React.createElement("h5", { className: "section-title" }, type)),
-                        React.createElement("div", { className: "row portfolio-container" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
-                            React.createElement("div", { className: "portfolio-wrap" },
-                                React.createElement("figure", null,
-                                    React.createElement("img", { src: imageDictionary.Item(item.productId), className: "img-fluid", alt: "" }),
-                                    React.createElement("a", { href: imageDictionary.Item(item.productId), "data-lightbox": "portfolio", "data-title": item.name, className: "link-preview", title: "Preview" },
-                                        React.createElement("i", { className: "ion ion-eye" })),
-                                    React.createElement("a", { href: "#", className: "link-details", title: "More Details" },
-                                        React.createElement("i", { className: "ion ion-android-open" }))),
-                                React.createElement("div", { className: "portfolio-info" },
-                                    React.createElement("h4", null,
-                                        React.createElement("a", { href: "#" }, item.name)),
-                                    React.createElement("p", null, item.description))))); })))));
-            }
-            else {
-                return (React.createElement("section", { id: gender + "-" + type + "-section", className: "portfolio section-bg" },
-                    React.createElement("div", { className: "container" },
-                        React.createElement("header", { className: "section-header" },
-                            React.createElement("h5", { className: "section-title" }, type)),
-                        React.createElement("div", { className: "row portfolio-container" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
-                            React.createElement("div", { className: "portfolio-wrap" },
-                                React.createElement("figure", null,
-                                    React.createElement("img", { src: imageDictionary.Item(item.productId), className: "img-fluid", alt: "" }),
-                                    React.createElement("a", { href: imageDictionary.Item(item.productId), "data-lightbox": "portfolio", "data-title": item.name, className: "link-preview", title: "Preview" },
-                                        React.createElement("i", { className: "ion ion-eye" })),
-                                    React.createElement("a", { href: "#", className: "link-details", title: "More Details" },
-                                        React.createElement("i", { className: "ion ion-android-open" }))),
-                                React.createElement("div", { className: "portfolio-info" },
-                                    React.createElement("h4", null,
-                                        React.createElement("a", { href: "#" }, item.name)),
-                                    React.createElement("p", null, item.description))))); })))));
-            }
+            return (React.createElement("div", { className: "row portfolio-container" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" },
+                React.createElement("div", { className: "portfolio-wrap" },
+                    React.createElement("figure", null,
+                        React.createElement("img", { src: item.image, className: "img-fluid", alt: "" }),
+                        React.createElement("a", { href: item.image, "data-lightbox": "portfolio", "data-title": item.name, className: "link-preview", title: "Preview" },
+                            React.createElement("i", { className: "ion ion-eye" })),
+                        React.createElement("a", { href: "#", className: "link-details", title: "More Details" },
+                            React.createElement("i", { className: "ion ion-android-open" }))),
+                    React.createElement("div", { className: "portfolio-info" },
+                        React.createElement("h4", null,
+                            React.createElement("a", { href: "#" }, item.name)),
+                        React.createElement("p", null,
+                            "$ ",
+                            item.price))))); })));
         }
     };
     return SectionProducts;
@@ -27262,7 +27244,7 @@ if (false) {} else {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
