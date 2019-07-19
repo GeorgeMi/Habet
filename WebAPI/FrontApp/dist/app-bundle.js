@@ -303,13 +303,13 @@ var Header = /** @class */ (function (_super) {
                         React.createElement("ul", { className: "navbar-nav ml-auto" },
                             React.createElement("li", { className: "nav-item " + headerDictionary.Item('Home') },
                                 React.createElement("a", { href: "/", className: "nav-link" }, "Home")),
-                            React.createElement("li", { className: "nav-item dropdown" },
-                                React.createElement(react_router_hash_link_1.HashLink, { className: "nav-link dropdown-toggle " + headerDictionary.Item('Women'), to: "#Women-section", id: "dropdown04", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" }, "Women"),
+                            React.createElement("li", { className: "nav-item dropdown " + headerDictionary.Item('Women') },
+                                React.createElement(react_router_hash_link_1.HashLink, { className: "nav-link dropdown-toggle", to: "#Women-section", id: "dropdown04", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" }, "Women"),
                                 React.createElement("div", { className: "dropdown-menu", "aria-labelledby": "dropdown04" },
                                     React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "#Women-Bags-section" }, "Bags"),
                                     React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "#Women-Belts-section" }, "Belts"))),
-                            React.createElement("li", { className: "nav-item dropdown" },
-                                React.createElement(react_router_hash_link_1.HashLink, { className: "nav-link dropdown-toggle " + headerDictionary.Item('Men'), to: "#Men-section", id: "dropdown04", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" }, "Men"),
+                            React.createElement("li", { className: "nav-item dropdown " + headerDictionary.Item('Men') },
+                                React.createElement(react_router_hash_link_1.HashLink, { className: "nav-link dropdown-toggle", to: "#Men-section", id: "dropdown04", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" }, "Men"),
                                 React.createElement("div", { className: "dropdown-menu", "aria-labelledby": "dropdown04" },
                                     React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "#Men-Bags-section" }, "Bags"),
                                     React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "#Men-Belts-section" }, "Belts"))),
@@ -27162,7 +27162,7 @@ if (false) {} else {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

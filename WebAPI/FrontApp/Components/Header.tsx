@@ -25,22 +25,22 @@ export class Header extends React.Component<any, any> {
                         <div className="collapse navbar-collapse" id="ftco-nav">
                             <ul className="navbar-nav ml-auto">
                                 <li className={"nav-item " + headerDictionary.Item('Home')}><a href="/" className="nav-link">Home</a></li>
-                                <li className="nav-item dropdown">
-                                    <Link className={"nav-link dropdown-toggle "+ headerDictionary.Item('Women')} to="#Women-section" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Women</Link>
+                                <li className={"nav-item dropdown " + headerDictionary.Item('Women')}>
+                                    <Link className="nav-link dropdown-toggle" to="#Women-section" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Women</Link>
                                     <div className="dropdown-menu" aria-labelledby="dropdown04">
                                         <Link className="dropdown-item" to="#Women-Bags-section">Bags</Link>
                                         <Link className="dropdown-item" to="#Women-Belts-section">Belts</Link>
                                     </div>
                                 </li>
-                                <li className="nav-item dropdown">
-                                    <Link className={"nav-link dropdown-toggle "+ headerDictionary.Item('Men')} to="#Men-section" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Men</Link>
+                                <li className={"nav-item dropdown " + headerDictionary.Item('Men')}>
+                                    <Link className="nav-link dropdown-toggle" to="#Men-section" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Men</Link>
                                     <div className="dropdown-menu" aria-labelledby="dropdown04">
                                         <Link className="dropdown-item" to="#Men-Bags-section">Bags</Link>
                                         <Link className="dropdown-item" to="#Men-Belts-section">Belts</Link>
                                     </div>
                                 </li>
-                                <li className={"nav-item " + headerDictionary.Item('Search') }><a href="/#/search" className="nav-link">Search</a></li>
-                                <li className={"nav-item " + headerDictionary.Item('Contact') }><a href="/#/contact" className="nav-link">Contact</a></li>
+                                <li className={"nav-item " + headerDictionary.Item('Search')}><a href="/#/search" className="nav-link">Search</a></li>
+                                <li className={"nav-item " + headerDictionary.Item('Contact')}><a href="/#/contact" className="nav-link">Contact</a></li>
                                 <li className={"nav-item " + headerDictionary.Item('Cart')}><a href="/#/cart" className="nav-link"><span className="icon-shopping_cart"></span>[0]</a></li>
 
                             </ul>
