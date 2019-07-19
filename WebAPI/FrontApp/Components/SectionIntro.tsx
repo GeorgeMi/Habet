@@ -49,12 +49,8 @@ export class SectionIntro extends React.Component<any, any> {
 
 
 
-                <section className="ftco-section ftco-deal bg-primary">
+                <section className="ftco-section ftco-deal" style={{ backgroundImage: "url('images/class')", opacity: 0.5 }}>
                     <div className="container">
-
-
-
-
                         <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
                             <div className="carousel-inner">
                                 {
@@ -67,8 +63,8 @@ export class SectionIntro extends React.Component<any, any> {
                                                 <div className="col-md-6">
                                                     <div className="text-deal">
                                                         <h2><a href="#">{item.name}</a></h2>
-                                                        <p className="price"><span className="price-sale">${item.price}</span></p>
-                                                        <p><a href={"/#/item/" + item.productId} className="btn-custom">Details</a></p>
+                                                        <p className="price"><span>${item.price}</span></p>
+                                                        <p><a href={"/#/item/" + item.productId} className="btn btn-primary py-3 px-5">Details</a></p>
                                                     </div>
                                                 </div>
                                             </div>

@@ -7,7 +7,7 @@
 // *  Authentication logic. 
 // *
 // * History:
-// * 12.02.2016    Miron George       Created class and implemented methods.
+// * 12.02.2016    Miron George       Created background.jpg and implemented methods.
 // */
 
 //using AzureDataAccess;
@@ -21,7 +21,7 @@
 //    /// <summary>
 //    /// Logica de autentificare
 //    /// </summary>
-//    public class AuthLogic
+//    public background.jpg AuthLogic
 //    {
 //        private readonly IAzureDataAccess _dataAccess;
 //        private readonly TokenLogic _tokenLogic;

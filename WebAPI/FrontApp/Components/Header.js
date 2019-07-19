@@ -21,7 +21,7 @@ var Header = /** @class */ (function (_super) {
     function Header(props) {
         var _this = _super.call(this, props) || this;
         var dictionary = new Dictionary_1.KeyedCollection();
-        dictionary.Add(props.Active, 'menu-active');
+        dictionary.Add(props.Active, 'cta cta-colored');
         _this.state = { headerDictionary: dictionary };
         return _this;
     }
@@ -48,10 +48,12 @@ var Header = /** @class */ (function (_super) {
                                 React.createElement("div", { className: "dropdown-menu", "aria-labelledby": "dropdown04" },
                                     React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "#Men-Bags-section" }, "Bags"),
                                     React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "#Men-Belts-section" }, "Belts"))),
+                            React.createElement("li", { className: "nav-item " + headerDictionary.Item('Search') },
+                                React.createElement("a", { href: "/#/search", className: "nav-link" }, "Search")),
                             React.createElement("li", { className: "nav-item " + headerDictionary.Item('Contact') },
                                 React.createElement("a", { href: "/#/contact", className: "nav-link" }, "Contact")),
-                            React.createElement("li", { className: "nav-item cta cta-colored" },
-                                React.createElement("a", { href: "cart.html", className: "nav-link" },
+                            React.createElement("li", { className: "nav-item " + headerDictionary.Item('Cart') },
+                                React.createElement("a", { href: "/#/cart", className: "nav-link" },
                                     React.createElement("span", { className: "icon-shopping_cart" }),
                                     "[0]"))))))));
     };

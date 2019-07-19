@@ -24,6 +24,7 @@ var PageNotFound_1 = require("./Components/PageNotFound");
 var PageProduct_1 = require("./Components/PageProduct");
 var PageCheckout_1 = require("./Components/PageCheckout");
 var PageSearch_1 = require("./Components/PageSearch");
+var PageCart_1 = require("./Components/PageCart");
 var App = /** @class */ (function (_super) {
     __extends(App, _super);
     function App() {
@@ -38,6 +39,7 @@ var App = /** @class */ (function (_super) {
                     React.createElement(react_router_1.Route, { exact: true, path: "/contact", component: PageContact_1.Contact }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/checkout", component: PageCheckout_1.Checkout }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/search", component: PageSearch_1.Search }),
+                    React.createElement(react_router_1.Route, { exact: true, path: "/cart", component: PageCart_1.Cart }),
                     React.createElement(react_router_1.Route, { component: PageNotFound_1.NotFound })),
                 React.createElement(Footer_1.Footer, null))));
     };

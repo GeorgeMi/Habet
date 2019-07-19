@@ -6,18 +6,14 @@ export class NotFound extends React.Component {
         return (
             <div>
                 <Header />
-                <br />
-                <br />
-                <br />
-                <section id="contact" className="section-bg wow fadeInUp">
-                    <div className="container">
-                        <div className="section-header">
-                            <h3>ARE YOU HAPPY NOW?</h3>
-                            <p>Just kidding! Our bad.</p>
-                            <p>404 NOT FOUND</p>
+                <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
+                    <div className="row no-gutters slider-text align-items-center justify-content-center">
+                        <div className="col-md-9 text-center">
+                            <h1 className="mb-0 bread">ARE YOU HAPPY NOW?</h1>
+                            <h5>Just kidding! Our bad. 404 NOT FOUND</h5>
                         </div>
                     </div>
-                </section>
+                </div>
             </div>
         );
     }

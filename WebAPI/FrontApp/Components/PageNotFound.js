@@ -23,15 +23,11 @@ var NotFound = /** @class */ (function (_super) {
     NotFound.prototype.render = function () {
         return (React.createElement("div", null,
             React.createElement(Header_1.Header, null),
-            React.createElement("br", null),
-            React.createElement("br", null),
-            React.createElement("br", null),
-            React.createElement("section", { id: "contact", className: "section-bg wow fadeInUp" },
-                React.createElement("div", { className: "container" },
-                    React.createElement("div", { className: "section-header" },
-                        React.createElement("h3", null, "ARE YOU HAPPY NOW?"),
-                        React.createElement("p", null, "Just kidding! Our bad."),
-                        React.createElement("p", null, "404 NOT FOUND"))))));
+            React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
+                    React.createElement("div", { className: "col-md-9 text-center" },
+                        React.createElement("h1", { className: "mb-0 bread" }, "ARE YOU HAPPY NOW?"),
+                        React.createElement("h5", null, "Just kidding! Our bad. 404 NOT FOUND"))))));
     };
     return NotFound;
 }(React.Component));

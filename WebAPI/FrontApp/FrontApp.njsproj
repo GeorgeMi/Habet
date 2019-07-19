@@ -121,6 +121,7 @@
     <TypeScriptCompile Include="Components\Header.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="Components\PageCart.tsx" />
     <TypeScriptCompile Include="Components\PageSearch.tsx" />
     <TypeScriptCompile Include="Components\PageCheckout.tsx" />
     <TypeScriptCompile Include="Components\PageProduct.tsx" />

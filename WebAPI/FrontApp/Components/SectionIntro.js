@@ -56,7 +56,7 @@ var SectionIntro = /** @class */ (function (_super) {
             var activeDictionary = new Dictionary_1.KeyedCollection();
             items.map(function (item, i) { return (activeDictionary.Add(i, "")); });
             activeDictionary.Add(0, "active");
-            return (React.createElement("section", { className: "ftco-section ftco-deal bg-primary" },
+            return (React.createElement("section", { className: "ftco-section ftco-deal", style: { backgroundImage: "url('images/class')", opacity: 0.5 } },
                 React.createElement("div", { className: "container" },
                     React.createElement("div", { id: "carouselExampleControls", className: "carousel slide", "data-ride": "carousel" },
                         React.createElement("div", { className: "carousel-inner" },
@@ -69,11 +69,11 @@ var SectionIntro = /** @class */ (function (_super) {
                                             React.createElement("h2", null,
                                                 React.createElement("a", { href: "#" }, item.name)),
                                             React.createElement("p", { className: "price" },
-                                                React.createElement("span", { className: "price-sale" },
+                                                React.createElement("span", null,
                                                     "$",
                                                     item.price)),
                                             React.createElement("p", null,
-                                                React.createElement("a", { href: "/#/item/" + item.productId, className: "btn-custom" }, "Details"))))))); }),
+                                                React.createElement("a", { href: "/#/item/" + item.productId, className: "btn btn-primary py-3 px-5" }, "Details"))))))); }),
                             React.createElement("a", { className: "carousel-control-prev", href: "#carouselExampleControls", role: "button", "data-slide": "prev" },
                                 React.createElement("span", { className: "carousel-control-prev-icon", "aria-hidden": "true" }),
                                 React.createElement("span", { className: "sr-only" }, "Previous")),

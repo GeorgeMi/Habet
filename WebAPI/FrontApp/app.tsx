@@ -10,6 +10,7 @@ import { NotFound } from "./Components/PageNotFound";
 import { Product } from "./Components/PageProduct";
 import { Checkout } from "./Components/PageCheckout";
 import { Search } from "./Components/PageSearch";
+import { Cart } from "./Components/PageCart";
 
 class App extends React.Component {
     render() {
@@ -22,6 +23,7 @@ class App extends React.Component {
                         <Route exact path="/contact" component={Contact} />
                         <Route exact path="/checkout" component={Checkout} />
                         <Route exact path="/search" component={Search} />
+                        <Route exact path="/cart" component={Cart} />
                         <Route component={NotFound} />
                     </Switch>
                     <Footer />

@@ -36,10 +36,8 @@ export class SectionProducts extends React.Component<any, any>
         if (error) {
             console.log(error);
             return <div>Error: {error.message}</div>;
-
         } else if (!isLoaded) {
             return <div></div>;
-
         } else {
             return (
                 <div className="row">
@@ -52,20 +50,6 @@ export class SectionProducts extends React.Component<any, any>
                                         <div className="overlay"></div>
                                     </a>
                                     <div className="text py-3 pb-4 px-3">
-                                        <div className="d-flex">
-                                            <div className="cat">
-                                                <span>{type}</span>
-                                            </div>
-                                            <div className="rating">
-                                                <p className="text-right mb-0">
-                                                    <a href="#"><span className="ion-ios-star-outline"></span></a>
-                                                    <a href="#"><span className="ion-ios-star-outline"></span></a>
-                                                    <a href="#"><span className="ion-ios-star-outline"></span></a>
-                                                    <a href="#"><span className="ion-ios-star-outline"></span></a>
-                                                    <a href="#"><span className="ion-ios-star-outline"></span></a>
-                                                </p>
-                                            </div>
-                                        </div>
                                         <h3><a href={"/#/item/" + item.productId}>{item.name}</a></h3>
                                         <div className="pricing">
                                             <p className="price"><span>${item.price}</span></p>

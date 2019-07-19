@@ -53,7 +53,7 @@
 	var loader = function() {
 		setTimeout(function() { 
 			if($('#ftco-loader').length > 0) {
-				$('#ftco-loader').removeClass('show');
+				$('#ftco-loader').removeclass('show');
 			}
 		}, 1);
 	};
@@ -114,18 +114,18 @@
 		var $this = $(this);
 		// 	 timer;
 		// clearTimeout(timer);
-		$this.addClass('show');
+		$this.addclass('show');
 		$this.find('> a').attr('aria-expanded', true);
-		// $this.find('.dropdown-menu').addClass('animated-fast fadeInUp show');
-		$this.find('.dropdown-menu').addClass('show');
+		// $this.find('.dropdown-menu').addclass('animated-fast fadeInUp show');
+		$this.find('.dropdown-menu').addclass('show');
 	}, function(){
 		var $this = $(this);
 			// timer;
 		// timer = setTimeout(function(){
-			$this.removeClass('show');
+			$this.removeclass('show');
 			$this.find('> a').attr('aria-expanded', false);
-			// $this.find('.dropdown-menu').removeClass('animated-fast fadeInUp show');
-			$this.find('.dropdown-menu').removeClass('show');
+			// $this.find('.dropdown-menu').removeclass('animated-fast fadeInUp show');
+			$this.find('.dropdown-menu').removeclass('show');
 		// }, 100);
 	});
 
@@ -143,31 +143,31 @@
 					sd = $('.js-scroll-wrap');
 
 			if (st > 150) {
-				if ( !navbar.hasClass('scrolled') ) {
-					navbar.addClass('scrolled');	
+				if ( !navbar.hasclass('scrolled') ) {
+					navbar.addclass('scrolled');	
 				}
 			} 
 			if (st < 150) {
-				if ( navbar.hasClass('scrolled') ) {
-					navbar.removeClass('scrolled sleep');
+				if ( navbar.hasclass('scrolled') ) {
+					navbar.removeclass('scrolled sleep');
 				}
 			} 
 			if ( st > 350 ) {
-				if ( !navbar.hasClass('awake') ) {
-					navbar.addClass('awake');	
+				if ( !navbar.hasclass('awake') ) {
+					navbar.addclass('awake');	
 				}
 				
 				if(sd.length > 0) {
-					sd.addClass('sleep');
+					sd.addclass('sleep');
 				}
 			}
 			if ( st < 350 ) {
-				if ( navbar.hasClass('awake') ) {
-					navbar.removeClass('awake');
-					navbar.addClass('sleep');
+				if ( navbar.hasclass('awake') ) {
+					navbar.removeclass('awake');
+					navbar.addclass('sleep');
 				}
 				if(sd.length > 0) {
-					sd.removeClass('sleep');
+					sd.removeclass('sleep');
 				}
 			}
 		});
@@ -179,7 +179,7 @@
 		
 		$('#section-counter').waypoint( function( direction ) {
 
-			if( direction === 'down' && !$(this.element).hasClass('ftco-animated') ) {
+			if( direction === 'down' && !$(this.element).hasclass('ftco-animated') ) {
 
 				var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',')
 				$('.number').each(function(){
@@ -205,11 +205,11 @@
 		var i = 0;
 		$('.ftco-animate').waypoint( function( direction ) {
 
-			if( direction === 'down' && !$(this.element).hasClass('ftco-animated') ) {
+			if( direction === 'down' && !$(this.element).hasclass('ftco-animated') ) {
 				
 				i++;
 
-				$(this.element).addClass('item-animate');
+				$(this.element).addclass('item-animate');
 				setTimeout(function(){
 
 					$('body .ftco-animate.item-animate').each(function(k){
@@ -217,15 +217,15 @@
 						setTimeout( function () {
 							var effect = el.data('animate-effect');
 							if ( effect === 'fadeIn') {
-								el.addClass('fadeIn ftco-animated');
+								el.addclass('fadeIn ftco-animated');
 							} else if ( effect === 'fadeInLeft') {
-								el.addClass('fadeInLeft ftco-animated');
+								el.addclass('fadeInLeft ftco-animated');
 							} else if ( effect === 'fadeInRight') {
-								el.addClass('fadeInRight ftco-animated');
+								el.addclass('fadeInRight ftco-animated');
 							} else {
-								el.addClass('fadeInUp ftco-animated');
+								el.addclass('fadeInUp ftco-animated');
 							}
-							el.removeClass('item-animate');
+							el.removeclass('item-animate');
 						},  k * 50, 'easeInOutExpo' );
 					});
 					
@@ -269,7 +269,7 @@
     closeOnContentClick: true,
     closeBtnInside: false,
     fixedContentPos: true,
-    mainClass: 'mfp-no-margins mfp-with-zoom', // class to remove default margin from left and right side
+    mainclass: 'mfp-no-margins mfp-with-zoom', // class to remove default margin from left and right side
      gallery: {
       enabled: true,
       navigateByImgClick: true,
@@ -287,7 +287,7 @@
   $('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({
     disableOn: 700,
     type: 'iframe',
-    mainClass: 'mfp-fade',
+    mainclass: 'mfp-fade',
     removalDelay: 160,
     preloader: false,
 

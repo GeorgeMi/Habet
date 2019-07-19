@@ -103,14 +103,14 @@
 		this._attachEvents();
 
 		if (this.isInline){
-			this.picker.addClass('datepicker-inline').appendTo(this.element);
+			this.picker.addclass('datepicker-inline').appendTo(this.element);
 		}
 		else {
-			this.picker.addClass('datepicker-dropdown dropdown-menu');
+			this.picker.addclass('datepicker-dropdown dropdown-menu');
 		}
 
 		if (this.o.rtl){
-			this.picker.addClass('datepicker-rtl');
+			this.picker.addclass('datepicker-rtl');
 		}
 
 		this.viewMode = this.o.startView;
@@ -556,13 +556,13 @@
 			var left = offset.left,
 				top = offset.top;
 
-			this.picker.removeClass(
+			this.picker.removeclass(
 				'datepicker-orient-top datepicker-orient-bottom '+
 				'datepicker-orient-right datepicker-orient-left'
 			);
 
 			if (this.o.orientation.x !== 'auto'){
-				this.picker.addClass('datepicker-orient-' + this.o.orientation.x);
+				this.picker.addclass('datepicker-orient-' + this.o.orientation.x);
 				if (this.o.orientation.x === 'right')
 					left -= calendarWidth - width;
 			}
@@ -570,7 +570,7 @@
 			// edge, fudge it sideways
 			else {
 				// Default to left
-				this.picker.addClass('datepicker-orient-left');
+				this.picker.addclass('datepicker-orient-left');
 				if (offset.left < 0)
 					left -= offset.left - visualPadding;
 				else if (offset.left + calendarWidth > windowWidth)
@@ -589,7 +589,7 @@
 				else
 					yorient = 'bottom';
 			}
-			this.picker.addClass('datepicker-orient-' + yorient);
+			this.picker.addclass('datepicker-orient-' + yorient);
 			if (yorient === 'top')
 				top += height;
 			else
@@ -697,7 +697,7 @@
 			this.fill();
 		},
 
-		getClassNames: function(date){
+		getclassNames: function(date){
 			var cls = [],
 				year = this.viewDate.getUTCFullYear(),
 				month = this.viewDate.getUTCMonth(),
@@ -783,7 +783,7 @@
 
 					}
 				}
-				clsName = this.getClassNames(prevMonth);
+				clsName = this.getclassNames(prevMonth);
 				clsName.push('day');
 
 				if (this.o.beforeShowDay !== $.noop){
@@ -815,21 +815,21 @@
 						.find('th:eq(1)')
 							.text(year)
 							.end()
-						.find('span').removeClass('active');
+						.find('span').removeclass('active');
 
 			$.each(this.dates, function(i, d){
 				if (d.getUTCFullYear() === year)
-					months.eq(d.getUTCMonth()).addClass('active');
+					months.eq(d.getUTCMonth()).addclass('active');
 			});
 
 			if (year < startYear || year > endYear){
-				months.addClass('disabled');
+				months.addclass('disabled');
 			}
 			if (year === startYear){
-				months.slice(0, startMonth).addClass('disabled');
+				months.slice(0, startMonth).addclass('disabled');
 			}
 			if (year === endYear){
-				months.slice(endMonth+1).addClass('disabled');
+				months.slice(endMonth+1).addclass('disabled');
 			}
 
 			html = '';

@@ -62,12 +62,9 @@ export class Product extends React.Component<any, any>
                     <Header />
 
                     <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
-                        <div className="container">
-                            <div className="row no-gutters slider-text align-items-center justify-content-center">
-                                <div className="col-md-9 ftco-animate text-center">
-                                    <p className="breadcrumbs"><span className="mr-2"><a href="index.html">Home</a></span> <span>Shop</span></p>
-                                    <h1 className="mb-0 bread">Shop</h1>
-                                </div>
+                        <div className="row no-gutters slider-text align-items-center justify-content-center">
+                            <div className="col-md-9 text-center">
+                                <h1 className="mb-0 bread">Product details</h1>
                             </div>
                         </div>
                     </div>
@@ -76,7 +73,7 @@ export class Product extends React.Component<any, any>
                         <div className="container">
                             <div className="row">
                                 <div className="col-lg-6 mb-5">
-                                    <a href="images/product-1.png" className="image-popup prod-img-bg"><img src="images/product-1.png" className="img-fluid" alt="..." /></a>
+                                    <a href="images/product.png" className="image-popup prod-img-bg"><img src="images/product.png" className="img-fluid" alt="..." /></a>
                                 </div>
                                 <div className="col-lg-6 product-details pl-md-5">
                                     <h3>Nike Free RN 2019 iD</h3>
