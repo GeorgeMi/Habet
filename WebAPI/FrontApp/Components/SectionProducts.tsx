@@ -32,31 +32,48 @@ export class SectionProducts extends React.Component<any, any>
 
 
     render() {
-        const { error, isLoaded, items } = this.state;
+        const { error, isLoaded, items, type } = this.state;
         if (error) {
             console.log(error);
             return <div>Error: {error.message}</div>;
 
         } else if (!isLoaded) {
-            return <div>Loading...</div>;
+            return <div></div>;
 
         } else {
             return (
-                <div className="row product-container">
+                <div className="row">
                     {
                         items.map((item, i) => (
 
                             <div key={i} className="col-lg-4 col-md-6 product-item filter-app wow fadeInUp">
-                                <div className="product-wrap">
-                                    <figure>
-                                        <img src={item.image} className="img-fluid" alt="" />
-                                        <a href={item.image} data-lightbox={item.name + item.productId}  data-title={item.name} data-footer={"$ " + item.price} className="link-preview" title="Preview"><i className="ion ion-eye"></i></a>
-                                        <a href={"/#/item/" + item.productId} className="link-details" title="More Details"><i className="ion ion-android-open"></i></a>                               
-                                    </figure>
-
-                                    <div className="product-info">
-                                        <h4><a href={"/#/item/" + item.productId}>{item.name}</a></h4>
-                                        <p>$ {item.price}</p>
+                                <div className="product d-flex flex-column">
+                                    <a href={"/#/item/" + item.productId} className="img-prod"><img className="img-fluid" src={item.image} alt="" />
+                                        <div className="overlay"></div>
+                                    </a>
+                                    <div className="text py-3 pb-4 px-3">
+                                        <div className="d-flex">
+                                            <div className="cat">
+                                                <span>{type}</span>
+                                            </div>
+                                            <div className="rating">
+                                                <p className="text-right mb-0">
+                                                    <a href="#"><span className="ion-ios-star-outline"></span></a>
+                                                    <a href="#"><span className="ion-ios-star-outline"></span></a>
+                                                    <a href="#"><span className="ion-ios-star-outline"></span></a>
+                                                    <a href="#"><span className="ion-ios-star-outline"></span></a>
+                                                    <a href="#"><span className="ion-ios-star-outline"></span></a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <h3><a href={"/#/item/" + item.productId}>{item.name}</a></h3>
+                                        <div className="pricing">
+                                            <p className="price"><span>${item.price}</span></p>
+                                        </div>
+                                        <p className="bottom-area d-flex px-3">
+                                            <a href="#" className="add-to-cart text-center py-2 mr-1"><span>Add to cart <i className="ion-ios-add ml-1"></i></span></a>
+                                            <a href="#" className="buy-now text-center py-2">Buy now<span><i className="ion-ios-cart ml-1"></i></span></a>
+                                        </p>
                                     </div>
                                 </div>
                             </div>

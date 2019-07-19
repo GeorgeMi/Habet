@@ -46,41 +46,46 @@ export class SectionIntro extends React.Component<any, any> {
             activeDictionary.Add(0, "active");
 
             return (
-                <section id="intro">
-                    <div className="intro-container">
-                        <div id="introCarousel" className="carousel  slide carousel-fade" data-ride="carousel">
 
-                            <ol className="carousel-indicators"></ol>
 
-                            <div className="carousel-inner" role="listbox">
+
+                <section className="ftco-section ftco-deal bg-primary">
+                    <div className="container">
+
+
+
+
+                        <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
+                            <div className="carousel-inner">
                                 {
                                     items.map((item, i) => (
                                         <div key={i} className={activeDictionary.Item(i) + " carousel-item"}>
-                                            <div className="carousel-background"><img src={item.image} alt="" /></div>
-                                            <div className="carousel-container">
-                                                <div className="carousel-content">
-                                                    <h2>{item.name}</h2>
-                                                    <p>$ {item.price}</p>
-                                                    <a href={"/#/item/"+item.productId} className="btn-get-started scrollto">Details</a>
+                                            <div className="row">
+                                                <div className="col-md-6">
+                                                    <img src={item.image} className="img-fluid" alt="" />
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div className="text-deal">
+                                                        <h2><a href="#">{item.name}</a></h2>
+                                                        <p className="price"><span className="price-sale">${item.price}</span></p>
+                                                        <p><a href={"/#/item/" + item.productId} className="btn-custom">Details</a></p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     ))}
+                                <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span className="sr-only">Previous</span>
+                                </a>
+                                <a className="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span className="sr-only">Next</span>
+                                </a>
                             </div>
-
-                            <a className="carousel-control-prev" href="#introCarousel" role="button" data-slide="prev">
-                                <span className="carousel-control-prev-icon ion-chevron-left" aria-hidden="true"></span>
-                                <span className="sr-only">Previous</span>
-                            </a>
-
-                            <a className="carousel-control-next" href="#introCarousel" role="button" data-slide="next">
-                                <span className="carousel-control-next-icon ion-chevron-right" aria-hidden="true"></span>
-                                <span className="sr-only">Next</span>
-                            </a>
-
-                        </div>
-                    </div>
-                </section>
+                        </div >
+                    </div >
+                </section >
             );
         }
     }

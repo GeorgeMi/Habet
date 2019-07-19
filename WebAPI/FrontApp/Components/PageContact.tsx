@@ -43,71 +43,58 @@ export class Contact extends React.Component<any, any>{
     render() {
         return (
             <div>
-            <Header Active={'Contact'}/>
-                <br />
-                <br />
-            <section id="contact" className="section-bg wow fadeInUp">
-                <div className="container">
+                <Header Active={'Contact'} />
 
-                    <div className="section-header">
-                            <h3>Contact our Support and Sales team</h3>
+                <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
+                    <div className="row justify-content-center mb-3 pb-3">
+                        <div className="col-md-12 heading-section text-center">
+                            <h2 className="mb-4">Contact our Support and Sales team</h2>
                             <p>Our team is happy to answer your questions. Fill out the form and we’ll be in touch as soon as possible.</p>
+                        </div>
                     </div>
+                </div>
 
-                    <div className="row contact-info">
-
-                        <div className="col-md-4">
-                            <div className="contact-address">
-                                <i className="ion-ios-location-outline"></i>
-                                <h3>Address</h3>
-                                <address>73 Somerfield Rd, Manchester M9 8AQ, UK</address>
-                            </div>
-                        </div>
-
-                        <div className="col-md-4">
-                            <div className="contact-phone">
-                                <i className="ion-ios-telephone-outline"></i>
-                                <h3>Phone Number</h3>
-                                <p><a href="tel:+441612582629">+44 161 258 2629</a></p>
-                            </div>
-                        </div>
-
-                        <div className="col-md-4">
-                            <div className="contact-email">
-                                <i className="ion-ios-email-outline"></i>
-                                <h3>Email</h3>
-                                <p><a href="mailto:habetgabriel@gmail.com">habetgabriel@gmail.com</a></p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div className="form">
-                        <div id="sendmessage">Your message has been sent. Thank you!</div>
-                        <div id="errormessage"></div>
-                            <form action="" method="post" role="form" className="contactForm" onSubmit={this.handleSubmit}>
-                            <div className="form-row">
-                                <div className="form-group col-md-6">
-                                        <input type="text" name="name" value={this.state.name} onChange={this.handleChange} className="form-control" id="name" placeholder="Your Name" pattern=".{3,}" required />
-                                    <div className="validation"></div>
-                                </div>
-                                <div className="form-group col-md-6">
-                                        <input type="email" className="form-control" name="email" value={this.state.email} onChange={this.handleChange} id="email" placeholder="Your Email" required/>
-                                    <div className="validation"></div>
+                <section className="ftco-section contact-section bg-light">
+                    <div className="container">
+                        <div className="row d-flex mb-5 contact-info">
+                            <div className="w-100"></div>
+                            <div className="col-md-4 d-flex">
+                                <div className="info bg-white p-4">
+                                    <p><span>Address:</span>73 Somerfield Rd, Manchester M9 8AQ, UK</p>
                                 </div>
                             </div>
-                            <div className="form-group">
-                                    <input type="text" className="form-control" name="subject" value={this.state.subject} onChange={this.handleChange} id="subject" placeholder="Subject" pattern=".{3,}" required/>
-                                <div className="validation"></div>
+                            <div className="col-md-4 d-flex">
+                                <div className="info bg-white p-4">
+                                    <p><span>Phone:</span> <a href="tel:+441612582629">+44 161 258 2629</a></p>
+                                </div>
                             </div>
-                            <div className="form-group">
-                                    <textarea className="form-control" name="message" value={this.state.message} onChange={this.handleChange} data-msg="Please write something for us" placeholder="Message" required> </textarea>
-                            <div className="validation"></div>
+                            <div className="col-md-4 d-flex">
+                                <div className="info bg-white p-4">
+                                    <p><span>Email:</span> <a href="mailto:habetgabriel@gmail.com">habetgabriel@gmail.com</a></p>
+                                </div>
                             </div>
-                            <div className="text-center"><button type="submit">Send Message</button></div>
-                        </form>
-                    </div>
-
+                        </div>
+                        <div className="row block-9">
+                            <div className="col-md-12 order-md-last d-flex">
+                                <form action="" className="bg-white p-5 contact-form" onSubmit={this.handleSubmit}>
+                                    <div className="form-group">
+                                        <input type="text" className="form-control" placeholder="Your Name" value={this.state.name} onChange={this.handleChange} name="name" id="name" pattern=".{3,}" required />
+                                    </div>
+                                    <div className="form-group">
+                                        <input type="text" className="form-control" placeholder="Your Email" value={this.state.email} onChange={this.handleChange} name="email" id="email" required />
+                                    </div>
+                                    <div className="form-group">
+                                        <input type="text" className="form-control" placeholder="Subject" value={this.state.subject} onChange={this.handleChange} name="subject" id="subject" required pattern=".{3,}" />
+                                    </div>
+                                    <div className="form-group">
+                                        <textarea className="form-control" placeholder="Message" value={this.state.message} onChange={this.handleChange} name="message" id="message" required></textarea>
+                                    </div>
+                                    <div className="form-group">
+                                        <input type="submit" value="Send Message" className="btn btn-primary py-3 px-5" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </section>
             </div>

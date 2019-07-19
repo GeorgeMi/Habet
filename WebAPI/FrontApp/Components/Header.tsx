@@ -15,37 +15,44 @@ export class Header extends React.Component<any, any> {
     render() {
         const { headerDictionary } = this.state;
         return (
-            <header id="header">
-                <div className="container-fluid">
-                    <div id="logo" className="pull-left">
-                        <h1><a href="/#/" className="scrollto">GabrielHabet</a></h1>
-                        
-                        <a href="/#/"><img src="img/logo.png" alt="" title="" /></a>
-            </div>
 
-                    <nav id="nav-menu-container">
-                        <ul className="nav-menu">
-                            <li className={headerDictionary.Item('Home')}><a href="#">Home</a></li>
-                            <li className={headerDictionary.Item('Women')}>
-                                <Link to="#Women-section">Women</Link>
-                                <ul>
-                                    <li><Link to="#Women-Bags-section">Bags</Link></li>
-                                    <li><Link to="#Women-Belts-section">Belts</Link></li>
-                                </ul>
-                            </li>
-                            <li className={headerDictionary.Item('Men')}>
-                                <Link to="#Men-section">Men</Link>
-                                <ul>
-                                    <li><Link to="#Men-Bags-section">Bags</Link></li>
-                                    <li><Link to="#Men-Belts-section">Belts</Link></li>
-                                </ul>
-                            </li>
-                           
-                            <li className={headerDictionary.Item('Contact')}><a href="/#/contact">Contact</a></li>
-                        </ul>
-                    </nav>
-        </div>
-            </header>
+
+            <div>
+
+
+                <nav className="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+                    <div className="container">
+                        <a className="navbar-brand" href="index.html">GabrielHabet</a>
+                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span className="oi oi-menu"></span> Menu
+	      </button>
+
+                        <div className="collapse navbar-collapse" id="ftco-nav">
+                            <ul className="navbar-nav ml-auto">
+                                <li className={"nav-item " + headerDictionary.Item('Home')}><a href="/" className="nav-link">Home</a></li>
+                                <li className="nav-item dropdown">
+                                    <Link className={"nav-link dropdown-toggle "+ headerDictionary.Item('Women')} to="#Women-section" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Women</Link>
+                                    <div className="dropdown-menu" aria-labelledby="dropdown04">
+                                        <Link className="dropdown-item" to="#Women-Bags-section">Bags</Link>
+                                        <Link className="dropdown-item" to="#Women-Belts-section">Belts</Link>
+                                    </div>
+                                </li>
+                                <li className="nav-item dropdown">
+                                    <Link className={"nav-link dropdown-toggle "+ headerDictionary.Item('Men')} to="#Men-section" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Men</Link>
+                                    <div className="dropdown-menu" aria-labelledby="dropdown04">
+                                        <Link className="dropdown-item" to="#Men-Bags-section">Bags</Link>
+                                        <Link className="dropdown-item" to="#Men-Belts-section">Belts</Link>
+                                    </div>
+                                </li>
+
+                                <li className={"nav-item " + headerDictionary.Item('Contact') }><a href="/#/contact" className="nav-link">Contact</a></li>
+                                <li className="nav-item cta cta-colored"><a href="cart.html" className="nav-link"><span className="icon-shopping_cart"></span>[0]</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
         );
     }
 }

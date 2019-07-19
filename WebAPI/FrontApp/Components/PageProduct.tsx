@@ -24,7 +24,7 @@ export class Product extends React.Component<any, any>
                 var dictionary = this.state.imageDictionary;
                 this.setState({ isLoaded: true, item: response.data, imageDictionary: dictionary });
 
-                this.getImageForProduct(response.data.productId);
+           //     this.getImageForProduct(response.data.productId);
             })
             .catch((error) => {
                 this.setState({ isLoaded: true, error });
@@ -60,27 +60,53 @@ export class Product extends React.Component<any, any>
             return (
                 <div>
                     <Header />
-                    <br />
-                    <br />
-                <section id="product" className="section-bg">
-                    <div className="container">
-                        <div className="row product-container">
-                                    <div className="col-lg-4 col-md-6 product-item filter-app wow fadeInUp">
-                                        <div className="product-wrap">
-                                            <figure>
-                                                <img src={imageDictionary.Item(item.productId)} className="img-fluid" alt="" />
-                                                <a href={imageDictionary.Item(item.productId)} data-lightbox="product" data-title={item.name} className="link-preview" title="Preview"><i className="ion ion-eye"></i></a>
-                                                <a href="#" className="link-details" title="More Details"><i className="ion ion-android-open"></i></a>
-                                            </figure>
-                                                                               
-                                        </div>
-                            </div>
-                            <div className="col-lg-4 col-md-6 product-item filter-app wow fadeInUp">
-                                <h4><a href="#">{item.name}</a></h4>
-                                <p>{item.description}</p>
+
+                    <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
+                        <div className="container">
+                            <div className="row no-gutters slider-text align-items-center justify-content-center">
+                                <div className="col-md-9 ftco-animate text-center">
+                                    <p className="breadcrumbs"><span className="mr-2"><a href="index.html">Home</a></span> <span>Shop</span></p>
+                                    <h1 className="mb-0 bread">Shop</h1>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <section className="ftco-section">
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-lg-6 mb-5">
+                                    <a href="images/product-1.png" className="image-popup prod-img-bg"><img src="images/product-1.png" className="img-fluid" alt="..." /></a>
+                                </div>
+                                <div className="col-lg-6 product-details pl-md-5">
+                                    <h3>Nike Free RN 2019 iD</h3>
+                                    <p className="price"><span>$120.00</span></p>
+                                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                                    <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their.
+						</p>
+                                    <div className="row mt-4">
+                                        <div className="w-100"></div>
+                                        <div className="input-group col-md-6 d-flex mb-3">
+                                            <span className="input-group-btn mr-2">
+                                                <button type="button" className="quantity-left-minus btn" data-type="minus" data-field="">
+                                                    <i className="ion-ios-remove"></i>
+                                                </button>
+                                            </span>
+                                            <input type="text" id="quantity" name="quantity" className="quantity form-control input-number" min="1" max="100" />
+                                            <span className="input-group-btn ml-2">
+                                                <button type="button" className="quantity-right-plus btn" data-type="plus" data-field="">
+                                                    <i className="ion-ios-add"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                        <div className="w-100"></div>
+                                        <div className="col-md-12">
+                                            <p><a href="cart.html" className="btn btn-black py-3 px-5 mr-2">Add to Cart</a><a href="cart.html" className="btn btn-primary py-3 px-5">Buy now</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </section>
                 </div>
             );

@@ -8,6 +8,8 @@ import { Contact } from './Components/PageContact';
 import { Footer } from "./Components/Footer";
 import { NotFound } from "./Components/PageNotFound";
 import { Product } from "./Components/PageProduct";
+import { Checkout } from "./Components/PageCheckout";
+import { Search } from "./Components/PageSearch";
 
 class App extends React.Component {
     render() {
@@ -18,6 +20,8 @@ class App extends React.Component {
                         <Route exact path="/" component={Home} />
                         <Route exact path="/item/:id" component={Product} />
                         <Route exact path="/contact" component={Contact} />
+                        <Route exact path="/checkout" component={Checkout} />
+                        <Route exact path="/search" component={Search} />
                         <Route component={NotFound} />
                     </Switch>
                     <Footer />

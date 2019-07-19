@@ -27,7 +27,7 @@ namespace WebAPI.Controllers
             //var productList = await _context.Products.Skip(from).Take(top).ToListAsync();
             var productList = new List<Products>();
             Random rnd = new Random();
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 3; i++)
             {
                 productList.Add(new Products { Name = "Name"+i, Price = i, ProductId = rnd.Next(1, 131231) });
             }

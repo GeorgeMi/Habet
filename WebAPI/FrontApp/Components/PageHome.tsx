@@ -10,39 +10,54 @@ export class Home extends React.Component {
             <main id="main">
                 <div>
                     <Header Active={'Home'} />
+
                     <SectionIntro />
-                    <section className="product section-bg">
+
+                    <section className="ftco-section bg-light">
                         <div className="container">
-                            <header className="section-header" id="Women-section">
-                                <h3 className="section-title" > Women </h3>
-                            </header>
-                            <section id="Women-Bags-section">
-                                <header className="section-header">
-                                    <h5 className="section-title">Bags</h5>
-                                </header>
-                                <SectionProducts Gender={'Women'} Type={'Bags'} />
-                            </section>
-                            <section id="Women-Belts-section">
-                                <header className="section-header">
-                                    <h5 className="section-title">Belts</h5>
-                                </header>
-                                <SectionProducts Gender={'Women'} Type={'Belts'} />
-                            </section>
-                            <header className="section-header" id="Men-section">
-                                <h3 className="section-title" > Men </h3>
-                            </header>
-                            <section id="Men-Bags-section">
-                                <header className="section-header">
-                                    <h5 className="section-title">Bags</h5>
-                                </header>
-                                <SectionProducts Gender={'Men'} Type={'Bags'}/>
-                            </section>
-                            <section id="Men-Belts-section">
-                                <header className="section-header">
-                                    <h5 className="section-title">Belts</h5>
-                                </header>
-                                <SectionProducts Gender={'Men'} Type={'Belts'}/>
-                            </section>
+                            <div className="row justify-content-center mb-3 pb-3">
+                                <div className="col-md-12 heading-section text-center ftco-animate">
+                                    <h2 className="mb-4" id="Women-section">Women</h2>
+                                    <p id="Women-Bags-section">Bags</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="container">
+                            <SectionProducts Gender={'Women'} Type={'Bags'} />
+                        </div>
+
+                        <div className="container">
+                            <div className="row justify-content-center mb-3 pb-3">
+                                <div className="col-md-12 heading-section text-center ftco-animate">
+                                    <p id="Women-Belts-section">Belts</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="container">
+                            <SectionProducts Gender={'Women'} Type={'Belts'} />
+                        </div>
+
+                        <div className="container">
+                            <div className="row justify-content-center mb-3 pb-3">
+                                <div className="col-md-12 heading-section text-center ftco-animate">
+                                    <h2 className="mb-4" id="Men-section">Men</h2>
+                                    <p id="Men-Bags-section">Bags</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="container">
+                            <SectionProducts Gender={'Men'} Type={'Bags'} />
+                        </div>
+
+                        <div className="container">
+                            <div className="row justify-content-center mb-3 pb-3">
+                                <div className="col-md-12 heading-section text-center ftco-animate">
+                                    <p id="Men-Belts-section">Belts</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="container">
+                            <SectionProducts Gender={'Men'} Type={'Belts'} />
                         </div>
                     </section>
                 </div>

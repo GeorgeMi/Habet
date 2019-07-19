@@ -41,7 +41,7 @@ var SectionProducts = /** @class */ (function (_super) {
             .then();
     };
     SectionProducts.prototype.render = function () {
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, type = _a.type;
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -49,23 +49,46 @@ var SectionProducts = /** @class */ (function (_super) {
                 error.message);
         }
         else if (!isLoaded) {
-            return React.createElement("div", null, "Loading...");
+            return React.createElement("div", null);
         }
         else {
-            return (React.createElement("div", { className: "row product-container" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 product-item filter-app wow fadeInUp" },
-                React.createElement("div", { className: "product-wrap" },
-                    React.createElement("figure", null,
-                        React.createElement("img", { src: item.image, className: "img-fluid", alt: "" }),
-                        React.createElement("a", { href: item.image, "data-lightbox": item.name + item.productId, "data-title": item.name, "data-footer": "$ " + item.price, className: "link-preview", title: "Preview" },
-                            React.createElement("i", { className: "ion ion-eye" })),
-                        React.createElement("a", { href: "/#/item/" + item.productId, className: "link-details", title: "More Details" },
-                            React.createElement("i", { className: "ion ion-android-open" }))),
-                    React.createElement("div", { className: "product-info" },
-                        React.createElement("h4", null,
+            return (React.createElement("div", { className: "row" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 product-item filter-app wow fadeInUp" },
+                React.createElement("div", { className: "product d-flex flex-column" },
+                    React.createElement("a", { href: "/#/item/" + item.productId, className: "img-prod" },
+                        React.createElement("img", { className: "img-fluid", src: item.image, alt: "" }),
+                        React.createElement("div", { className: "overlay" })),
+                    React.createElement("div", { className: "text py-3 pb-4 px-3" },
+                        React.createElement("div", { className: "d-flex" },
+                            React.createElement("div", { className: "cat" },
+                                React.createElement("span", null, type)),
+                            React.createElement("div", { className: "rating" },
+                                React.createElement("p", { className: "text-right mb-0" },
+                                    React.createElement("a", { href: "#" },
+                                        React.createElement("span", { className: "ion-ios-star-outline" })),
+                                    React.createElement("a", { href: "#" },
+                                        React.createElement("span", { className: "ion-ios-star-outline" })),
+                                    React.createElement("a", { href: "#" },
+                                        React.createElement("span", { className: "ion-ios-star-outline" })),
+                                    React.createElement("a", { href: "#" },
+                                        React.createElement("span", { className: "ion-ios-star-outline" })),
+                                    React.createElement("a", { href: "#" },
+                                        React.createElement("span", { className: "ion-ios-star-outline" }))))),
+                        React.createElement("h3", null,
                             React.createElement("a", { href: "/#/item/" + item.productId }, item.name)),
-                        React.createElement("p", null,
-                            "$ ",
-                            item.price))))); })));
+                        React.createElement("div", { className: "pricing" },
+                            React.createElement("p", { className: "price" },
+                                React.createElement("span", null,
+                                    "$",
+                                    item.price))),
+                        React.createElement("p", { className: "bottom-area d-flex px-3" },
+                            React.createElement("a", { href: "#", className: "add-to-cart text-center py-2 mr-1" },
+                                React.createElement("span", null,
+                                    "Add to cart ",
+                                    React.createElement("i", { className: "ion-ios-add ml-1" }))),
+                            React.createElement("a", { href: "#", className: "buy-now text-center py-2" },
+                                "Buy now",
+                                React.createElement("span", null,
+                                    React.createElement("i", { className: "ion-ios-cart ml-1" })))))))); })));
         }
     };
     return SectionProducts;
