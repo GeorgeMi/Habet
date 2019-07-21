@@ -21,8 +21,8 @@ export class SectionProducts extends React.Component<any, any>
                     from: 0
                 }
             })
-            .then((response) => {
-                  this.setState({ isLoaded: true, items: response.data });
+            .then((response) => {      
+                this.setState({ isLoaded: true, items: response.data });
             })
             .catch((error) => {
                 this.setState({ isLoaded: true, error });
@@ -32,27 +32,29 @@ export class SectionProducts extends React.Component<any, any>
 
 
     render() {
-        const { error, isLoaded, items, type } = this.state;
+        const { error, isLoaded, items } = this.state;
+       
         if (error) {
             console.log(error);
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
             return <div></div>;
         } else {
+            
             return (
                 <div className="row">
                     {
                         items.map((item, i) => (
-
+                           
                             <div key={i} className="col-lg-4 col-md-6 product-item filter-app wow fadeInUp">
                                 <div className="product d-flex flex-column">
-                                    <a href={"/#/item/" + item.productId} className="img-prod"><img className="img-fluid" src={item.image} alt="" />
+                                    <a href={"/#/item/" + item.ProductId} className="img-prod"><img className="img-fluid" src={item.Image} alt="" />
                                         <div className="overlay"></div>
                                     </a>
                                     <div className="text py-3 pb-4 px-3">
-                                        <h3><a href={"/#/item/" + item.productId}>{item.name}</a></h3>
+                                        <h3><a href={"/#/item/" + item.ProductId}>{item.Name}</a></h3>
                                         <div className="pricing">
-                                            <p className="price"><span>${item.price}</span></p>
+                                            <p className="price"><span>${item.Price}</span></p>
                                         </div>
                                         <p className="bottom-area d-flex px-3">
                                             <a href="#" className="add-to-cart text-center py-2 mr-1"><span>Add to cart <i className="ion-ios-add ml-1"></i></span></a>

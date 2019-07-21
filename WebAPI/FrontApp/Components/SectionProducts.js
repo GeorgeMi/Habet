@@ -41,7 +41,7 @@ var SectionProducts = /** @class */ (function (_super) {
             .then();
     };
     SectionProducts.prototype.render = function () {
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, type = _a.type;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items;
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -54,17 +54,17 @@ var SectionProducts = /** @class */ (function (_super) {
         else {
             return (React.createElement("div", { className: "row" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 product-item filter-app wow fadeInUp" },
                 React.createElement("div", { className: "product d-flex flex-column" },
-                    React.createElement("a", { href: "/#/item/" + item.productId, className: "img-prod" },
-                        React.createElement("img", { className: "img-fluid", src: item.image, alt: "" }),
+                    React.createElement("a", { href: "/#/item/" + item.ProductId, className: "img-prod" },
+                        React.createElement("img", { className: "img-fluid", src: item.Image, alt: "" }),
                         React.createElement("div", { className: "overlay" })),
                     React.createElement("div", { className: "text py-3 pb-4 px-3" },
                         React.createElement("h3", null,
-                            React.createElement("a", { href: "/#/item/" + item.productId }, item.name)),
+                            React.createElement("a", { href: "/#/item/" + item.ProductId }, item.Name)),
                         React.createElement("div", { className: "pricing" },
                             React.createElement("p", { className: "price" },
                                 React.createElement("span", null,
                                     "$",
-                                    item.price))),
+                                    item.Price))),
                         React.createElement("p", { className: "bottom-area d-flex px-3" },
                             React.createElement("a", { href: "#", className: "add-to-cart text-center py-2 mr-1" },
                                 React.createElement("span", null,

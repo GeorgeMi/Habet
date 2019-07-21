@@ -744,27 +744,27 @@ var Home = /** @class */ (function (_super) {
                 React.createElement("section", { className: "ftco-section bg-light" },
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
-                            React.createElement("div", { className: "col-md-12 heading-section text-center ftco-animate" },
+                            React.createElement("div", { className: "col-md-12 heading-section text-center" },
                                 React.createElement("h2", { className: "mb-4", id: "Women-section" }, "Women"),
                                 React.createElement("p", { id: "Women-Bags-section" }, "Bags")))),
                     React.createElement("div", { className: "container" },
                         React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Bags' })),
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
-                            React.createElement("div", { className: "col-md-12 heading-section text-center ftco-animate" },
+                            React.createElement("div", { className: "col-md-12 heading-section text-center" },
                                 React.createElement("p", { id: "Women-Belts-section" }, "Belts")))),
                     React.createElement("div", { className: "container" },
                         React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Belts' })),
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
-                            React.createElement("div", { className: "col-md-12 heading-section text-center ftco-animate" },
+                            React.createElement("div", { className: "col-md-12 heading-section text-center" },
                                 React.createElement("h2", { className: "mb-4", id: "Men-section" }, "Men"),
                                 React.createElement("p", { id: "Men-Bags-section" }, "Bags")))),
                     React.createElement("div", { className: "container" },
                         React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Men', Type: 'Bags' })),
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
-                            React.createElement("div", { className: "col-md-12 heading-section text-center ftco-animate" },
+                            React.createElement("div", { className: "col-md-12 heading-section text-center" },
                                 React.createElement("p", { id: "Men-Belts-section" }, "Belts")))),
                     React.createElement("div", { className: "container" },
                         React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Men', Type: 'Belts' }))))));
@@ -1198,24 +1198,24 @@ var SectionIntro = /** @class */ (function (_super) {
             var activeDictionary = new Dictionary_1.KeyedCollection();
             items.map(function (item, i) { return (activeDictionary.Add(i, "")); });
             activeDictionary.Add(0, "active");
-            return (React.createElement("section", { className: "ftco-section ftco-deal", style: { backgroundImage: "url('images/class')", opacity: 0.5 } },
+            return (React.createElement("section", { className: "ftco-section ftco-deal", style: { backgroundImage: "url('images/background.jpg')", opacity: 0.5 } },
                 React.createElement("div", { className: "container" },
                     React.createElement("div", { id: "carouselExampleControls", className: "carousel slide", "data-ride": "carousel" },
                         React.createElement("div", { className: "carousel-inner" },
                             items.map(function (item, i) { return (React.createElement("div", { key: i, className: activeDictionary.Item(i) + " carousel-item" },
                                 React.createElement("div", { className: "row" },
                                     React.createElement("div", { className: "col-md-6" },
-                                        React.createElement("img", { src: item.image, className: "img-fluid", alt: "" })),
+                                        React.createElement("img", { src: item.Image, className: "img-fluid", alt: "" })),
                                     React.createElement("div", { className: "col-md-6" },
                                         React.createElement("div", { className: "text-deal" },
                                             React.createElement("h2", null,
-                                                React.createElement("a", { href: "#" }, item.name)),
+                                                React.createElement("a", { href: "#" }, item.Name)),
                                             React.createElement("p", { className: "price" },
                                                 React.createElement("span", null,
                                                     "$",
-                                                    item.price)),
+                                                    item.Price)),
                                             React.createElement("p", null,
-                                                React.createElement("a", { href: "/#/item/" + item.productId, className: "btn btn-primary py-3 px-5" }, "Details"))))))); }),
+                                                React.createElement("a", { href: "/#/item/" + item.ProductId, className: "btn btn-primary py-3 px-5" }, "Details"))))))); }),
                             React.createElement("a", { className: "carousel-control-prev", href: "#carouselExampleControls", role: "button", "data-slide": "prev" },
                                 React.createElement("span", { className: "carousel-control-prev-icon", "aria-hidden": "true" }),
                                 React.createElement("span", { className: "sr-only" }, "Previous")),
@@ -1282,7 +1282,7 @@ var SectionProducts = /** @class */ (function (_super) {
             .then();
     };
     SectionProducts.prototype.render = function () {
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, type = _a.type;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items;
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -1295,17 +1295,17 @@ var SectionProducts = /** @class */ (function (_super) {
         else {
             return (React.createElement("div", { className: "row" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 product-item filter-app wow fadeInUp" },
                 React.createElement("div", { className: "product d-flex flex-column" },
-                    React.createElement("a", { href: "/#/item/" + item.productId, className: "img-prod" },
-                        React.createElement("img", { className: "img-fluid", src: item.image, alt: "" }),
+                    React.createElement("a", { href: "/#/item/" + item.ProductId, className: "img-prod" },
+                        React.createElement("img", { className: "img-fluid", src: item.Image, alt: "" }),
                         React.createElement("div", { className: "overlay" })),
                     React.createElement("div", { className: "text py-3 pb-4 px-3" },
                         React.createElement("h3", null,
-                            React.createElement("a", { href: "/#/item/" + item.productId }, item.name)),
+                            React.createElement("a", { href: "/#/item/" + item.ProductId }, item.Name)),
                         React.createElement("div", { className: "pricing" },
                             React.createElement("p", { className: "price" },
                                 React.createElement("span", null,
                                     "$",
-                                    item.price))),
+                                    item.Price))),
                         React.createElement("p", { className: "bottom-area d-flex px-3" },
                             React.createElement("a", { href: "#", className: "add-to-cart text-center py-2 mr-1" },
                                 React.createElement("span", null,
@@ -32141,13 +32141,13 @@ module.exports = g;
 /***/ }),
 
 /***/ "config":
-/*!*****************************************************************!*\
-  !*** external "{\"API_Path\":\"https://localhost:44382/api\"}" ***!
-  \*****************************************************************/
+/*!****************************************************************!*\
+  !*** external "{\"API_Path\":\"http://localhost:65315/api\"}" ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = {"API_Path":"https://localhost:44382/api"};
+module.exports = {"API_Path":"http://localhost:65315/api"};
 
 /***/ })
 

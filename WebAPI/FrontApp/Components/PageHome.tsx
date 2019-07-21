@@ -16,7 +16,7 @@ export class Home extends React.Component {
                     <section className="ftco-section bg-light">
                         <div className="container">
                             <div className="row justify-content-center mb-3 pb-3">
-                                <div className="col-md-12 heading-section text-center ftco-animate">
+                                <div className="col-md-12 heading-section text-center">
                                     <h2 className="mb-4" id="Women-section">Women</h2>
                                     <p id="Women-Bags-section">Bags</p>
                                 </div>
@@ -28,7 +28,7 @@ export class Home extends React.Component {
 
                         <div className="container">
                             <div className="row justify-content-center mb-3 pb-3">
-                                <div className="col-md-12 heading-section text-center ftco-animate">
+                                <div className="col-md-12 heading-section text-center">
                                     <p id="Women-Belts-section">Belts</p>
                                 </div>
                             </div>
@@ -39,7 +39,7 @@ export class Home extends React.Component {
 
                         <div className="container">
                             <div className="row justify-content-center mb-3 pb-3">
-                                <div className="col-md-12 heading-section text-center ftco-animate">
+                                <div className="col-md-12 heading-section text-center">
                                     <h2 className="mb-4" id="Men-section">Men</h2>
                                     <p id="Men-Bags-section">Bags</p>
                                 </div>
@@ -51,7 +51,7 @@ export class Home extends React.Component {
 
                         <div className="container">
                             <div className="row justify-content-center mb-3 pb-3">
-                                <div className="col-md-12 heading-section text-center ftco-animate">
+                                <div className="col-md-12 heading-section text-center">
                                     <p id="Men-Belts-section">Belts</p>
                                 </div>
                             </div>
