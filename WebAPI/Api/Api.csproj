@@ -206,6 +206,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BusinessLogic\AuthLogic.cs" />
     <Compile Include="BusinessLogic\TokenLogic.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProductsImagesController.cs" />

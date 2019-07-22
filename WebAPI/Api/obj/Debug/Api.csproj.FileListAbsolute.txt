@@ -269,3 +269,4 @@ D:\project\Habet\WebAPI\Api\bin\System.Web.Http.xml
 D:\project\Habet\WebAPI\Api\bin\System.Web.Http.WebHost.xml
 D:\project\Habet\WebAPI\Api\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\project\Habet\WebAPI\Api\obj\Debug\Api.csproj.CopyComplete
+D:\project\Habet\WebAPI\Api\obj\Debug\Api.csprojAssemblyReference.cache
