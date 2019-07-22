@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
-namespace Api
+namespace Api.Models
 {
     public partial class ProductsImages
     {
-        [Key]
         public Guid Id { get; set; }
         public int ProductId { get; set; }
         public byte[] Name { get; set; }

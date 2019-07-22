@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Api
+namespace Api.Models
 {
     public partial class GHContext : DbContext
     {
@@ -17,28 +17,19 @@ namespace Api
 
         public virtual DbSet<MigrationHistory> MigrationHistory { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
-        
         public virtual DbSet<Products> Products { get; set; }
-
         public virtual DbSet<ProductsImages> ProductsImages { get; set; }
-       
         public virtual DbSet<ProductsOrders> ProductsOrders { get; set; }
-
-        public virtual DbSet<Roles> Roles { get; set; }
-
+        public virtual DbSet<Tokens> Tokens { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-
         public virtual DbSet<UsersAddresses> UsersAddresses { get; set; }
-
-
-        // Unable to generate entity type for table 'Gabriel.UserRoles'. Please see the warning messages.
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Data Source=188.121.44.217;Initial Catalog=GH;user id=Gabriel;pwd=Habetpassword123;");
+                optionsBuilder.UseSqlServer("Server=188.121.44.217;Database=GH;user id=Gabriel;pwd=Habetpassword123;");
             }
         }
 
@@ -68,167 +59,107 @@ namespace Api
             modelBuilder.Entity<Orders>(entity =>
             {
                 entity.HasKey(e => e.OrderId)
-                    .HasName("PK__Orders__C3905BCF600B1B9F");
+                    .HasName("PK_dbo.Orders");
 
-                entity.Property(e => e.OrderId).ValueGeneratedNever();
+                entity.ToTable("Orders", "dbo");
+
+                entity.HasIndex(e => e.UserId)
+                    .HasName("IX_UserId");
 
                 entity.Property(e => e.Date).HasColumnType("datetime");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Orders__UserId__1DE57479");
+                    .HasConstraintName("FK_dbo.Orders_dbo.Users_UserId");
             });
-
-            
 
             modelBuilder.Entity<Products>(entity =>
             {
                 entity.HasKey(e => e.ProductId)
-                    .HasName("PK__Products__B40CC6CD3791F68D");
+                    .HasName("PK_dbo.Products");
 
-                entity.Property(e => e.ProductId).ValueGeneratedNever();
-
-                entity.Property(e => e.Description)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                entity.ToTable("Products", "dbo");
             });
-
-       
 
             modelBuilder.Entity<ProductsImages>(entity =>
             {
+                entity.ToTable("ProductsImages", "dbo");
+
                 entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.ContentType)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Data).IsRequired();
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(200);
             });
-
-        
 
             modelBuilder.Entity<ProductsOrders>(entity =>
             {
-                entity.HasKey(e => new { e.ProductId, e.OrderId })
-                    .HasName("PK__Products__5835C371C4E75831");
+                entity.HasKey(e => e.ProductId)
+                    .HasName("PK_dbo.ProductsOrders");
+
+                entity.ToTable("ProductsOrders", "dbo");
+
+                entity.HasIndex(e => e.OrderId)
+                    .HasName("IX_OrderId");
+
+                entity.HasIndex(e => e.ProductProductId)
+                    .HasName("IX_Product_ProductId");
+
+                entity.Property(e => e.ProductProductId).HasColumnName("Product_ProductId");
 
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.ProductsOrders)
                     .HasForeignKey(d => d.OrderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__ProductsO__Order__21B6055D");
+                    .HasConstraintName("FK_dbo.ProductsOrders_dbo.Orders_OrderId");
 
-                entity.HasOne(d => d.Product)
+                entity.HasOne(d => d.ProductProduct)
                     .WithMany(p => p.ProductsOrders)
-                    .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__ProductsO__Produ__20C1E124");
+                    .HasForeignKey(d => d.ProductProductId)
+                    .HasConstraintName("FK_dbo.ProductsOrders_dbo.Products_Product_ProductId");
             });
 
-          
-
-            modelBuilder.Entity<Roles>(entity =>
+            modelBuilder.Entity<Tokens>(entity =>
             {
-                entity.HasKey(e => e.RoleId)
-                    .HasName("PK__Roles__8AFACE1A112E6C3D");
+                entity.HasKey(e => e.TokenId)
+                    .HasName("PK_dbo.Tokens");
 
-                entity.Property(e => e.RoleId).ValueGeneratedNever();
+                entity.ToTable("Tokens", "dbo");
 
-                entity.Property(e => e.RoleName)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ExpirationDate).HasColumnType("datetime");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Tokens)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_dbo.Tokens_dbo.Users_UserId");
             });
-
-          
 
             modelBuilder.Entity<Users>(entity =>
             {
                 entity.HasKey(e => e.UserId)
-                    .HasName("PK__Users__1788CC4C5903012D");
+                    .HasName("PK_dbo.Users");
 
-                entity.Property(e => e.UserId).ValueGeneratedNever();
+                entity.ToTable("Users", "dbo");
 
-                entity.Property(e => e.Email)
-                    .IsRequired()
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                entity.Property(e => e.Role).HasMaxLength(50);
 
-                entity.Property(e => e.FirstName)
-                    .IsRequired()
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.LastName)
-                    .IsRequired()
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Pass)
-                    .IsRequired()
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.Role)
-                    .WithMany(p => p.Users)
-                    .HasForeignKey(d => d.RoleId)
-                    .HasConstraintName("FK__Users__RoleId__1273C1CD");
+                entity.Property(e => e.Verified).HasMaxLength(50);
             });
-
-           
 
             modelBuilder.Entity<UsersAddresses>(entity =>
             {
                 entity.HasKey(e => e.UserAdressId)
-                    .HasName("PK__UsersAdd__A558DC36060F86A0");
+                    .HasName("PK_dbo.UsersAddresses");
 
-                entity.Property(e => e.UserAdressId).ValueGeneratedNever();
+                entity.ToTable("UsersAddresses", "dbo");
 
-                entity.Property(e => e.Address)
-                    .IsRequired()
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.City)
-                    .IsRequired()
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Street)
-                    .IsRequired()
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.StreetNo)
-                    .IsRequired()
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.ZipCode)
-                    .IsRequired()
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                entity.HasIndex(e => e.UserId)
+                    .HasName("IX_UserId");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.UsersAddresses)
                     .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UsersAddr__UserI__164452B1");
+                    .HasConstraintName("FK_dbo.UsersAddresses_dbo.Users_UserId");
             });
-
-           
         }
     }
 }

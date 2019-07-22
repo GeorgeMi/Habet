@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
-namespace Api
+namespace Api.Models
 {
     public partial class Orders
     {
@@ -10,7 +9,7 @@ namespace Api
         {
             ProductsOrders = new HashSet<ProductsOrders>();
         }
-        [Key]
+
         public int OrderId { get; set; }
         public int UserId { get; set; }
         public DateTime Date { get; set; }

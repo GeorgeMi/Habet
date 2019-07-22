@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Api
+namespace Api.Models
 {
     public partial class MigrationHistory
     {

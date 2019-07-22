@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
-namespace Api
+namespace Api.Models
 {
     public partial class UsersAddresses
     {
-        [Key]
         public int UserAdressId { get; set; }
         public int UserId { get; set; }
         public string Address { get; set; }
