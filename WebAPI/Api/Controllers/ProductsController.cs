@@ -16,7 +16,7 @@ using Api.Models;
 
 namespace Api.Controllers
 {
-    [AuthorizeApiIPAddressAttribute]
+   // [AuthorizeApiIPAddressAttribute]
     public class ProductsController : ApiController
     {
         private GHContext db = new GHContext();
