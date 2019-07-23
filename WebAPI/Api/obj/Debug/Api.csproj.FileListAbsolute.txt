@@ -268,8 +268,8 @@ D:\project\Habet\WebAPI\Api\bin\System.Web.Http.xml
 D:\project\Habet\WebAPI\Api\bin\System.Web.Http.WebHost.xml
 D:\project\Habet\WebAPI\Api\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\project\Habet\WebAPI\Api\obj\Debug\Api.csproj.CopyComplete
-D:\project\Habet\WebAPI\Api\obj\Debug\Api.csprojAssemblyReference.cache
 F:\workspace\Habet\WebAPI\Api\bin\Elasticsearch.Net.dll
 F:\workspace\Habet\WebAPI\Api\bin\Nest.dll
 F:\workspace\Habet\WebAPI\Api\bin\Elasticsearch.Net.xml
 F:\workspace\Habet\WebAPI\Api\bin\Nest.xml
+D:\project\Habet\WebAPI\Api\obj\Debug\Api.csprojAssemblyReference.cache

@@ -1,5 +1,4 @@
-﻿using Api;
-using Api.BusinessLogic;
+﻿using Api.BusinessLogic;
 using Api.Messages;
 using Api.Models;
 using System.Linq;
@@ -20,6 +19,7 @@ namespace WebAPI.ActionFilters
         {
             AuthLogic authLogic = new AuthLogic(db);
             JSendMessage json;
+
             var header = context.Request.Headers.SingleOrDefault(x => x.Key == "token");
 
             bool valid, isAdmin, okDate;

@@ -23,10 +23,10 @@ namespace Api.BusinessLogic
         /// <summary>
         /// Verifica daca in baza de date exista un tuplu ce corespunde cu datele introduse
         /// </summary>
-        /// <param name="username"></param>
+        /// <param name="email"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        private int Validate(string username, string password)
+        private int Validate(string email, string password)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace Api.BusinessLogic
                 byte[] textToHash = Encoding.Default.GetBytes(password);
                 byte[] result = md5.ComputeHash(textToHash);
                 string passHash = BitConverter.ToString(result);
-                return _db.Users.First(user => user.FirstName.Equals(username) && user.Pass.Equals(passHash) && user.Verified == "yes").UserId;
+                return _db.Users.First(user => user.FirstName.Equals(email) && user.Pass.Equals(passHash) && user.Verified == "yes").UserId;
             }
             catch (Exception ex)
             {
@@ -49,9 +49,9 @@ namespace Api.BusinessLogic
         /// <param name="username"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public string Authenticate(string username, string password)
+        public string Authenticate(string email, string password)
         {
-            int userID = Validate(username, password);
+            int userID = Validate(email, password);
 
             if (userID == -1)
             {
@@ -59,7 +59,7 @@ namespace Api.BusinessLogic
             }
             else
             {
-                string token = TokenLogic.UpdateToken(userID, username, password);
+                string token = TokenLogic.UpdateToken(userID, email, password);
                 return token;
             }
         }
@@ -71,7 +71,7 @@ namespace Api.BusinessLogic
         /// <returns></returns>
         public bool VerifyMailToken(string token)
         {
-            int userID;
+            int userId;
 
             try
             {
@@ -80,8 +80,8 @@ namespace Api.BusinessLogic
                 if (verify)
                 {
                     // Se updateaza contul userului, verified => true
-                    userID = _db.Tokens.First(t => t.TokenString.Equals(token)).UserId;
-                  //  _db.Users.Verified(userID);
+                    userId = _db.Tokens.First(t => t.TokenString.Equals(token)).UserId;
+                    Verified(userId);
                     return true;
                 }
                 else
@@ -96,14 +96,20 @@ namespace Api.BusinessLogic
             }
         }
 
+        private void Verified(int userId)
+        {
+            Users u = _db.Users.Find(userId);
+            u.Verified = "yes";
+
+            _db.Users.Update(u);
+        }
+
         /// <summary>
         /// Verifica disponibilitatea numelui si introduce un nou user in baza de date
-        /// </summary>
-        /// <param name="username"></param>
         /// <param name="password"></param>
         /// <param name="email"></param>
         /// <returns></returns>
-        public string Register(string username, string password, string email)
+        public string Register(string email, string password)
         {
             try
             {
@@ -114,7 +120,7 @@ namespace Api.BusinessLogic
                 string passHash = BitConverter.ToString(result);
 
                 // Incearca sa adauge un nou user
-                Users user = new Users() { FirstName = username, Pass = passHash, Email = email, Role = "user" };
+                Users user = new Users() { Pass = passHash, Email = email, Role = "user" };
                 _db.Users.Add(user);
             }
             catch
@@ -123,7 +129,7 @@ namespace Api.BusinessLogic
                 return "Name already exists";
             }
 
-            var userID = Validate(username, password);
+            var userID = Validate(email, password);
             if (userID == -1)
             {
                 return "register failed";
@@ -145,8 +151,8 @@ namespace Api.BusinessLogic
             // Altfel se updateaza data de expirare si se intoarce ok
             try
             {
-                DateTime expirationDate = TokenLogic.GetTokenExpirationDate(tokenString);
-                if (expirationDate.CompareTo(DateTime.Now) != 1)
+                DateTime? expirationDate = TokenLogic.GetTokenExpirationDate(tokenString);
+                if (expirationDate?.CompareTo(DateTime.Now) != 1)
                 {
                     // Token-ul este expirat
                     return false;

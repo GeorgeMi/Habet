@@ -105,7 +105,7 @@ namespace Api.BusinessLogic
                 try
                 {
                     // Verificare update
-              //      db.Tokens.UpdateToken(t.TokenId, createdDate, expirationDate, text);
+                    UpdateToken(t.TokenId, createdDate, expirationDate, text);
                 }
                 catch (Exception ex)
                 {
@@ -145,15 +145,24 @@ namespace Api.BusinessLogic
                 return t.TokenString;
             }
         }
+
+        private void UpdateToken(int tokenId, DateTime createdDate, DateTime expirationDate, string text)
+        {
+            Tokens t = db.Tokens.Find(tokenId);
+            t.CreatedDate = createdDate;
+            t.ExpirationDate = expirationDate;
+
+            db.Tokens.Update(t);
+        }
+
         /// <summary>
         /// Returnare data expirare token
         /// </summary>
         /// <param name="tokenString"></param>
         /// <returns></returns>
-        public DateTime GetTokenExpirationDate(string tokenString)
+        public DateTime? GetTokenExpirationDate(string tokenString)
         {
-            return DateTime.Now;
-     //       return db.Tokens.First(token => token.TokenString == tokenString).ExpirationDate;
+            return db.Tokens.First(token => token.TokenString == tokenString).ExpirationDate;
         }
 
         /// <summary>
@@ -163,7 +172,15 @@ namespace Api.BusinessLogic
         public void UpdateTokenExpirationDate(string tokenString)
         {
             int id = GetTokenID(tokenString);
-         //   db.Tokens.UpdateExpirationDate(id, DateTime.Now.AddHours(3));
+            UpdateExpirationDate(id, DateTime.Now.AddHours(3));
+        }
+
+        private void UpdateExpirationDate(int id, DateTime dateTime)
+        {
+            Tokens t = db.Tokens.Find(id);
+            t.ExpirationDate = dateTime;
+
+            db.Tokens.Update(t);
         }
     }
 }

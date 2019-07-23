@@ -5,7 +5,6 @@ using System.Web.Http.Filters;
 using System.Net.Http;
 using Api.Messages;
 using Api.BusinessLogic;
-using Api;
 using Api.Models;
 
 namespace WebAPI.ActionFilters

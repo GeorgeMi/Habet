@@ -206,12 +206,16 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BusinessLogic\AuthLogic.cs" />
     <Compile Include="BusinessLogic\TokenLogic.cs" />
+    <Compile Include="BusinessLogic\UsersLogic.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProductsImagesController.cs" />
     <Compile Include="DTOs\ProductInfo.cs" />
+    <Compile Include="DTOs\UserDetail.cs" />
+    <Compile Include="DTOs\UserDTO.cs" />
+    <Compile Include="DTOs\UserRegistration.cs" />
     <Compile Include="Filters\AuthorizeApiIPAddressAttribute.cs" />
     <Compile Include="Filters\RequireAdminToken.cs" />
     <Compile Include="Filters\RequireToken.cs" />

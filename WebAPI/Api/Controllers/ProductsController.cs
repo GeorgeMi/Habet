@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Api;
 using Api.DTOs;
-using Api.Filters;
 using Api.Models;
 
 namespace Api.Controllers
 {
-   // [AuthorizeApiIPAddressAttribute]
+    // [AuthorizeApiIPAddressAttribute]
     public class ProductsController : ApiController
     {
         private GHContext db = new GHContext();
