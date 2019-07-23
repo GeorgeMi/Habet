@@ -33,7 +33,8 @@ var SectionProducts = /** @class */ (function (_super) {
             }
         })
             .then(function (response) {
-            _this.setState({ isLoaded: true, items: response.data });
+            _this.setState({ isLoaded: true, items: response.data.data });
+            _this.props.setLoadedComponentsArray("SectionProducts" + _this.state.gender + _this.state.type, "true");
         })
             .catch(function (error) {
             _this.setState({ isLoaded: true, error: error });

@@ -1,13 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Api.DTOs;
+using Api.Messages;
 using Api.Models;
 
 namespace Api.Controllers
@@ -18,16 +21,16 @@ namespace Api.Controllers
         private GHContext db = new GHContext();
 
         // GET: api/Products
-        public IEnumerable<ProductInfo> GetProducts(int top, int from)
+        public HttpResponseMessage GetProducts(int top, int from)
         {
-
-            var productList = db.Products.OrderBy(p => p.ProductId).Skip(from).Take(top).ToList();
-            //var productList = new List<Products>();
-            //Random rnd = new Random();
-            //for (int i = 0; i < 3; i++)
-            //{
-            //    productList.Add(new Products { Name = "Name" + i, Price = i, ProductId = rnd.Next(1, 131231) });
-            //}
+            HttpResponseMessage responseMessage;
+            // var productList = db.Products.OrderBy(p => p.ProductId).Skip(from).Take(top).ToList();
+            var productList = new List<Products>();
+            Random rnd = new Random();
+            for (int i = 0; i < 3; i++)
+            {
+                productList.Add(new Products { Name = "Name" + i, Price = i, ProductId = rnd.Next(1, 131231) });
+            }
 
             List<ProductInfo> result = new List<ProductInfo>();
             foreach (var product in productList)
@@ -41,7 +44,10 @@ namespace Api.Controllers
                 });
             }
 
-            return result;
+            JSend json = new JSendData<ProductInfo>("success", result);
+            responseMessage = Request.CreateResponse(HttpStatusCode.OK, json);
+
+            return responseMessage;
         }
 
         // GET: api/Products/5

@@ -731,12 +731,31 @@ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var SectionProducts_1 = __webpack_require__(/*! ./SectionProducts */ "./Components/SectionProducts.js");
 var SectionIntro_1 = __webpack_require__(/*! ./SectionIntro */ "./Components/SectionIntro.js");
 var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
+var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
 var Home = /** @class */ (function (_super) {
     __extends(Home, _super);
-    function Home() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function Home(props) {
+        var _this = _super.call(this, props) || this;
+        _this.state = { loadedComponentsDictionary: null };
+        _this.setLoadedComponentsArray = _this.setLoadedComponentsArray.bind(_this);
+        return _this;
     }
+    Home.prototype.setLoadedComponentsArray = function (component, loaded) {
+        var dictionary = this.state.loadedComponentsDictionary;
+        if (null == dictionary) {
+            dictionary = new Dictionary_1.KeyedCollection();
+        }
+        dictionary.Add(component, loaded);
+        this.setState({ loadedComponentsDictionary: dictionary });
+    };
     Home.prototype.render = function () {
+        console.log(this.state.loadedComponentsDictionary);
+        if (this.state.loadedComponentsDictionary != null && this.state.loadedComponentsDictionary.Count() == 4) {
+            console.log("ok");
+        }
+        else {
+            console.log("nope");
+        }
         return (React.createElement("main", { id: "main" },
             React.createElement("div", null,
                 React.createElement(Header_1.Header, { Active: 'Home' }),
@@ -748,26 +767,26 @@ var Home = /** @class */ (function (_super) {
                                 React.createElement("h2", { className: "mb-4", id: "Women-section" }, "Women"),
                                 React.createElement("p", { id: "Women-Bags-section" }, "Bags")))),
                     React.createElement("div", { className: "container" },
-                        React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Bags' })),
+                        React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Bags', setLoadedComponentsArray: this.setLoadedComponentsArray })),
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },
                                 React.createElement("p", { id: "Women-Belts-section" }, "Belts")))),
                     React.createElement("div", { className: "container" },
-                        React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Belts' })),
+                        React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Belts', setLoadedComponentsArray: this.setLoadedComponentsArray })),
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },
                                 React.createElement("h2", { className: "mb-4", id: "Men-section" }, "Men"),
                                 React.createElement("p", { id: "Men-Bags-section" }, "Bags")))),
                     React.createElement("div", { className: "container" },
-                        React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Men', Type: 'Bags' })),
+                        React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Men', Type: 'Bags', setLoadedComponentsArray: this.setLoadedComponentsArray })),
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },
                                 React.createElement("p", { id: "Men-Belts-section" }, "Belts")))),
                     React.createElement("div", { className: "container" },
-                        React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Men', Type: 'Belts' }))))));
+                        React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Men', Type: 'Belts', setLoadedComponentsArray: this.setLoadedComponentsArray }))))));
     };
     return Home;
 }(React.Component));
@@ -865,7 +884,7 @@ var Product = /** @class */ (function (_super) {
         axios.get(API_Path + '/Products/1')
             .then(function (response) {
             var dictionary = _this.state.imageDictionary;
-            _this.setState({ isLoaded: true, item: response.data, imageDictionary: dictionary });
+            _this.setState({ isLoaded: true, item: response.data.data, imageDictionary: dictionary });
             //     this.getImageForProduct(response.data.productId);
         })
             .catch(function (error) {
@@ -1176,7 +1195,7 @@ var SectionIntro = /** @class */ (function (_super) {
             }
         })
             .then(function (response) {
-            _this.setState({ isLoaded: true, items: response.data });
+            _this.setState({ isLoaded: true, items: response.data.data });
         })
             .catch(function (error) {
             _this.setState({ isLoaded: true, error: error });
@@ -1274,7 +1293,8 @@ var SectionProducts = /** @class */ (function (_super) {
             }
         })
             .then(function (response) {
-            _this.setState({ isLoaded: true, items: response.data });
+            _this.setState({ isLoaded: true, items: response.data.data });
+            _this.props.setLoadedComponentsArray("SectionProducts" + _this.state.gender + _this.state.type, "true");
         })
             .catch(function (error) {
             _this.setState({ isLoaded: true, error: error });

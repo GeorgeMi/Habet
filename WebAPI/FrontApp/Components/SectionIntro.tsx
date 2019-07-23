@@ -21,7 +21,7 @@ export class SectionIntro extends React.Component<any, any> {
                 }
             })
             .then((response) => {
-                this.setState({ isLoaded: true, items: response.data });
+                this.setState({ isLoaded: true, items: response.data.data });
             })
             .catch((error) => {
                 this.setState({ isLoaded: true, error });

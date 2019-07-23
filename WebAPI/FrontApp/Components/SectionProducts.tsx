@@ -9,10 +9,9 @@ export class SectionProducts extends React.Component<any, any>
 {
     constructor(props) {
         super(props);
-
         this.state = { isLoaded: false, items: null, error: null, gender: props.Gender, type: props.Type };
     }
-
+       
     componentWillMount() {
         axios.get(API_Path + '/Products',
             {
@@ -22,7 +21,8 @@ export class SectionProducts extends React.Component<any, any>
                 }
             })
             .then((response) => {      
-                this.setState({ isLoaded: true, items: response.data });
+                this.setState({ isLoaded: true, items: response.data.data });
+                this.props.setLoadedComponentsArray("SectionProducts" + this.state.gender + this.state.type, "true");
             })
             .catch((error) => {
                 this.setState({ isLoaded: true, error });
@@ -32,7 +32,7 @@ export class SectionProducts extends React.Component<any, any>
 
 
     render() {
-        const { error, isLoaded, items } = this.state;
+        const { error, isLoaded, items} = this.state;
        
         if (error) {
             console.log(error);
@@ -40,7 +40,7 @@ export class SectionProducts extends React.Component<any, any>
         } else if (!isLoaded) {
             return <div></div>;
         } else {
-            
+          
             return (
                 <div className="row">
                     {

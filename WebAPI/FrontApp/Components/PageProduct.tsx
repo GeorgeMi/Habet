@@ -22,7 +22,7 @@ export class Product extends React.Component<any, any>
         axios.get(API_Path + '/Products/1')
             .then((response) => {
                 var dictionary = this.state.imageDictionary;
-                this.setState({ isLoaded: true, item: response.data, imageDictionary: dictionary });
+                this.setState({ isLoaded: true, item: response.data.data, imageDictionary: dictionary });
 
            //     this.getImageForProduct(response.data.productId);
             })

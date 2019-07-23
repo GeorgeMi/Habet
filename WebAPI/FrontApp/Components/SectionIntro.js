@@ -34,7 +34,7 @@ var SectionIntro = /** @class */ (function (_super) {
             }
         })
             .then(function (response) {
-            _this.setState({ isLoaded: true, items: response.data });
+            _this.setState({ isLoaded: true, items: response.data.data });
         })
             .catch(function (error) {
             _this.setState({ isLoaded: true, error: error });

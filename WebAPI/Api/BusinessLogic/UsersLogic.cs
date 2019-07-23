@@ -68,8 +68,7 @@ namespace Api.BusinessLogic
         /// <returns></returns>
         public int AddUser(UserRegistration userDTO)
         {
-            if (string.IsNullOrWhiteSpace(userDTO.Username) || string.IsNullOrWhiteSpace(userDTO.Password) ||
-                string.IsNullOrWhiteSpace(userDTO.Email))
+            if (string.IsNullOrWhiteSpace(userDTO.Password) || string.IsNullOrWhiteSpace(userDTO.Email))
             {
                 throw new System.Exception("failed");
             }

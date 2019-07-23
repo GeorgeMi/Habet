@@ -33,7 +33,7 @@ var Product = /** @class */ (function (_super) {
         axios.get(API_Path + '/Products/1')
             .then(function (response) {
             var dictionary = _this.state.imageDictionary;
-            _this.setState({ isLoaded: true, item: response.data, imageDictionary: dictionary });
+            _this.setState({ isLoaded: true, item: response.data.data, imageDictionary: dictionary });
             //     this.getImageForProduct(response.data.productId);
         })
             .catch(function (error) {
