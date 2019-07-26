@@ -220,7 +220,7 @@ namespace Api.BusinessLogic
             mail.IsBodyHtml = true;
 
             SmtpServer.Port = 587;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("habetgabriel@gmail.com", "habetpassword");
+            SmtpServer.Credentials = new System.Net.NetworkCredential("habetgabriel@gmail.com", "habetpassword"); 
             SmtpServer.EnableSsl = true;
 
             SmtpServer.Send(mail);
