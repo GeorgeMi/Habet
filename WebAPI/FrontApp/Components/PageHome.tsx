@@ -3,6 +3,7 @@ import { SectionProducts } from "./SectionProducts";
 import { SectionIntro } from "./SectionIntro";
 import { Header } from './Header';
 import { KeyedCollection } from './Dictionary';
+import { NotificationContainer } from 'react-notifications';
 
 
 export class Home extends React.Component<any, any> {
@@ -24,7 +25,7 @@ export class Home extends React.Component<any, any> {
     }
 
     render() {
-        console.log(this.state.loadedComponentsDictionary);
+       // console.log(this.state.loadedComponentsDictionary);
         var hideLoader = false;
         if (this.state.loadedComponentsDictionary != null && this.state.loadedComponentsDictionary.Count() == 4) {
             hideLoader = true;
@@ -33,6 +34,8 @@ export class Home extends React.Component<any, any> {
         return (
             <main id="main">
                 {   hideLoader ? <div></div> : <div className="loading">Loading&#8230;</div> }
+
+                <NotificationContainer />
 
                 <div>
                     <Header Active={'Home'} />

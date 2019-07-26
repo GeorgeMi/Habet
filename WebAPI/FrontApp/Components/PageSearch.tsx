@@ -16,7 +16,6 @@ export class Search extends React.Component {
                             </div>
                         </div>
                     </div>
-
                     <section className="ftco-section bg-light">
                         <div className="container">
                             <div className="row">

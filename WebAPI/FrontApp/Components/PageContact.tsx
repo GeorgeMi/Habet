@@ -10,7 +10,7 @@ export class Contact extends React.Component<any, any>{
     constructor(props) {
         super(props);
 
-        this.state = { name: '', email: '', subject: '', message: '', api_response: '' };
+        this.state = { name: '', email: '', subject: '', message: '', api_response: '', request_sent: false };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,21 +32,21 @@ export class Contact extends React.Component<any, any>{
             message: this.state.message
         })
             .then((response) => {
-                this.setState({ name: '', email: '', subject: '', message: '', api_response: response.data });
+                this.setState({ name: '', email: '', subject: '', message: '', api_response: response.data.data, request_sent: true });
             })
             .catch((error) => {
-                this.setState({ isLoaded: true, error });
+                this.setState({ isLoaded: true, error, request_sent: true });
             })
             .then();
     }
 
     render() {
-        const { error, isLoaded } = this.state;
+        const { error, isLoaded, request_sent } = this.state;
         if (error) {
             console.log(error);
             return <div>Error: {error.message}</div>;
 
-        } else if (!isLoaded) {
+        } else if (!isLoaded && request_sent) {
             return <div className="loading">Loading&#8230;</div>;
 
         } else {

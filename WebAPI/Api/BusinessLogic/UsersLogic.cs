@@ -208,7 +208,7 @@ namespace Api.BusinessLogic
         {
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-            mail.From = new MailAddress("gabrielhabet@gmail.com");
+            mail.From = new MailAddress("habetgabriel@gmail.com");
             mail.To.Add(email);
             mail.Subject = "Welcome to GabrielHabet";
             mail.Body = "<h3>Hello " + username + ", </h3>";
@@ -220,7 +220,7 @@ namespace Api.BusinessLogic
             mail.IsBodyHtml = true;
 
             SmtpServer.Port = 587;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("gabrielhabet@gmail.com", "Habetpassword123");
+            SmtpServer.Credentials = new System.Net.NetworkCredential("habetgabriel@gmail.com", "habetpassword");
             SmtpServer.EnableSsl = true;
 
             SmtpServer.Send(mail);

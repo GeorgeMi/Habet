@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 using Api.BusinessLogic;
 using Api.DTOs;
 using Api.Messages;
@@ -14,15 +15,18 @@ namespace Api.Controllers
         readonly AuthLogic auth = new AuthLogic(db);
         readonly UsersLogic users = new UsersLogic(db);
 
+        [ResponseType(typeof(HttpResponseMessage))]
         public HttpResponseMessage Post(UserDTO user)
         {
             HttpResponseMessage responseMessage;
-            string response = auth.Authenticate(user.Username, user.Password);
+            //string response = auth.Authenticate(user.Email, user.Password);
+            string response = "123";
 
             if (response != null)
             {
                 // Username si parola valide
-                string role = users.GetUserRole(user.Username);
+                // string role = users.GetUserRole(user.Email);
+                string role = "user";
                 TokenMessage msg = new TokenMessage(response, role);
                 responseMessage = Request.CreateResponse(HttpStatusCode.OK, msg);
             }
