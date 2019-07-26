@@ -35,20 +35,16 @@ export class SectionIntro extends React.Component<any, any> {
             return <div>Error: {error.message}</div>;
 
         } else if (!isLoaded) {
-            return <div>Loading...</div>;
+            return <div></div>;
 
         } else {
-            var activeDictionary = new KeyedCollection<string>();
-            
+            var activeDictionary = new KeyedCollection<string>();           
             items.map((item, i) => (
                 activeDictionary.Add(i, "")
             ));
             activeDictionary.Add(0, "active");
 
             return (
-
-
-
                 <section className="ftco-section ftco-deal" style={{ backgroundImage: "url('images/background.jpg')", opacity: 0.5 }}>
                     <div className="container">
                         <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">

@@ -36,43 +36,20 @@ var Home = /** @class */ (function (_super) {
     };
     Home.prototype.render = function () {
         console.log(this.state.loadedComponentsDictionary);
+        var hideLoader = false;
         if (this.state.loadedComponentsDictionary != null && this.state.loadedComponentsDictionary.Count() == 4) {
-            console.log("ok");
-        }
-        else {
-            console.log("nope");
+            hideLoader = true;
         }
         return (React.createElement("main", { id: "main" },
+            hideLoader ? React.createElement("div", null) : React.createElement("div", { className: "loading" }, "Loading\u2026"),
             React.createElement("div", null,
                 React.createElement(Header_1.Header, { Active: 'Home' }),
                 React.createElement(SectionIntro_1.SectionIntro, null),
                 React.createElement("section", { className: "ftco-section bg-light" },
-                    React.createElement("div", { className: "container" },
-                        React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
-                            React.createElement("div", { className: "col-md-12 heading-section text-center" },
-                                React.createElement("h2", { className: "mb-4", id: "Women-section" }, "Women"),
-                                React.createElement("p", { id: "Women-Bags-section" }, "Bags")))),
-                    React.createElement("div", { className: "container" },
-                        React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Bags', setLoadedComponentsArray: this.setLoadedComponentsArray })),
-                    React.createElement("div", { className: "container" },
-                        React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
-                            React.createElement("div", { className: "col-md-12 heading-section text-center" },
-                                React.createElement("p", { id: "Women-Belts-section" }, "Belts")))),
-                    React.createElement("div", { className: "container" },
-                        React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Belts', setLoadedComponentsArray: this.setLoadedComponentsArray })),
-                    React.createElement("div", { className: "container" },
-                        React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
-                            React.createElement("div", { className: "col-md-12 heading-section text-center" },
-                                React.createElement("h2", { className: "mb-4", id: "Men-section" }, "Men"),
-                                React.createElement("p", { id: "Men-Bags-section" }, "Bags")))),
-                    React.createElement("div", { className: "container" },
-                        React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Men', Type: 'Bags', setLoadedComponentsArray: this.setLoadedComponentsArray })),
-                    React.createElement("div", { className: "container" },
-                        React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
-                            React.createElement("div", { className: "col-md-12 heading-section text-center" },
-                                React.createElement("p", { id: "Men-Belts-section" }, "Belts")))),
-                    React.createElement("div", { className: "container" },
-                        React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Men', Type: 'Belts', setLoadedComponentsArray: this.setLoadedComponentsArray }))))));
+                    React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Bags', setLoadedComponentsArray: this.setLoadedComponentsArray }),
+                    React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Belts', setLoadedComponentsArray: this.setLoadedComponentsArray }),
+                    React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Men', Type: 'Bags', setLoadedComponentsArray: this.setLoadedComponentsArray }),
+                    React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Men', Type: 'Belts', setLoadedComponentsArray: this.setLoadedComponentsArray })))));
     };
     return Home;
 }(React.Component));

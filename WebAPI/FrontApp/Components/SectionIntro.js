@@ -50,7 +50,7 @@ var SectionIntro = /** @class */ (function (_super) {
                 error.message);
         }
         else if (!isLoaded) {
-            return React.createElement("div", null, "Loading...");
+            return React.createElement("div", null);
         }
         else {
             var activeDictionary = new Dictionary_1.KeyedCollection();

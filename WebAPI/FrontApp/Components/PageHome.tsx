@@ -25,68 +25,30 @@ export class Home extends React.Component<any, any> {
 
     render() {
         console.log(this.state.loadedComponentsDictionary);
+        var hideLoader = false;
         if (this.state.loadedComponentsDictionary != null && this.state.loadedComponentsDictionary.Count() == 4) {
-            console.log("ok");
+            hideLoader = true;
         }
-        else {
-            console.log("nope");
-        }      
-            return (
-                <main id="main">
-                    <div>
-                        <Header Active={'Home'} />
-
-                        <SectionIntro />
-
-                        <section className="ftco-section bg-light">
-                            <div className="container">
-                                <div className="row justify-content-center mb-3 pb-3">
-                                    <div className="col-md-12 heading-section text-center">
-                                        <h2 className="mb-4" id="Women-section">Women</h2>
-                                        <p id="Women-Bags-section">Bags</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="container">
-                                <SectionProducts Gender={'Women'} Type={'Bags'} setLoadedComponentsArray={this.setLoadedComponentsArray} />
-                            </div>
-
-                            <div className="container">
-                                <div className="row justify-content-center mb-3 pb-3">
-                                    <div className="col-md-12 heading-section text-center">
-                                        <p id="Women-Belts-section">Belts</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="container">
-                                <SectionProducts Gender={'Women'} Type={'Belts'} setLoadedComponentsArray={this.setLoadedComponentsArray} />
-                            </div>
-
-                            <div className="container">
-                                <div className="row justify-content-center mb-3 pb-3">
-                                    <div className="col-md-12 heading-section text-center">
-                                        <h2 className="mb-4" id="Men-section">Men</h2>
-                                        <p id="Men-Bags-section">Bags</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="container">
-                                <SectionProducts Gender={'Men'} Type={'Bags'} setLoadedComponentsArray={this.setLoadedComponentsArray} />
-                            </div>
-
-                            <div className="container">
-                                <div className="row justify-content-center mb-3 pb-3">
-                                    <div className="col-md-12 heading-section text-center">
-                                        <p id="Men-Belts-section">Belts</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="container">
-                                <SectionProducts Gender={'Men'} Type={'Belts'} setLoadedComponentsArray={this.setLoadedComponentsArray} />
-                            </div>
-                        </section>
-                    </div>
-                </main>);
         
+        return (
+            <main id="main">
+                {   hideLoader ? <div></div> : <div className="loading">Loading&#8230;</div> }
+
+                <div>
+                    <Header Active={'Home'} />
+
+                    <SectionIntro />
+
+                    <section className="ftco-section bg-light">                     
+                            <SectionProducts Gender={'Women'} Type={'Bags'} setLoadedComponentsArray={this.setLoadedComponentsArray} />
+
+                            <SectionProducts Gender={'Women'} Type={'Belts'} setLoadedComponentsArray={this.setLoadedComponentsArray} />
+
+                            <SectionProducts Gender={'Men'} Type={'Bags'} setLoadedComponentsArray={this.setLoadedComponentsArray} />
+
+                            <SectionProducts Gender={'Men'} Type={'Belts'} setLoadedComponentsArray={this.setLoadedComponentsArray} />
+                    </section>
+                </div>
+            </main>);       
     }
 }
