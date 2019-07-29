@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 using Api.BusinessLogic;
 using Api.DTOs;
 using Api.Messages;
@@ -12,11 +13,22 @@ namespace Api.Controllers
     {
         private GHContext db = new GHContext();
 
+        [ResponseType(typeof(HttpResponseMessage))]
         public HttpResponseMessage Post(UserRegistration user)
         {
             HttpResponseMessage response;
             JSendMessage json;
-            bool add = db.Users.Add(new Users {Email = user.Email, Pass = user.Password }) !=  null;
+
+            UsersAddresses userAddress = new UsersAddresses
+            {
+               // StreetAddress = user.StreetAddress,
+                City = user.City,
+                Street = user.State,
+                ZipCode = user.ZipCode
+            };
+
+            Users userDetails = new Users { Email = user.Email, Pass = user.Password, FirstName = user.FirstName, LastName = user.LastName, /*Phone = user.Phone,*/ Role = "user", Verified = "no" };
+            bool add = db.Users.Add(userDetails) != null;
 
             if (add)
             {

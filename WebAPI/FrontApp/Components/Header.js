@@ -28,9 +28,12 @@ var Header = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         var dictionary = new Dictionary_1.KeyedCollection();
         dictionary.Add(props.Active, 'cta cta-colored');
-        _this.state = { email: '', password: '', api_response: '', loggedIn: false, headerDictionary: dictionary };
+        _this.state = { email: '', password: '', api_response: '', loggedIn: (sfcookies_1.read_cookie('token') != null && sfcookies_1.read_cookie('token').length !== 0), headerDictionary: dictionary };
+        console.log(sfcookies_1.read_cookie('token'));
+        console.log(sfcookies_1.read_cookie('token') != null && sfcookies_1.read_cookie('token').length !== 0);
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.signOut = _this.signOut.bind(_this);
         return _this;
     }
     Header.prototype.handleChange = function (event) {
@@ -55,12 +58,17 @@ var Header = /** @class */ (function (_super) {
         })
             .then();
     };
+    Header.prototype.signOut = function () {
+        sfcookies_1.delete_cookie('token');
+        this.setState({ state: this.state });
+    };
     Header.prototype.render = function () {
-        var headerDictionary = this.state.headerDictionary;
+        var _a = this.state, headerDictionary = _a.headerDictionary, loggedIn = _a.loggedIn;
         return (React.createElement("div", null,
+            React.createElement(react_notifications_1.NotificationContainer, null),
             React.createElement("nav", { className: "navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light", id: "ftco-navbar" },
                 React.createElement("div", { className: "container" },
-                    React.createElement("a", { className: "navbar-brand", href: "index.html" }, "GabrielHabet"),
+                    React.createElement("a", { className: "navbar-brand", href: "/#/" }, "GabrielHabet"),
                     React.createElement("button", { className: "navbar-toggler", type: "button", "data-toggle": "collapse", "data-target": "#ftco-nav", "aria-controls": "ftco-nav", "aria-expanded": "false", "aria-label": "Toggle navigation" },
                         React.createElement("span", { className: "oi oi-menu" }),
                         " Menu"),
@@ -82,7 +90,7 @@ var Header = /** @class */ (function (_super) {
                                 React.createElement("a", { href: "/#/search", className: "nav-link" }, "Search")),
                             React.createElement("li", { className: "nav-item " + headerDictionary.Item('Contact') },
                                 React.createElement("a", { href: "/#/contact", className: "nav-link" }, "Contact")),
-                            this.state.loggedIn ?
+                            loggedIn ?
                                 React.createElement("li", { className: "nav-item " + headerDictionary.Item('Cart') },
                                     React.createElement("a", { href: "/#/cart", className: "nav-link" },
                                         React.createElement("span", { className: "icon-shopping_cart" }),
@@ -105,7 +113,18 @@ var Header = /** @class */ (function (_super) {
                                                         React.createElement("small", null,
                                                             React.createElement("a", { href: "#", "data-toggle": "modal", "data-target": "#modalPassword" }, "Forgot password?")),
                                                         React.createElement("small", null,
-                                                            React.createElement("a", { href: "/#/register" }, "Create account")))))))))))));
+                                                            React.createElement("a", { href: "/#/register" }, "Create account"))))))),
+                            loggedIn ?
+                                React.createElement("li", { className: "nav-item dropdown " + headerDictionary.Item('Account') },
+                                    React.createElement("div", { id: "dropdownMenu", "data-toggle": "dropdown", className: "nav-link dropdown" },
+                                        "Account",
+                                        React.createElement("span", { className: "caret" })),
+                                    React.createElement("div", { className: "dropdown-content", "aria-labelledby": "dropdown04" },
+                                        React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#/" }, "Edit details"),
+                                        React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#/" }, "Change password"),
+                                        React.createElement("a", { href: "/#/", onClick: this.signOut }, "SignOut")))
+                                :
+                                    React.createElement("div", null)))))));
     };
     return Header;
 }(React.Component));

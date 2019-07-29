@@ -18,7 +18,6 @@ var SectionProducts_1 = require("./SectionProducts");
 var SectionIntro_1 = require("./SectionIntro");
 var Header_1 = require("./Header");
 var Dictionary_1 = require("./Dictionary");
-var react_notifications_1 = require("react-notifications");
 var Home = /** @class */ (function (_super) {
     __extends(Home, _super);
     function Home(props) {
@@ -43,7 +42,6 @@ var Home = /** @class */ (function (_super) {
         }
         return (React.createElement("main", { id: "main" },
             hideLoader ? React.createElement("div", null) : React.createElement("div", { className: "loading" }, "Loading\u2026"),
-            React.createElement(react_notifications_1.NotificationContainer, null),
             React.createElement("div", null,
                 React.createElement(Header_1.Header, { Active: 'Home' }),
                 React.createElement(SectionIntro_1.SectionIntro, null),

@@ -293,9 +293,12 @@ var Header = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         var dictionary = new Dictionary_1.KeyedCollection();
         dictionary.Add(props.Active, 'cta cta-colored');
-        _this.state = { email: '', password: '', api_response: '', loggedIn: false, headerDictionary: dictionary };
+        _this.state = { email: '', password: '', api_response: '', loggedIn: (sfcookies_1.read_cookie('token') != null && sfcookies_1.read_cookie('token').length !== 0), headerDictionary: dictionary };
+        console.log(sfcookies_1.read_cookie('token'));
+        console.log(sfcookies_1.read_cookie('token') != null && sfcookies_1.read_cookie('token').length !== 0);
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.signOut = _this.signOut.bind(_this);
         return _this;
     }
     Header.prototype.handleChange = function (event) {
@@ -320,12 +323,17 @@ var Header = /** @class */ (function (_super) {
         })
             .then();
     };
+    Header.prototype.signOut = function () {
+        sfcookies_1.delete_cookie('token');
+        this.setState({ state: this.state });
+    };
     Header.prototype.render = function () {
-        var headerDictionary = this.state.headerDictionary;
+        var _a = this.state, headerDictionary = _a.headerDictionary, loggedIn = _a.loggedIn;
         return (React.createElement("div", null,
+            React.createElement(react_notifications_1.NotificationContainer, null),
             React.createElement("nav", { className: "navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light", id: "ftco-navbar" },
                 React.createElement("div", { className: "container" },
-                    React.createElement("a", { className: "navbar-brand", href: "index.html" }, "GabrielHabet"),
+                    React.createElement("a", { className: "navbar-brand", href: "/#/" }, "GabrielHabet"),
                     React.createElement("button", { className: "navbar-toggler", type: "button", "data-toggle": "collapse", "data-target": "#ftco-nav", "aria-controls": "ftco-nav", "aria-expanded": "false", "aria-label": "Toggle navigation" },
                         React.createElement("span", { className: "oi oi-menu" }),
                         " Menu"),
@@ -347,7 +355,7 @@ var Header = /** @class */ (function (_super) {
                                 React.createElement("a", { href: "/#/search", className: "nav-link" }, "Search")),
                             React.createElement("li", { className: "nav-item " + headerDictionary.Item('Contact') },
                                 React.createElement("a", { href: "/#/contact", className: "nav-link" }, "Contact")),
-                            this.state.loggedIn ?
+                            loggedIn ?
                                 React.createElement("li", { className: "nav-item " + headerDictionary.Item('Cart') },
                                     React.createElement("a", { href: "/#/cart", className: "nav-link" },
                                         React.createElement("span", { className: "icon-shopping_cart" }),
@@ -370,7 +378,18 @@ var Header = /** @class */ (function (_super) {
                                                         React.createElement("small", null,
                                                             React.createElement("a", { href: "#", "data-toggle": "modal", "data-target": "#modalPassword" }, "Forgot password?")),
                                                         React.createElement("small", null,
-                                                            React.createElement("a", { href: "/#/register" }, "Create account")))))))))))));
+                                                            React.createElement("a", { href: "/#/register" }, "Create account"))))))),
+                            loggedIn ?
+                                React.createElement("li", { className: "nav-item dropdown " + headerDictionary.Item('Account') },
+                                    React.createElement("div", { id: "dropdownMenu", "data-toggle": "dropdown", className: "nav-link dropdown" },
+                                        "Account",
+                                        React.createElement("span", { className: "caret" })),
+                                    React.createElement("div", { className: "dropdown-content", "aria-labelledby": "dropdown04" },
+                                        React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#/" }, "Edit details"),
+                                        React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#/" }, "Change password"),
+                                        React.createElement("a", { href: "/#/", onClick: this.signOut }, "SignOut")))
+                                :
+                                    React.createElement("div", null)))))));
     };
     return Header;
 }(React.Component));
@@ -794,7 +813,6 @@ var SectionProducts_1 = __webpack_require__(/*! ./SectionProducts */ "./Componen
 var SectionIntro_1 = __webpack_require__(/*! ./SectionIntro */ "./Components/SectionIntro.js");
 var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
 var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
-var react_notifications_1 = __webpack_require__(/*! react-notifications */ "./node_modules/react-notifications/lib/index.js");
 var Home = /** @class */ (function (_super) {
     __extends(Home, _super);
     function Home(props) {
@@ -819,7 +837,6 @@ var Home = /** @class */ (function (_super) {
         }
         return (React.createElement("main", { id: "main" },
             hideLoader ? React.createElement("div", null) : React.createElement("div", { className: "loading" }, "Loading\u2026"),
-            React.createElement(react_notifications_1.NotificationContainer, null),
             React.createElement("div", null,
                 React.createElement(Header_1.Header, { Active: 'Home' }),
                 React.createElement(SectionIntro_1.SectionIntro, null),
@@ -1024,13 +1041,58 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
+var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
+var react_notifications_1 = __webpack_require__(/*! react-notifications */ "./node_modules/react-notifications/lib/index.js");
+__webpack_require__(/*! react-notifications/lib/notifications.css */ "./node_modules/react-notifications/lib/notifications.css");
+var config = __webpack_require__(/*! config */ "config");
+var API_Path = config.API_Path;
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 var Register = /** @class */ (function (_super) {
     __extends(Register, _super);
-    function Register() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function Register(props) {
+        var _this = _super.call(this, props) || this;
+        var dictionary = new Dictionary_1.KeyedCollection();
+        dictionary.Add(props.Active, 'cta cta-colored');
+        _this.state = { email: '', password: '', firstName: '', lastName: '', state: '', city: '', streetAddress: '', zipCode: '', phone: '', api_response: '', loggedIn: false, headerDictionary: dictionary, waitingResponse: false };
+        _this.handleChange = _this.handleChange.bind(_this);
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        return _this;
     }
+    Register.prototype.handleChange = function (event) {
+        var _a;
+        this.setState((_a = {}, _a[event.target.name] = event.target.value, _a));
+    };
+    Register.prototype.handleSubmit = function (event) {
+        var _this = this;
+        event.preventDefault();
+        if (this.state.waitingResponse == false) {
+            this.setState({ waitingResponse: true });
+        }
+        axios.post(API_Path + '/Registration', {
+            email: this.state.email,
+            password: this.state.password,
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            state: this.state.state,
+            city: this.state.city,
+            streetAddress: this.state.streetAddress,
+            zipCode: this.state.zipCode,
+            phone: this.state.phone
+        })
+            .then(function (response) {
+            _this.setState({ email: '', password: '', firstName: '', lastName: '', state: '', city: '', streetAddress: '', zipCode: '', phone: '', api_response: response.data, loggedIn: true });
+            react_notifications_1.NotificationManager.success(response.data.message);
+        })
+            .catch(function (error) {
+            _this.setState({ error: error });
+            react_notifications_1.NotificationManager.error("Registration failed! Please, try another email.");
+        })
+            .then(this.setState({ waitingResponse: false }));
+    };
     Register.prototype.render = function () {
+        var waitingResponse = this.state.waitingResponse;
         return (React.createElement("main", { id: "main" },
+            waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
             React.createElement("div", null,
                 React.createElement(Header_1.Header, null),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
@@ -1042,27 +1104,27 @@ var Register = /** @class */ (function (_super) {
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row justify-content-center" },
                             React.createElement("div", { className: "col-xl-10" },
-                                React.createElement("form", { action: "#", className: "billing-form" },
+                                React.createElement("form", { action: "", className: "billing-form", onSubmit: this.handleSubmit },
                                     React.createElement("h3", { className: "mb-4 billing-heading" }, "LogIn Details"),
                                     React.createElement("div", { className: "row align-items-end" },
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
                                                 React.createElement("label", { htmlFor: "firstname" }, "Email"),
-                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "" }))),
+                                                React.createElement("input", { type: "email", className: "form-control", placeholder: "", value: this.state.email, onChange: this.handleChange, name: "email", id: "email", required: true }))),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
                                                 React.createElement("label", { htmlFor: "lastname" }, "Password"),
-                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "" })))),
+                                                React.createElement("input", { type: "password", className: "form-control", placeholder: "", value: this.state.password, onChange: this.handleChange, name: "password", id: "password", required: true })))),
                                     React.createElement("h3", { className: "mb-4 billing-heading" }, "Personal Details"),
                                     React.createElement("div", { className: "row align-items-end" },
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
                                                 React.createElement("label", { htmlFor: "firstname" }, "Firt Name"),
-                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "" }))),
+                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.firstName, onChange: this.handleChange, name: "firstName", id: "firstName", required: true }))),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
                                                 React.createElement("label", { htmlFor: "lastname" }, "Last Name"),
-                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "" }))),
+                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.lastName, onChange: this.handleChange, name: "lastName", id: "lastName", required: true }))),
                                         React.createElement("div", { className: "w-100" }),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
@@ -1070,31 +1132,32 @@ var Register = /** @class */ (function (_super) {
                                                 React.createElement("div", { className: "select-wrap" },
                                                     React.createElement("div", { className: "icon" },
                                                         React.createElement("span", { className: "ion-ios-arrow-down" })),
-                                                    React.createElement("select", { name: "", id: "", className: "form-control" },
-                                                        React.createElement("option", { value: "" }, "France"),
-                                                        React.createElement("option", { value: "" }, "Italy"),
-                                                        React.createElement("option", { value: "" }, "Philippines"),
-                                                        React.createElement("option", { value: "" }, "South Korea"),
-                                                        React.createElement("option", { value: "" }, "Hongkong"),
-                                                        React.createElement("option", { value: "" }, "Japan"))))),
+                                                    React.createElement("select", { className: "form-control", value: this.state.state, onChange: this.handleChange, name: "state", id: "state", required: true },
+                                                        React.createElement("option", { value: "" }, "Select"),
+                                                        React.createElement("option", { value: "France" }, "France"),
+                                                        React.createElement("option", { value: "Italy" }, "Italy"),
+                                                        React.createElement("option", { value: "Philippines" }, "Philippines"),
+                                                        React.createElement("option", { value: "South Korea" }, "South Korea"),
+                                                        React.createElement("option", { value: "Hongkong" }, "Hongkong"),
+                                                        React.createElement("option", { value: "Japan" }, "Japan"))))),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
                                                 React.createElement("label", { htmlFor: "towncity" }, "Town / City"),
-                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "" }))),
+                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.city, onChange: this.handleChange, name: "city", id: "city", required: true }))),
                                         React.createElement("div", { className: "w-100" }),
                                         React.createElement("div", { className: "col-md-12" },
                                             React.createElement("div", { className: "form-group" },
                                                 React.createElement("label", { htmlFor: "streetaddress" }, "Street Address"),
-                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "Street Address" }))),
+                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "Street Address", value: this.state.streetAddress, onChange: this.handleChange, name: "streetAddress", id: "streetAddress", required: true }))),
                                         React.createElement("div", { className: "w-100" }),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
                                                 React.createElement("label", { htmlFor: "postcodezip" }, "Postcode / ZIP *"),
-                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "" }))),
+                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.zipCode, onChange: this.handleChange, name: "zipCode", id: "zipCode", required: true }))),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
                                                 React.createElement("label", { htmlFor: "phone" }, "Phone"),
-                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "" }))),
+                                                React.createElement("input", { type: "tel", className: "form-control", placeholder: "", value: this.state.phone, onChange: this.handleChange, name: "phone", id: "phone", required: true }))),
                                         React.createElement("div", { className: "w-100" }),
                                         React.createElement("div", { className: "col-md-8" },
                                             React.createElement("div", { className: "form-group" },

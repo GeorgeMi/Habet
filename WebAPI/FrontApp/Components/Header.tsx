@@ -2,7 +2,7 @@
 import { KeyedCollection } from './Dictionary';
 import { HashLink as Link } from 'react-router-hash-link';
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
-import { NotificationManager } from 'react-notifications';
+import { NotificationManager, NotificationContainer } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 
 
@@ -17,10 +17,13 @@ export class Header extends React.Component<any, any> {
         var dictionary = new KeyedCollection<string>();
         dictionary.Add(props.Active, 'cta cta-colored');
 
-        this.state = { email: '', password: '', api_response: '', loggedIn: false, headerDictionary: dictionary};
+        this.state = { email: '', password: '', api_response: '', loggedIn: (read_cookie('token') != null && read_cookie('token').length !== 0), headerDictionary: dictionary };
+        console.log(read_cookie('token'));
+        console.log(read_cookie('token') != null && read_cookie('token').length !== 0);
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.signOut = this.signOut.bind(this);
     }
 
     handleChange(event) {
@@ -46,15 +49,22 @@ export class Header extends React.Component<any, any> {
             .then();
     }
 
+    signOut() {
+        delete_cookie('token');
+        this.setState({ state: this.state });
+    }
 
     render() {
-        const { headerDictionary } = this.state;
-
+        var { headerDictionary, loggedIn } = this.state;
+       
         return (
             <div>
+
+                <NotificationContainer />
+
                 <nav className="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
                     <div className="container">
-                        <a className="navbar-brand" href="index.html">GabrielHabet</a>
+                        <a className="navbar-brand" href="/#/">GabrielHabet</a>
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="oi oi-menu"></span> Menu
 	                    </button>
@@ -79,7 +89,7 @@ export class Header extends React.Component<any, any> {
                                 <li className={"nav-item " + headerDictionary.Item('Contact')}><a href="/#/contact" className="nav-link">Contact</a></li>
 
                                 {
-                                    this.state.loggedIn ?
+                                    loggedIn ?
                                         <li className={"nav-item " + headerDictionary.Item('Cart')}><a href="/#/cart" className="nav-link"><span className="icon-shopping_cart"></span>[0]</a></li>
                                         :
                                         <li className="dropdown nav-item">
@@ -105,6 +115,19 @@ export class Header extends React.Component<any, any> {
                                                 </li>
                                             </ul>                                           
                                         </li>
+                                }
+                                {
+                                    loggedIn ?
+                                        <li className={"nav-item dropdown " + headerDictionary.Item('Account')}>
+                                            <div id="dropdownMenu" data-toggle="dropdown" className="nav-link dropdown">Account<span className="caret"></span></div>
+                                            <div className="dropdown-content" aria-labelledby="dropdown04">
+                                                <Link className="dropdown-item" to="/#/">Edit details</Link>
+                                                <Link className="dropdown-item" to="/#/">Change password</Link>
+                                                <a href="/#/" onClick={this.signOut}>SignOut</a>
+                                            </div>
+                                        </li>
+                                        :
+                                        <div></div>
                                 }
                             </ul>
                         </div>
