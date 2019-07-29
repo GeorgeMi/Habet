@@ -12,6 +12,7 @@ import { Checkout } from "./Components/PageCheckout";
 import { Search } from "./Components/PageSearch";
 import { Cart } from "./Components/PageCart";
 import { Register } from "./Components/PageRegister";
+import { CookiePolicy } from "./Components/PageCookiePolicy";
 
 
 class App extends React.Component {
@@ -27,6 +28,7 @@ class App extends React.Component {
                         <Route exact path="/search" component={Search} />
                         <Route exact path="/cart" component={Cart} />
                         <Route exact path="/register" component={Register} />
+                        <Route exact path="/cookie_policy" component={CookiePolicy} />
                         <Route component={NotFound} />
                     </Switch>
                     <Footer />

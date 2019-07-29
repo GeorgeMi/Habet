@@ -60,7 +60,7 @@ var Header = /** @class */ (function (_super) {
     };
     Header.prototype.signOut = function () {
         sfcookies_1.delete_cookie('token');
-        this.setState({ state: this.state });
+        window.location.reload();
     };
     Header.prototype.render = function () {
         var _a = this.state, headerDictionary = _a.headerDictionary, loggedIn = _a.loggedIn;

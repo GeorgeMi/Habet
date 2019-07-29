@@ -122,6 +122,7 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Components\PageCart.tsx" />
+    <TypeScriptCompile Include="Components\PageCookiePolicy.tsx" />
     <TypeScriptCompile Include="Components\PageRegister.tsx" />
     <TypeScriptCompile Include="Components\PageSearch.tsx" />
     <TypeScriptCompile Include="Components\PageCheckout.tsx" />

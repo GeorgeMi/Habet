@@ -51,7 +51,7 @@ export class Header extends React.Component<any, any> {
 
     signOut() {
         delete_cookie('token');
-        this.setState({ state: this.state });
+        window.location.reload();
     }
 
     render() {

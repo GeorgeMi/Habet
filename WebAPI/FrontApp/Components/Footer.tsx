@@ -1,6 +1,5 @@
 ﻿import * as React from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
-
 export class Footer extends React.Component {
     render() {
         return (
