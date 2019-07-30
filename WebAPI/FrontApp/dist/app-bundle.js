@@ -1014,16 +1014,16 @@ var Product = /** @class */ (function (_super) {
     function Product(props) {
         var _this = _super.call(this, props) || this;
         var dictionary = new Dictionary_1.KeyedCollection();
-        _this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary };
+        _this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary, productId: props.match.params.id };
         _this.getImageForProduct = _this.getImageForProduct.bind(_this);
         return _this;
     }
     Product.prototype.componentWillMount = function () {
         var _this = this;
-        axios.get(API_Path + '/Products/1')
+        axios.get(API_Path + '/Products/' + this.state.productId)
             .then(function (response) {
             var dictionary = _this.state.imageDictionary;
-            _this.setState({ isLoaded: true, item: response.data.data, imageDictionary: dictionary });
+            _this.setState({ isLoaded: true, item: response.data, imageDictionary: dictionary });
             //     this.getImageForProduct(response.data.productId);
         })
             .catch(function (error) {
@@ -1046,13 +1046,16 @@ var Product = /** @class */ (function (_super) {
     Product.prototype.render = function () {
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, item = _a.item, imageDictionary = _a.imageDictionary;
         if (error) {
-            console.log(error);
-            return React.createElement("div", null,
-                "Error: ",
-                error.message);
+            return (React.createElement("div", null,
+                React.createElement(Header_1.Header, null),
+                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                    React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
+                        React.createElement("div", { className: "col-md-9 text-center" },
+                            React.createElement("h1", { className: "mb-0 bread" }, "ARE YOU HAPPY NOW?"),
+                            React.createElement("h5", null, "Just kidding! Our bad. 404 NOT FOUND"))))));
         }
         else if (!isLoaded) {
-            return React.createElement("div", null, "Loading...");
+            return React.createElement("div", { className: "loading" }, "Loading\u2026");
         }
         else {
             return (React.createElement("div", null,
@@ -1065,14 +1068,15 @@ var Product = /** @class */ (function (_super) {
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row" },
                             React.createElement("div", { className: "col-lg-6 mb-5" },
-                                React.createElement("a", { href: "images/product.png", className: "image-popup prod-img-bg" },
-                                    React.createElement("img", { src: "images/product.png", className: "img-fluid", alt: "..." }))),
+                                React.createElement("a", { href: item.Image, className: "image-popup prod-img-bg" },
+                                    React.createElement("img", { src: item.Image, className: "img-fluid", alt: "..." }))),
                             React.createElement("div", { className: "col-lg-6 product-details pl-md-5" },
-                                React.createElement("h3", null, "Nike Free RN 2019 iD"),
+                                React.createElement("h3", null, item.Name),
                                 React.createElement("p", { className: "price" },
-                                    React.createElement("span", null, "$120.00")),
-                                React.createElement("p", null, "A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth."),
-                                React.createElement("p", null, "On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word \"and\" and the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn\u2019t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their."),
+                                    React.createElement("span", null,
+                                        "$",
+                                        item.Price)),
+                                React.createElement("p", null, item.Description),
                                 React.createElement("div", { className: "row mt-4" },
                                     React.createElement("div", { className: "w-100" }),
                                     React.createElement("div", { className: "input-group col-md-6 d-flex mb-3" },

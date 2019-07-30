@@ -212,6 +212,7 @@
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProductsImagesController.cs" />
+    <Compile Include="DTOs\ProductDetail.cs" />
     <Compile Include="DTOs\ProductInfo.cs" />
     <Compile Include="DTOs\UserDetail.cs" />
     <Compile Include="DTOs\UserDTO.cs" />

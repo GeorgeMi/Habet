@@ -1,11 +1,11 @@
 ﻿import * as React from 'react';
 import { KeyedCollection } from './Dictionary';
 import { Header } from './Header';
+import { NotFound } from "./PageNotFound";
 
 var config = require('config');
 var API_Path = config.API_Path;
 const axios = require('axios');
-
 
 export class Product extends React.Component<any, any>
 {
@@ -13,16 +13,16 @@ export class Product extends React.Component<any, any>
         super(props);
 
         var dictionary = new KeyedCollection<string>();
-        this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary };
+        this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary, productId: props.match.params.id };
 
        this.getImageForProduct = this.getImageForProduct.bind(this);
     }
 
     componentWillMount() {
-        axios.get(API_Path + '/Products/1')
+        axios.get(API_Path + '/Products/' + this.state.productId)
             .then((response) => {
                 var dictionary = this.state.imageDictionary;
-                this.setState({ isLoaded: true, item: response.data.data, imageDictionary: dictionary });
+                this.setState({ isLoaded: true, item: response.data, imageDictionary: dictionary });
 
            //     this.getImageForProduct(response.data.productId);
             })
@@ -49,14 +49,24 @@ export class Product extends React.Component<any, any>
     render() {
         const { error, isLoaded, item, imageDictionary } = this.state;
         if (error) {
-            console.log(error);
-            return <div>Error: {error.message}</div>;
+            return (
+                <div>
+                    <Header />
+                    <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
+                        <div className="row no-gutters slider-text align-items-center justify-content-center">
+                            <div className="col-md-9 text-center">
+                                <h1 className="mb-0 bread">ARE YOU HAPPY NOW?</h1>
+                                <h5>Just kidding! Our bad. 404 NOT FOUND</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
 
         } else if (!isLoaded) {
-            return <div>Loading...</div>;
+            return <div className="loading">Loading&#8230;</div>;
 
         } else {
-
             return (
                 <div>
                     <Header />
@@ -73,14 +83,12 @@ export class Product extends React.Component<any, any>
                         <div className="container">
                             <div className="row">
                                 <div className="col-lg-6 mb-5">
-                                    <a href="images/product.png" className="image-popup prod-img-bg"><img src="images/product.png" className="img-fluid" alt="..." /></a>
+                                    <a href={item.Image} className="image-popup prod-img-bg"><img src={item.Image} className="img-fluid" alt="..." /></a>
                                 </div>
                                 <div className="col-lg-6 product-details pl-md-5">
-                                    <h3>Nike Free RN 2019 iD</h3>
-                                    <p className="price"><span>$120.00</span></p>
-                                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                                    <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their.
-						</p>
+                                    <h3>{item.Name}</h3>
+                                    <p className="price"><span>${item.Price}</span></p>
+                                    <p>{item.Description}</p>
                                     <div className="row mt-4">
                                         <div className="w-100"></div>
                                         <div className="input-group col-md-6 d-flex mb-3">

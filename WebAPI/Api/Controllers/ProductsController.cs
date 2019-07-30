@@ -52,18 +52,36 @@ namespace Api.Controllers
 
         // GET: api/Products/5
         [ResponseType(typeof(Products))]
-        public async Task<Products> GetProducts(int id)
+        public HttpResponseMessage GetProducts(int id)
         {
-            var products = await db.Products.FindAsync(id);
+            HttpResponseMessage responseMessage;
+            JSend json;
+            //  var product = db.Products.Find(id);
+            Random rnd = new Random();
+            var product = new Products { Name = "Name" + 1, Price = 1, Description= "Description", ProductId = rnd.Next(1, 131231) };
 
-            if (products == null)
+
+            if (product != null)
             {
-                return null;
+                var productDetail = new ProductDetail
+                {
+                    Name = product.Name,
+                    Price = product.Price,
+                    ProductId = product.ProductId,
+                    Description = product.Description,
+                    Image = new ProductsImagesController().GetProductsImages(product.ProductId)
+                };
+
+                responseMessage = Request.CreateResponse(HttpStatusCode.OK, productDetail);
+            }
+            else
+            {
+                json = new JSendMessage("fail", "No items found");
+                responseMessage = Request.CreateResponse(HttpStatusCode.NotFound, json);
             }
 
-            return products;
-
             //return new Products { Description = "Description" + id, Name = "Name" + id, Price = id, ProductId = id };
+            return responseMessage;
         }
 
         // PUT: api/Products/5
