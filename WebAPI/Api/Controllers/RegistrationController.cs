@@ -1,5 +1,7 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
+using System.Transactions;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Api.BusinessLogic;
@@ -11,7 +13,7 @@ namespace Api.Controllers
 {
     public class RegistrationController : ApiController
     {
-        private GHContext db = new GHContext();
+        private static GHContext db = new GHContext();
 
         [ResponseType(typeof(HttpResponseMessage))]
         public HttpResponseMessage Post(UserRegistration user)
@@ -19,27 +21,43 @@ namespace Api.Controllers
             HttpResponseMessage response;
             JSendMessage json;
 
-            UsersAddresses userAddress = new UsersAddresses
+            var userAddress = new UsersAddresses
             {
-               // StreetAddress = user.StreetAddress,
+                Address = user.StreetAddress,
                 City = user.City,
-                Street = user.State,
-                ZipCode = user.ZipCode
+                ZipCode = user.ZipCode,
+                State = user.State
             };
 
-            Users userDetails = new Users { Email = user.Email, Pass = user.Password, FirstName = user.FirstName, LastName = user.LastName, /*Phone = user.Phone,*/ Role = "user", Verified = "no" };
-            bool add = db.Users.Add(userDetails) != null;
+            var userDetails = new Users {
+                UserId = 0,
+                Email = user.Email,
+                Password = user.Password,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Phone = user.Phone,
+                Role = "user",
+                Verified = "no",
+                UsersAddresses = new List<UsersAddresses> { userAddress }
+            };
 
-            if (add)
-            {
-                json = new JSendMessage("success", "Registration successful! Please, verify your mail address.");
-                response = Request.CreateResponse(HttpStatusCode.OK, json);
-            }
-            else
-            {
-                json = new JSendMessage("failed", "Registration failed! Please, try another email.");
-                response = Request.CreateResponse(HttpStatusCode.Forbidden, json);
-            }
+            //using (TransactionScope transaction = new TransactionScope())
+            //{
+                var UsersLogic = new UsersLogic(db);
+                var added = UsersLogic.AddUser(userDetails);
+                if (added)
+                {
+                  //  db.SaveChanges();
+                  //  transaction.Complete();
+                    json = new JSendMessage("success", "Registration successful! Please, verify your mail address.");
+                    response = Request.CreateResponse(HttpStatusCode.OK, json);
+                }
+                else
+                {
+                    json = new JSendMessage("failed", "Registration failed! Please, try another email.");
+                    response = Request.CreateResponse(HttpStatusCode.Forbidden, json);
+                }        
+           // }
 
             return response;
         }

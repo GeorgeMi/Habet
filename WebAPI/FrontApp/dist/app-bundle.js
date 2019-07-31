@@ -1195,21 +1195,21 @@ var Register = /** @class */ (function (_super) {
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
                                                 React.createElement("label", { htmlFor: "firstname" }, "Email"),
-                                                React.createElement("input", { type: "email", className: "form-control", placeholder: "", value: this.state.email, onChange: this.handleChange, name: "email", id: "email", required: true }))),
+                                                React.createElement("input", { type: "email", className: "form-control", placeholder: "", value: this.state.email, onChange: this.handleChange, name: "email", id: "email", maxLength: 32, required: true }))),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
                                                 React.createElement("label", { htmlFor: "lastname" }, "Password"),
-                                                React.createElement("input", { type: "password", className: "form-control", placeholder: "", value: this.state.password, onChange: this.handleChange, name: "password", id: "password", required: true })))),
+                                                React.createElement("input", { type: "password", className: "form-control", placeholder: "", value: this.state.password, onChange: this.handleChange, name: "password", id: "password", maxLength: 32, required: true })))),
                                     React.createElement("h3", { className: "mb-4 billing-heading" }, "Personal Details"),
                                     React.createElement("div", { className: "row align-items-end" },
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
-                                                React.createElement("label", { htmlFor: "firstname" }, "Firt Name"),
-                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.firstName, onChange: this.handleChange, name: "firstName", id: "firstName", required: true }))),
+                                                React.createElement("label", { htmlFor: "firstname" }, "First Name"),
+                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.firstName, onChange: this.handleChange, name: "firstName", id: "firstName", maxLength: 32, required: true }))),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
                                                 React.createElement("label", { htmlFor: "lastname" }, "Last Name"),
-                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.lastName, onChange: this.handleChange, name: "lastName", id: "lastName", required: true }))),
+                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.lastName, onChange: this.handleChange, name: "lastName", id: "lastName", maxLength: 32, required: true }))),
                                         React.createElement("div", { className: "w-100" }),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
@@ -1228,21 +1228,21 @@ var Register = /** @class */ (function (_super) {
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
                                                 React.createElement("label", { htmlFor: "towncity" }, "Town / City"),
-                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.city, onChange: this.handleChange, name: "city", id: "city", required: true }))),
+                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.city, onChange: this.handleChange, name: "city", id: "city", maxLength: 32, required: true }))),
                                         React.createElement("div", { className: "w-100" }),
                                         React.createElement("div", { className: "col-md-12" },
                                             React.createElement("div", { className: "form-group" },
                                                 React.createElement("label", { htmlFor: "streetaddress" }, "Street Address"),
-                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "Street Address", value: this.state.streetAddress, onChange: this.handleChange, name: "streetAddress", id: "streetAddress", required: true }))),
+                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "Street Address", value: this.state.streetAddress, onChange: this.handleChange, name: "streetAddress", id: "streetAddress", maxLength: 50, required: true }))),
                                         React.createElement("div", { className: "w-100" }),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
                                                 React.createElement("label", { htmlFor: "postcodezip" }, "Postcode / ZIP *"),
-                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.zipCode, onChange: this.handleChange, name: "zipCode", id: "zipCode", required: true }))),
+                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.zipCode, onChange: this.handleChange, name: "zipCode", id: "zipCode", maxLength: 10, required: true }))),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
                                                 React.createElement("label", { htmlFor: "phone" }, "Phone"),
-                                                React.createElement("input", { type: "tel", className: "form-control", placeholder: "", value: this.state.phone, onChange: this.handleChange, name: "phone", id: "phone", required: true }))),
+                                                React.createElement("input", { type: "tel", className: "form-control", placeholder: "", value: this.state.phone, onChange: this.handleChange, name: "phone", id: "phone", maxLength: 32, required: true }))),
                                         React.createElement("div", { className: "w-100" }),
                                         React.createElement("div", { className: "col-md-8" },
                                             React.createElement("div", { className: "form-group" },
@@ -1445,6 +1445,82 @@ var Search = /** @class */ (function (_super) {
 }(React.Component));
 exports.Search = Search;
 //# sourceMappingURL=PageSearch.js.map
+
+/***/ }),
+
+/***/ "./Components/PageVerify.js":
+/*!**********************************!*\
+  !*** ./Components/PageVerify.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
+var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
+var react_notifications_1 = __webpack_require__(/*! react-notifications */ "./node_modules/react-notifications/lib/index.js");
+var config = __webpack_require__(/*! config */ "config");
+var API_Path = config.API_Path;
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+var Verify = /** @class */ (function (_super) {
+    __extends(Verify, _super);
+    function Verify(props) {
+        var _this = _super.call(this, props) || this;
+        var dictionary = new Dictionary_1.KeyedCollection();
+        _this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary, token: props.match.params.id };
+        return _this;
+    }
+    Verify.prototype.componentWillMount = function () {
+        var _this = this;
+        axios.get(API_Path + '/Auth/' + this.state.token)
+            .then(function (response) {
+            _this.setState({ isLoaded: true });
+            react_notifications_1.NotificationManager.success(response.data.message);
+        })
+            .catch(function (error) {
+            _this.setState({ isLoaded: true, error: error });
+        })
+            .then();
+    };
+    Verify.prototype.render = function () {
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, item = _a.item;
+        if (error) {
+            return (React.createElement("div", null,
+                React.createElement(Header_1.Header, null),
+                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                    React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
+                        React.createElement("div", { className: "col-md-9 text-center" },
+                            React.createElement("h1", { className: "mb-0 bread" }, "ARE YOU HAPPY NOW?"),
+                            React.createElement("h5", null, "Just kidding! Our bad. 404 NOT FOUND"))))));
+        }
+        else if (!isLoaded) {
+            return React.createElement("div", { className: "loading" }, "Loading\u2026");
+        }
+        else {
+            var Router = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
+            Router.browserHistory.push('http://localhost:1337/#/');
+        }
+    };
+    return Verify;
+}(React.Component));
+exports.Verify = Verify;
+//# sourceMappingURL=PageVerify.js.map
 
 /***/ }),
 
@@ -1684,6 +1760,7 @@ var PageCheckout_1 = __webpack_require__(/*! ./Components/PageCheckout */ "./Com
 var PageSearch_1 = __webpack_require__(/*! ./Components/PageSearch */ "./Components/PageSearch.js");
 var PageCart_1 = __webpack_require__(/*! ./Components/PageCart */ "./Components/PageCart.js");
 var PageRegister_1 = __webpack_require__(/*! ./Components/PageRegister */ "./Components/PageRegister.js");
+var PageVerify_1 = __webpack_require__(/*! ./Components/PageVerify */ "./Components/PageVerify.js");
 var PageCookiePolicy_1 = __webpack_require__(/*! ./Components/PageCookiePolicy */ "./Components/PageCookiePolicy.js");
 var App = /** @class */ (function (_super) {
     __extends(App, _super);
@@ -1702,6 +1779,7 @@ var App = /** @class */ (function (_super) {
                     React.createElement(react_router_1.Route, { exact: true, path: "/cart", component: PageCart_1.Cart }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/register", component: PageRegister_1.Register }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/cookie_policy", component: PageCookiePolicy_1.CookiePolicy }),
+                    React.createElement(react_router_1.Route, { exact: true, path: "/verify/:id", component: PageVerify_1.Verify }),
                     React.createElement(react_router_1.Route, { component: PageNotFound_1.NotFound })),
                 React.createElement(Footer_1.Footer, null))));
     };
@@ -3695,7 +3773,7 @@ var ___CSS_LOADER_URL___2___ = getUrl(__webpack_require__(/*! ./fonts/notificati
 var ___CSS_LOADER_URL___3___ = getUrl(__webpack_require__(/*! ./fonts/notification.ttf?s3g3t9 */ "./node_modules/react-notifications/lib/fonts/notification.ttf?s3g3t9"));
 var ___CSS_LOADER_URL___4___ = getUrl(__webpack_require__(/*! ./fonts/notification.svg?s3g3t9 */ "./node_modules/react-notifications/lib/fonts/notification.svg?s3g3t9") + "#notification");
 // Module
-exports.push([module.i, "@charset \"UTF-8\";\n@font-face {\n  font-family: 'Notification';\n  src: url(" + ___CSS_LOADER_URL___0___ + ");\n  src: url(" + ___CSS_LOADER_URL___1___ + ") format(\"embedded-opentype\"), url(" + ___CSS_LOADER_URL___2___ + ") format(\"woff\"), url(" + ___CSS_LOADER_URL___3___ + ") format(\"truetype\"), url(" + ___CSS_LOADER_URL___4___ + ") format(\"svg\");\n  font-weight: normal;\n  font-style: normal;\n}\n\n.notification-container {\n  box-sizing: border-box;\n  position: fixed;\n  top: 0;\n  right: 0;\n  z-index: 999999;\n  width: 320px;\n  padding: 0px 15px;\n  max-height: calc(100% - 30px);\n  overflow-x: hidden;\n  overflow-y: auto;\n}\n\n.notification {\n  box-sizing: border-box;\n  padding: 15px 15px 15px 58px;\n  border-radius: 2px;\n  color: #fff;\n  background-color: #ccc;\n  box-shadow: 0 0 12px #999;\n  cursor: pointer;\n  font-size: 1em;\n  line-height: 1.2em;\n  position: relative;\n  opacity: 0.9;\n  margin-top: 15px;\n}\n\n.notification .title {\n  font-size: 1em;\n  line-height: 1.2em;\n  font-weight: bold;\n  margin: 0 0 5px 0;\n}\n\n.notification:hover, .notification:focus {\n  opacity: 1;\n}\n\n.notification-enter {\n  visibility: hidden;\n  transform: translate3d(100%, 0, 0);\n}\n\n.notification-enter.notification-enter-active {\n  visibility: visible;\n  transform: translate3d(0, 0, 0);\n  transition: all 0.4s;\n}\n\n.notification-leave {\n  visibility: visible;\n  transform: translate3d(0, 0, 0);\n}\n\n.notification-leave.notification-leave-active {\n  visibility: hidden;\n  transform: translate3d(100%, 0, 0);\n  transition: all 0.4s;\n}\n\n.notification:before {\n  position: absolute;\n  top: 50%;\n  left: 15px;\n  margin-top: -14px;\n  display: block;\n  font-family: 'Notification';\n  width: 28px;\n  height: 28px;\n  font-size: 28px;\n  text-align: center;\n  line-height: 28px;\n}\n\n.notification-info {\n  background-color: #2f96b4;\n}\n\n.notification-info:before {\n  content: \"!\";\n}\n\n.notification-success {\n  background-color: #51a351;\n}\n\n.notification-success:before {\n  content: \"✓\";\n}\n\n.notification-warning {\n  background-color: #f89406;\n}\n\n.notification-warning:before {\n  content: \"!\";\n}\n\n.notification-error {\n  background-color: #bd362f;\n}\n\n.notification-error:before {\n  content: \"✘\";\n}\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\r\n@font-face {\r\n  font-family: 'Notification';\r\n  src: url(" + ___CSS_LOADER_URL___0___ + ");\r\n  src: url(" + ___CSS_LOADER_URL___1___ + ") format(\"embedded-opentype\"), url(" + ___CSS_LOADER_URL___2___ + ") format(\"woff\"), url(" + ___CSS_LOADER_URL___3___ + ") format(\"truetype\"), url(" + ___CSS_LOADER_URL___4___ + ") format(\"svg\");\r\n  font-weight: normal;\r\n  font-style: normal;\r\n}\r\n\r\n.notification-container {\r\n  box-sizing: border-box;\r\n  position: fixed;\r\n  top: 0;\r\n  right: 0;\r\n  z-index: 999999;\r\n  width: 320px;\r\n  padding: 0px 15px;\r\n  max-height: calc(100% - 30px);\r\n  overflow-x: hidden;\r\n  overflow-y: auto;\r\n}\r\n\r\n.notification {\r\n  box-sizing: border-box;\r\n  padding: 15px 15px 15px 58px;\r\n  border-radius: 2px;\r\n  color: #fff;\r\n  background-color: #ccc;\r\n  box-shadow: 0 0 12px #999;\r\n  cursor: pointer;\r\n  font-size: 1em;\r\n  line-height: 1.2em;\r\n  position: relative;\r\n  opacity: 0.9;\r\n  margin-top: 15px;\r\n}\r\n\r\n.notification .title {\r\n  font-size: 1em;\r\n  line-height: 1.2em;\r\n  font-weight: bold;\r\n  margin: 0 0 5px 0;\r\n}\r\n\r\n.notification:hover, .notification:focus {\r\n  opacity: 1;\r\n}\r\n\r\n.notification-enter {\r\n  visibility: hidden;\r\n  transform: translate3d(100%, 0, 0);\r\n}\r\n\r\n.notification-enter.notification-enter-active {\r\n  visibility: visible;\r\n  transform: translate3d(0, 0, 0);\r\n  transition: all 0.4s;\r\n}\r\n\r\n.notification-leave {\r\n  visibility: visible;\r\n  transform: translate3d(0, 0, 0);\r\n}\r\n\r\n.notification-leave.notification-leave-active {\r\n  visibility: hidden;\r\n  transform: translate3d(100%, 0, 0);\r\n  transition: all 0.4s;\r\n}\r\n\r\n.notification:before {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 15px;\r\n  margin-top: -14px;\r\n  display: block;\r\n  font-family: 'Notification';\r\n  width: 28px;\r\n  height: 28px;\r\n  font-size: 28px;\r\n  text-align: center;\r\n  line-height: 28px;\r\n}\r\n\r\n.notification-info {\r\n  background-color: #2f96b4;\r\n}\r\n\r\n.notification-info:before {\r\n  content: \"!\";\r\n}\r\n\r\n.notification-success {\r\n  background-color: #51a351;\r\n}\r\n\r\n.notification-success:before {\r\n  content: \"✓\";\r\n}\r\n\r\n.notification-warning {\r\n  background-color: #f89406;\r\n}\r\n\r\n.notification-warning:before {\r\n  content: \"!\";\r\n}\r\n\r\n.notification-error {\r\n  background-color: #bd362f;\r\n}\r\n\r\n.notification-error:before {\r\n  content: \"✘\";\r\n}\r\n", ""]);
 
 
 /***/ }),

@@ -26,6 +26,7 @@ var PageCheckout_1 = require("./Components/PageCheckout");
 var PageSearch_1 = require("./Components/PageSearch");
 var PageCart_1 = require("./Components/PageCart");
 var PageRegister_1 = require("./Components/PageRegister");
+var PageVerify_1 = require("./Components/PageVerify");
 var PageCookiePolicy_1 = require("./Components/PageCookiePolicy");
 var App = /** @class */ (function (_super) {
     __extends(App, _super);
@@ -44,6 +45,7 @@ var App = /** @class */ (function (_super) {
                     React.createElement(react_router_1.Route, { exact: true, path: "/cart", component: PageCart_1.Cart }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/register", component: PageRegister_1.Register }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/cookie_policy", component: PageCookiePolicy_1.CookiePolicy }),
+                    React.createElement(react_router_1.Route, { exact: true, path: "/verify/:id", component: PageVerify_1.Verify }),
                     React.createElement(react_router_1.Route, { component: PageNotFound_1.NotFound })),
                 React.createElement(Footer_1.Footer, null))));
     };

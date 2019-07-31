@@ -35,7 +35,7 @@ namespace Api.BusinessLogic
                 byte[] textToHash = Encoding.Default.GetBytes(password);
                 byte[] result = md5.ComputeHash(textToHash);
                 string passHash = BitConverter.ToString(result);
-                return _db.Users.First(user => user.FirstName.Equals(email) && user.Pass.Equals(passHash) && user.Verified == "yes").UserId;
+                return _db.Users.First(user => user.FirstName.Equals(email) && user.Password.Equals(passHash) && user.Verified == "yes").UserId;
             }
             catch (Exception ex)
             {
@@ -120,7 +120,7 @@ namespace Api.BusinessLogic
                 string passHash = BitConverter.ToString(result);
 
                 // Incearca sa adauge un nou user
-                Users user = new Users() { Pass = passHash, Email = email, Role = "user" };
+                Users user = new Users() { Password = passHash, Email = email, Role = "user" };
                 _db.Users.Add(user);
             }
             catch

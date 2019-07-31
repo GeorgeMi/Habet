@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Api.Models
 {
@@ -15,9 +16,10 @@ namespace Api.Models
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public string Email { get; set; }
-        public string Pass { get; set; }
         public string Role { get; set; }
         public string Verified { get; set; }
+        public string Phone { get; set; }
+        public string Password { get; set; }
 
         public virtual ICollection<Orders> Orders { get; set; }
         public virtual ICollection<Tokens> Tokens { get; set; }

@@ -142,6 +142,7 @@ namespace Api.BusinessLogic
                     return ex.InnerException.InnerException.Message;
                 }
 
+                db.SaveChanges();
                 return t.TokenString;
             }
         }

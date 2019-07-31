@@ -85,13 +85,13 @@ export class Register extends React.Component<any, any> {
                                             <div className="col-md-6">
                                                 <div className="form-group">
                                                     <label htmlFor="firstname">Email</label>
-                                                    <input type="email" className="form-control" placeholder="" value={this.state.email} onChange={this.handleChange} name="email" id="email" required/>
+                                                    <input type="email" className="form-control" placeholder="" value={this.state.email} onChange={this.handleChange} name="email" id="email" maxLength={32} required/>
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group">
                                                     <label htmlFor="lastname">Password</label>
-                                                    <input type="password" className="form-control" placeholder="" value={this.state.password} onChange={this.handleChange} name="password" id="password" required/>
+                                                    <input type="password" className="form-control" placeholder="" value={this.state.password} onChange={this.handleChange} name="password" id="password" maxLength={32}  required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -99,14 +99,14 @@ export class Register extends React.Component<any, any> {
                                         <div className="row align-items-end">
                                             <div className="col-md-6">
                                                 <div className="form-group">
-                                                    <label htmlFor="firstname">Firt Name</label>
-                                                    <input type="text" className="form-control" placeholder="" value={this.state.firstName} onChange={this.handleChange} name="firstName" id="firstName" required/>
+                                                    <label htmlFor="firstname">First Name</label>
+                                                    <input type="text" className="form-control" placeholder="" value={this.state.firstName} onChange={this.handleChange} name="firstName" id="firstName" maxLength={32} required/>
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group">
                                                     <label htmlFor="lastname">Last Name</label>
-                                                    <input type="text" className="form-control" placeholder="" value={this.state.lastName} onChange={this.handleChange} name="lastName" id="lastName" required/>
+                                                    <input type="text" className="form-control" placeholder="" value={this.state.lastName} onChange={this.handleChange} name="lastName" id="lastName" maxLength={32} required/>
                                                 </div>
                                             </div>
                                             <div className="w-100"></div>
@@ -131,28 +131,28 @@ export class Register extends React.Component<any, any> {
                                             <div className="col-md-6">
                                                 <div className="form-group">
                                                     <label htmlFor="towncity">Town / City</label>
-                                                    <input type="text" className="form-control" placeholder="" value={this.state.city} onChange={this.handleChange} name="city" id="city" required/>
+                                                    <input type="text" className="form-control" placeholder="" value={this.state.city} onChange={this.handleChange} name="city" id="city" maxLength={32} required/>
                                                 </div>
                                             </div>
                                             <div className="w-100"></div>
                                             <div className="col-md-12">
                                                 <div className="form-group">
                                                     <label htmlFor="streetaddress">Street Address</label>
-                                                    <input type="text" className="form-control" placeholder="Street Address" value={this.state.streetAddress} onChange={this.handleChange} name="streetAddress" id="streetAddress" required/>
+                                                    <input type="text" className="form-control" placeholder="Street Address" value={this.state.streetAddress} onChange={this.handleChange} name="streetAddress" id="streetAddress" maxLength={50} required/>
                                                 </div>
                                             </div>
                                             <div className="w-100"></div>
                                             <div className="col-md-6">
                                                 <div className="form-group">
                                                     <label htmlFor="postcodezip">Postcode / ZIP *</label>
-                                                    <input type="text" className="form-control" placeholder="" value={this.state.zipCode} onChange={this.handleChange} name="zipCode" id="zipCode" required/>
+                                                    <input type="text" className="form-control" placeholder="" value={this.state.zipCode} onChange={this.handleChange} name="zipCode" id="zipCode" maxLength={10} required/>
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group">
                                                     <label htmlFor="phone">Phone</label>
-                                                    <input type="tel" className="form-control" placeholder="" value={this.state.phone} onChange={this.handleChange} name="phone" id="phone" required/>
-                                                </div>
+                                                    <input type="tel" className="form-control" placeholder="" value={this.state.phone} onChange={this.handleChange} name="phone" id="phone" maxLength={32} required/>
+                                                </div> 
                                             </div>
                                             <div className="w-100"></div>
                                             <div className="col-md-8">

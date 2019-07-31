@@ -11,7 +11,7 @@ namespace Api.BusinessLogic
 {
     public class UsersLogic
     {
-        private GHContext _db;
+        private static GHContext _db;
 
         /// <summary>
         /// Constructor
@@ -40,7 +40,7 @@ namespace Api.BusinessLogic
                 userDTO = new UserDetail
                 {
                     Email = u.Email,
-                    Password = u.Pass,
+                    Password = u.Password,
                     Role = u.Role,
                     UserId = u.UserId
                 };
@@ -66,31 +66,42 @@ namespace Api.BusinessLogic
         /// </summary>
         /// <param name="userDTO"></param>
         /// <returns></returns>
-        public int AddUser(UserRegistration userDTO)
+        public bool AddUser(Users userDTO)
         {
-            if (string.IsNullOrWhiteSpace(userDTO.Password) || string.IsNullOrWhiteSpace(userDTO.Email))
+            try
             {
-                throw new System.Exception("failed");
-            }
-            else
-            {
-                // Adauga un user
-                MD5 md5 = new MD5CryptoServiceProvider();
-                byte[] textToHash = Encoding.Default.GetBytes(userDTO.Password);
-                byte[] result = md5.ComputeHash(textToHash);
-                string passHash = BitConverter.ToString(result);
-
-                Users user = new Users()
+                if (string.IsNullOrWhiteSpace(userDTO.Password) || string.IsNullOrWhiteSpace(userDTO.Email))
                 {
-                    Pass = passHash,
-                    Email = userDTO.Email,
-                    Role = "user",
-                    Verified = "no"
-                };
-                _db.Users.Add(user);
+                    throw new System.Exception("failed");
+                }
+                else
+                {
+                    // Adauga un user
+                    MD5 md5 = new MD5CryptoServiceProvider();
+                    byte[] textToHash = Encoding.Default.GetBytes(userDTO.Password);
+                    byte[] result = md5.ComputeHash(textToHash);
+                    string passHash = BitConverter.ToString(result);
 
-                return _db.Users.First(u => u.Email.Equals(userDTO.Email)).UserId;
+                    userDTO.Password = passHash;
+
+                    var x = _db.Users.Add(userDTO);
+                    _db.SaveChanges();
+                    var userId = _db.Users.First(u => u.Email.Equals(userDTO.Email)).UserId;
+
+                    TokenLogic TokenLogic = new TokenLogic(_db);
+                    string token = TokenLogic.UpdateToken(userId, userDTO.Email, userDTO.Password);
+                    
+
+                    // Trimitere mai verificare
+                    SendAuthEmail(token, userDTO.FirstName, userDTO.Email);
+
+                    return true;
+                }
             }
+            catch (Exception ex)
+            {
+                return false;
+            }           
         }
 
         /// <summary>
@@ -103,7 +114,7 @@ namespace Api.BusinessLogic
             Users user = _db.Users.First(u => u.UserId == id);
             UserDetail userDTO = new UserDetail
             {
-                Password = user.Pass,
+                Password = user.Password,
                 Email = user.Email,
                 Role = user.Role,
                 UserId = user.UserId
@@ -140,7 +151,7 @@ namespace Api.BusinessLogic
 
             Users user = new Users
             {
-                Pass = userDTO.Password,
+                Password = userDTO.Password,
                 Email = userDTO.Email,
                 Role = userDTO.Role
             };
@@ -204,16 +215,16 @@ namespace Api.BusinessLogic
         /// <param name="token"></param>
         /// <param name="username"></param>
         /// <param name="email"></param>
-        public void SendAuthEmail(string token, string username, string email)
+        public void SendAuthEmail(string token, string firstName, string email)
         {
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
             mail.From = new MailAddress("habetgabriel@gmail.com");
             mail.To.Add(email);
             mail.Subject = "Welcome to GabrielHabet";
-            mail.Body = "<h3>Hello " + username + ", </h3>";
+            mail.Body = "<h3>Hello " + firstName + ", </h3>";
             mail.Body +=
-                "<p>Thanks for signing up! Before you start, please verify your email address by clicking <a href=\"http://gabrielhabet.co.uk/#/auth/?verifymail=" +
+                "<p>Thanks for signing up! Before you start, please verify your email address by clicking <a href=\"http://gabrielhabet.co.uk/#/verify/" +
                 token + "\">here</a>.</p>";
             mail.Body += "<p>This link will expire in 24 hours if it's not activated.</p>";
             mail.Body += "<h5>The GabrielHabet team</h5>";

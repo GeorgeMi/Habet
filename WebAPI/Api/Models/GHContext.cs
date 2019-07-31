@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Api.Models
 {
@@ -138,6 +140,10 @@ namespace Api.Models
 
                 entity.ToTable("Users", "dbo");
 
+                entity.Property(e => e.Password).HasMaxLength(50);
+
+                entity.Property(e => e.Phone).HasMaxLength(32);
+
                 entity.Property(e => e.Role).HasMaxLength(50);
 
                 entity.Property(e => e.Verified).HasMaxLength(50);
@@ -152,6 +158,10 @@ namespace Api.Models
 
                 entity.HasIndex(e => e.UserId)
                     .HasName("IX_UserId");
+
+                entity.Property(e => e.State)
+                    .HasMaxLength(32)
+                    .IsUnicode(false);
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.UsersAddresses)
