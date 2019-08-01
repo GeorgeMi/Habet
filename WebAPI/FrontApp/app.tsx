@@ -14,6 +14,7 @@ import { Cart } from "./Components/PageCart";
 import { Register } from "./Components/PageRegister";
 import { Verify } from "./Components/PageVerify";
 import { RecoverPassword } from "./Components/PageRecoverPassword";
+import { ChangePassword } from "./Components/PageChangePassword";
 import { CookiePolicy } from "./Components/PageCookiePolicy";
 
 
@@ -33,7 +34,8 @@ class App extends React.Component {
                         <Route exact path="/cookie_policy" component={CookiePolicy} />
                         <Route exact path="/verify/:id" component={Verify} />
                         <Route exact path="/recover_password" component={RecoverPassword} />
-                        <Route component={NotFound} />
+                        <Route exact path="/change_password" component={ChangePassword} />
+                        <Route component={NotFound} />                        
                     </Switch>
                     <Footer />
                 </div>

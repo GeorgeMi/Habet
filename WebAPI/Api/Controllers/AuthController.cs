@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -6,6 +7,7 @@ using Api.BusinessLogic;
 using Api.DTOs;
 using Api.Messages;
 using Api.Models;
+using WebAPI.ActionFilters;
 
 namespace Api.Controllers
 {
@@ -84,6 +86,31 @@ namespace Api.Controllers
             }
 
             responseMessage = Request.CreateResponse(HttpStatusCode.OK);
+            return responseMessage;
+        }
+
+        [Route("api/ChangePassword")]
+        [RequireToken]
+        [ResponseType(typeof(HttpResponseMessage))]
+        public HttpResponseMessage Post(ChangePasswordDTO request)
+        {
+            HttpResponseMessage responseMessage = null;
+            JSendMessage json;
+
+            if (request.Password != null)
+            {
+                var token = Request.Headers.SingleOrDefault(x => x.Key == "token").Value.First();
+                var updated = users.ChangePassword(token, request.Password);
+                if (!updated)
+                {
+                    responseMessage = Request.CreateResponse(HttpStatusCode.BadRequest);
+                }
+                else
+                {
+                    json = new JSendMessage("success", "Your password has been successfully changed");
+                    responseMessage = Request.CreateResponse(HttpStatusCode.OK, json);
+                }
+            }
             return responseMessage;
         }
 

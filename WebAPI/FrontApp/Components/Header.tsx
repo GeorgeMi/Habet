@@ -142,7 +142,7 @@ export class Header extends React.Component<any, any> {
                                             <div id="dropdownMenu" data-toggle="dropdown" className="nav-link dropdown">Account<span className="caret"></span></div>
                                             <div className="dropdown-content" aria-labelledby="dropdown04">
                                                 <Link className="dropdown-item" to="/recover_password">Edit details</Link>
-                                                <Link className="dropdown-item" to="/recover_password">Change password</Link>
+                                                <Link className="dropdown-item" to="/change_password">Change password</Link>
                                                 <a href="/#/" onClick={this.signOut}>SignOut</a>
                                             </div>
                                         </li>

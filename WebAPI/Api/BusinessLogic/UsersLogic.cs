@@ -128,6 +128,38 @@ namespace Api.BusinessLogic
             }
         }
 
+        public bool ChangePassword(string token, string password)
+        {
+            var authToken = token;
+            try
+            {
+                if (string.IsNullOrWhiteSpace(password))
+                {
+                    throw new System.Exception("failed");
+                }
+                else
+                {
+                    // Actualizaeaza un user
+                    MD5 md5 = new MD5CryptoServiceProvider();
+                    byte[] textToHash = Encoding.Default.GetBytes(password);
+                    byte[] result = md5.ComputeHash(textToHash);
+                    string passHash = BitConverter.ToString(result);
+               
+                    var userId = _db.Tokens.First(u => u.TokenString.Equals(authToken)).UserId;
+                    var user = _db.Users.First(u => u.UserId == userId);
+                    user.Password = passHash;
+                    _db.Users.Update(user);
+                    _db.SaveChanges();
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         /// <summary>
         /// Cautare user dupa id
         /// </summary>
