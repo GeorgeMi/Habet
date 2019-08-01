@@ -56,7 +56,7 @@ var ChangePassword = /** @class */ (function (_super) {
                 _this.setState({ password: '', confirm_password: '' });
             })
                 .catch(function (error) {
-                _this.setState({ error: error, password: '' });
+                _this.setState({ error: error, confirm_password: '' });
                 react_notifications_1.NotificationManager.error("Request failed. Please, try again later.");
             })
                 .then(function () {

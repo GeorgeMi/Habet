@@ -137,7 +137,7 @@ var Header = /** @class */ (function (_super) {
                                         "Account",
                                         React.createElement("span", { className: "caret" })),
                                     React.createElement("div", { className: "dropdown-content", "aria-labelledby": "dropdown04" },
-                                        React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/recover_password" }, "Edit details"),
+                                        React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/user_details" }, "Edit details"),
                                         React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/change_password" }, "Change password"),
                                         React.createElement("a", { href: "/#/", onClick: this.signOut }, "SignOut")))
                                 :

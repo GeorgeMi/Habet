@@ -15,6 +15,7 @@ import { Register } from "./Components/PageRegister";
 import { Verify } from "./Components/PageVerify";
 import { RecoverPassword } from "./Components/PageRecoverPassword";
 import { ChangePassword } from "./Components/PageChangePassword";
+import { UpdateUserDetails } from "./Components/PageUpdateUserDetails";
 import { CookiePolicy } from "./Components/PageCookiePolicy";
 
 
@@ -35,6 +36,7 @@ class App extends React.Component {
                         <Route exact path="/verify/:id" component={Verify} />
                         <Route exact path="/recover_password" component={RecoverPassword} />
                         <Route exact path="/change_password" component={ChangePassword} />
+                        <Route exact path="/user_details" component={UpdateUserDetails} />                      
                         <Route component={NotFound} />                        
                     </Switch>
                     <Footer />

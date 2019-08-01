@@ -131,9 +131,9 @@ export class Header extends React.Component<any, any> {
                                                             <small><a href="/#/recover_password">Forgot password?</a></small>
                                                             <small><a href="/#/register">Create account</a></small>
                                                         </div>
-                                                    </form>                                                    
+                                                    </form>
                                                 </li>
-                                            </ul>                                           
+                                            </ul>
                                         </li>
                                 }
                                 {
@@ -141,7 +141,7 @@ export class Header extends React.Component<any, any> {
                                         <li className={"nav-item dropdown " + headerDictionary.Item('Account')}>
                                             <div id="dropdownMenu" data-toggle="dropdown" className="nav-link dropdown">Account<span className="caret"></span></div>
                                             <div className="dropdown-content" aria-labelledby="dropdown04">
-                                                <Link className="dropdown-item" to="/recover_password">Edit details</Link>
+                                                <Link className="dropdown-item" to="/user_details">Edit details</Link>
                                                 <Link className="dropdown-item" to="/change_password">Change password</Link>
                                                 <a href="/#/" onClick={this.signOut}>SignOut</a>
                                             </div>

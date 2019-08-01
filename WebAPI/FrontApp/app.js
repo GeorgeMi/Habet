@@ -29,6 +29,7 @@ var PageRegister_1 = require("./Components/PageRegister");
 var PageVerify_1 = require("./Components/PageVerify");
 var PageRecoverPassword_1 = require("./Components/PageRecoverPassword");
 var PageChangePassword_1 = require("./Components/PageChangePassword");
+var PageUpdateUserDetails_1 = require("./Components/PageUpdateUserDetails");
 var PageCookiePolicy_1 = require("./Components/PageCookiePolicy");
 var App = /** @class */ (function (_super) {
     __extends(App, _super);
@@ -50,6 +51,7 @@ var App = /** @class */ (function (_super) {
                     React.createElement(react_router_1.Route, { exact: true, path: "/verify/:id", component: PageVerify_1.Verify }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/recover_password", component: PageRecoverPassword_1.RecoverPassword }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/change_password", component: PageChangePassword_1.ChangePassword }),
+                    React.createElement(react_router_1.Route, { exact: true, path: "/user_details", component: PageUpdateUserDetails_1.UpdateUserDetails }),
                     React.createElement(react_router_1.Route, { component: PageNotFound_1.NotFound })),
                 React.createElement(Footer_1.Footer, null))));
     };

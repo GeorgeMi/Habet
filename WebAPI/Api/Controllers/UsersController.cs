@@ -1,0 +1,147 @@
+﻿using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Web.Http;
+using System.Web.Http.Description;
+using Api.DTOs;
+using Api.Messages;
+using Api.Models;
+using WebAPI.ActionFilters;
+
+namespace Api.Controllers
+{
+    public class UsersController : ApiController
+    {
+        private GHContext db = new GHContext();
+
+        // GET: api/Users
+        [RequireToken]
+        [ResponseType(typeof(HttpResponseMessage))]
+        public HttpResponseMessage GetUsers()
+        {
+            HttpResponseMessage responseMessage = null;
+            var token = Request.Headers.SingleOrDefault(x => x.Key == "token").Value.First();
+            var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
+            if (userId > 0)
+            {
+                var user = db.Users.First(u => u.UserId == userId);
+
+                if (null != user)
+                {
+                    var result = new UserUpdateDetails()
+                    {
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        State = user.UsersAddresses.First().State,
+                        StreetAddress = user.UsersAddresses.First().Address,
+                        City = user.UsersAddresses.First().City,
+                        ZipCode = user.UsersAddresses.First().ZipCode,
+                        Phone = user.Phone
+                    };
+
+                    JSend json = new JSendData<UserUpdateDetails>("success", new List<UserUpdateDetails> { result });
+                    responseMessage = Request.CreateResponse(HttpStatusCode.OK, json);
+
+                }
+            }
+
+            return responseMessage;
+        }
+
+        // GET: api/Users/5
+        [ResponseType(typeof(Users))]
+        public async Task<IHttpActionResult> GetUsers(int id)
+        {
+            Users users = await db.Users.FindAsync(id);
+            if (users == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(users);
+        }
+
+        // PUT: api/Users/5
+        [ResponseType(typeof(void))]
+        public async Task<IHttpActionResult> PutUsers(int id, Users users)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != users.UserId)
+            {
+                return BadRequest();
+            }
+
+         //   db.Entry(users).State = EntityState.Modified;
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UsersExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        // POST: api/Users
+        [ResponseType(typeof(Users))]
+        public async Task<IHttpActionResult> PostUsers(Users users)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            db.Users.Add(users);
+            await db.SaveChangesAsync();
+
+            return CreatedAtRoute("DefaultApi", new { id = users.UserId }, users);
+        }
+
+        // DELETE: api/Users/5
+        [ResponseType(typeof(Users))]
+        public async Task<IHttpActionResult> DeleteUsers(int id)
+        {
+            Users users = await db.Users.FindAsync(id);
+            if (users == null)
+            {
+                return NotFound();
+            }
+
+            db.Users.Remove(users);
+            await db.SaveChangesAsync();
+
+            return Ok(users);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        private bool UsersExists(int id)
+        {
+            return db.Users.Count(e => e.UserId == id) > 0;
+        }
+    }
+}
