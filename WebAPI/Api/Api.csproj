@@ -215,7 +215,9 @@
     <Compile Include="Controllers\ProductsImagesController.cs" />
     <Compile Include="DTOs\ProductDetail.cs" />
     <Compile Include="DTOs\ProductInfo.cs" />
+    <Compile Include="DTOs\RecoverDTO.cs" />
     <Compile Include="DTOs\UserDetail.cs" />
+    <Compile Include="DTOs\TokenDTO.cs" />
     <Compile Include="DTOs\UserDTO.cs" />
     <Compile Include="DTOs\UserRegistration.cs" />
     <Compile Include="Filters\AuthorizeApiIPAddressAttribute.cs" />

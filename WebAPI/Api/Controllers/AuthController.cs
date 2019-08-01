@@ -15,6 +15,7 @@ namespace Api.Controllers
         readonly AuthLogic auth = new AuthLogic(db);
         readonly UsersLogic users = new UsersLogic(db);
 
+        [Route("api/Auth")]
         [ResponseType(typeof(HttpResponseMessage))]
         public HttpResponseMessage Post(UserDTO user)
         {
@@ -37,6 +38,52 @@ namespace Api.Controllers
                 responseMessage = Request.CreateResponse(HttpStatusCode.Forbidden, msg);
             }
 
+            return responseMessage;
+        }
+
+        [Route("api/AuthToken")]
+        [ResponseType(typeof(HttpResponseMessage))]
+        public HttpResponseMessage Post(TokenDTO token)
+        {
+            HttpResponseMessage responseMessage;
+            JSendMessage json;
+            bool valid;
+ 
+            if (token.Token == null)
+            {
+                valid = false;
+            }
+            else
+            {
+                valid = auth.VerifyTokenDate(token.Token);
+            }
+
+            if (!valid)
+            {
+                // Token invalid
+                json = new JSendMessage("fail", "Invalid Authorization Key");
+                responseMessage = Request.CreateResponse(HttpStatusCode.Forbidden, json);
+            }
+            else
+            {
+                json = new JSendMessage("success", "ok");
+                responseMessage = Request.CreateResponse(HttpStatusCode.OK, json);
+            }
+
+            return responseMessage;
+        }
+
+        [Route("api/Recover")]
+        [ResponseType(typeof(HttpResponseMessage))]
+        public HttpResponseMessage Post(RecoverDTO email)
+        {
+            HttpResponseMessage responseMessage;
+            if (email.Email != null)
+            {
+                users.RecoverPassword(email.Email);
+            }
+
+            responseMessage = Request.CreateResponse(HttpStatusCode.OK);
             return responseMessage;
         }
 

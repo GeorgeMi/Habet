@@ -104,6 +104,30 @@ namespace Api.BusinessLogic
             }           
         }
 
+        public void RecoverPassword(string email)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    throw new System.Exception("failed");
+                }
+                else
+                {
+                    var user = _db.Users.First(u => u.Email.Equals(email));
+
+                    TokenLogic TokenLogic = new TokenLogic(_db);
+                    string token = TokenLogic.UpdateToken(user.UserId, user.Email, user.Password);
+
+                    SendRecoverEmail(token, user.FirstName, user.Email);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
         /// <summary>
         /// Cautare user dupa id
         /// </summary>
@@ -232,6 +256,34 @@ namespace Api.BusinessLogic
 
             SmtpServer.Port = 587;
             SmtpServer.Credentials = new System.Net.NetworkCredential("habetgabriel@gmail.com", "habetpassword"); 
+            SmtpServer.EnableSsl = true;
+
+            SmtpServer.Send(mail);
+        }
+
+        /// <summary>
+        /// Trimitere mail de confirmare
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="username"></param>
+        /// <param name="email"></param>
+        public void SendRecoverEmail(string token, string firstName, string email)
+        {
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+            mail.From = new MailAddress("habetgabriel@gmail.com");
+            mail.To.Add(email);
+            mail.Subject = "Reset password";
+            mail.Body = "<h3>Hello " + firstName + ", </h3>";
+            mail.Body +=
+                "<p>Let's reset your password. Reset password by clicking <a href=\"http://gabrielhabet.co.uk/#/reset_password/" +
+                token + "\">here</a>.</p>";
+            mail.Body += "<p>If you did not ask to reset your password you may want to review your recent account access for any unusual activity. We're here to help if you need it. Visit the Help Center for more info or contact us.</ p>";
+            mail.Body += "<h5>The GabrielHabet team</h5>";
+            mail.IsBodyHtml = true;
+
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential("habetgabriel@gmail.com", "habetpassword");
             SmtpServer.EnableSsl = true;
 
             SmtpServer.Send(mail);

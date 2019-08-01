@@ -17,12 +17,18 @@ export class Header extends React.Component<any, any> {
         var dictionary = new KeyedCollection<string>();
         dictionary.Add(props.Active, 'cta cta-colored');
 
-        this.state = { email: '', password: '', api_response: '', loggedIn: (read_cookie('token') != null && read_cookie('token').length !== 0), headerDictionary: dictionary };
+        this.state = { email: '', password: '', api_response: '', loggedIn: false, headerDictionary: dictionary };
+
+        if (read_cookie('token') != null && read_cookie('token').length !== 0) {
+            this.checkIfTokenIsValid();
+        }
+  
         console.log(read_cookie('token'));
         console.log(read_cookie('token') != null && read_cookie('token').length !== 0);
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.checkIfTokenIsValid = this.checkIfTokenIsValid.bind(this);
         this.signOut = this.signOut.bind(this);
     }
 
@@ -47,6 +53,20 @@ export class Header extends React.Component<any, any> {
                 NotificationManager.error('Invalid email or password.');
             })
             .then();
+    }
+
+    checkIfTokenIsValid() {
+        axios.post(API_Path + '/AuthToken', {
+            token: read_cookie('token')
+        })
+            .then((response) => {
+                this.setState({ loggedIn: true });
+            })
+            .catch((error) => {     
+                delete_cookie('token');
+            })
+            .then(
+            );
     }
 
     signOut() {
@@ -108,7 +128,7 @@ export class Header extends React.Component<any, any> {
                                                             <button type="submit" className="btn btn-primary btn-block">Login</button>
                                                         </div>
                                                         <div className="form-group text-center">
-                                                            <small><a href="#" data-toggle="modal" data-target="#modalPassword">Forgot password?</a></small>
+                                                            <small><a href="/#/recover_password">Forgot password?</a></small>
                                                             <small><a href="/#/register">Create account</a></small>
                                                         </div>
                                                     </form>                                                    
@@ -121,8 +141,8 @@ export class Header extends React.Component<any, any> {
                                         <li className={"nav-item dropdown " + headerDictionary.Item('Account')}>
                                             <div id="dropdownMenu" data-toggle="dropdown" className="nav-link dropdown">Account<span className="caret"></span></div>
                                             <div className="dropdown-content" aria-labelledby="dropdown04">
-                                                <Link className="dropdown-item" to="/#/">Edit details</Link>
-                                                <Link className="dropdown-item" to="/#/">Change password</Link>
+                                                <Link className="dropdown-item" to="/recover_password">Edit details</Link>
+                                                <Link className="dropdown-item" to="/recover_password">Change password</Link>
                                                 <a href="/#/" onClick={this.signOut}>SignOut</a>
                                             </div>
                                         </li>

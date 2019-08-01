@@ -28,11 +28,15 @@ var Header = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         var dictionary = new Dictionary_1.KeyedCollection();
         dictionary.Add(props.Active, 'cta cta-colored');
-        _this.state = { email: '', password: '', api_response: '', loggedIn: (sfcookies_1.read_cookie('token') != null && sfcookies_1.read_cookie('token').length !== 0), headerDictionary: dictionary };
+        _this.state = { email: '', password: '', api_response: '', loggedIn: false, headerDictionary: dictionary };
+        if (sfcookies_1.read_cookie('token') != null && sfcookies_1.read_cookie('token').length !== 0) {
+            _this.checkIfTokenIsValid();
+        }
         console.log(sfcookies_1.read_cookie('token'));
         console.log(sfcookies_1.read_cookie('token') != null && sfcookies_1.read_cookie('token').length !== 0);
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.checkIfTokenIsValid = _this.checkIfTokenIsValid.bind(_this);
         _this.signOut = _this.signOut.bind(_this);
         return _this;
     }
@@ -55,6 +59,19 @@ var Header = /** @class */ (function (_super) {
             .catch(function (error) {
             _this.setState({ error: error });
             react_notifications_1.NotificationManager.error('Invalid email or password.');
+        })
+            .then();
+    };
+    Header.prototype.checkIfTokenIsValid = function () {
+        var _this = this;
+        axios.post(API_Path + '/AuthToken', {
+            token: sfcookies_1.read_cookie('token')
+        })
+            .then(function (response) {
+            _this.setState({ loggedIn: true });
+        })
+            .catch(function (error) {
+            sfcookies_1.delete_cookie('token');
         })
             .then();
     };
@@ -111,7 +128,7 @@ var Header = /** @class */ (function (_super) {
                                                         React.createElement("button", { type: "submit", className: "btn btn-primary btn-block" }, "Login")),
                                                     React.createElement("div", { className: "form-group text-center" },
                                                         React.createElement("small", null,
-                                                            React.createElement("a", { href: "#", "data-toggle": "modal", "data-target": "#modalPassword" }, "Forgot password?")),
+                                                            React.createElement("a", { href: "/#/recover_password" }, "Forgot password?")),
                                                         React.createElement("small", null,
                                                             React.createElement("a", { href: "/#/register" }, "Create account"))))))),
                             loggedIn ?
@@ -120,8 +137,8 @@ var Header = /** @class */ (function (_super) {
                                         "Account",
                                         React.createElement("span", { className: "caret" })),
                                     React.createElement("div", { className: "dropdown-content", "aria-labelledby": "dropdown04" },
-                                        React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#/" }, "Edit details"),
-                                        React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#/" }, "Change password"),
+                                        React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/recover_password" }, "Edit details"),
+                                        React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/recover_password" }, "Change password"),
                                         React.createElement("a", { href: "/#/", onClick: this.signOut }, "SignOut")))
                                 :
                                     React.createElement("div", null)))))));
