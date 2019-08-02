@@ -16,7 +16,17 @@ export class UpdateUserDetails extends React.Component<any, any> {
         var dictionary = new KeyedCollection<string>();
         dictionary.Add(props.Active, 'cta cta-colored');
 
-        this.state = { user_details: '', waitingResponse: false };
+        this.state = {
+            firstName: '',
+            lastName: '',
+            state: '',
+            city: '',
+            streetAddress: '',
+            zipCode: '',
+            phone: '',
+            waitingResponse: false,
+            isChanged: false
+        };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,7 +41,17 @@ export class UpdateUserDetails extends React.Component<any, any> {
                     }
                 })
                 .then((response) => {
-                    this.setState({ isLoaded: true, user_details: response.data.data });
+                    var user_details = response.data.data[0];
+                    this.setState({
+                        isLoaded: true,
+                        firstName: user_details.FirstName,
+                        lastName: user_details.LastName,
+                        state: user_details.State,
+                        city: user_details.City,
+                        streetAddress: user_details.StreetAddress,
+                        zipCode: user_details.ZipCode,
+                        phone: user_details.Phone
+                    });
                 })
                 .catch((error) => {
                     this.setState({ isLoaded: true, error });
@@ -42,6 +62,7 @@ export class UpdateUserDetails extends React.Component<any, any> {
 
     handleChange(event) {
         this.setState({ [event.target.name]: event.target.value });
+        this.setState({ isChanged: true });
     }
 
     handleSubmit(event) {
@@ -52,13 +73,13 @@ export class UpdateUserDetails extends React.Component<any, any> {
         }
 
         axios.put(API_Path + '/Users', {
-            firstName: this.state.user_details.firstName,
-            lastName: this.state.user_details.lastName,
-            state: this.state.user_details.state,
-            city: this.state.user_details.city,
-            streetAddress: this.state.user_details.streetAddress,
-            zipCode: this.state.user_details.zipCode,
-            phone: this.state.user_details.phone
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            state: this.state.state,
+            city: this.state.city,
+            streetAddress: this.state.streetAddress,
+            zipCode: this.state.zipCode,
+            phone: this.state.phone
         }, {
                 headers: {
                     token: read_cookie('token') //the token is a variable which holds the token
@@ -77,16 +98,35 @@ export class UpdateUserDetails extends React.Component<any, any> {
     }
      
     render() {
-        const { error, isLoaded, waitingResponse } = this.state;
+        const { error, isLoaded, waitingResponse, isChanged } = this.state;
 
         if (error) {
             console.log(error);
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
-            return <div className="loading">Loading&#8230;</div>;
-        } else {
-
+            console.log(this.state)
             return (
+                <main id="main">
+                    {waitingResponse ? <div className="loading">Loading&#8230;</div> : <div></div>}
+
+                    <div>
+                        <Header />
+
+                        <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
+                            <div className="container">
+                                <div className="row no-gutters slider-text align-items-center justify-content-center">
+                                    <div className="col-md-9 text-center">
+                                        <h1 className="mb-0 bread">Update personal details</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="loading">Loading&#8230;</div>;
+                </div>
+                </main>
+            );
+        } else {
+             return (
                 <main id="main">
                     {waitingResponse ? <div className="loading">Loading&#8230;</div> : <div></div>}
 
@@ -112,13 +152,13 @@ export class UpdateUserDetails extends React.Component<any, any> {
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label htmlFor="firstname">First Name</label>
-                                                        <input type="text" className="form-control" placeholder="" value={this.state.user_details.firstName} onChange={this.handleChange} name="firstName" id="firstName" maxLength={32} required />
+                                                        <input type="text" className="form-control" placeholder="" value={this.state.firstName} onChange={this.handleChange} name="firstName" id="firstName" maxLength={32} required />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label htmlFor="lastname">Last Name</label>
-                                                        <input type="text" className="form-control" placeholder="" value={this.state.user_details.lastName} onChange={this.handleChange} name="lastName" id="lastName" maxLength={32} required />
+                                                        <input type="text" className="form-control" placeholder="" value={this.state.lastName} onChange={this.handleChange} name="lastName" id="lastName" maxLength={32} required />
                                                     </div>
                                                 </div>
                                                 <div className="w-100"></div>
@@ -127,7 +167,7 @@ export class UpdateUserDetails extends React.Component<any, any> {
                                                         <label htmlFor="country">State / Country</label>
                                                         <div className="select-wrap">
                                                             <div className="icon"><span className="ion-ios-arrow-down"></span></div>
-                                                            <select className="form-control" value={this.state.user_details.state} onChange={this.handleChange} name="state" id="state" required>
+                                                            <select className="form-control" value={this.state.state} onChange={this.handleChange} name="state" id="state" required>
                                                                 <option value="">Select</option>
                                                                 <option value="France">France</option>
                                                                 <option value="Italy">Italy</option>
@@ -143,33 +183,38 @@ export class UpdateUserDetails extends React.Component<any, any> {
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label htmlFor="towncity">Town / City</label>
-                                                        <input type="text" className="form-control" placeholder="" value={this.state.user_details.city} onChange={this.handleChange} name="city" id="city" maxLength={32} required />
+                                                        <input type="text" className="form-control" placeholder="" value={this.state.city} onChange={this.handleChange} name="city" id="city" maxLength={32} required />
                                                     </div>
                                                 </div>
                                                 <div className="w-100"></div>
                                                 <div className="col-md-12">
                                                     <div className="form-group">
                                                         <label htmlFor="streetaddress">Street Address</label>
-                                                        <input type="text" className="form-control" placeholder="Street Address" value={this.state.user_details.streetAddress} onChange={this.handleChange} name="streetAddress" id="streetAddress" maxLength={50} required />
+                                                        <input type="text" className="form-control" placeholder="Street Address" value={this.state.streetAddress} onChange={this.handleChange} name="streetAddress" id="streetAddress" maxLength={50} required />
                                                     </div>
                                                 </div>
                                                 <div className="w-100"></div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label htmlFor="postcodezip">Postcode / ZIP *</label>
-                                                        <input type="text" className="form-control" placeholder="" value={this.state.user_details.zipCode} onChange={this.handleChange} name="zipCode" id="zipCode" maxLength={10} required />
+                                                        <input type="text" className="form-control" placeholder="" value={this.state.zipCode} onChange={this.handleChange} name="zipCode" id="zipCode" maxLength={10} required />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label htmlFor="phone">Phone</label>
-                                                        <input type="tel" className="form-control" placeholder="" value={this.state.user_details.phone} onChange={this.handleChange} name="phone" id="phone" maxLength={32} required />
+                                                        <input type="tel" className="form-control" placeholder="" value={this.state.phone} onChange={this.handleChange} name="phone" id="phone" maxLength={32} required />
                                                     </div>
                                                 </div>
                                                 <div className="w-100"></div>
                                                 <div className="col-md-8">
-                                                    <div className="form-group">
-                                                        <input type="submit" value="Update details" className="btn btn-primary py-3 px-5" />
+                                                     <div className="form-group">
+                                                         {
+                                                             isChanged ?
+                                                                 <input type="submit" value="Update details" className="btn btn-primary py-3 px-5" />
+                                                                 :
+                                                                 <input type="submit" value="Update details" className="btn btn-primary py-3 px-5" disabled />
+                                                         }                                                                                                               
                                                     </div>
                                                 </div>
                                             </div>

@@ -297,8 +297,6 @@ var Header = /** @class */ (function (_super) {
         if (sfcookies_1.read_cookie('token') != null && sfcookies_1.read_cookie('token').length !== 0) {
             _this.checkIfTokenIsValid();
         }
-        console.log(sfcookies_1.read_cookie('token'));
-        console.log(sfcookies_1.read_cookie('token') != null && sfcookies_1.read_cookie('token').length !== 0);
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.checkIfTokenIsValid = _this.checkIfTokenIsValid.bind(_this);
@@ -1715,7 +1713,17 @@ var UpdateUserDetails = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         var dictionary = new Dictionary_1.KeyedCollection();
         dictionary.Add(props.Active, 'cta cta-colored');
-        _this.state = { user_details: '', waitingResponse: false };
+        _this.state = {
+            firstName: '',
+            lastName: '',
+            state: '',
+            city: '',
+            streetAddress: '',
+            zipCode: '',
+            phone: '',
+            waitingResponse: false,
+            isChanged: false
+        };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         return _this;
@@ -1729,7 +1737,17 @@ var UpdateUserDetails = /** @class */ (function (_super) {
                 }
             })
                 .then(function (response) {
-                _this.setState({ isLoaded: true, user_details: response.data.data });
+                var user_details = response.data.data[0];
+                _this.setState({
+                    isLoaded: true,
+                    firstName: user_details.FirstName,
+                    lastName: user_details.LastName,
+                    state: user_details.State,
+                    city: user_details.City,
+                    streetAddress: user_details.StreetAddress,
+                    zipCode: user_details.ZipCode,
+                    phone: user_details.Phone
+                });
             })
                 .catch(function (error) {
                 _this.setState({ isLoaded: true, error: error });
@@ -1740,6 +1758,7 @@ var UpdateUserDetails = /** @class */ (function (_super) {
     UpdateUserDetails.prototype.handleChange = function (event) {
         var _a;
         this.setState((_a = {}, _a[event.target.name] = event.target.value, _a));
+        this.setState({ isChanged: true });
     };
     UpdateUserDetails.prototype.handleSubmit = function (event) {
         var _this = this;
@@ -1748,13 +1767,13 @@ var UpdateUserDetails = /** @class */ (function (_super) {
             this.setState({ waitingResponse: true });
         }
         axios.put(API_Path + '/Users', {
-            firstName: this.state.user_details.firstName,
-            lastName: this.state.user_details.lastName,
-            state: this.state.user_details.state,
-            city: this.state.user_details.city,
-            streetAddress: this.state.user_details.streetAddress,
-            zipCode: this.state.user_details.zipCode,
-            phone: this.state.user_details.phone
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            state: this.state.state,
+            city: this.state.city,
+            streetAddress: this.state.streetAddress,
+            zipCode: this.state.zipCode,
+            phone: this.state.phone
         }, {
             headers: {
                 token: sfcookies_1.read_cookie('token') //the token is a variable which holds the token
@@ -1771,7 +1790,7 @@ var UpdateUserDetails = /** @class */ (function (_super) {
         });
     };
     UpdateUserDetails.prototype.render = function () {
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, waitingResponse = _a.waitingResponse;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, waitingResponse = _a.waitingResponse, isChanged = _a.isChanged;
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -1779,7 +1798,18 @@ var UpdateUserDetails = /** @class */ (function (_super) {
                 error.message);
         }
         else if (!isLoaded) {
-            return React.createElement("div", { className: "loading" }, "Loading\u2026");
+            console.log(this.state);
+            return (React.createElement("main", { id: "main" },
+                waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
+                React.createElement("div", null,
+                    React.createElement(Header_1.Header, null),
+                    React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                        React.createElement("div", { className: "container" },
+                            React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
+                                React.createElement("div", { className: "col-md-9 text-center" },
+                                    React.createElement("h1", { className: "mb-0 bread" }, "Update personal details"))))),
+                    React.createElement("div", { className: "loading" }, "Loading\u2026"),
+                    ";")));
         }
         else {
             return (React.createElement("main", { id: "main" },
@@ -1801,11 +1831,11 @@ var UpdateUserDetails = /** @class */ (function (_super) {
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "firstname" }, "First Name"),
-                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.user_details.firstName, onChange: this.handleChange, name: "firstName", id: "firstName", maxLength: 32, required: true }))),
+                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.firstName, onChange: this.handleChange, name: "firstName", id: "firstName", maxLength: 32, required: true }))),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "lastname" }, "Last Name"),
-                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.user_details.lastName, onChange: this.handleChange, name: "lastName", id: "lastName", maxLength: 32, required: true }))),
+                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.lastName, onChange: this.handleChange, name: "lastName", id: "lastName", maxLength: 32, required: true }))),
                                             React.createElement("div", { className: "w-100" }),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
@@ -1813,7 +1843,7 @@ var UpdateUserDetails = /** @class */ (function (_super) {
                                                     React.createElement("div", { className: "select-wrap" },
                                                         React.createElement("div", { className: "icon" },
                                                             React.createElement("span", { className: "ion-ios-arrow-down" })),
-                                                        React.createElement("select", { className: "form-control", value: this.state.user_details.state, onChange: this.handleChange, name: "state", id: "state", required: true },
+                                                        React.createElement("select", { className: "form-control", value: this.state.state, onChange: this.handleChange, name: "state", id: "state", required: true },
                                                             React.createElement("option", { value: "" }, "Select"),
                                                             React.createElement("option", { value: "France" }, "France"),
                                                             React.createElement("option", { value: "Italy" }, "Italy"),
@@ -1824,25 +1854,27 @@ var UpdateUserDetails = /** @class */ (function (_super) {
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "towncity" }, "Town / City"),
-                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.user_details.city, onChange: this.handleChange, name: "city", id: "city", maxLength: 32, required: true }))),
+                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.city, onChange: this.handleChange, name: "city", id: "city", maxLength: 32, required: true }))),
                                             React.createElement("div", { className: "w-100" }),
                                             React.createElement("div", { className: "col-md-12" },
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "streetaddress" }, "Street Address"),
-                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "Street Address", value: this.state.user_details.streetAddress, onChange: this.handleChange, name: "streetAddress", id: "streetAddress", maxLength: 50, required: true }))),
+                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "Street Address", value: this.state.streetAddress, onChange: this.handleChange, name: "streetAddress", id: "streetAddress", maxLength: 50, required: true }))),
                                             React.createElement("div", { className: "w-100" }),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "postcodezip" }, "Postcode / ZIP *"),
-                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.user_details.zipCode, onChange: this.handleChange, name: "zipCode", id: "zipCode", maxLength: 10, required: true }))),
+                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.zipCode, onChange: this.handleChange, name: "zipCode", id: "zipCode", maxLength: 10, required: true }))),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "phone" }, "Phone"),
-                                                    React.createElement("input", { type: "tel", className: "form-control", placeholder: "", value: this.state.user_details.phone, onChange: this.handleChange, name: "phone", id: "phone", maxLength: 32, required: true }))),
+                                                    React.createElement("input", { type: "tel", className: "form-control", placeholder: "", value: this.state.phone, onChange: this.handleChange, name: "phone", id: "phone", maxLength: 32, required: true }))),
                                             React.createElement("div", { className: "w-100" }),
                                             React.createElement("div", { className: "col-md-8" },
-                                                React.createElement("div", { className: "form-group" },
-                                                    React.createElement("input", { type: "submit", value: "Update details", className: "btn btn-primary py-3 px-5" }))))))))))));
+                                                React.createElement("div", { className: "form-group" }, isChanged ?
+                                                    React.createElement("input", { type: "submit", value: "Update details", className: "btn btn-primary py-3 px-5" })
+                                                    :
+                                                        React.createElement("input", { type: "submit", value: "Update details", className: "btn btn-primary py-3 px-5", disabled: true }))))))))))));
         }
     };
     return UpdateUserDetails;

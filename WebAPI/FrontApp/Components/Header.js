@@ -32,8 +32,6 @@ var Header = /** @class */ (function (_super) {
         if (sfcookies_1.read_cookie('token') != null && sfcookies_1.read_cookie('token').length !== 0) {
             _this.checkIfTokenIsValid();
         }
-        console.log(sfcookies_1.read_cookie('token'));
-        console.log(sfcookies_1.read_cookie('token') != null && sfcookies_1.read_cookie('token').length !== 0);
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.checkIfTokenIsValid = _this.checkIfTokenIsValid.bind(_this);

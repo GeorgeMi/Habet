@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -25,10 +24,10 @@ namespace Api.Controllers
             HttpResponseMessage responseMessage = null;
             var token = Request.Headers.SingleOrDefault(x => x.Key == "token").Value.First();
             var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
+
             if (userId > 0)
             {
                 var user = db.Users.First(u => u.UserId == userId);
-
                 if (null != user)
                 {
                     var result = new UserUpdateDetails()
@@ -44,62 +43,63 @@ namespace Api.Controllers
 
                     JSend json = new JSendData<UserUpdateDetails>("success", new List<UserUpdateDetails> { result });
                     responseMessage = Request.CreateResponse(HttpStatusCode.OK, json);
-
                 }
             }
 
             return responseMessage;
         }
 
-        // GET: api/Users/5
-        [ResponseType(typeof(Users))]
-        public async Task<IHttpActionResult> GetUsers(int id)
-        {
-            Users users = await db.Users.FindAsync(id);
-            if (users == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(users);
-        }
-
-        // PUT: api/Users/5
+        // PUT: api/Users
+        [RequireToken]
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutUsers(int id, Users users)
+        public HttpResponseMessage PutUsers(UserUpdateDetails request)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != users.UserId)
-            {
-                return BadRequest();
-            }
-
-         //   db.Entry(users).State = EntityState.Modified;
+            HttpResponseMessage responseMessage = null;
+            var token = Request.Headers.SingleOrDefault(x => x.Key == "token").Value.First();
 
             try
             {
-                await db.SaveChangesAsync();
+                var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
+                if (userId > 0)
+                {
+                    var user = db.Users.First(u => u.UserId == userId);
+                    user.FirstName = request.FirstName;
+                    user.LastName = request.LastName;
+                    user.UsersAddresses.First().State = request.State;
+                    user.UsersAddresses.First().Address = request.StreetAddress;
+                    user.UsersAddresses.First().City = request.City;
+                    user.UsersAddresses.First().ZipCode = request.ZipCode;
+                    user.Phone = request.Phone;
+
+                    db.Users.Update(user);
+                    db.SaveChanges();
+
+                    if (null != user)
+                    {
+                        var result = new UserUpdateDetails()
+                        {
+                            FirstName = user.FirstName,
+                            LastName = user.LastName,
+                            State = user.UsersAddresses.First().State,
+                            StreetAddress = user.UsersAddresses.First().Address,
+                            City = user.UsersAddresses.First().City,
+                            ZipCode = user.UsersAddresses.First().ZipCode,
+                            Phone = user.Phone
+                        };
+                    }
+                }
+                responseMessage = Request.CreateResponse(HttpStatusCode.OK);
             }
-            catch (DbUpdateConcurrencyException)
+            catch 
             {
-                if (!UsersExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                responseMessage = Request.CreateResponse(HttpStatusCode.BadRequest);
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return responseMessage;
         }
 
         // POST: api/Users
+        [RequireAdminToken]
         [ResponseType(typeof(Users))]
         public async Task<IHttpActionResult> PostUsers(Users users)
         {
@@ -115,6 +115,7 @@ namespace Api.Controllers
         }
 
         // DELETE: api/Users/5
+        [RequireAdminToken]
         [ResponseType(typeof(Users))]
         public async Task<IHttpActionResult> DeleteUsers(int id)
         {

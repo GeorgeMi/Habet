@@ -23,9 +23,6 @@ export class Header extends React.Component<any, any> {
             this.checkIfTokenIsValid();
         }
   
-        console.log(read_cookie('token'));
-        console.log(read_cookie('token') != null && read_cookie('token').length !== 0);
-
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.checkIfTokenIsValid = this.checkIfTokenIsValid.bind(this);
