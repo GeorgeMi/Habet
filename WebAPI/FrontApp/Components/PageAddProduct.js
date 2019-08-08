@@ -51,7 +51,7 @@ var AddProduct = /** @class */ (function (_super) {
         formData.append('data', JSON.stringify({ name: this.state.name, price: this.state.price, description: this.state.description }));
         axios.post(API_Path + '/Products', formData)
             .then(function (response) {
-            _this.setState({ name: '', price: '', description: '', image: '', api_response: response.data, loggedIn: true });
+            _this.setState({ name: '', price: '', description: '', file: null, api_response: response.data, loggedIn: true });
             react_notifications_1.NotificationManager.success(response.data.message);
         })
             .catch(function (error) {

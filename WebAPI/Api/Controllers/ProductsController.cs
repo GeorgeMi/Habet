@@ -170,7 +170,8 @@ namespace Api.Controllers
                 return responseMessage;
             }
 
-            responseMessage = Request.CreateResponse(HttpStatusCode.OK);
+            var json = new JSendMessage("success", "Product successfully added");
+            responseMessage = Request.CreateResponse(HttpStatusCode.OK, json);
             return responseMessage;
         }
 

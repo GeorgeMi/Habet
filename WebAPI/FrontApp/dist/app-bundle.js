@@ -465,7 +465,6 @@ var AddProduct = /** @class */ (function (_super) {
         this.setState((_a = {}, _a[event.target.name] = event.target.value, _a));
     };
     AddProduct.prototype.handleFileChange = function (event) {
-        console.log(event.target);
         this.setState({ file: event.target.files[0] });
     };
     AddProduct.prototype.handleSubmit = function (event) {
@@ -474,13 +473,12 @@ var AddProduct = /** @class */ (function (_super) {
         if (this.state.waitingResponse == false) {
             this.setState({ waitingResponse: true });
         }
-        //   const file = new Blob([this.state.image], { type: 'image/jpg' });
         var formData = new FormData();
         formData.append('Image', this.state.file);
         formData.append('data', JSON.stringify({ name: this.state.name, price: this.state.price, description: this.state.description }));
         axios.post(API_Path + '/Products', formData)
             .then(function (response) {
-            _this.setState({ name: '', price: '', description: '', image: '', api_response: response.data, loggedIn: true });
+            _this.setState({ name: '', price: '', description: '', file: null, api_response: response.data, loggedIn: true });
             react_notifications_1.NotificationManager.success(response.data.message);
         })
             .catch(function (error) {
@@ -29743,7 +29741,7 @@ if(false) {}
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

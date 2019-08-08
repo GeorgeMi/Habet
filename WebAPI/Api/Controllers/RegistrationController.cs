@@ -49,7 +49,7 @@ namespace Api.Controllers
                 {
                   //  db.SaveChanges();
                   //  transaction.Complete();
-                    json = new JSendMessage("success", "Registration successful! Please, verify your mail address.");
+                    json = new JSendMessage("success", "Registration  was successful! Please, verify your mail address.");
                     response = Request.CreateResponse(HttpStatusCode.OK, json);
                 }
                 else

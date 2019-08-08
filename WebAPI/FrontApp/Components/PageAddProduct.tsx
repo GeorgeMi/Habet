@@ -43,7 +43,7 @@ export class AddProduct extends React.Component<any, any> {
 
         axios.post(API_Path + '/Products', formData)
             .then((response) => {
-                this.setState({ name: '', price: '', description: '', image: '', api_response: response.data, loggedIn: true });
+                this.setState({ name: '', price: '', description: '', file: null, api_response: response.data, loggedIn: true });
                 NotificationManager.success(response.data.message);
             })
             .catch((error) => {
