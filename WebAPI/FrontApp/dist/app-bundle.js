@@ -331,7 +331,7 @@ var Header = /** @class */ (function (_super) {
             token: sfcookies_1.read_cookie('token')
         })
             .then(function (response) {
-            _this.setState({ loggedIn: true });
+            _this.setState({ loggedIn: true, api_response: response.data });
         })
             .catch(function (error) {
             sfcookies_1.delete_cookie('token');
@@ -343,7 +343,7 @@ var Header = /** @class */ (function (_super) {
         window.location.reload();
     };
     Header.prototype.render = function () {
-        var _a = this.state, headerDictionary = _a.headerDictionary, loggedIn = _a.loggedIn;
+        var _a = this.state, headerDictionary = _a.headerDictionary, loggedIn = _a.loggedIn, api_response = _a.api_response;
         return (React.createElement("div", null,
             React.createElement(react_notifications_1.NotificationContainer, null),
             React.createElement("nav", { className: "navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light", id: "ftco-navbar" },
@@ -402,6 +402,10 @@ var Header = /** @class */ (function (_super) {
                                     React.createElement("div", { className: "dropdown-content", "aria-labelledby": "dropdown04" },
                                         React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/user_details" }, "Edit details"),
                                         React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/change_password" }, "Change password"),
+                                        api_response.role == 'admin' ?
+                                            React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/add_product" }, "Add product")
+                                            :
+                                                React.createElement("div", null),
                                         React.createElement("a", { href: "/#/", onClick: this.signOut }, "SignOut")))
                                 :
                                     React.createElement("div", null)))))));
@@ -410,6 +414,123 @@ var Header = /** @class */ (function (_super) {
 }(React.Component));
 exports.Header = Header;
 //# sourceMappingURL=Header.js.map
+
+/***/ }),
+
+/***/ "./Components/PageAddProduct.js":
+/*!**************************************!*\
+  !*** ./Components/PageAddProduct.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
+var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
+var react_notifications_1 = __webpack_require__(/*! react-notifications */ "./node_modules/react-notifications/lib/index.js");
+__webpack_require__(/*! react-notifications/lib/notifications.css */ "./node_modules/react-notifications/lib/notifications.css");
+var config = __webpack_require__(/*! config */ "config");
+var API_Path = config.API_Path;
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+var AddProduct = /** @class */ (function (_super) {
+    __extends(AddProduct, _super);
+    function AddProduct(props) {
+        var _this = _super.call(this, props) || this;
+        var dictionary = new Dictionary_1.KeyedCollection();
+        dictionary.Add(props.Active, 'cta cta-colored');
+        _this.state = { name: '', price: '', file: null, description: '', image: '', api_response: '', loggedIn: false, headerDictionary: dictionary, waitingResponse: false };
+        _this.handleChange = _this.handleChange.bind(_this);
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.handleFileChange = _this.handleFileChange.bind(_this);
+        return _this;
+    }
+    AddProduct.prototype.handleChange = function (event) {
+        var _a;
+        this.setState((_a = {}, _a[event.target.name] = event.target.value, _a));
+    };
+    AddProduct.prototype.handleFileChange = function (event) {
+        console.log(event.target);
+        this.setState({ file: event.target.files[0] });
+    };
+    AddProduct.prototype.handleSubmit = function (event) {
+        var _this = this;
+        event.preventDefault();
+        if (this.state.waitingResponse == false) {
+            this.setState({ waitingResponse: true });
+        }
+        //   const file = new Blob([this.state.image], { type: 'image/jpg' });
+        var formData = new FormData();
+        formData.append('Image', this.state.file);
+        formData.append('data', JSON.stringify({ name: this.state.name, price: this.state.price, description: this.state.description }));
+        axios.post(API_Path + '/Products', formData)
+            .then(function (response) {
+            _this.setState({ name: '', price: '', description: '', image: '', api_response: response.data, loggedIn: true });
+            react_notifications_1.NotificationManager.success(response.data.message);
+        })
+            .catch(function (error) {
+            _this.setState({ error: error });
+            react_notifications_1.NotificationManager.error("Operation failed! Please, try again.");
+        })
+            .then(this.setState({ waitingResponse: false }));
+    };
+    AddProduct.prototype.render = function () {
+        var waitingResponse = this.state.waitingResponse;
+        return (React.createElement("main", { id: "main" },
+            waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
+            React.createElement("div", null,
+                React.createElement(Header_1.Header, null),
+                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                    React.createElement("div", { className: "container" },
+                        React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
+                            React.createElement("div", { className: "col-md-9 text-center" },
+                                React.createElement("h1", { className: "mb-0 bread" }, "Add Product"))))),
+                React.createElement("section", { className: "ftco-section" },
+                    React.createElement("div", { className: "container" },
+                        React.createElement("div", { className: "row justify-content-center" },
+                            React.createElement("div", { className: "col-xl-10" },
+                                React.createElement("form", { action: "", className: "billing-form", onSubmit: this.handleSubmit },
+                                    React.createElement("h3", { className: "mb-4 billing-heading" }, "Product Details"),
+                                    React.createElement("div", { className: "row align-items-end" },
+                                        React.createElement("div", { className: "col-md-6" },
+                                            React.createElement("div", { className: "form-group" },
+                                                React.createElement("label", { htmlFor: "name" }, "Name"),
+                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.name, onChange: this.handleChange, name: "name", id: "name", maxLength: 32, required: true }))),
+                                        React.createElement("div", { className: "col-md-6" },
+                                            React.createElement("div", { className: "form-group" },
+                                                React.createElement("label", { htmlFor: "price" }, "Price"),
+                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.price, onChange: this.handleChange, name: "price", id: "price", maxLength: 32, required: true }))),
+                                        React.createElement("div", { className: "col-md-12" },
+                                            React.createElement("div", { className: "form-group" },
+                                                React.createElement("label", { htmlFor: "description" }, "Description"),
+                                                React.createElement("textarea", { className: "form-control", value: this.state.description, onChange: this.handleChange, name: "description", id: "description", required: true }))),
+                                        React.createElement("div", { className: "col-md-12" },
+                                            React.createElement("div", { className: "form-group" },
+                                                React.createElement("input", { type: "file", onChange: this.handleFileChange, accept: "image/*", required: true }))),
+                                        React.createElement("div", { className: "w-100" }),
+                                        React.createElement("div", { className: "col-md-8" },
+                                            React.createElement("div", { className: "form-group" },
+                                                React.createElement("input", { type: "submit", value: "Add product", className: "btn btn-primary py-3 px-5" }))))))))))));
+    };
+    return AddProduct;
+}(React.Component));
+exports.AddProduct = AddProduct;
+//# sourceMappingURL=PageAddProduct.js.map
 
 /***/ }),
 
@@ -2199,6 +2320,7 @@ var PageRegister_1 = __webpack_require__(/*! ./Components/PageRegister */ "./Com
 var PageVerify_1 = __webpack_require__(/*! ./Components/PageVerify */ "./Components/PageVerify.js");
 var PageRecoverPassword_1 = __webpack_require__(/*! ./Components/PageRecoverPassword */ "./Components/PageRecoverPassword.js");
 var PageChangePassword_1 = __webpack_require__(/*! ./Components/PageChangePassword */ "./Components/PageChangePassword.js");
+var PageAddProduct_1 = __webpack_require__(/*! ./Components/PageAddProduct */ "./Components/PageAddProduct.js");
 var PageUpdateUserDetails_1 = __webpack_require__(/*! ./Components/PageUpdateUserDetails */ "./Components/PageUpdateUserDetails.js");
 var PageCookiePolicy_1 = __webpack_require__(/*! ./Components/PageCookiePolicy */ "./Components/PageCookiePolicy.js");
 var App = /** @class */ (function (_super) {
@@ -2222,6 +2344,7 @@ var App = /** @class */ (function (_super) {
                     React.createElement(react_router_1.Route, { exact: true, path: "/recover_password", component: PageRecoverPassword_1.RecoverPassword }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/change_password", component: PageChangePassword_1.ChangePassword }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/user_details", component: PageUpdateUserDetails_1.UpdateUserDetails }),
+                    React.createElement(react_router_1.Route, { exact: true, path: "/add_product", component: PageAddProduct_1.AddProduct }),
                     React.createElement(react_router_1.Route, { component: PageNotFound_1.NotFound })),
                 React.createElement(Footer_1.Footer, null))));
     };
@@ -29620,7 +29743,7 @@ if(false) {}
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

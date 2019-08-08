@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Mvc;
 using Api.DTOs;
 using Api.Messages;
 using Api.Models;
+using WebAPI.ActionFilters;
 
 namespace Api.Controllers
 {
@@ -85,6 +89,7 @@ namespace Api.Controllers
         }
 
         // PUT: api/Products/5
+        [RequireAdminToken]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutProducts(int id, Products products)
         {
@@ -120,21 +125,57 @@ namespace Api.Controllers
         }
 
         // POST: api/Products
+        [System.Web.Http.HttpPost]
+        [RequireAdminToken]
         [ResponseType(typeof(Products))]
-        public async Task<IHttpActionResult> PostProducts(Products products)
+        public HttpResponseMessage PostProducts()
         {
-            if (!ModelState.IsValid)
+            HttpResponseMessage responseMessage;
+            try
+            {            
+                var httpRequest = HttpContext.Current.Request;
+                var productToAdd = Newtonsoft.Json.JsonConvert.DeserializeObject<Products>(httpRequest.Form["data"]);
+                db.Products.Add(productToAdd);
+
+                var postedFile = httpRequest.Files[0];
+                
+                Stream fs = postedFile.InputStream;
+                BinaryReader br = new BinaryReader(fs);
+                var bytes = br.ReadBytes((int)fs.Length);
+                using (Stream memStream = new MemoryStream(bytes))
+                {
+                    using (Image img = Image.FromStream(memStream))
+                    {
+                        ProductsImages imageEntity = new ProductsImages()
+                        {
+                            Id = Guid.NewGuid(),
+                            Name = Encoding.ASCII.GetBytes(postedFile.FileName),
+                            Data = bytes,
+                            Width = img.Width,
+                            Height = img.Height,
+                            Length = bytes.Length,
+                            ContentType = postedFile.ContentType,
+                            ProductId = productToAdd.ProductId
+                        };
+
+                        db.ProductsImages.Add(imageEntity);
+                    }
+
+                    db.SaveChanges();
+                }
+            }
+            catch (DbUpdateException)
             {
-                return BadRequest(ModelState);
+                responseMessage = Request.CreateResponse(HttpStatusCode.BadRequest);
+                return responseMessage;
             }
 
-            db.Products.Add(products);
-            await db.SaveChangesAsync();
-
-            return CreatedAtRoute("DefaultApi", new { id = products.ProductId }, products);
+            responseMessage = Request.CreateResponse(HttpStatusCode.OK);
+            return responseMessage;
         }
 
         // DELETE: api/Products/5
+        [RequireAdminToken]
         [ResponseType(typeof(Products))]
         public async Task<IHttpActionResult> DeleteProducts(int id)
         {

@@ -29,7 +29,7 @@ namespace Api.Controllers
             {
                 // Username si parola valide
                 // string role = users.GetUserRole(user.Email);
-                string role = "user";
+                string role = "admin";
                 TokenMessage msg = new TokenMessage(response, role);
                 responseMessage = Request.CreateResponse(HttpStatusCode.OK, msg);
             }
@@ -48,7 +48,6 @@ namespace Api.Controllers
         public HttpResponseMessage Post(TokenDTO token)
         {
             HttpResponseMessage responseMessage;
-            JSendMessage json;
             bool valid;
  
             if (token.Token == null)
@@ -63,12 +62,14 @@ namespace Api.Controllers
             if (!valid)
             {
                 // Token invalid
-                json = new JSendMessage("fail", "Invalid Authorization Key");
+                var json = new JSendMessage("fail", "Invalid Authorization Key");
                 responseMessage = Request.CreateResponse(HttpStatusCode.Forbidden, json);
             }
             else
             {
-                json = new JSendMessage("success", "ok");
+                // string role = users.GetUserRole(user.Email);
+                string role = "admin";
+                var json = new RoleMessage(role);
                 responseMessage = Request.CreateResponse(HttpStatusCode.OK, json);
             }
 

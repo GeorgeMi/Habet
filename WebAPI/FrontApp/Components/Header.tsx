@@ -57,7 +57,7 @@ export class Header extends React.Component<any, any> {
             token: read_cookie('token')
         })
             .then((response) => {
-                this.setState({ loggedIn: true });
+                this.setState({ loggedIn: true, api_response: response.data });
             })
             .catch((error) => {     
                 delete_cookie('token');
@@ -72,8 +72,8 @@ export class Header extends React.Component<any, any> {
     }
 
     render() {
-        var { headerDictionary, loggedIn } = this.state;
-       
+        var { headerDictionary, loggedIn, api_response } = this.state;
+
         return (
             <div>
 
@@ -140,6 +140,12 @@ export class Header extends React.Component<any, any> {
                                             <div className="dropdown-content" aria-labelledby="dropdown04">
                                                 <Link className="dropdown-item" to="/user_details">Edit details</Link>
                                                 <Link className="dropdown-item" to="/change_password">Change password</Link>
+                                                {
+                                                    api_response.role == 'admin' ?                                                       
+                                                        <Link className="dropdown-item" to="/add_product">Add product</Link>
+                                                        :
+                                                        <div></div>
+                                                }
                                                 <a href="/#/" onClick={this.signOut}>SignOut</a>
                                             </div>
                                         </li>

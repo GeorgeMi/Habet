@@ -8,6 +8,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Mvc;
 using Api.Models;
+using WebAPI.ActionFilters;
 
 namespace Api.Controllers
 {
@@ -37,6 +38,7 @@ namespace Api.Controllers
         }
 
         // PUT: api/ProductsImages/5
+        [RequireAdminToken]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutProductsImages(Guid id, ProductsImages productsImages)
         {
@@ -72,36 +74,31 @@ namespace Api.Controllers
         }
 
         // POST: api/ProductsImages
+        [RequireAdminToken]
         [ResponseType(typeof(ProductsImages))]
-        public async Task<IHttpActionResult> PostProductsImages(ProductsImages productsImages)
+        public void PostProductsImages(ProductsImages productsImages)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             db.ProductsImages.Add(productsImages);
 
             try
             {
-                await db.SaveChangesAsync();
+                db.SaveChanges();
             }
             catch (DbUpdateException)
             {
                 if (ProductsImagesExists(productsImages.Id))
                 {
-                    return Conflict();
+                   // return Conflict();
                 }
                 else
                 {
                     throw;
                 }
             }
-
-            return CreatedAtRoute("DefaultApi", new { id = productsImages.Id }, productsImages);
         }
 
         // DELETE: api/ProductsImages/5
+        [RequireAdminToken]
         [ResponseType(typeof(ProductsImages))]
         public async Task<IHttpActionResult> DeleteProductsImages(Guid id)
         {

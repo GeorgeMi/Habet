@@ -28,9 +28,10 @@ namespace Api
             // Raspunsurile vor fi trimise in format json, nu xml
             config.Formatters.Remove(config.Formatters.XmlFormatter);
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/json"));
+            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("multipart/form-data"));
 
             // Activeaza cross origin
-           var cors = new EnableCorsAttribute("*", "*", "*");
+            var cors = new EnableCorsAttribute("*", "*", "*");
           //  var cors = new EnableCorsAttribute("http://www.gabrielhabet.co.uk", "*", "*"); 
             config.EnableCors(cors);
         }

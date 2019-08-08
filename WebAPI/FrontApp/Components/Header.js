@@ -66,7 +66,7 @@ var Header = /** @class */ (function (_super) {
             token: sfcookies_1.read_cookie('token')
         })
             .then(function (response) {
-            _this.setState({ loggedIn: true });
+            _this.setState({ loggedIn: true, api_response: response.data });
         })
             .catch(function (error) {
             sfcookies_1.delete_cookie('token');
@@ -78,7 +78,7 @@ var Header = /** @class */ (function (_super) {
         window.location.reload();
     };
     Header.prototype.render = function () {
-        var _a = this.state, headerDictionary = _a.headerDictionary, loggedIn = _a.loggedIn;
+        var _a = this.state, headerDictionary = _a.headerDictionary, loggedIn = _a.loggedIn, api_response = _a.api_response;
         return (React.createElement("div", null,
             React.createElement(react_notifications_1.NotificationContainer, null),
             React.createElement("nav", { className: "navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light", id: "ftco-navbar" },
@@ -137,6 +137,10 @@ var Header = /** @class */ (function (_super) {
                                     React.createElement("div", { className: "dropdown-content", "aria-labelledby": "dropdown04" },
                                         React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/user_details" }, "Edit details"),
                                         React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/change_password" }, "Change password"),
+                                        api_response.role == 'admin' ?
+                                            React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/add_product" }, "Add product")
+                                            :
+                                                React.createElement("div", null),
                                         React.createElement("a", { href: "/#/", onClick: this.signOut }, "SignOut")))
                                 :
                                     React.createElement("div", null)))))));
