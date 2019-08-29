@@ -25,10 +25,10 @@ namespace Api.Controllers
         private GHContext db = new GHContext();
 
         // GET: api/Products
-        public HttpResponseMessage GetProducts(int top, int from)
+        public HttpResponseMessage GetProducts(int top, int from, string gender, string type)
         {
             HttpResponseMessage responseMessage;
-            // var productList = db.Products.OrderBy(p => p.ProductId).Skip(from).Take(top).ToList();
+          //  var productList = db.Products.Where(p=> p.Gender == gender && p.Type == type).OrderBy(p => p.ProductId).Skip(from).Take(top).ToList();
             var productList = new List<Products>();
             Random rnd = new Random();
             for (int i = 0; i < 3; i++)

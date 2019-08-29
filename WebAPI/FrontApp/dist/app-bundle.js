@@ -2217,7 +2217,9 @@ var SectionProducts = /** @class */ (function (_super) {
         axios.get(API_Path + '/Products', {
             params: {
                 top: 20,
-                from: 0
+                from: 0,
+                gender: this.state.gender,
+                type: this.state.type
             }
         })
             .then(function (response) {

@@ -17,7 +17,9 @@ export class SectionProducts extends React.Component<any, any>
             {
                 params: {
                     top: 20,
-                    from: 0
+                    from: 0,
+                    gender: this.state.gender,
+                    type: this.state.type
                 }
             })
             .then((response) => {      
