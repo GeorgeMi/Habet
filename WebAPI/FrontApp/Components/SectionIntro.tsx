@@ -16,8 +16,10 @@ export class SectionIntro extends React.Component<any, any> {
         axios.get(API_Path + '/Products',
             {
                 params: {
-                    top: 20,
-                    from: 0
+                    top: 5,
+                    from: 0,
+                    gender: "",
+                    type: "intro"
                 }
             })
             .then((response) => {

@@ -2,6 +2,7 @@
 import { KeyedCollection } from './Dictionary';
 import { Header } from './Header';
 import { NotFound } from "./PageNotFound";
+import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
 
 var config = require('config');
 var API_Path = config.API_Path;
@@ -13,9 +14,10 @@ export class Product extends React.Component<any, any>
         super(props);
 
         var dictionary = new KeyedCollection<string>();
-        this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary, productId: props.match.params.id };
+        this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary, productId: props.match.params.id, quantity: 1 };
 
-       this.getImageForProduct = this.getImageForProduct.bind(this);
+        this.getImageForProduct = this.getImageForProduct.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     componentWillMount() {
@@ -32,6 +34,11 @@ export class Product extends React.Component<any, any>
             .then();
     }
 
+    handleChange(event) {
+        this.setState({ [event.target.name]: event.target.value });
+        this.setState({ isChanged: true });
+    }
+
     getImageForProduct(productId) {
         axios.get(API_Path + '/ProductsImages/' + productId)
             .then((response) => {
@@ -46,8 +53,47 @@ export class Product extends React.Component<any, any>
             })
     }
 
+    addProductToCart(productId: number, no: number) {
+        var cookie = read_cookie('cartProducts');
+        console.log(cookie as KeyedCollection<number>);
+        if (cookie.length == 0)
+        {
+            var cartProducts = new KeyedCollection<number>();
+        }
+        else
+        {
+            var cartProducts = cookie as KeyedCollection<number>;
+            if (cartProducts.ContainsKey(productId))
+            {
+                no = no + cartProducts.Item(productId);
+                cartProducts.Remove(productId);
+            }
+        }
+        console.log(cartProducts);
+        cartProducts.Add(productId, no);
+
+        delete_cookie('cartProducts');
+        bake_cookie('cartProducts', cartProducts);
+    }
+    
+    increaseQuantity = () => {
+        this.setState({ quantity: this.state.quantity + 1 });
+    }
+
+    decreaseQuantity = () => {
+        if (this.state.quantity == 1)
+        {
+            this.setState({ quantity: 1 });
+        }
+        else
+        {
+            this.setState({ quantity: this.state.quantity - 1 });
+        }
+    }
+
     render() {
-        const { error, isLoaded, item, imageDictionary } = this.state;
+        const { error, isLoaded, item, quantity } = this.state;
+
         if (error) {
             return (
                 <div>
@@ -93,20 +139,20 @@ export class Product extends React.Component<any, any>
                                         <div className="w-100"></div>
                                         <div className="input-group col-md-6 d-flex mb-3">
                                             <span className="input-group-btn mr-2">
-                                                <button type="button" className="quantity-left-minus btn" data-type="minus" data-field="">
+                                                <button type="button" className="quantity-left-minus btn" data-type="minus" data-field="" onClick={this.decreaseQuantity}>
                                                     <i className="ion-ios-remove"></i>
                                                 </button>
                                             </span>
-                                            <input type="text" id="quantity" name="quantity" className="quantity form-control input-number" min="1" max="100" />
+                                            <input type="text" id="quantity" name="quantity" className="quantity form-control input-number" min="1" max="100" value={quantity} onChange={this.handleChange} />
                                             <span className="input-group-btn ml-2">
-                                                <button type="button" className="quantity-right-plus btn" data-type="plus" data-field="">
+                                                <button type="button" className="quantity-right-plus btn" data-type="plus" data-field="" onClick={this.increaseQuantity}>
                                                     <i className="ion-ios-add"></i>
                                                 </button>
                                             </span>
                                         </div>
                                         <div className="w-100"></div>
                                         <div className="col-md-12">
-                                            <p><a href="cart.html" className="btn btn-black py-3 px-5 mr-2">Add to Cart</a><a href="cart.html" className="btn btn-primary py-3 px-5">Buy now</a></p>
+                                            <p onClick={() => this.addProductToCart(item.ProductId, quantity)}><a className="btn btn-black py-3 px-5 mr-2">Add to Cart</a><a href="" className="btn btn-primary py-3 px-5">Buy now</a></p>
                                         </div>
                                     </div>
                                 </div>

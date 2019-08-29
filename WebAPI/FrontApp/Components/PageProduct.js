@@ -16,6 +16,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var Dictionary_1 = require("./Dictionary");
 var Header_1 = require("./Header");
+var sfcookies_1 = require("sfcookies");
 var config = require('config');
 var API_Path = config.API_Path;
 var axios = require('axios');
@@ -23,9 +24,21 @@ var Product = /** @class */ (function (_super) {
     __extends(Product, _super);
     function Product(props) {
         var _this = _super.call(this, props) || this;
+        _this.increaseQuantity = function () {
+            _this.setState({ quantity: _this.state.quantity + 1 });
+        };
+        _this.decreaseQuantity = function () {
+            if (_this.state.quantity == 1) {
+                _this.setState({ quantity: 1 });
+            }
+            else {
+                _this.setState({ quantity: _this.state.quantity - 1 });
+            }
+        };
         var dictionary = new Dictionary_1.KeyedCollection();
-        _this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary, productId: props.match.params.id };
+        _this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary, productId: props.match.params.id, quantity: 1 };
         _this.getImageForProduct = _this.getImageForProduct.bind(_this);
+        _this.handleChange = _this.handleChange.bind(_this);
         return _this;
     }
     Product.prototype.componentWillMount = function () {
@@ -41,6 +54,11 @@ var Product = /** @class */ (function (_super) {
         })
             .then();
     };
+    Product.prototype.handleChange = function (event) {
+        var _a;
+        this.setState((_a = {}, _a[event.target.name] = event.target.value, _a));
+        this.setState({ isChanged: true });
+    };
     Product.prototype.getImageForProduct = function (productId) {
         var _this = this;
         axios.get(API_Path + '/ProductsImages/' + productId)
@@ -53,8 +71,27 @@ var Product = /** @class */ (function (_super) {
             //console.log(err);        
         });
     };
+    Product.prototype.addProductToCart = function (productId, no) {
+        var cookie = sfcookies_1.read_cookie('cartProducts');
+        console.log(cookie);
+        if (cookie.length == 0) {
+            var cartProducts = new Dictionary_1.KeyedCollection();
+        }
+        else {
+            var cartProducts = cookie;
+            if (cartProducts.ContainsKey(productId)) {
+                no = no + cartProducts.Item(productId);
+                cartProducts.Remove(productId);
+            }
+        }
+        console.log(cartProducts);
+        cartProducts.Add(productId, no);
+        sfcookies_1.delete_cookie('cartProducts');
+        sfcookies_1.bake_cookie('cartProducts', cartProducts);
+    };
     Product.prototype.render = function () {
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, item = _a.item, imageDictionary = _a.imageDictionary;
+        var _this = this;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, item = _a.item, quantity = _a.quantity;
         if (error) {
             return (React.createElement("div", null,
                 React.createElement(Header_1.Header, null),
@@ -91,17 +128,17 @@ var Product = /** @class */ (function (_super) {
                                     React.createElement("div", { className: "w-100" }),
                                     React.createElement("div", { className: "input-group col-md-6 d-flex mb-3" },
                                         React.createElement("span", { className: "input-group-btn mr-2" },
-                                            React.createElement("button", { type: "button", className: "quantity-left-minus btn", "data-type": "minus", "data-field": "" },
+                                            React.createElement("button", { type: "button", className: "quantity-left-minus btn", "data-type": "minus", "data-field": "", onClick: this.decreaseQuantity },
                                                 React.createElement("i", { className: "ion-ios-remove" }))),
-                                        React.createElement("input", { type: "text", id: "quantity", name: "quantity", className: "quantity form-control input-number", min: "1", max: "100" }),
+                                        React.createElement("input", { type: "text", id: "quantity", name: "quantity", className: "quantity form-control input-number", min: "1", max: "100", value: quantity, onChange: this.handleChange }),
                                         React.createElement("span", { className: "input-group-btn ml-2" },
-                                            React.createElement("button", { type: "button", className: "quantity-right-plus btn", "data-type": "plus", "data-field": "" },
+                                            React.createElement("button", { type: "button", className: "quantity-right-plus btn", "data-type": "plus", "data-field": "", onClick: this.increaseQuantity },
                                                 React.createElement("i", { className: "ion-ios-add" })))),
                                     React.createElement("div", { className: "w-100" }),
                                     React.createElement("div", { className: "col-md-12" },
-                                        React.createElement("p", null,
-                                            React.createElement("a", { href: "cart.html", className: "btn btn-black py-3 px-5 mr-2" }, "Add to Cart"),
-                                            React.createElement("a", { href: "cart.html", className: "btn btn-primary py-3 px-5" }, "Buy now"))))))))));
+                                        React.createElement("p", { onClick: function () { return _this.addProductToCart(item.ProductId, quantity); } },
+                                            React.createElement("a", { className: "btn btn-black py-3 px-5 mr-2" }, "Add to Cart"),
+                                            React.createElement("a", { href: "", className: "btn btn-primary py-3 px-5" }, "Buy now"))))))))));
         }
     };
     return Product;

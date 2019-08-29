@@ -23,7 +23,7 @@ export class Home extends React.Component<any, any> {
         dictionary.Add(component, loaded);
         this.setState({loadedComponentsDictionary: dictionary});
     }
-
+   
     render() {
        // console.log(this.state.loadedComponentsDictionary);
         var hideLoader = false;
@@ -41,13 +41,13 @@ export class Home extends React.Component<any, any> {
                     <SectionIntro />
 
                     <section className="ftco-section bg-light">                     
-                            <SectionProducts Gender={'Women'} Type={'Bags'} setLoadedComponentsArray={this.setLoadedComponentsArray} />
+                        <SectionProducts Gender={'Women'} Type={'Bags'} setLoadedComponentsArray={this.setLoadedComponentsArray} />
 
-                            <SectionProducts Gender={'Women'} Type={'Belts'} setLoadedComponentsArray={this.setLoadedComponentsArray} />
+                        <SectionProducts Gender={'Women'} Type={'Belts'} setLoadedComponentsArray={this.setLoadedComponentsArray} />
 
-                            <SectionProducts Gender={'Men'} Type={'Bags'} setLoadedComponentsArray={this.setLoadedComponentsArray} />
+                        <SectionProducts Gender={'Men'} Type={'Bags'} setLoadedComponentsArray={this.setLoadedComponentsArray} />
 
-                            <SectionProducts Gender={'Men'} Type={'Belts'} setLoadedComponentsArray={this.setLoadedComponentsArray} />
+                        <SectionProducts Gender={'Men'} Type={'Belts'} setLoadedComponentsArray={this.setLoadedComponentsArray} />
                     </section>
                 </div>
             </main>);       

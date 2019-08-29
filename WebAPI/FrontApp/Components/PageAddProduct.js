@@ -27,7 +27,7 @@ var AddProduct = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         var dictionary = new Dictionary_1.KeyedCollection();
         dictionary.Add(props.Active, 'cta cta-colored');
-        _this.state = { name: '', price: '', file: null, description: '', image: '', api_response: '', loggedIn: false, headerDictionary: dictionary, waitingResponse: false };
+        _this.state = { name: '', price: '', file: null, description: '', gender: '', type: '', image: '', api_response: '', loggedIn: false, headerDictionary: dictionary, waitingResponse: false };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.handleFileChange = _this.handleFileChange.bind(_this);
@@ -48,7 +48,7 @@ var AddProduct = /** @class */ (function (_super) {
         }
         var formData = new FormData();
         formData.append('Image', this.state.file);
-        formData.append('data', JSON.stringify({ name: this.state.name, price: this.state.price, description: this.state.description }));
+        formData.append('data', JSON.stringify({ name: this.state.name, price: this.state.price, description: this.state.description, gender: this.state.gender, type: this.state.type }));
         axios.post(API_Path + '/Products', formData)
             .then(function (response) {
             _this.setState({ name: '', price: '', description: '', file: null, api_response: response.data, loggedIn: true });
@@ -93,6 +93,27 @@ var AddProduct = /** @class */ (function (_super) {
                                         React.createElement("div", { className: "col-md-12" },
                                             React.createElement("div", { className: "form-group" },
                                                 React.createElement("input", { type: "file", onChange: this.handleFileChange, accept: "image/*", required: true }))),
+                                        React.createElement("div", { className: "w-100" }),
+                                        React.createElement("div", { className: "col-md-6" },
+                                            React.createElement("div", { className: "form-group" },
+                                                React.createElement("label", { htmlFor: "gender" }, "Gender"),
+                                                React.createElement("div", { className: "select-wrap" },
+                                                    React.createElement("div", { className: "icon" },
+                                                        React.createElement("span", { className: "ion-ios-arrow-down" })),
+                                                    React.createElement("select", { className: "form-control", value: this.state.gender, onChange: this.handleChange, name: "gender", id: "state", required: true },
+                                                        React.createElement("option", { value: "" }, "Select"),
+                                                        React.createElement("option", { value: "Women" }, "Women"),
+                                                        React.createElement("option", { value: "Men" }, "Men"))))),
+                                        React.createElement("div", { className: "col-md-6" },
+                                            React.createElement("div", { className: "form-group" },
+                                                React.createElement("label", { htmlFor: "type" }, "Type"),
+                                                React.createElement("div", { className: "select-wrap" },
+                                                    React.createElement("div", { className: "icon" },
+                                                        React.createElement("span", { className: "ion-ios-arrow-down" })),
+                                                    React.createElement("select", { className: "form-control", value: this.state.type, onChange: this.handleChange, name: "type", id: "type", required: true },
+                                                        React.createElement("option", { value: "" }, "Select"),
+                                                        React.createElement("option", { value: "Belts" }, "Belt"),
+                                                        React.createElement("option", { value: "Bags" }, "Bag"))))),
                                         React.createElement("div", { className: "w-100" }),
                                         React.createElement("div", { className: "col-md-8" },
                                             React.createElement("div", { className: "form-group" },

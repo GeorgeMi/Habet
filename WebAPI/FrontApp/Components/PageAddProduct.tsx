@@ -15,7 +15,7 @@ export class AddProduct extends React.Component<any, any> {
         var dictionary = new KeyedCollection<string>();
         dictionary.Add(props.Active, 'cta cta-colored');
 
-        this.state = { name: '', price: '', file:null, description: '', image: '', api_response: '', loggedIn: false, headerDictionary: dictionary, waitingResponse: false };
+        this.state = { name: '', price: '', file:null, description: '', gender:'', type:'', image: '', api_response: '', loggedIn: false, headerDictionary: dictionary, waitingResponse: false };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,7 +39,7 @@ export class AddProduct extends React.Component<any, any> {
 
         let formData = new FormData();
         formData.append('Image', this.state.file);
-        formData.append('data', JSON.stringify({ name : this.state.name, price : this.state.price, description : this.state.description}));
+        formData.append('data', JSON.stringify({ name: this.state.name, price: this.state.price, description: this.state.description, gender: this.state.gender, type: this.state.type}));
 
         axios.post(API_Path + '/Products', formData)
             .then((response) => {
@@ -104,7 +104,34 @@ export class AddProduct extends React.Component<any, any> {
                                                 <div className="form-group">
                                                     <input type="file" onChange={this.handleFileChange} accept="image/*" required />
                                                 </div>
-                                            </div>                                           
+                                            </div> 
+                                            <div className="w-100"></div>
+                                            <div className="col-md-6">
+                                                <div className="form-group">
+                                                    <label htmlFor="gender">Gender</label>
+                                                    <div className="select-wrap">
+                                                        <div className="icon"><span className="ion-ios-arrow-down"></span></div>
+                                                        <select className="form-control" value={this.state.gender} onChange={this.handleChange} name="gender" id="state" required>
+                                                            <option value="">Select</option>
+                                                            <option value="Women">Women</option>
+                                                            <option value="Men">Men</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group">
+                                                    <label htmlFor="type">Type</label>
+                                                    <div className="select-wrap">
+                                                        <div className="icon"><span className="ion-ios-arrow-down"></span></div>
+                                                        <select className="form-control" value={this.state.type} onChange={this.handleChange} name="type" id="type" required>
+                                                            <option value="">Select</option>
+                                                            <option value="Belts">Belt</option>
+                                                            <option value="Bags">Bag</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div className="w-100"></div>
                                             <div className="col-md-8">
                                                 <div className="form-group">

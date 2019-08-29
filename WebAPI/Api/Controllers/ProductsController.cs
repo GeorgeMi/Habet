@@ -28,8 +28,17 @@ namespace Api.Controllers
         public HttpResponseMessage GetProducts(int top, int from, string gender, string type)
         {
             HttpResponseMessage responseMessage;
-          //  var productList = db.Products.Where(p=> p.Gender == gender && p.Type == type).OrderBy(p => p.ProductId).Skip(from).Take(top).ToList();
             var productList = new List<Products>();
+
+            if (type == "intro")
+            {
+            //    productList = db.Products.OrderBy(p => p.ProductId).Skip(Math.Max(0, db.Products.Count() - top)).Take(top).ToList();
+            }
+            else
+            {
+           //     productList = db.Products.Where(p=> p.Gender == gender && p.Type == type).OrderBy(p => p.ProductId).Skip(from).Take(top).ToList();
+            }
+          
             Random rnd = new Random();
             for (int i = 0; i < 3; i++)
             {
