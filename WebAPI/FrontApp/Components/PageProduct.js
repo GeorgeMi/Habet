@@ -71,20 +71,25 @@ var Product = /** @class */ (function (_super) {
             //console.log(err);        
         });
     };
+    Product.prototype.readCartFromCookie = function (cookie) {
+        var cartProducts = new Dictionary_1.KeyedCollection();
+        for (var prop in cookie.items) {
+            cartProducts.Add(parseInt(prop, 10), cookie.items[prop]);
+        }
+        return cartProducts;
+    };
     Product.prototype.addProductToCart = function (productId, no) {
         var cookie = sfcookies_1.read_cookie('cartProducts');
-        console.log(cookie);
         if (cookie.length == 0) {
             var cartProducts = new Dictionary_1.KeyedCollection();
         }
         else {
-            var cartProducts = cookie;
+            var cartProducts = this.readCartFromCookie(cookie);
             if (cartProducts.ContainsKey(productId)) {
                 no = no + cartProducts.Item(productId);
                 cartProducts.Remove(productId);
             }
         }
-        console.log(cartProducts);
         cartProducts.Add(productId, no);
         sfcookies_1.delete_cookie('cartProducts');
         sfcookies_1.bake_cookie('cartProducts', cartProducts);

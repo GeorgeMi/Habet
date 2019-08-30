@@ -73,6 +73,7 @@ export class Header extends React.Component<any, any> {
 
     render() {
         var { headerDictionary, loggedIn, api_response } = this.state;
+        var cartItemNumber = read_cookie('cartProducts').count;
 
         return (
             <div>
@@ -107,7 +108,7 @@ export class Header extends React.Component<any, any> {
 
                                 {
                                     loggedIn ?
-                                        <li className={"nav-item " + headerDictionary.Item('Cart')}><a href="/#/cart" className="nav-link"><span className="icon-shopping_cart"></span>[0]</a></li>
+                                        <li className={"nav-item " + headerDictionary.Item('Cart')}><a href="/#/cart" className="nav-link"><span className="icon-shopping_cart"></span>{cartItemNumber}</a></li>
                                         :
                                         <li className="dropdown nav-item">
                                             <div id="dropdownMenu" data-toggle="dropdown" className="nav-link dropdown">Login <span className="caret"></span></div>

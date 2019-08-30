@@ -79,6 +79,7 @@ var Header = /** @class */ (function (_super) {
     };
     Header.prototype.render = function () {
         var _a = this.state, headerDictionary = _a.headerDictionary, loggedIn = _a.loggedIn, api_response = _a.api_response;
+        var cartItemNumber = sfcookies_1.read_cookie('cartProducts').count;
         return (React.createElement("div", null,
             React.createElement(react_notifications_1.NotificationContainer, null),
             React.createElement("nav", { className: "navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light", id: "ftco-navbar" },
@@ -109,7 +110,7 @@ var Header = /** @class */ (function (_super) {
                                 React.createElement("li", { className: "nav-item " + headerDictionary.Item('Cart') },
                                     React.createElement("a", { href: "/#/cart", className: "nav-link" },
                                         React.createElement("span", { className: "icon-shopping_cart" }),
-                                        "[0]"))
+                                        cartItemNumber))
                                 :
                                     React.createElement("li", { className: "dropdown nav-item" },
                                         React.createElement("div", { id: "dropdownMenu", "data-toggle": "dropdown", className: "nav-link dropdown" },

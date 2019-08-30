@@ -344,6 +344,7 @@ var Header = /** @class */ (function (_super) {
     };
     Header.prototype.render = function () {
         var _a = this.state, headerDictionary = _a.headerDictionary, loggedIn = _a.loggedIn, api_response = _a.api_response;
+        var cartItemNumber = sfcookies_1.read_cookie('cartProducts').count;
         return (React.createElement("div", null,
             React.createElement(react_notifications_1.NotificationContainer, null),
             React.createElement("nav", { className: "navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light", id: "ftco-navbar" },
@@ -374,7 +375,7 @@ var Header = /** @class */ (function (_super) {
                                 React.createElement("li", { className: "nav-item " + headerDictionary.Item('Cart') },
                                     React.createElement("a", { href: "/#/cart", className: "nav-link" },
                                         React.createElement("span", { className: "icon-shopping_cart" }),
-                                        "[0]"))
+                                        cartItemNumber))
                                 :
                                     React.createElement("li", { className: "dropdown nav-item" },
                                         React.createElement("div", { id: "dropdownMenu", "data-toggle": "dropdown", className: "nav-link dropdown" },
@@ -1330,20 +1331,25 @@ var Product = /** @class */ (function (_super) {
             //console.log(err);        
         });
     };
+    Product.prototype.readCartFromCookie = function (cookie) {
+        var cartProducts = new Dictionary_1.KeyedCollection();
+        for (var prop in cookie.items) {
+            cartProducts.Add(parseInt(prop, 10), cookie.items[prop]);
+        }
+        return cartProducts;
+    };
     Product.prototype.addProductToCart = function (productId, no) {
         var cookie = sfcookies_1.read_cookie('cartProducts');
-        console.log(cookie);
         if (cookie.length == 0) {
             var cartProducts = new Dictionary_1.KeyedCollection();
         }
         else {
-            var cartProducts = cookie;
+            var cartProducts = this.readCartFromCookie(cookie);
             if (cartProducts.ContainsKey(productId)) {
                 no = no + cartProducts.Item(productId);
                 cartProducts.Remove(productId);
             }
         }
-        console.log(cartProducts);
         cartProducts.Add(productId, no);
         sfcookies_1.delete_cookie('cartProducts');
         sfcookies_1.bake_cookie('cartProducts', cartProducts);
@@ -2262,6 +2268,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
+var sfcookies_1 = __webpack_require__(/*! sfcookies */ "./node_modules/sfcookies/index.js");
 var config = __webpack_require__(/*! config */ "config");
 var API_Path = config.API_Path;
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -2291,7 +2299,31 @@ var SectionProducts = /** @class */ (function (_super) {
         })
             .then();
     };
+    SectionProducts.prototype.readCartFromCookie = function (cookie) {
+        var cartProducts = new Dictionary_1.KeyedCollection();
+        for (var prop in cookie.items) {
+            cartProducts.Add(parseInt(prop, 10), cookie.items[prop]);
+        }
+        return cartProducts;
+    };
+    SectionProducts.prototype.addProductToCart = function (productId, no) {
+        var cookie = sfcookies_1.read_cookie('cartProducts');
+        if (cookie.length == 0) {
+            var cartProducts = new Dictionary_1.KeyedCollection();
+        }
+        else {
+            var cartProducts = this.readCartFromCookie(cookie);
+            if (cartProducts.ContainsKey(productId)) {
+                no = no + cartProducts.Item(productId);
+                cartProducts.Remove(productId);
+            }
+        }
+        cartProducts.Add(productId, no);
+        sfcookies_1.delete_cookie('cartProducts');
+        sfcookies_1.bake_cookie('cartProducts', cartProducts);
+    };
     SectionProducts.prototype.render = function () {
+        var _this = this;
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, gender = _a.gender, type = _a.type;
         if (error) {
             console.log(error);
@@ -2324,7 +2356,7 @@ var SectionProducts = /** @class */ (function (_super) {
                                             "$",
                                             item.Price))),
                                 React.createElement("p", { className: "bottom-area d-flex px-3" },
-                                    React.createElement("a", { href: "#", className: "add-to-cart text-center py-2 mr-1" },
+                                    React.createElement("a", { href: "#", className: "add-to-cart text-center py-2 mr-1", onClick: function () { return _this.addProductToCart(item.ProductId, 1); } },
                                         React.createElement("span", null,
                                             "Add to cart ",
                                             React.createElement("i", { className: "ion-ios-add ml-1" }))),
@@ -29803,7 +29835,7 @@ if(false) {}
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

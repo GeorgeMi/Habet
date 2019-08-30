@@ -53,29 +53,35 @@ export class Product extends React.Component<any, any>
             })
     }
 
+    readCartFromCookie(cookie) {
+        var cartProducts = new KeyedCollection<number>();
+        for (var prop in cookie.items) {
+            cartProducts.Add(parseInt(prop, 10), cookie.items[prop]);
+        }
+
+        return cartProducts;
+    }
+
     addProductToCart(productId: number, no: number) {
         var cookie = read_cookie('cartProducts');
-        console.log(cookie as KeyedCollection<number>);
         if (cookie.length == 0)
         {
             var cartProducts = new KeyedCollection<number>();
         }
         else
         {
-            var cartProducts = cookie as KeyedCollection<number>;
-            if (cartProducts.ContainsKey(productId))
-            {
+            var cartProducts = this.readCartFromCookie(cookie);
+            if (cartProducts.ContainsKey(productId)) {
                 no = no + cartProducts.Item(productId);
                 cartProducts.Remove(productId);
             }
         }
-        console.log(cartProducts);
-        cartProducts.Add(productId, no);
 
+        cartProducts.Add(productId, no);
         delete_cookie('cartProducts');
         bake_cookie('cartProducts', cartProducts);
     }
-    
+   
     increaseQuantity = () => {
         this.setState({ quantity: this.state.quantity + 1 });
     }

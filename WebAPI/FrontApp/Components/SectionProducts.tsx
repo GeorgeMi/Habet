@@ -1,4 +1,6 @@
 ﻿import * as React from 'react';
+import { KeyedCollection } from './Dictionary';
+import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
 
 var config = require('config');
 var API_Path = config.API_Path;
@@ -30,6 +32,33 @@ export class SectionProducts extends React.Component<any, any>
                 this.setState({ isLoaded: true, error });
             })
             .then();
+    }
+
+    readCartFromCookie(cookie) {
+        var cartProducts = new KeyedCollection<number>();
+        for (var prop in cookie.items) {
+            cartProducts.Add(parseInt(prop, 10), cookie.items[prop]);
+        }
+
+        return cartProducts;
+    }
+
+    addProductToCart(productId: number, no: number) {
+        var cookie = read_cookie('cartProducts');
+        if (cookie.length == 0) {
+            var cartProducts = new KeyedCollection<number>();
+        }
+        else {
+            var cartProducts = this.readCartFromCookie(cookie);
+            if (cartProducts.ContainsKey(productId)) {
+                no = no + cartProducts.Item(productId);
+                cartProducts.Remove(productId);
+            }
+        }
+
+        cartProducts.Add(productId, no);
+        delete_cookie('cartProducts');
+        bake_cookie('cartProducts', cartProducts);
     }
 
 
@@ -68,7 +97,7 @@ export class SectionProducts extends React.Component<any, any>
                                                     <p className="price"><span>${item.Price}</span></p>
                                                 </div>
                                                 <p className="bottom-area d-flex px-3">
-                                                    <a href="#" className="add-to-cart text-center py-2 mr-1"><span>Add to cart <i className="ion-ios-add ml-1"></i></span></a>
+                                                    <a href="#" className="add-to-cart text-center py-2 mr-1" onClick={() => this.addProductToCart(item.ProductId, 1)}><span>Add to cart <i className="ion-ios-add ml-1"></i></span></a>
                                                     <a href="#" className="buy-now text-center py-2">Buy now<span><i className="ion-ios-cart ml-1"></i></span></a>
                                                 </p>
                                             </div>

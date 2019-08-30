@@ -14,6 +14,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
+var Dictionary_1 = require("./Dictionary");
+var sfcookies_1 = require("sfcookies");
 var config = require('config');
 var API_Path = config.API_Path;
 var axios = require('axios');
@@ -43,7 +45,31 @@ var SectionProducts = /** @class */ (function (_super) {
         })
             .then();
     };
+    SectionProducts.prototype.readCartFromCookie = function (cookie) {
+        var cartProducts = new Dictionary_1.KeyedCollection();
+        for (var prop in cookie.items) {
+            cartProducts.Add(parseInt(prop, 10), cookie.items[prop]);
+        }
+        return cartProducts;
+    };
+    SectionProducts.prototype.addProductToCart = function (productId, no) {
+        var cookie = sfcookies_1.read_cookie('cartProducts');
+        if (cookie.length == 0) {
+            var cartProducts = new Dictionary_1.KeyedCollection();
+        }
+        else {
+            var cartProducts = this.readCartFromCookie(cookie);
+            if (cartProducts.ContainsKey(productId)) {
+                no = no + cartProducts.Item(productId);
+                cartProducts.Remove(productId);
+            }
+        }
+        cartProducts.Add(productId, no);
+        sfcookies_1.delete_cookie('cartProducts');
+        sfcookies_1.bake_cookie('cartProducts', cartProducts);
+    };
     SectionProducts.prototype.render = function () {
+        var _this = this;
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, gender = _a.gender, type = _a.type;
         if (error) {
             console.log(error);
@@ -76,7 +102,7 @@ var SectionProducts = /** @class */ (function (_super) {
                                             "$",
                                             item.Price))),
                                 React.createElement("p", { className: "bottom-area d-flex px-3" },
-                                    React.createElement("a", { href: "#", className: "add-to-cart text-center py-2 mr-1" },
+                                    React.createElement("a", { href: "#", className: "add-to-cart text-center py-2 mr-1", onClick: function () { return _this.addProductToCart(item.ProductId, 1); } },
                                         React.createElement("span", null,
                                             "Add to cart ",
                                             React.createElement("i", { className: "ion-ios-add ml-1" }))),
