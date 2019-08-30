@@ -42,7 +42,7 @@ namespace Api.Controllers
             Random rnd = new Random();
             for (int i = 0; i < 3; i++)
             {
-                productList.Add(new Products { Name = "Name" + i, Price = i, ProductId = rnd.Next(1, 131231) });
+                productList.Add(new Products { Name = "Name" + i, Price = i+1, ProductId = rnd.Next(1, 4) });
             }
 
             List<ProductInfo> result = new List<ProductInfo>();
@@ -71,7 +71,7 @@ namespace Api.Controllers
             JSend json;
             //  var product = db.Products.Find(id);
             Random rnd = new Random();
-            var product = new Products { Name = "Name" + 1, Price = 1, Description= "Description", ProductId = rnd.Next(1, 131231) };
+            var product = new Products { Name = "Name" + 1, Price = 1, Description= "Description", ProductId = rnd.Next(1, 4) };
 
 
             if (product != null)
@@ -94,6 +94,40 @@ namespace Api.Controllers
             }
 
             //return new Products { Description = "Description" + id, Name = "Name" + id, Price = id, ProductId = id };
+            return responseMessage;
+        }
+
+        // GET: api/Products/5
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/ChartProducts")]
+        [ResponseType(typeof(HttpResponseMessage))]
+        public HttpResponseMessage GetCartProducts(GetCartProductsDTO request)
+        {
+            HttpResponseMessage responseMessage;
+            var productList = new List<Products>();
+            // productList = db.Products.Where(p=> request.ProductIds.Contains(p.ProductId)).ToList();
+
+            Random rnd = new Random();
+            for (int i = 0; i < request.ProductIds.Count; i++)
+            {
+                productList.Add(new Products { Name = "Name" + i, Price = i+1, ProductId = request.ProductIds[i] });
+            }
+
+            var result = new List<ProductInfo>();
+            foreach (var product in productList)
+            {
+                result.Add(new ProductInfo
+                {
+                    Name = product.Name,
+                    Price = product.Price,
+                    ProductId = product.ProductId,
+                    Image = new ProductsImagesController().GetProductsImages(product.ProductId)
+                });
+            }
+
+            JSend json = new JSendData<ProductInfo>("success", result);
+            responseMessage = Request.CreateResponse(HttpStatusCode.OK, json);
+
             return responseMessage;
         }
 

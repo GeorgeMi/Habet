@@ -26,14 +26,13 @@ var KeyedCollection = /** @class */ (function () {
         return this.items[key];
     };
     KeyedCollection.prototype.Keys = function () {
-        //var keySet: number[] = [];
-        //for (var prop in this.items) {
-        //    if (this.items.hasOwnProperty(prop)) {
-        //        keySet.push(prop);
-        //    }
-        //}
-        //return keySet;
-        return [];
+        var keySet = [];
+        for (var prop in this.items) {
+            if (this.items.hasOwnProperty(prop)) {
+                keySet.push(Number(prop));
+            }
+        }
+        return keySet;
     };
     KeyedCollection.prototype.Values = function () {
         var values = [];

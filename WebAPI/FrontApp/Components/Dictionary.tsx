@@ -40,16 +40,15 @@ export class KeyedCollection<T> implements IKeyedCollection<T> {
     }
 
     public Keys(): number[] {
-        //var keySet: number[] = [];
+        var keySet: number[] = [];
 
-        //for (var prop in this.items) {
-        //    if (this.items.hasOwnProperty(prop)) {
-        //        keySet.push(prop);
-        //    }
-        //}
+        for (var prop in this.items) {
+            if (this.items.hasOwnProperty(prop)) {
+                keySet.push(Number(prop));
+            }
+        }
 
-        //return keySet;
-        return [];
+        return keySet;
     }
 
     public Values(): T[] {

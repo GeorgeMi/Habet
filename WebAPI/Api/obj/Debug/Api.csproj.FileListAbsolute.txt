@@ -284,4 +284,3 @@ D:\project\Habet\WebAPI\Api\bin\MassTransit.xml
 D:\project\Habet\WebAPI\Api\bin\NewId.xml
 D:\project\Habet\WebAPI\Api\bin\Newtonsoft.Json.Bson.xml
 D:\project\Habet\WebAPI\Api\bin\System.ValueTuple.xml
-D:\project\Habet\WebAPI\Api\obj\Debug\Api.csprojAssemblyReference.cache
