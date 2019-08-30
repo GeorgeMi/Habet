@@ -17,6 +17,7 @@ var React = require("react");
 var Header_1 = require("./Header");
 var Dictionary_1 = require("./Dictionary");
 var sfcookies_1 = require("sfcookies");
+var react_router_hash_link_1 = require("react-router-hash-link");
 var config = require('config');
 var API_Path = config.API_Path;
 var axios = require('axios');
@@ -84,8 +85,6 @@ var Cart = /** @class */ (function (_super) {
         var subtotal = 0;
         var delivery = 0;
         var cartProducts = this.readCartFromCookie(sfcookies_1.read_cookie('cartProducts'));
-        console.log(this.state.items);
-        console.log(cartProducts);
         this.state.items.map(function (item, i) { return (subtotal = subtotal + (item.Price * cartProducts.Item(item.ProductId))); });
         this.setState({ delivery: 0, subtotal: subtotal, total: subtotal + delivery });
     };
@@ -171,7 +170,7 @@ var Cart = /** @class */ (function (_super) {
                                             "$",
                                             this.state.total))),
                                 React.createElement("p", { className: "text-center" },
-                                    React.createElement("a", { href: "checkout.html", className: "btn btn-primary py-3 px-4" }, "Proceed to Checkout"))))))));
+                                    React.createElement(react_router_hash_link_1.HashLink, { to: "/checkout", className: "btn btn-primary py-3 px-4", params: { subtotal: this.state.subtotal } }, "Proceed to Checkout"))))))));
         }
     };
     return Cart;

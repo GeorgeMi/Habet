@@ -2,6 +2,7 @@
 import { Header } from './Header';
 import { KeyedCollection } from './Dictionary';
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
+import { HashLink as Link } from 'react-router-hash-link';
 
 var config = require('config');
 var API_Path = config.API_Path;
@@ -84,8 +85,6 @@ export class Cart extends React.Component<any, any>{
         var subtotal = 0;
         var delivery = 0;
         var cartProducts = this.readCartFromCookie(read_cookie('cartProducts'));
-        console.log(this.state.items);
-        console.log(cartProducts);
         this.state.items.map((item, i) => (subtotal = subtotal + (item.Price * cartProducts.Item(item.ProductId))));
 
         this.setState({ delivery: 0, subtotal: subtotal, total: subtotal + delivery });
@@ -189,7 +188,9 @@ export class Cart extends React.Component<any, any>{
                                             <span>${this.state.total}</span>
                                         </p>
                                     </div>
-                                    <p className="text-center"><a href="checkout.html" className="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+                                    <p className="text-center">
+                                        <Link to="/checkout" className="btn btn-primary py-3 px-4" params={{ subtotal: this.state.subtotal, delivery: this.state.delivery, total: this.state.total }}>Proceed to Checkout</Link>
+                                    </p>
                                 </div>
                             </div>
                         </div>

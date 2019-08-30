@@ -580,6 +580,7 @@ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
 var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
 var sfcookies_1 = __webpack_require__(/*! sfcookies */ "./node_modules/sfcookies/index.js");
+var react_router_hash_link_1 = __webpack_require__(/*! react-router-hash-link */ "./node_modules/react-router-hash-link/lib/index.js");
 var config = __webpack_require__(/*! config */ "config");
 var API_Path = config.API_Path;
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -647,8 +648,6 @@ var Cart = /** @class */ (function (_super) {
         var subtotal = 0;
         var delivery = 0;
         var cartProducts = this.readCartFromCookie(sfcookies_1.read_cookie('cartProducts'));
-        console.log(this.state.items);
-        console.log(cartProducts);
         this.state.items.map(function (item, i) { return (subtotal = subtotal + (item.Price * cartProducts.Item(item.ProductId))); });
         this.setState({ delivery: 0, subtotal: subtotal, total: subtotal + delivery });
     };
@@ -734,7 +733,7 @@ var Cart = /** @class */ (function (_super) {
                                             "$",
                                             this.state.total))),
                                 React.createElement("p", { className: "text-center" },
-                                    React.createElement("a", { href: "checkout.html", className: "btn btn-primary py-3 px-4" }, "Proceed to Checkout"))))))));
+                                    React.createElement(react_router_hash_link_1.HashLink, { to: "/checkout", className: "btn btn-primary py-3 px-4", params: { subtotal: this.state.subtotal } }, "Proceed to Checkout"))))))));
         }
     };
     return Cart;
@@ -885,8 +884,11 @@ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
 var Checkout = /** @class */ (function (_super) {
     __extends(Checkout, _super);
-    function Checkout() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function Checkout(props) {
+        var _this = _super.call(this, props) || this;
+        console.log(props);
+        _this.state = { isLoaded: false, error: null, subtotal: props.match.params.subtotal, total: props.match.params.total, delivery: props.match.params.delivery };
+        return _this;
     }
     Checkout.prototype.render = function () {
         return (React.createElement("main", { id: "main" },
@@ -920,12 +922,55 @@ var Checkout = /** @class */ (function (_super) {
                                                     React.createElement("div", { className: "icon" },
                                                         React.createElement("span", { className: "ion-ios-arrow-down" })),
                                                     React.createElement("select", { name: "", id: "", className: "form-control" },
-                                                        React.createElement("option", { value: "" }, "France"),
-                                                        React.createElement("option", { value: "" }, "Italy"),
-                                                        React.createElement("option", { value: "" }, "Philippines"),
-                                                        React.createElement("option", { value: "" }, "South Korea"),
-                                                        React.createElement("option", { value: "" }, "Hongkong"),
-                                                        React.createElement("option", { value: "" }, "Japan"))))),
+                                                        React.createElement("option", { value: "GB" }, "United Kingdom"),
+                                                        React.createElement("option", { value: "AL" }, "Albania"),
+                                                        React.createElement("option", { value: "AD" }, "Andorra"),
+                                                        React.createElement("option", { value: "AT" }, "Austria"),
+                                                        React.createElement("option", { value: "BY" }, "Belarus"),
+                                                        React.createElement("option", { value: "BE" }, "Belgium"),
+                                                        React.createElement("option", { value: "BA" }, "Bosnia and Herzegovina"),
+                                                        React.createElement("option", { value: "BG" }, "Bulgaria"),
+                                                        React.createElement("option", { value: "HR" }, "Croatia (Hrvatska)"),
+                                                        React.createElement("option", { value: "CY" }, "Cyprus"),
+                                                        React.createElement("option", { value: "CZ" }, "Czech Republic"),
+                                                        React.createElement("option", { value: "FR" }, "France"),
+                                                        React.createElement("option", { value: "GI" }, "Gibraltar"),
+                                                        React.createElement("option", { value: "DE" }, "Germany"),
+                                                        React.createElement("option", { value: "GR" }, "Greece"),
+                                                        React.createElement("option", { value: "VA" }, "Holy See (Vatican City State)"),
+                                                        React.createElement("option", { value: "HU" }, "Hungary"),
+                                                        React.createElement("option", { value: "IT" }, "Italy"),
+                                                        React.createElement("option", { value: "LI" }, "Liechtenstein"),
+                                                        React.createElement("option", { value: "LU" }, "Luxembourg"),
+                                                        React.createElement("option", { value: "MK" }, "Macedonia"),
+                                                        React.createElement("option", { value: "MT" }, "Malta"),
+                                                        React.createElement("option", { value: "MD" }, "Moldova"),
+                                                        React.createElement("option", { value: "MC" }, "Monaco"),
+                                                        React.createElement("option", { value: "ME" }, "Montenegro"),
+                                                        React.createElement("option", { value: "NL" }, "Netherlands"),
+                                                        React.createElement("option", { value: "PL" }, "Poland"),
+                                                        React.createElement("option", { value: "PT" }, "Portugal"),
+                                                        React.createElement("option", { value: "RO" }, "Romania"),
+                                                        React.createElement("option", { value: "SM" }, "San Marino"),
+                                                        React.createElement("option", { value: "RS" }, "Serbia"),
+                                                        React.createElement("option", { value: "SK" }, "Slovakia"),
+                                                        React.createElement("option", { value: "SI" }, "Slovenia"),
+                                                        React.createElement("option", { value: "ES" }, "Spain"),
+                                                        React.createElement("option", { value: "UA" }, "Ukraine"),
+                                                        React.createElement("option", { value: "DK" }, "Denmark"),
+                                                        React.createElement("option", { value: "EE" }, "Estonia"),
+                                                        React.createElement("option", { value: "FO" }, "Faroe Islands"),
+                                                        React.createElement("option", { value: "FI" }, "Finland"),
+                                                        React.createElement("option", { value: "GL" }, "Greenland"),
+                                                        React.createElement("option", { value: "IS" }, "Iceland"),
+                                                        React.createElement("option", { value: "IE" }, "Ireland"),
+                                                        React.createElement("option", { value: "LV" }, "Latvia"),
+                                                        React.createElement("option", { value: "LT" }, "Lithuania"),
+                                                        React.createElement("option", { value: "NO" }, "Norway"),
+                                                        React.createElement("option", { value: "SJ" }, "Svalbard and Jan Mayen Islands"),
+                                                        React.createElement("option", { value: "SE" }, "Sweden"),
+                                                        React.createElement("option", { value: "CH" }, "Switzerland"),
+                                                        React.createElement("option", { value: "TR" }, "Turkey"))))),
                                         React.createElement("div", { className: "w-100" }),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
@@ -968,17 +1013,20 @@ var Checkout = /** @class */ (function (_super) {
                                             React.createElement("h3", { className: "billing-heading mb-4" }, "Cart Total"),
                                             React.createElement("p", { className: "d-flex" },
                                                 React.createElement("span", null, "Subtotal"),
-                                                React.createElement("span", null, "$20.60")),
+                                                React.createElement("span", null,
+                                                    "$",
+                                                    this.state.subtotal)),
                                             React.createElement("p", { className: "d-flex" },
                                                 React.createElement("span", null, "Delivery"),
-                                                React.createElement("span", null, "$0.00")),
-                                            React.createElement("p", { className: "d-flex" },
-                                                React.createElement("span", null, "Discount"),
-                                                React.createElement("span", null, "$3.00")),
+                                                React.createElement("span", null,
+                                                    "$",
+                                                    this.state.delivery)),
                                             React.createElement("hr", null),
                                             React.createElement("p", { className: "d-flex total-price" },
                                                 React.createElement("span", null, "Total"),
-                                                React.createElement("span", null, "$17.60")))),
+                                                React.createElement("span", null,
+                                                    "$",
+                                                    this.state.total)))),
                                     React.createElement("div", { className: "col-md-6" },
                                         React.createElement("div", { className: "cart-detail bg-light p-3 p-md-4" },
                                             React.createElement("h3", { className: "billing-heading mb-4" }, "Payment Method"),
@@ -29918,7 +29966,7 @@ if(false) {}
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
