@@ -113,7 +113,6 @@ var UpdateUserDetails = /** @class */ (function (_super) {
                 error.message);
         }
         else if (!isLoaded) {
-            console.log(this.state);
             return (React.createElement("main", { id: "main" },
                 waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
                 React.createElement("div", null,

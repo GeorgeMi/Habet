@@ -170,7 +170,7 @@ var Cart = /** @class */ (function (_super) {
                                             "$",
                                             this.state.total))),
                                 React.createElement("p", { className: "text-center" },
-                                    React.createElement(react_router_hash_link_1.HashLink, { to: "/checkout", className: "btn btn-primary py-3 px-4", params: { subtotal: this.state.subtotal } }, "Proceed to Checkout"))))))));
+                                    React.createElement(react_router_hash_link_1.HashLink, { to: "/checkout", className: "btn btn-primary py-3 px-4", subtotal: this.state.subtotal, delivery: this.state.delivery, total: this.state.total }, "Proceed to Checkout"))))))));
         }
     };
     return Cart;

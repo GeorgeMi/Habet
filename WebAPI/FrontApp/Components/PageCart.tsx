@@ -151,14 +151,14 @@ export class Cart extends React.Component<any, any>{
                                                             <td className="product-remove"><span onClick={() => this.removeProductFromCart(item.ProductId)} className="ion-ios-close"></span></td>
 
                                                             <td className="image-prod"><img src={item.Image} className="img-fluid" alt="..." /></td>
-                                                            
+
                                                             <td className="product-name"><h3>{item.Name}</h3></td>
 
                                                             <td className="price">${item.Price}</td>
 
                                                             <td className="quantity">
                                                                 <div className="input-group mb-3">
-                                                                    <input type="text" name={item.ProductId} className="quantity form-control input-number" value={this.getQuantity(item.ProductId)} min="1" max="100" onChange={this.handleChange}/>
+                                                                    <input type="text" name={item.ProductId} className="quantity form-control input-number" value={this.getQuantity(item.ProductId)} min="1" max="100" onChange={this.handleChange} />
                                                                 </div>
                                                             </td>
 
@@ -189,7 +189,7 @@ export class Cart extends React.Component<any, any>{
                                         </p>
                                     </div>
                                     <p className="text-center">
-                                        <Link to="/checkout" className="btn btn-primary py-3 px-4" params={{ subtotal: this.state.subtotal, delivery: this.state.delivery, total: this.state.total }}>Proceed to Checkout</Link>
+                                        <Link to="/checkout" className="btn btn-primary py-3 px-4" subtotal={this.state.subtotal} delivery={this.state.delivery} total={this.state.total}>Proceed to Checkout</Link>
                                     </p>
                                 </div>
                             </div>

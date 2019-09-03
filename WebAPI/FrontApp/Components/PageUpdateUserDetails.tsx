@@ -104,7 +104,6 @@ export class UpdateUserDetails extends React.Component<any, any> {
             console.log(error);
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
-            console.log(this.state)
             return (
                 <main id="main">
                     {waitingResponse ? <div className="loading">Loading&#8230;</div> : <div></div>}
