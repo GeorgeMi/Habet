@@ -1904,166 +1904,221 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
+var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
+var sfcookies_1 = __webpack_require__(/*! sfcookies */ "./node_modules/sfcookies/index.js");
+var react_notifications_1 = __webpack_require__(/*! react-notifications */ "./node_modules/react-notifications/lib/index.js");
+__webpack_require__(/*! react-notifications/lib/notifications.css */ "./node_modules/react-notifications/lib/notifications.css");
+var react_js_pagination_1 = __webpack_require__(/*! react-js-pagination */ "./node_modules/react-js-pagination/dist/Pagination.js");
+var config = __webpack_require__(/*! config */ "config");
+var API_Path = config.API_Path;
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 var Search = /** @class */ (function (_super) {
     __extends(Search, _super);
-    function Search() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function Search(props) {
+        var _this = _super.call(this, props) || this;
+        _this.state = {
+            gender: props.Gender,
+            type: props.Type,
+            priceInterval: '',
+            items: null,
+            isLoaded: false,
+            error: null,
+            waitingResponse: false,
+            isChanged: false,
+            pageNumber: 1
+        };
+        _this.handleChange = _this.handleChange.bind(_this);
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        return _this;
     }
+    Search.prototype.componentWillMount = function () {
+        var _this = this;
+        axios.get(API_Path + '/Products', {
+            params: {
+                top: 5,
+                from: 0,
+                gender: "",
+                type: "intro"
+            }
+        })
+            .then(function (response) {
+            _this.setState({ isLoaded: true, items: response.data.data });
+        })
+            .catch(function (error) {
+            _this.setState({ isLoaded: true, error: error });
+        })
+            .then();
+    };
+    Search.prototype.readCartFromCookie = function (cookie) {
+        var cartProducts = new Dictionary_1.KeyedCollection();
+        for (var prop in cookie.items) {
+            cartProducts.Add(parseInt(prop, 10), cookie.items[prop]);
+        }
+        return cartProducts;
+    };
+    Search.prototype.handleChange = function (event) {
+        var _a;
+        this.setState((_a = {}, _a[event.target.name] = event.target.value, _a));
+        this.setState({ isChanged: true });
+    };
+    Search.prototype.handleSubmit = function (event) {
+        var _this = this;
+        event.preventDefault();
+        if (this.state.waitingResponse == false) {
+            this.setState({ waitingResponse: true });
+        }
+        axios.get(API_Path + '/Products', {
+            priceInterval: this.state.priceInterval,
+            gender: this.state.gender,
+            type: this.state.type,
+            pageNumber: this.state.pageNumber
+        })
+            .catch(function (error) {
+            react_notifications_1.NotificationManager.error("Request failed. Please, try again later.");
+        })
+            .then(function () {
+            _this.setState({ waitingResponse: false });
+        });
+    };
+    Search.prototype.addProductToCart = function (productId, no) {
+        var cookie = sfcookies_1.read_cookie('cartProducts');
+        if (cookie.length == 0) {
+            var cartProducts = new Dictionary_1.KeyedCollection();
+        }
+        else {
+            var cartProducts = this.readCartFromCookie(cookie);
+            if (cartProducts.ContainsKey(productId)) {
+                no = no + cartProducts.Item(productId);
+                cartProducts.Remove(productId);
+            }
+        }
+        cartProducts.Add(productId, no);
+        sfcookies_1.delete_cookie('cartProducts');
+        sfcookies_1.bake_cookie('cartProducts', cartProducts);
+    };
     Search.prototype.render = function () {
-        return (React.createElement("main", { id: "main" },
-            React.createElement("div", null,
-                React.createElement(Header_1.Header, { Active: 'Search' }),
-                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
-                    React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
-                        React.createElement("div", { className: "col-md-9 text-center" },
-                            React.createElement("h1", { className: "mb-0 bread" }, "Search products")))),
-                React.createElement("section", { className: "ftco-section bg-light" },
-                    React.createElement("div", { className: "container" },
-                        React.createElement("div", { className: "row" },
-                            React.createElement("div", { className: "col-md-8 col-lg-10 order-md-last" },
-                                React.createElement("div", { className: "row" },
-                                    React.createElement("div", { className: "col-sm-12 col-md-12 col-lg-4 d-flex" },
+        var _this = this;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, gender = _a.gender, type = _a.type;
+        if (error) {
+            console.log(error);
+            return React.createElement("div", null,
+                "Error: ",
+                error.message);
+        }
+        else if (!isLoaded) {
+            return React.createElement("div", null);
+        }
+        else {
+            return (React.createElement("main", { id: "main" },
+                React.createElement("div", null,
+                    React.createElement(Header_1.Header, { Active: 'Search' }),
+                    React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                        React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
+                            React.createElement("div", { className: "col-md-9 text-center" },
+                                React.createElement("h1", { className: "mb-0 bread" }, "Search products")))),
+                    React.createElement("section", { className: "ftco-section bg-light" },
+                        React.createElement("div", { className: "container" },
+                            React.createElement("div", { className: "row" },
+                                React.createElement("div", { className: "col-md-8 col-lg-10 order-md-last" },
+                                    React.createElement("div", { className: "row" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 product-item filter-app wow fadeInUp" },
                                         React.createElement("div", { className: "product d-flex flex-column" },
-                                            React.createElement("a", { href: "#", className: "img-prod" },
-                                                React.createElement("img", { className: "img-fluid", src: "images/product.png", alt: "..." }),
+                                            React.createElement("a", { href: "/#/item/" + item.ProductId, className: "img-prod" },
+                                                React.createElement("img", { className: "img-fluid", src: item.Image, alt: "" }),
                                                 React.createElement("div", { className: "overlay" })),
                                             React.createElement("div", { className: "text py-3 pb-4 px-3" },
                                                 React.createElement("h3", null,
-                                                    React.createElement("a", { href: "#" }, "Nike Free RN 2019 iD")),
+                                                    React.createElement("a", { href: "/#/item/" + item.ProductId }, item.Name)),
                                                 React.createElement("div", { className: "pricing" },
                                                     React.createElement("p", { className: "price" },
-                                                        React.createElement("span", null, "$120.00"))),
+                                                        React.createElement("span", null,
+                                                            "$",
+                                                            item.Price))),
                                                 React.createElement("p", { className: "bottom-area d-flex px-3" },
-                                                    React.createElement("a", { href: "#", className: "add-to-cart text-center py-2 mr-1" },
+                                                    React.createElement("a", { href: "#", className: "add-to-cart text-center py-2 mr-1", onClick: function () { return _this.addProductToCart(item.ProductId, 1); } },
                                                         React.createElement("span", null,
                                                             "Add to cart ",
                                                             React.createElement("i", { className: "ion-ios-add ml-1" }))),
                                                     React.createElement("a", { href: "#", className: "buy-now text-center py-2" },
                                                         "Buy now",
                                                         React.createElement("span", null,
-                                                            React.createElement("i", { className: "ion-ios-cart ml-1" })))))))),
-                                React.createElement("div", { className: "row mt-5" },
-                                    React.createElement("div", { className: "col text-center" },
-                                        React.createElement("div", { className: "block-27" },
-                                            React.createElement("ul", null,
-                                                React.createElement("li", null,
-                                                    React.createElement("a", { href: "#" }, "<")),
-                                                React.createElement("li", { className: "active" },
-                                                    React.createElement("span", null, "1")),
-                                                React.createElement("li", null,
-                                                    React.createElement("a", { href: "#" }, "2")),
-                                                React.createElement("li", null,
-                                                    React.createElement("a", { href: "#" }, "3")),
-                                                React.createElement("li", null,
-                                                    React.createElement("a", { href: "#" }, "4")),
-                                                React.createElement("li", null,
-                                                    React.createElement("a", { href: "#" }, "5")),
-                                                React.createElement("li", null,
-                                                    React.createElement("a", { href: "#" }, ">"))))))),
-                            React.createElement("div", { className: "col-md-4 col-lg-2" },
-                                React.createElement("div", { className: "sidebar" },
-                                    React.createElement("div", { className: "sidebar-box-2" },
-                                        React.createElement("h2", { className: "heading" }, "Categories"),
-                                        React.createElement("div", { className: "fancy-collapse-panel" },
-                                            React.createElement("div", { className: "panel-group", id: "accordion", role: "tablist", "aria-multiselectable": "true" },
-                                                React.createElement("div", { className: "panel panel-default" },
-                                                    React.createElement("div", { className: "panel-heading", role: "tab", id: "headingOne" },
-                                                        React.createElement("h4", { className: "panel-title" },
-                                                            React.createElement("a", { "data-toggle": "collapse", "data-parent": "#accordion", href: "#collapseOne", "aria-expanded": "true", "aria-controls": "collapseOne" }, "Men's Shoes"))),
-                                                    React.createElement("div", { id: "collapseOne", className: "panel-collapse collapse", role: "tabpanel", "aria-labelledby": "headingOne" },
-                                                        React.createElement("div", { className: "panel-body" },
-                                                            React.createElement("ul", null,
-                                                                React.createElement("li", null,
-                                                                    React.createElement("a", { href: "#" }, "Sport")),
-                                                                React.createElement("li", null,
-                                                                    React.createElement("a", { href: "#" }, "Casual")),
-                                                                React.createElement("li", null,
-                                                                    React.createElement("a", { href: "#" }, "Running")),
-                                                                React.createElement("li", null,
-                                                                    React.createElement("a", { href: "#" }, "Jordan")),
-                                                                React.createElement("li", null,
-                                                                    React.createElement("a", { href: "#" }, "Soccer")),
-                                                                React.createElement("li", null,
-                                                                    React.createElement("a", { href: "#" }, "Football")),
-                                                                React.createElement("li", null,
-                                                                    React.createElement("a", { href: "#" }, "Lifestyle")))))),
-                                                React.createElement("div", { className: "panel panel-default" },
-                                                    React.createElement("div", { className: "panel-heading", role: "tab", id: "headingTwo" },
-                                                        React.createElement("h4", { className: "panel-title" },
-                                                            React.createElement("a", { className: "collapsed", "data-toggle": "collapse", "data-parent": "#accordion", href: "#collapseTwo", "aria-expanded": "false", "aria-controls": "collapseTwo" }, "Women's Shoes"))),
-                                                    React.createElement("div", { id: "collapseTwo", className: "panel-collapse collapse", role: "tabpanel", "aria-labelledby": "headingTwo" },
-                                                        React.createElement("div", { className: "panel-body" },
-                                                            React.createElement("ul", null,
-                                                                React.createElement("li", null,
-                                                                    React.createElement("a", { href: "#" }, "Sport")),
-                                                                React.createElement("li", null,
-                                                                    React.createElement("a", { href: "#" }, "Casual")),
-                                                                React.createElement("li", null,
-                                                                    React.createElement("a", { href: "#" }, "Running")),
-                                                                React.createElement("li", null,
-                                                                    React.createElement("a", { href: "#" }, "Jordan")),
-                                                                React.createElement("li", null,
-                                                                    React.createElement("a", { href: "#" }, "Soccer")),
-                                                                React.createElement("li", null,
-                                                                    React.createElement("a", { href: "#" }, "Football")),
-                                                                React.createElement("li", null,
-                                                                    React.createElement("a", { href: "#" }, "Lifestyle")))))),
-                                                React.createElement("div", { className: "panel panel-default" },
-                                                    React.createElement("div", { className: "panel-heading", role: "tab", id: "headingThree" },
-                                                        React.createElement("h4", { className: "panel-title" },
-                                                            React.createElement("a", { className: "collapsed", "data-toggle": "collapse", "data-parent": "#accordion", href: "#collapseThree", "aria-expanded": "false", "aria-controls": "collapseThree" }, "Accessories"))),
-                                                    React.createElement("div", { id: "collapseThree", className: "panel-collapse collapse", role: "tabpanel", "aria-labelledby": "headingThree" },
-                                                        React.createElement("div", { className: "panel-body" },
-                                                            React.createElement("ul", null,
-                                                                React.createElement("li", null,
-                                                                    React.createElement("a", { href: "#" }, "Jeans")),
-                                                                React.createElement("li", null,
-                                                                    React.createElement("a", { href: "#" }, "T-Shirt")),
-                                                                React.createElement("li", null,
-                                                                    React.createElement("a", { href: "#" }, "Jacket")),
-                                                                React.createElement("li", null,
-                                                                    React.createElement("a", { href: "#" }, "Shoes")))))),
-                                                React.createElement("div", { className: "panel panel-default" },
-                                                    React.createElement("div", { className: "panel-heading", role: "tab", id: "headingFour" },
-                                                        React.createElement("h4", { className: "panel-title" },
-                                                            React.createElement("a", { className: "collapsed", "data-toggle": "collapse", "data-parent": "#accordion", href: "#collapseFour", "aria-expanded": "false", "aria-controls": "collapseThree" }, "Clothing"))),
-                                                    React.createElement("div", { id: "collapseFour", className: "panel-collapse collapse", role: "tabpanel", "aria-labelledby": "headingFour" },
-                                                        React.createElement("div", { className: "panel-body" },
-                                                            React.createElement("ul", null,
-                                                                React.createElement("li", null,
-                                                                    React.createElement("a", { href: "#" }, "Jeans")),
-                                                                React.createElement("li", null,
-                                                                    React.createElement("a", { href: "#" }, "T-Shirt")),
-                                                                React.createElement("li", null,
-                                                                    React.createElement("a", { href: "#" }, "Jacket")),
-                                                                React.createElement("li", null,
-                                                                    React.createElement("a", { href: "#" }, "Shoes"))))))))),
-                                    React.createElement("div", { className: "sidebar-box-2" },
-                                        React.createElement("h2", { className: "heading" }, "Price Range"),
-                                        React.createElement("form", { method: "post", className: "product-form-2" },
-                                            React.createElement("div", { className: "row" },
-                                                React.createElement("div", { className: "col-md-12" },
-                                                    React.createElement("div", { className: "form-group" },
-                                                        React.createElement("label", { htmlFor: "guests" }, "Price from:"),
-                                                        React.createElement("div", { className: "form-field" },
-                                                            React.createElement("i", { className: "icon icon-arrow-down3" }),
-                                                            React.createElement("select", { name: "people", id: "people", className: "form-control" },
-                                                                React.createElement("option", { value: "#" }, "1"),
-                                                                React.createElement("option", { value: "#" }, "200"),
-                                                                React.createElement("option", { value: "#" }, "300"),
-                                                                React.createElement("option", { value: "#" }, "400"),
-                                                                React.createElement("option", { value: "#" }, "1000"))))),
-                                                React.createElement("div", { className: "col-md-12" },
-                                                    React.createElement("div", { className: "form-group" },
-                                                        React.createElement("label", { htmlFor: "guests" }, "Price to:"),
-                                                        React.createElement("div", { className: "form-field" },
-                                                            React.createElement("i", { className: "icon icon-arrow-down3" }),
-                                                            React.createElement("select", { name: "people", id: "people", className: "form-control" },
-                                                                React.createElement("option", { value: "#" }, "2000"),
-                                                                React.createElement("option", { value: "#" }, "4000"),
-                                                                React.createElement("option", { value: "#" }, "6000"),
-                                                                React.createElement("option", { value: "#" }, "8000"),
-                                                                React.createElement("option", { value: "#" }, "10000"))))))))))))))));
+                                                            React.createElement("i", { className: "ion-ios-cart ml-1" })))))))); })),
+                                    React.createElement("div", { className: "row mt-5" },
+                                        React.createElement("div", { className: "col text-center" },
+                                            React.createElement("div", { className: "block-27" },
+                                                React.createElement(react_js_pagination_1.default, { hideDisabled: true, activePage: this.state.activePage, itemsCountPerPage: 1, totalItemsCount: 10, onChange: this.handleChange })))),
+                                    React.createElement("div", { className: "row mt-5" },
+                                        React.createElement("div", { className: "col text-center" },
+                                            React.createElement("div", { className: "block-27" },
+                                                React.createElement("ul", null,
+                                                    React.createElement("li", null,
+                                                        React.createElement("a", { href: "#" }, "<")),
+                                                    React.createElement("li", { className: "active" },
+                                                        React.createElement("span", null, "1")),
+                                                    React.createElement("li", null,
+                                                        React.createElement("a", { href: "#" }, "2")),
+                                                    React.createElement("li", null,
+                                                        React.createElement("a", { href: "#" }, "3")),
+                                                    React.createElement("li", null,
+                                                        React.createElement("a", { href: "#" }, "4")),
+                                                    React.createElement("li", null,
+                                                        React.createElement("a", { href: "#" }, "5")),
+                                                    React.createElement("li", null,
+                                                        React.createElement("a", { href: "#" }, ">"))))))),
+                                React.createElement("div", { className: "col-md-4 col-lg-2" },
+                                    React.createElement("div", { className: "sidebar" },
+                                        React.createElement("div", { className: "sidebar-box-2" },
+                                            React.createElement("h2", { className: "heading" }, "Categories"),
+                                            React.createElement("div", { className: "fancy-collapse-panel" },
+                                                React.createElement("div", { className: "panel-group", id: "accordion", role: "tablist", "aria-multiselectable": "true" },
+                                                    React.createElement("div", { className: "panel panel-default" },
+                                                        React.createElement("div", { className: "panel-heading", role: "tab", id: "headingOne" },
+                                                            React.createElement("h4", { className: "panel-title" },
+                                                                React.createElement("a", { "data-toggle": "collapse", "data-parent": "#accordion", href: "#collapseOne", "aria-expanded": "true", "aria-controls": "collapseOne" }, "Gender"))),
+                                                        React.createElement("div", { id: "collapseOne", className: "panel-collapse collapse", role: "tabpanel", "aria-labelledby": "headingOne" },
+                                                            React.createElement("div", { className: "panel-body" },
+                                                                React.createElement("ul", null,
+                                                                    React.createElement("li", null,
+                                                                        React.createElement("input", { type: "radio", className: "form-check-input", name: "men", value: this.state.gender, id: "gender-men" }),
+                                                                        React.createElement("label", { className: "form-check-label", htmlFor: "gender-men" }, "Men")),
+                                                                    React.createElement("li", null,
+                                                                        React.createElement("input", { type: "radio", className: "form-check-input", name: "men", value: this.state.gender, id: "gender-women" }),
+                                                                        React.createElement("label", { className: "form-check-label", htmlFor: "gender-women" }, "Women")))))),
+                                                    React.createElement("div", { className: "panel panel-default" },
+                                                        React.createElement("div", { className: "panel-heading", role: "tab", id: "headingTwo" },
+                                                            React.createElement("h4", { className: "panel-title" },
+                                                                React.createElement("a", { className: "collapsed", "data-toggle": "collapse", "data-parent": "#accordion", href: "#collapseTwo", "aria-expanded": "false", "aria-controls": "collapseTwo" }, "Products"))),
+                                                        React.createElement("div", { id: "collapseTwo", className: "panel-collapse collapse", role: "tabpanel", "aria-labelledby": "headingTwo" },
+                                                            React.createElement("div", { className: "panel-body" },
+                                                                React.createElement("ul", null,
+                                                                    React.createElement("li", null,
+                                                                        React.createElement("input", { type: "radio", className: "form-check-input", name: "women", value: this.state.type, id: "type-bags" }),
+                                                                        React.createElement("label", { className: "form-check-label", htmlFor: "type-bags" }, "Bags")),
+                                                                    React.createElement("li", null,
+                                                                        React.createElement("input", { type: "radio", className: "form-check-input", name: "women", value: this.state.type, id: "type-belts" }),
+                                                                        React.createElement("label", { className: "form-check-label", htmlFor: "type-belts" }, "Belts")))))),
+                                                    React.createElement("div", { className: "panel panel-default" },
+                                                        React.createElement("div", { className: "panel-heading", role: "tab", id: "headingTwo" },
+                                                            React.createElement("h4", { className: "panel-title" },
+                                                                React.createElement("a", { className: "collapsed", "data-toggle": "collapse", "data-parent": "#accordion", href: "#collapseTwo", "aria-expanded": "false", "aria-controls": "collapseTwo" }, "Price Range"))),
+                                                        React.createElement("div", { id: "collapseTwo", className: "panel-collapse collapse", role: "tabpanel", "aria-labelledby": "headingTwo" },
+                                                            React.createElement("div", { className: "panel-body" },
+                                                                React.createElement("ul", null,
+                                                                    React.createElement("li", null,
+                                                                        React.createElement("input", { type: "radio", className: "form-check-input", name: "range", value: this.state.pageNumber, id: "range1" }),
+                                                                        React.createElement("label", { className: "form-check-label", htmlFor: "range1" }, "Under $50")),
+                                                                    React.createElement("li", null,
+                                                                        React.createElement("input", { type: "radio", className: "form-check-input", name: "range", value: this.state.pageNumber, id: "range2" }),
+                                                                        React.createElement("label", { className: "form-check-label", htmlFor: "range2" }, " $50 to $100")),
+                                                                    React.createElement("li", null,
+                                                                        React.createElement("input", { type: "radio", className: "form-check-input", name: "range", value: this.state.pageNumber, id: "range3" }),
+                                                                        React.createElement("label", { className: "form-check-label", htmlFor: "range3" }, "$100 to $200")),
+                                                                    React.createElement("li", null,
+                                                                        React.createElement("input", { type: "radio", className: "form-check-input", name: "range", value: this.state.pageNumber, id: "range4" }),
+                                                                        React.createElement("label", { className: "form-check-label", htmlFor: "range4" }, "$200 to $500")),
+                                                                    React.createElement("li", null,
+                                                                        React.createElement("input", { type: "radio", className: "form-check-input", name: "range", value: this.state.pageNumber, id: "range5" }),
+                                                                        React.createElement("label", { className: "form-check-label", htmlFor: "range5" }, "$500 & Above")))))))))))))))));
+        }
     };
     return Search;
 }(React.Component));
@@ -6854,6 +6909,105 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 	}
 
 	return to;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/paginator/index.js":
+/*!*****************************************!*\
+  !*** ./node_modules/paginator/index.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = Paginator;
+
+// Paginator constructor
+//
+// `per_page` is the number of results per page, `length` is the number of
+// pages to display. They default to `25` and `10` respectively.
+function Paginator(per_page, length) {
+  // You really should be calling this with `new Paginator`, but WHATEVER.
+  if (!(this instanceof Paginator)) {
+    return new Paginator(per_page, length);
+  }
+
+  // Woo, defaults!
+  this.per_page = per_page || 25;
+  this.length = length || 10;
+}
+
+// Build an object with all the necessary information for outputting pagination
+// controls.
+//
+// (new Paginator(paginator.build(100, 2)
+Paginator.prototype.build = function(total_results, current_page) {
+  // We want the number of pages, rounded up to the nearest page.
+  var total_pages = Math.ceil(total_results / this.per_page);
+
+  // Ensure both total_results and current_page are treated as Numbers
+  total_results = parseInt(total_results, 10);
+  current_page  = parseInt(current_page, 10) || 1;
+
+  // Obviously we can't be on a negative or 0 page.
+  if (current_page < 1) { current_page = 1; }
+  // If the user has done something like /page/99999 we want to clamp that back
+  // down.
+  if (current_page > total_pages) { current_page = total_pages; }
+
+  // This is the first page to be displayed as a numbered link.
+  var first_page = Math.max(1, current_page - Math.floor(this.length / 2));
+
+  // And here's the last page to be displayed specifically.
+  var last_page = Math.min(total_pages, current_page + Math.floor(this.length / 2));
+
+  // This is triggered if we're at or near one of the extremes; we won't have
+  // enough page links. We need to adjust our bounds accordingly.
+  if (last_page - first_page + 1 < this.length) {
+    if (current_page < (total_pages / 2)) {
+      last_page = Math.min(total_pages, last_page + (this.length - (last_page - first_page)));
+    } else {
+      first_page = Math.max(1, first_page - (this.length - (last_page - first_page)));
+    }
+  }
+
+  // This can be triggered if the user wants an odd number of pages.
+  if (last_page - first_page + 1 > this.length) {
+    // We want to move towards whatever extreme we're closest to at the time.
+    if (current_page > (total_pages / 2)) {
+      first_page++;
+    } else {
+      last_page--;
+    }
+  }
+
+  // First result on the page. This, along with the field below, can be used to
+  // do "showing x to y of z results" style things.
+  var first_result = this.per_page * (current_page - 1);
+  if (first_result < 0) { first_result = 0; }
+
+  // Last result on the page.
+  var last_result = (this.per_page * current_page) - 1;
+  if (last_result < 0) { last_result = 0; }
+  if (last_result > Math.max(total_results - 1, 0)) { last_result = Math.max(total_results - 1, 0); }
+
+  // GIMME THAT OBJECT
+  return {
+    total_pages: total_pages,
+    pages: Math.min(last_page - first_page + 1, total_pages),
+    current_page: current_page,
+    first_page: first_page,
+    last_page: last_page,
+    previous_page: current_page - 1,
+    next_page: current_page + 1,
+    has_previous_page: current_page > 1,
+    has_next_page: current_page < total_pages,
+    total_results: total_results,
+    results: Math.min(last_result - first_result + 1, total_results),
+    first_result: first_result,
+    last_result: last_result,
+  };
 };
 
 
@@ -29409,6 +29563,30 @@ if (false) {} else {
   module.exports = __webpack_require__(/*! ./cjs/react-is.development.js */ "./node_modules/react-is/cjs/react-is.development.js");
 }
 
+
+/***/ }),
+
+/***/ "./node_modules/react-js-pagination/dist/Page.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/react-js-pagination/dist/Page.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports,"__esModule",{value:!0});var _createClass=function(){function e(e,t){for(var r=0;r<t.length;r++){var a=t[r];a.enumerable=a.enumerable||!1,a.configurable=!0,"value"in a&&(a.writable=!0),Object.defineProperty(e,a.key,a)}}return function(t,r,a){return r&&e(t.prototype,r),a&&e(t,a),t}}(),_react=__webpack_require__(/*! react */ "./node_modules/react/index.js"),_react2=_interopRequireDefault(_react),_propTypes=__webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js"),_propTypes2=_interopRequireDefault(_propTypes),_classnames=__webpack_require__(/*! classnames */ "./node_modules/classnames/index.js"),_classnames2=_interopRequireDefault(_classnames);function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}function _defineProperty(e,t,r){return t in e?Object.defineProperty(e,t,{value:r,enumerable:!0,configurable:!0,writable:!0}):e[t]=r,e}function _classCallCheck(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function _possibleConstructorReturn(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function _inherits(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}var Page=function(e){function t(){return _classCallCheck(this,t),_possibleConstructorReturn(this,(t.__proto__||Object.getPrototypeOf(t)).apply(this,arguments))}return _inherits(t,_react.Component),_createClass(t,[{key:"handleClick",value:function(e){var t=this.props,r=t.isDisabled,a=t.pageNumber;e.preventDefault(),r||this.props.onClick(a)}},{key:"render",value:function(){var e,t=this.props,r=t.pageText,a=(t.pageNumber,t.activeClass),n=t.itemClass,s=t.linkClass,i=t.activeLinkClass,o=t.disabledClass,l=t.isActive,c=t.isDisabled,u=t.href,p=(0,_classnames2.default)(n,(_defineProperty(e={},a,l),_defineProperty(e,o,c),e)),f=(0,_classnames2.default)(s,_defineProperty({},i,l));return _react2.default.createElement("li",{className:p,onClick:this.handleClick.bind(this)},_react2.default.createElement("a",{className:f,href:u},r))}}]),t}();Page.defaultProps={activeClass:"active",disabledClass:"disabled",itemClass:void 0,linkClass:void 0,activeLinkCLass:void 0,isActive:!1,isDisabled:!1,href:"#"},exports.default=Page;
+
+/***/ }),
+
+/***/ "./node_modules/react-js-pagination/dist/Pagination.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/react-js-pagination/dist/Pagination.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports,"__esModule",{value:!0});var _createClass=function(){function e(e,a){for(var t=0;t<a.length;t++){var s=a[t];s.enumerable=s.enumerable||!1,s.configurable=!0,"value"in s&&(s.writable=!0),Object.defineProperty(e,s.key,s)}}return function(a,t,s){return t&&e(a.prototype,t),s&&e(a,s),a}}(),_react=__webpack_require__(/*! react */ "./node_modules/react/index.js"),_react2=_interopRequireDefault(_react),_propTypes=__webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js"),_propTypes2=_interopRequireDefault(_propTypes),_paginator=__webpack_require__(/*! paginator */ "./node_modules/paginator/index.js"),_paginator2=_interopRequireDefault(_paginator),_Page=__webpack_require__(/*! ./Page */ "./node_modules/react-js-pagination/dist/Page.js"),_Page2=_interopRequireDefault(_Page),_classnames=__webpack_require__(/*! classnames */ "./node_modules/classnames/index.js"),_classnames2=_interopRequireDefault(_classnames);function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}function _classCallCheck(e,a){if(!(e instanceof a))throw new TypeError("Cannot call a class as a function")}function _possibleConstructorReturn(e,a){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!a||"object"!=typeof a&&"function"!=typeof a?e:a}function _inherits(e,a){if("function"!=typeof a&&null!==a)throw new TypeError("Super expression must either be null or a function, not "+typeof a);e.prototype=Object.create(a&&a.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),a&&(Object.setPrototypeOf?Object.setPrototypeOf(e,a):e.__proto__=a)}var Pagination=function(e){function a(){return _classCallCheck(this,a),_possibleConstructorReturn(this,(a.__proto__||Object.getPrototypeOf(a)).apply(this,arguments))}return _inherits(a,_react2.default.Component),_createClass(a,[{key:"isFirstPageVisible",value:function(e){var a=this.props,t=a.hideDisabled;a.hideNavigation;return!(a.hideFirstLastPages||t&&!e)}},{key:"isPrevPageVisible",value:function(e){var a=this.props,t=a.hideDisabled;return!(a.hideNavigation||t&&!e)}},{key:"isNextPageVisible",value:function(e){var a=this.props,t=a.hideDisabled;return!(a.hideNavigation||t&&!e)}},{key:"isLastPageVisible",value:function(e){var a=this.props,t=a.hideDisabled;a.hideNavigation;return!(a.hideFirstLastPages||t&&!e)}},{key:"buildPages",value:function(){for(var e=[],a=this.props,t=a.itemsCountPerPage,s=a.pageRangeDisplayed,i=a.activePage,r=a.prevPageText,l=a.nextPageText,n=a.firstPageText,u=a.lastPageText,o=a.totalItemsCount,p=a.onChange,c=a.activeClass,g=a.itemClass,_=a.itemClassFirst,f=a.itemClassPrev,d=a.itemClassNext,h=a.itemClassLast,C=a.activeLinkClass,P=a.disabledClass,b=(a.hideDisabled,a.hideNavigation,a.linkClass),v=a.linkClassFirst,m=a.linkClassPrev,k=a.linkClassNext,y=a.linkClassLast,x=(a.hideFirstLastPages,a.getPageUrl),T=new _paginator2.default(t,s).build(o,i),D=T.first_page;D<=T.last_page;D++)e.push(_react2.default.createElement(_Page2.default,{isActive:D===i,key:D,href:x(D),pageNumber:D,pageText:D+"",onClick:p,itemClass:g,linkClass:b,activeClass:c,activeLinkClass:C}));return this.isPrevPageVisible(T.has_previous_page)&&e.unshift(_react2.default.createElement(_Page2.default,{key:"prev"+T.previous_page,pageNumber:T.previous_page,onClick:p,pageText:r,isDisabled:!T.has_previous_page,itemClass:(0,_classnames2.default)(g,f),linkClass:(0,_classnames2.default)(b,m),disabledClass:P})),this.isFirstPageVisible(T.has_previous_page)&&e.unshift(_react2.default.createElement(_Page2.default,{key:"first",pageNumber:1,onClick:p,pageText:n,isDisabled:!T.has_previous_page,itemClass:(0,_classnames2.default)(g,_),linkClass:(0,_classnames2.default)(b,v),disabledClass:P})),this.isNextPageVisible(T.has_next_page)&&e.push(_react2.default.createElement(_Page2.default,{key:"next"+T.next_page,pageNumber:T.next_page,onClick:p,pageText:l,isDisabled:!T.has_next_page,itemClass:(0,_classnames2.default)(g,d),linkClass:(0,_classnames2.default)(b,k),disabledClass:P})),this.isLastPageVisible(T.has_next_page)&&e.push(_react2.default.createElement(_Page2.default,{key:"last",pageNumber:T.total_pages,onClick:p,pageText:u,isDisabled:T.current_page===T.total_pages,itemClass:(0,_classnames2.default)(g,h),linkClass:(0,_classnames2.default)(b,y),disabledClass:P})),e}},{key:"render",value:function(){var e=this.buildPages();return _react2.default.createElement("ul",{className:this.props.innerClass},e)}}]),a}();Pagination.defaultProps={itemsCountPerPage:10,pageRangeDisplayed:5,activePage:1,prevPageText:"⟨",firstPageText:"«",nextPageText:"⟩",lastPageText:"»",innerClass:"pagination",itemClass:void 0,linkClass:void 0,activeLinkClass:void 0,hideFirstLastPages:!1,getPageUrl:function(e){return"#"}},exports.default=Pagination;
 
 /***/ }),
 
