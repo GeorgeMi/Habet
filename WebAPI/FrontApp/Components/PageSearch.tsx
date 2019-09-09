@@ -16,9 +16,9 @@ export class Search extends React.Component<any, any>
         super(props);
 
         this.state = {
-            gender: props.Gender,
-            type: props.Type,
-            priceInterval: '',
+            gender: "Women",
+            type: "Bags",
+            priceInterval: "3",
             items: null,
             isLoaded: false,
             error: null,
@@ -35,7 +35,7 @@ export class Search extends React.Component<any, any>
         axios.get(API_Path + '/Products',
             {
                 params: {
-                    top: 5,
+                    top: 15,
                     from: 0,
                     gender: "",
                     type: "intro"
@@ -66,18 +66,31 @@ export class Search extends React.Component<any, any>
 
     handleSubmit(event) {
         event.preventDefault();
+        var priceFrom = 0;
+        var priceTo = 10000;
 
         if (this.state.waitingResponse == false) {
             this.setState({ waitingResponse: true });
         }
 
-        axios.get(API_Path + '/Products', {
-            priceInterval: this.state.priceInterval,
-            gender: this.state.gender,
-            type: this.state.type,
-            pageNumber: this.state.pageNumber
-        })
-            .catch((error) => {
+        if (this.state.priceInterval == "1") { priceTo = 49;}
+        else if (this.state.priceInterval == "2") { priceFrom = 50; priceTo = 99; }
+        else if (this.state.priceInterval == "3") { priceFrom = 100; priceTo = 199; }
+        else if (this.state.priceInterval == "4") { priceFrom = 200; priceTo = 499; }
+        else if (this.state.priceInterval == "5") { priceFrom = 500;}
+
+        axios.post(API_Path + '/SearchProducts',
+            {
+                top: 15,
+                from: (this.state.pageNumber - 1) * 15 + 1,
+                gender: this.state.gender,
+                type: this.state.type,
+                priceFrom: priceFrom,
+                priceTo: priceTo
+            })
+            .then((response) => {
+                this.setState({ isLoaded: true, items: response.data.Products });
+            }).catch((error) => {
                 NotificationManager.error("Request failed. Please, try again later.");
             })
             .then(() => {
@@ -105,13 +118,13 @@ export class Search extends React.Component<any, any>
     } 
 
     render() {
-        const { error, isLoaded, items, gender, type } = this.state;
+        const { error, isLoaded, items } = this.state;
 
         if (error) {
             console.log(error);
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
-            return <div></div>;
+            return <div className="loading">Loading&#8230;</div>;
         } else {
             return (
                 <main id="main">
@@ -153,7 +166,7 @@ export class Search extends React.Component<any, any>
                                                 ))}
                                         </div>
 
-                                       
+
                                         <div className="row mt-5">
                                             <div className="col text-center">
                                                 <div className="block-27">
@@ -191,86 +204,102 @@ export class Search extends React.Component<any, any>
                                             <div className="sidebar-box-2">
                                                 <h2 className="heading">Categories</h2>
                                                 <div className="fancy-collapse-panel">
-                                                    <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                                        <div className="panel panel-default">
-                                                            <div className="panel-heading" role="tab" id="headingOne">
-                                                                <h4 className="panel-title">
-                                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Gender
+                                                    <form action="" className="billing-form" onSubmit={this.handleSubmit}>
+                                                        <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                                            <div className="panel panel-default">
+                                                                <div className="panel-heading" role="tab" id="headingOne">
+                                                                    <h4 className="panel-title">
+                                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Gender
                                  </a>
-                                                                </h4>
-                                                            </div>
-                                                            <div id="collapseOne" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                                                                <div className="panel-body">
-                                                                    <ul>
-                                                                        <li>
-                                                                            <input type="radio" className="form-check-input" name="men" value={this.state.gender} id="gender-men" />
-                                                                            <label className="form-check-label" htmlFor="gender-men">Men</label>
-                                                                        </li>
-                                                                        <li>
-                                                                            <input type="radio" className="form-check-input" name="men" value={this.state.gender} id="gender-women" />
-                                                                            <label className="form-check-label" htmlFor="gender-women">Women</label>
-                                                                        </li>
-                                                                    </ul>
+                                                                    </h4>
+                                                                </div>
+                                                                <div id="collapseOne" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                                                    <div className="panel-body">
+                                                                        <ul>
+                                                                            <li>
+                                                                                <input type="radio" className="form-check-input" name="gender" value="Men"
+                                                                                    checked={this.state.gender === "Men"} onChange={this.handleChange} id="gender-men" />
+                                                                                <label className="form-check-label" htmlFor="gender-men">Men</label>
+                                                                            </li>
+                                                                            <li>
+                                                                                <input type="radio" className="form-check-input" name="gender" value="Women"
+                                                                                    checked={this.state.gender === "Women"} onChange={this.handleChange} id="gender-women" />
+                                                                                <label className="form-check-label" htmlFor="gender-women">Women</label>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div className="panel panel-default">
-                                                            <div className="panel-heading" role="tab" id="headingTwo">
-                                                                <h4 className="panel-title">
-                                                                    <a className="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Products</a>
-                                                                </h4>
-                                                            </div>
-                                                            <div id="collapseTwo" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                                                                <div className="panel-body">
-                                                                    <ul>
-                                                                        <li>
-                                                                            <input type="radio" className="form-check-input" name="women" value={this.state.type} id="type-bags" />
-                                                                            <label className="form-check-label" htmlFor="type-bags">Bags</label>
-                                                                        </li>
-                                                                        <li>
-                                                                            <input type="radio" className="form-check-input" name="women" value={this.state.type} id="type-belts" />
-                                                                            <label className="form-check-label" htmlFor="type-belts">Belts</label>
-                                                                        </li>
-                                                                    </ul>
+                                                            <div className="panel panel-default">
+                                                                <div className="panel-heading" role="tab" id="headingTwo">
+                                                                    <h4 className="panel-title">
+                                                                        <a className="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Products</a>
+                                                                    </h4>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div className="panel panel-default">
-                                                            <div className="panel-heading" role="tab" id="headingTwo">
-                                                                <h4 className="panel-title">
-                                                                    <a className="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Price Range</a>
-                                                                </h4>
+                                                                <div id="collapseTwo" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                                                    <div className="panel-body">
+                                                                        <ul>
+                                                                            <li>
+                                                                                <input type="radio" className="form-check-input" name="type" value="Bags"
+                                                                                    checked={this.state.type === "Bags"} id="type-bags" onChange={this.handleChange} />
+                                                                                <label className="form-check-label" htmlFor="type-bags">Bags</label>
+                                                                            </li>
+                                                                            <li>
+                                                                                <input type="radio" className="form-check-input" name="type" value="Belts"
+                                                                                    checked={this.state.type === "Belts"} id="type-belts" onChange={this.handleChange} />
+                                                                                <label className="form-check-label" htmlFor="type-belts">Belts</label>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
                                                             </div>
 
-                                                            <div id="collapseTwo" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                                                                <div className="panel-body">
-                                                                    <ul>
-                                                                        <li>
-                                                                            <input type="radio" className="form-check-input" name="range" value={this.state.pageNumber} id="range1" />
-                                                                            <label className="form-check-label" htmlFor="range1">Under $50</label>
-                                                                        </li>
-                                                                        <li>
-                                                                            <input type="radio" className="form-check-input" name="range" value={this.state.pageNumber} id="range2" />
-                                                                            <label className="form-check-label" htmlFor="range2"> $50 to $100</label>
-                                                                        </li>
-                                                                        <li>
-                                                                            <input type="radio" className="form-check-input" name="range" value={this.state.pageNumber} id="range3" />
-                                                                            <label className="form-check-label" htmlFor="range3">$100 to $200</label>
-                                                                        </li>
-                                                                        <li>
-                                                                            <input type="radio" className="form-check-input" name="range" value={this.state.pageNumber} id="range4" />
-                                                                            <label className="form-check-label" htmlFor="range4">$200 to $500</label>
-                                                                        </li>
-                                                                        <li>
-                                                                            <input type="radio" className="form-check-input" name="range" value={this.state.pageNumber} id="range5" />
-                                                                            <label className="form-check-label" htmlFor="range5">$500 & Above</label>
-                                                                        </li>
-                                                                    </ul>
+                                                            <div className="panel panel-default">
+                                                                <div className="panel-heading" role="tab" id="headingThree">
+                                                                    <h4 className="panel-title">
+                                                                        <a className="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="headingThree">Price Range</a>
+                                                                    </h4>
+                                                                </div>
+
+                                                                <div id="collapseThree" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                                                    <div className="panel-body">
+                                                                        <ul>
+                                                                            <li>
+                                                                                <input type="radio" className="form-check-input" name="priceInterval" value="1"
+                                                                                    checked={this.state.priceInterval === "1"} id="range1" onChange={this.handleChange} />
+                                                                                <label className="form-check-label" htmlFor="range1">Under $50</label>
+                                                                            </li>
+                                                                            <li>
+                                                                                <input type="radio" className="form-check-input" name="priceInterval" value="2"
+                                                                                    checked={this.state.priceInterval === "2"} id="range2" onChange={this.handleChange} />
+                                                                                <label className="form-check-label" htmlFor="range2"> $50 to $100</label>
+                                                                            </li>
+                                                                            <li>
+                                                                                <input type="radio" className="form-check-input" name="priceInterval" value="3"
+                                                                                    checked={this.state.priceInterval === "3"} id="range3" onChange={this.handleChange} />
+                                                                                <label className="form-check-label" htmlFor="range3">$100 to $200</label>
+                                                                            </li>
+                                                                            <li>
+                                                                                <input type="radio" className="form-check-input" name="priceInterval" value="4"
+                                                                                    checked={this.state.priceInterval === "4"} id="range4" onChange={this.handleChange} />
+                                                                                <label className="form-check-label" htmlFor="range4">$200 to $500</label>
+                                                                            </li>
+                                                                            <li>
+                                                                                <input type="radio" className="form-check-input" name="priceInterval" value="5"
+                                                                                    checked={this.state.priceInterval === "5"} id="range5" onChange={this.handleChange} />
+                                                                                <label className="form-check-label" htmlFor="range5">$500 & Above</label>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-md-4">
+                                                                <div className="form-group">
+                                                                    <input type="submit" value="Filter" className="btn btn-primary py-3 px-5" />
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </form >
                                                 </div>
                                             </div>
                                         </div>

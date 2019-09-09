@@ -131,6 +131,47 @@ namespace Api.Controllers
             return responseMessage;
         }
 
+        // GET: api/Products/5
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/SearchProducts")]
+        [ResponseType(typeof(HttpResponseMessage))]
+        public HttpResponseMessage GetSearchProducts(SearchProductsDTO request)
+        {
+            HttpResponseMessage responseMessage;
+            //var productList = db.Products.Where(p => p.Gender == request.Gender && p.Type == request.Type && p.Price >= request.PriceFrom && p.Price <= request.PriceTo).ToList();
+
+            var responseProductList = new List<Products>();
+            // responseProductList = productList.OrderBy(p => p.ProductId).Skip(request.From).Take(request.Top).ToList();
+
+            Random rnd = new Random();
+            for (int i = 0; i < 3; i++)
+            {
+                responseProductList.Add(new Products { Name = "Name" + i, Price = i + 1, ProductId = rnd.Next(1, 4) });
+            }
+
+            var result = new SearchDetails
+            {
+                Products = new List<ProductInfo>()
+            };
+
+            foreach (var product in responseProductList)
+            {
+                result.Products.Add(new ProductInfo
+                {
+                    Name = product.Name,
+                    Price = product.Price,
+                    ProductId = product.ProductId,
+                    Image = new ProductsImagesController().GetProductsImages(product.ProductId)
+                });
+            }
+
+            result.ProductsNo = responseProductList.Count();
+
+            responseMessage = Request.CreateResponse(HttpStatusCode.OK, result);
+
+            return responseMessage;
+        }
+
         // PUT: api/Products/5
         [RequireAdminToken]
         [ResponseType(typeof(void))]

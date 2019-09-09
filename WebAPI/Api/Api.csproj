@@ -239,6 +239,8 @@
     <Compile Include="DTOs\ProductInfo.cs" />
     <Compile Include="DTOs\ChangePasswordDTO.cs" />
     <Compile Include="DTOs\RecoverDTO.cs" />
+    <Compile Include="DTOs\SearchDetails.cs" />
+    <Compile Include="DTOs\SearchProductsDTO.cs" />
     <Compile Include="DTOs\UserDetail.cs" />
     <Compile Include="DTOs\TokenDTO.cs" />
     <Compile Include="DTOs\UserDTO.cs" />
