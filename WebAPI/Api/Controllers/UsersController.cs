@@ -23,45 +23,45 @@ namespace Api.Controllers
         {
             HttpResponseMessage responseMessage = null;
             var token = Request.Headers.SingleOrDefault(x => x.Key == "token").Value.First();
-           // var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
+            var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
 
-            var result1 = new UserUpdateDetails()
-            {
-                FirstName = "FirstName",
-                LastName = "LastName",
-                State = "State",
-                StreetAddress = "StreetAddress",
-                City = "City",
-                ZipCode = "ZipCode",
-                Phone = "Phone",
-                Email = "Email"
-            };
-
-            JSend json = new JSendData<UserUpdateDetails>("success", new List<UserUpdateDetails> { result1 });
-            responseMessage = Request.CreateResponse(HttpStatusCode.OK, json);
-
-
-            //if (userId > 0)
+            //var result1 = new UserUpdateDetails()
             //{
-            //    var user = db.Users.First(u => u.UserId == userId);
-            //    if (null != user)
-            //    {
-            //        var result = new UserUpdateDetails()
-            //        {
-            //            FirstName = user.FirstName,
-            //            LastName = user.LastName,
-            //            State = user.UsersAddresses.First().State,
-            //            StreetAddress = user.UsersAddresses.First().Address,
-            //            City = user.UsersAddresses.First().City,
-            //            ZipCode = user.UsersAddresses.First().ZipCode,
-            //            Phone = user.Phone,
-            //            Email = user.Email
-            //        };
+            //    FirstName = "FirstName",
+            //    LastName = "LastName",
+            //    State = "State",
+            //    StreetAddress = "StreetAddress",
+            //    City = "City",
+            //    ZipCode = "ZipCode",
+            //    Phone = "Phone",
+            //    Email = "Email"
+            //};
 
-            //        JSend json = new JSendData<UserUpdateDetails>("success", new List<UserUpdateDetails> { result });
-            //        responseMessage = Request.CreateResponse(HttpStatusCode.OK, json);
-            //    }
-            //}
+            //JSend json = new JSendData<UserUpdateDetails>("success", new List<UserUpdateDetails> { result1 });
+            //responseMessage = Request.CreateResponse(HttpStatusCode.OK, json);
+
+
+            if (userId > 0)
+            {
+                var user = db.Users.First(u => u.UserId == userId);
+                if (null != user)
+                {
+                    var result = new UserUpdateDetails()
+                    {
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        State = user.UsersAddresses.First().State,
+                        StreetAddress = user.UsersAddresses.First().Address,
+                        City = user.UsersAddresses.First().City,
+                        ZipCode = user.UsersAddresses.First().ZipCode,
+                        Phone = user.Phone,
+                        Email = user.Email
+                    };
+
+                    JSend json = new JSendData<UserUpdateDetails>("success", new List<UserUpdateDetails> { result });
+                    responseMessage = Request.CreateResponse(HttpStatusCode.OK, json);
+                }
+            }
 
             return responseMessage;
         }

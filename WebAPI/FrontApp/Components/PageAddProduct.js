@@ -16,6 +16,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var Header_1 = require("./Header");
 var Dictionary_1 = require("./Dictionary");
+var sfcookies_1 = require("sfcookies");
 var react_notifications_1 = require("react-notifications");
 require("react-notifications/lib/notifications.css");
 var config = require('config');
@@ -49,6 +50,7 @@ var AddProduct = /** @class */ (function (_super) {
         var formData = new FormData();
         formData.append('Image', this.state.file);
         formData.append('data', JSON.stringify({ name: this.state.name, price: this.state.price, description: this.state.description, gender: this.state.gender, type: this.state.type }));
+        formData.append('config', JSON.stringify({ headers: { token: sfcookies_1.read_cookie('token') } }));
         axios.post(API_Path + '/Products', formData)
             .then(function (response) {
             _this.setState({ name: '', price: '', description: '', file: null, api_response: response.data, loggedIn: true });

@@ -105,7 +105,7 @@ namespace Api.BusinessLogic
                 try
                 {
                     // Verificare update
-                    UpdateToken(t.TokenId, createdDate, expirationDate, text);
+                    UpdateToken(t.TokenId, createdDate, expirationDate, text);                    
                 }
                 catch (Exception ex)
                 {
@@ -152,8 +152,10 @@ namespace Api.BusinessLogic
             Tokens t = db.Tokens.Find(tokenId);
             t.CreatedDate = createdDate;
             t.ExpirationDate = expirationDate;
+            t.TokenString = text;
 
             db.Tokens.Update(t);
+            db.SaveChanges();
         }
 
         /// <summary>

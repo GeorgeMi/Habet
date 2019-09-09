@@ -30,7 +30,7 @@ var Search = /** @class */ (function (_super) {
         _this.state = {
             gender: "Women",
             type: "Bags",
-            priceInterval: "1",
+            priceInterval: "3",
             items: null,
             isLoaded: false,
             error: null,
@@ -134,7 +134,6 @@ var Search = /** @class */ (function (_super) {
     Search.prototype.render = function () {
         var _this = this;
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items;
-        console.log(this.state.priceInterval);
         if (error) {
             console.log(error);
             return React.createElement("div", null,

@@ -443,6 +443,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
 var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
+var sfcookies_1 = __webpack_require__(/*! sfcookies */ "./node_modules/sfcookies/index.js");
 var react_notifications_1 = __webpack_require__(/*! react-notifications */ "./node_modules/react-notifications/lib/index.js");
 __webpack_require__(/*! react-notifications/lib/notifications.css */ "./node_modules/react-notifications/lib/notifications.css");
 var config = __webpack_require__(/*! config */ "config");
@@ -476,6 +477,7 @@ var AddProduct = /** @class */ (function (_super) {
         var formData = new FormData();
         formData.append('Image', this.state.file);
         formData.append('data', JSON.stringify({ name: this.state.name, price: this.state.price, description: this.state.description, gender: this.state.gender, type: this.state.type }));
+        formData.append('config', JSON.stringify({ headers: { token: sfcookies_1.read_cookie('token') } }));
         axios.post(API_Path + '/Products', formData)
             .then(function (response) {
             _this.setState({ name: '', price: '', description: '', file: null, api_response: response.data, loggedIn: true });
@@ -1919,7 +1921,7 @@ var Search = /** @class */ (function (_super) {
         _this.state = {
             gender: "Women",
             type: "Bags",
-            priceInterval: "1",
+            priceInterval: "3",
             items: null,
             isLoaded: false,
             error: null,
@@ -2023,7 +2025,6 @@ var Search = /** @class */ (function (_super) {
     Search.prototype.render = function () {
         var _this = this;
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items;
-        console.log(this.state.priceInterval);
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -4727,7 +4728,7 @@ var ___CSS_LOADER_URL___2___ = getUrl(__webpack_require__(/*! ./fonts/notificati
 var ___CSS_LOADER_URL___3___ = getUrl(__webpack_require__(/*! ./fonts/notification.ttf?s3g3t9 */ "./node_modules/react-notifications/lib/fonts/notification.ttf?s3g3t9"));
 var ___CSS_LOADER_URL___4___ = getUrl(__webpack_require__(/*! ./fonts/notification.svg?s3g3t9 */ "./node_modules/react-notifications/lib/fonts/notification.svg?s3g3t9") + "#notification");
 // Module
-exports.push([module.i, "@charset \"UTF-8\";\n@font-face {\n  font-family: 'Notification';\n  src: url(" + ___CSS_LOADER_URL___0___ + ");\n  src: url(" + ___CSS_LOADER_URL___1___ + ") format(\"embedded-opentype\"), url(" + ___CSS_LOADER_URL___2___ + ") format(\"woff\"), url(" + ___CSS_LOADER_URL___3___ + ") format(\"truetype\"), url(" + ___CSS_LOADER_URL___4___ + ") format(\"svg\");\n  font-weight: normal;\n  font-style: normal;\n}\n\n.notification-container {\n  box-sizing: border-box;\n  position: fixed;\n  top: 0;\n  right: 0;\n  z-index: 999999;\n  width: 320px;\n  padding: 0px 15px;\n  max-height: calc(100% - 30px);\n  overflow-x: hidden;\n  overflow-y: auto;\n}\n\n.notification {\n  box-sizing: border-box;\n  padding: 15px 15px 15px 58px;\n  border-radius: 2px;\n  color: #fff;\n  background-color: #ccc;\n  box-shadow: 0 0 12px #999;\n  cursor: pointer;\n  font-size: 1em;\n  line-height: 1.2em;\n  position: relative;\n  opacity: 0.9;\n  margin-top: 15px;\n}\n\n.notification .title {\n  font-size: 1em;\n  line-height: 1.2em;\n  font-weight: bold;\n  margin: 0 0 5px 0;\n}\n\n.notification:hover, .notification:focus {\n  opacity: 1;\n}\n\n.notification-enter {\n  visibility: hidden;\n  transform: translate3d(100%, 0, 0);\n}\n\n.notification-enter.notification-enter-active {\n  visibility: visible;\n  transform: translate3d(0, 0, 0);\n  transition: all 0.4s;\n}\n\n.notification-leave {\n  visibility: visible;\n  transform: translate3d(0, 0, 0);\n}\n\n.notification-leave.notification-leave-active {\n  visibility: hidden;\n  transform: translate3d(100%, 0, 0);\n  transition: all 0.4s;\n}\n\n.notification:before {\n  position: absolute;\n  top: 50%;\n  left: 15px;\n  margin-top: -14px;\n  display: block;\n  font-family: 'Notification';\n  width: 28px;\n  height: 28px;\n  font-size: 28px;\n  text-align: center;\n  line-height: 28px;\n}\n\n.notification-info {\n  background-color: #2f96b4;\n}\n\n.notification-info:before {\n  content: \"!\";\n}\n\n.notification-success {\n  background-color: #51a351;\n}\n\n.notification-success:before {\n  content: \"✓\";\n}\n\n.notification-warning {\n  background-color: #f89406;\n}\n\n.notification-warning:before {\n  content: \"!\";\n}\n\n.notification-error {\n  background-color: #bd362f;\n}\n\n.notification-error:before {\n  content: \"✘\";\n}\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\r\n@font-face {\r\n  font-family: 'Notification';\r\n  src: url(" + ___CSS_LOADER_URL___0___ + ");\r\n  src: url(" + ___CSS_LOADER_URL___1___ + ") format(\"embedded-opentype\"), url(" + ___CSS_LOADER_URL___2___ + ") format(\"woff\"), url(" + ___CSS_LOADER_URL___3___ + ") format(\"truetype\"), url(" + ___CSS_LOADER_URL___4___ + ") format(\"svg\");\r\n  font-weight: normal;\r\n  font-style: normal;\r\n}\r\n\r\n.notification-container {\r\n  box-sizing: border-box;\r\n  position: fixed;\r\n  top: 0;\r\n  right: 0;\r\n  z-index: 999999;\r\n  width: 320px;\r\n  padding: 0px 15px;\r\n  max-height: calc(100% - 30px);\r\n  overflow-x: hidden;\r\n  overflow-y: auto;\r\n}\r\n\r\n.notification {\r\n  box-sizing: border-box;\r\n  padding: 15px 15px 15px 58px;\r\n  border-radius: 2px;\r\n  color: #fff;\r\n  background-color: #ccc;\r\n  box-shadow: 0 0 12px #999;\r\n  cursor: pointer;\r\n  font-size: 1em;\r\n  line-height: 1.2em;\r\n  position: relative;\r\n  opacity: 0.9;\r\n  margin-top: 15px;\r\n}\r\n\r\n.notification .title {\r\n  font-size: 1em;\r\n  line-height: 1.2em;\r\n  font-weight: bold;\r\n  margin: 0 0 5px 0;\r\n}\r\n\r\n.notification:hover, .notification:focus {\r\n  opacity: 1;\r\n}\r\n\r\n.notification-enter {\r\n  visibility: hidden;\r\n  transform: translate3d(100%, 0, 0);\r\n}\r\n\r\n.notification-enter.notification-enter-active {\r\n  visibility: visible;\r\n  transform: translate3d(0, 0, 0);\r\n  transition: all 0.4s;\r\n}\r\n\r\n.notification-leave {\r\n  visibility: visible;\r\n  transform: translate3d(0, 0, 0);\r\n}\r\n\r\n.notification-leave.notification-leave-active {\r\n  visibility: hidden;\r\n  transform: translate3d(100%, 0, 0);\r\n  transition: all 0.4s;\r\n}\r\n\r\n.notification:before {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 15px;\r\n  margin-top: -14px;\r\n  display: block;\r\n  font-family: 'Notification';\r\n  width: 28px;\r\n  height: 28px;\r\n  font-size: 28px;\r\n  text-align: center;\r\n  line-height: 28px;\r\n}\r\n\r\n.notification-info {\r\n  background-color: #2f96b4;\r\n}\r\n\r\n.notification-info:before {\r\n  content: \"!\";\r\n}\r\n\r\n.notification-success {\r\n  background-color: #51a351;\r\n}\r\n\r\n.notification-success:before {\r\n  content: \"✓\";\r\n}\r\n\r\n.notification-warning {\r\n  background-color: #f89406;\r\n}\r\n\r\n.notification-warning:before {\r\n  content: \"!\";\r\n}\r\n\r\n.notification-error {\r\n  background-color: #bd362f;\r\n}\r\n\r\n.notification-error:before {\r\n  content: \"✘\";\r\n}\r\n", ""]);
 
 
 /***/ }),
@@ -30255,7 +30256,7 @@ if(false) {}
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

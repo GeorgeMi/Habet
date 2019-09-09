@@ -41,14 +41,14 @@ namespace Api.Controllers
                 UsersAddresses = new List<UsersAddresses> { userAddress }
             };
 
-            //using (TransactionScope transaction = new TransactionScope())
-            //{
+            using (TransactionScope transaction = new TransactionScope())
+            {
                 var UsersLogic = new UsersLogic(db);
                 var added = UsersLogic.AddUser(userDetails);
                 if (added)
                 {
-                  //  db.SaveChanges();
-                  //  transaction.Complete();
+                    db.SaveChanges();
+                    transaction.Complete();
                     json = new JSendMessage("success", "Registration  was successful! Please, verify your mail address.");
                     response = Request.CreateResponse(HttpStatusCode.OK, json);
                 }
@@ -56,8 +56,8 @@ namespace Api.Controllers
                 {
                     json = new JSendMessage("failed", "Registration failed! Please, try another email.");
                     response = Request.CreateResponse(HttpStatusCode.Forbidden, json);
-                }        
-           // }
+                }
+            }
 
             return response;
         }

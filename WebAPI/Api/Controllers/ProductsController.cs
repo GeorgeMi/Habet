@@ -32,18 +32,18 @@ namespace Api.Controllers
 
             if (type == "intro")
             {
-            //    productList = db.Products.OrderBy(p => p.ProductId).Skip(Math.Max(0, db.Products.Count() - top)).Take(top).ToList();
+                productList = db.Products.OrderBy(p => p.ProductId).Skip(Math.Max(0, db.Products.Count() - top)).Take(top).ToList();
             }
             else
             {
-           //     productList = db.Products.Where(p=> p.Gender == gender && p.Type == type).OrderBy(p => p.ProductId).Skip(from).Take(top).ToList();
+                productList = db.Products.Where(p => p.Gender == gender && p.Type == type).OrderBy(p => p.ProductId).Skip(from).Take(top).ToList();
             }
-          
-            Random rnd = new Random();
-            for (int i = 0; i < 3; i++)
-            {
-                productList.Add(new Products { Name = "Name" + i, Price = i+1, ProductId = rnd.Next(1, 4) });
-            }
+
+            //Random rnd = new Random();
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    productList.Add(new Products { Name = "Name" + i, Price = i+1, ProductId = rnd.Next(1, 4) });
+            //}
 
             List<ProductInfo> result = new List<ProductInfo>();
             foreach (var product in productList)
@@ -69,9 +69,9 @@ namespace Api.Controllers
         {
             HttpResponseMessage responseMessage;
             JSend json;
-            //  var product = db.Products.Find(id);
-            Random rnd = new Random();
-            var product = new Products { Name = "Name" + 1, Price = 1, Description= "Description", ProductId = rnd.Next(1, 4) };
+            var product = db.Products.Find(id);
+            //Random rnd = new Random();
+            //var product = new Products { Name = "Name" + 1, Price = 1, Description= "Description", ProductId = rnd.Next(1, 4) };
 
 
             if (product != null)
@@ -104,14 +104,14 @@ namespace Api.Controllers
         public HttpResponseMessage GetCartProducts(GetCartProductsDTO request)
         {
             HttpResponseMessage responseMessage;
-            var productList = new List<Products>();
-            // productList = db.Products.Where(p=> request.ProductIds.Contains(p.ProductId)).ToList();
+           // var productList = new List<Products>();
+            var productList = db.Products.Where(p=> request.ProductIds.Contains(p.ProductId)).ToList();
 
-            Random rnd = new Random();
-            for (int i = 0; i < request.ProductIds.Count; i++)
-            {
-                productList.Add(new Products { Name = "Name" + i, Price = i+1, ProductId = request.ProductIds[i] });
-            }
+            //Random rnd = new Random();
+            //for (int i = 0; i < request.ProductIds.Count; i++)
+            //{
+            //    productList.Add(new Products { Name = "Name" + i, Price = i+1, ProductId = request.ProductIds[i] });
+            //}
 
             var result = new List<ProductInfo>();
             foreach (var product in productList)
@@ -138,16 +138,16 @@ namespace Api.Controllers
         public HttpResponseMessage GetSearchProducts(SearchProductsDTO request)
         {
             HttpResponseMessage responseMessage;
-            //var productList = db.Products.Where(p => p.Gender == request.Gender && p.Type == request.Type && p.Price >= request.PriceFrom && p.Price <= request.PriceTo).ToList();
+            var productList = db.Products.Where(p => p.Gender == request.Gender && p.Type == request.Type && p.Price >= request.PriceFrom && p.Price <= request.PriceTo).ToList();
 
-            var responseProductList = new List<Products>();
-            // responseProductList = productList.OrderBy(p => p.ProductId).Skip(request.From).Take(request.Top).ToList();
+          //  var responseProductList = new List<Products>();
+            var responseProductList = productList.OrderBy(p => p.ProductId).Skip(request.From).Take(request.Top).ToList();
 
-            Random rnd = new Random();
-            for (int i = 0; i < 3; i++)
-            {
-                responseProductList.Add(new Products { Name = "Name" + i, Price = i + 1, ProductId = rnd.Next(1, 4) });
-            }
+            //Random rnd = new Random();
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    responseProductList.Add(new Products { Name = "Name" + i, Price = i + 1, ProductId = rnd.Next(1, 4) });
+            //}
 
             var result = new SearchDetails
             {
@@ -220,6 +220,8 @@ namespace Api.Controllers
                 var httpRequest = HttpContext.Current.Request;
                 var productToAdd = Newtonsoft.Json.JsonConvert.DeserializeObject<Products>(httpRequest.Form["data"]);
                 db.Products.Add(productToAdd);
+
+                db.SaveChanges();
 
                 var postedFile = httpRequest.Files[0];
                 

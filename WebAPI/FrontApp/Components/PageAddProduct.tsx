@@ -1,6 +1,7 @@
 ﻿import * as React from 'react';
 import { Header } from './Header';
 import { KeyedCollection } from './Dictionary';
+import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies'
 import { NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 
@@ -39,7 +40,8 @@ export class AddProduct extends React.Component<any, any> {
 
         let formData = new FormData();
         formData.append('Image', this.state.file);
-        formData.append('data', JSON.stringify({ name: this.state.name, price: this.state.price, description: this.state.description, gender: this.state.gender, type: this.state.type}));
+        formData.append('data', JSON.stringify({ name: this.state.name, price: this.state.price, description: this.state.description, gender: this.state.gender, type: this.state.type }));
+        formData.append('config', JSON.stringify({headers: {token: read_cookie('token') }}));
 
         axios.post(API_Path + '/Products', formData)
             .then((response) => {
