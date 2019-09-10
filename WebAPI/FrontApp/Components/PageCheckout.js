@@ -18,14 +18,23 @@ var Header_1 = require("./Header");
 var sfcookies_1 = require("sfcookies");
 var react_notifications_1 = require("react-notifications");
 require("react-notifications/lib/notifications.css");
+var Translate = require("react-translate-component");
+var en_1 = require("./languages/en");
+var it_1 = require("./languages/it");
+var ro_1 = require("./languages/ro");
 var config = require('config');
 var API_Path = config.API_Path;
 var axios = require('axios');
+var counterpart = require('counterpart');
+counterpart.registerTranslations('en', en_1.default);
+counterpart.registerTranslations('ro', ro_1.default);
+counterpart.registerTranslations('it', it_1.default);
 var Checkout = /** @class */ (function (_super) {
     __extends(Checkout, _super);
     function Checkout(props) {
         var _this = _super.call(this, props) || this;
         console.log(props);
+        counterpart.setLocale(sfcookies_1.read_cookie('lang'));
         _this.state = {
             isLoaded: false,
             error: null,
@@ -41,7 +50,8 @@ var Checkout = /** @class */ (function (_super) {
             phone: '',
             email: '',
             waitingResponse: false,
-            isChanged: false
+            isChanged: false,
+            language: sfcookies_1.read_cookie('lang')
         };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
@@ -125,7 +135,8 @@ var Checkout = /** @class */ (function (_super) {
                     React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },
-                                React.createElement("h1", { className: "mb-4" }, "Checkout")))),
+                                React.createElement("h1", { className: "mb-4" },
+                                    React.createElement(Translate, { content: 'checkout.Checkout' }))))),
                     React.createElement("div", { className: "loading" }, "Loading\u2026"),
                     ";")));
         }
@@ -137,26 +148,31 @@ var Checkout = /** @class */ (function (_super) {
                         React.createElement("div", { className: "container" },
                             React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                                 React.createElement("div", { className: "col-md-9 text-center" },
-                                    React.createElement("h1", { className: "mb-0 bread" }, "Checkout"))))),
+                                    React.createElement("h1", { className: "mb-0 bread" },
+                                        React.createElement(Translate, { content: 'checkout.Checkout' })))))),
                     React.createElement("section", { className: "ftco-section" },
                         React.createElement("div", { className: "container" },
                             React.createElement("div", { className: "row justify-content-center" },
                                 React.createElement("div", { className: "col-xl-10" },
                                     React.createElement("form", { action: "#", className: "billing-form" },
-                                        React.createElement("h3", { className: "mb-4 billing-heading" }, "Billing Details"),
+                                        React.createElement("h3", { className: "mb-4 billing-heading" },
+                                            React.createElement(Translate, { content: 'checkout.BillingDetails' })),
                                         React.createElement("div", { className: "row align-items-end" },
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "firstname" }, "Firt Name"),
+                                                    React.createElement("label", { htmlFor: "firstname" },
+                                                        React.createElement(Translate, { content: 'checkout.FirstName' })),
                                                     React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.firstName, onChange: this.handleChange, name: "firstName", id: "firstName", maxLength: 32, required: true }))),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "lastname" }, "Last Name"),
+                                                    React.createElement("label", { htmlFor: "lastname" },
+                                                        React.createElement(Translate, { content: 'checkout.LastName' })),
                                                     React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.lastName, onChange: this.handleChange, name: "lastName", id: "lastName", maxLength: 32, required: true }))),
                                             React.createElement("div", { className: "w-100" }),
                                             React.createElement("div", { className: "col-md-12" },
                                                 React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "country" }, "State / Country"),
+                                                    React.createElement("label", { htmlFor: "country" },
+                                                        React.createElement(Translate, { content: 'checkout.State' })),
                                                     React.createElement("div", { className: "select-wrap" },
                                                         React.createElement("div", { className: "icon" },
                                                             React.createElement("span", { className: "ion-ios-arrow-down" })),
@@ -213,63 +229,73 @@ var Checkout = /** @class */ (function (_super) {
                                             React.createElement("div", { className: "w-100" }),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "streetaddress" }, "Street Address"),
+                                                    React.createElement("label", { htmlFor: "streetaddress" },
+                                                        React.createElement(Translate, { content: 'checkout.StreetAddress' })),
                                                     React.createElement("input", { type: "text", className: "form-control", placeholder: "Street Address", value: this.state.streetAddress, onChange: this.handleChange, name: "streetAddress", id: "streetAddress", maxLength: 50, required: true }))),
                                             React.createElement("div", { className: "w-100" }),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "towncity" }, "Town / City"),
+                                                    React.createElement("label", { htmlFor: "towncity" },
+                                                        React.createElement(Translate, { content: 'checkout.Town' })),
                                                     React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.city, onChange: this.handleChange, name: "city", id: "city", maxLength: 32, required: true }))),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "postcodezip" }, "Postcode / ZIP *"),
+                                                    React.createElement("label", { htmlFor: "postcodezip" },
+                                                        React.createElement(Translate, { content: 'checkout.Postcode' })),
                                                     React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.zipCode, onChange: this.handleChange, name: "zipCode", id: "zipCode", maxLength: 10, required: true }))),
                                             React.createElement("div", { className: "w-100" }),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "phone" }, "Phone"),
+                                                    React.createElement("label", { htmlFor: "phone" },
+                                                        React.createElement(Translate, { content: 'checkout.Phone' })),
                                                     React.createElement("input", { type: "tel", className: "form-control", placeholder: "", value: this.state.phone, onChange: this.handleChange, name: "phone", id: "phone", maxLength: 32, required: true }))),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "emailaddress" }, "Email Address"),
+                                                    React.createElement("label", { htmlFor: "emailaddress" },
+                                                        React.createElement(Translate, { content: 'checkout.Email' })),
                                                     React.createElement("input", { type: "email", className: "form-control", placeholder: "", value: this.state.email, onChange: this.handleChange, name: "email", id: "email", maxLength: 32, disabled: true }))))),
                                     React.createElement("div", { className: "row mt-5 pt-3 d-flex" },
                                         React.createElement("div", { className: "col-md-6 d-flex" },
                                             React.createElement("div", { className: "cart-detail cart-total bg-light p-3 p-md-4" },
                                                 React.createElement("h3", { className: "billing-heading mb-4" }, "Cart Total"),
                                                 React.createElement("p", { className: "d-flex" },
-                                                    React.createElement("span", null, "Subtotal"),
+                                                    React.createElement("span", null,
+                                                        React.createElement(Translate, { content: 'checkout.Subtotal' })),
                                                     React.createElement("span", null,
                                                         "$",
                                                         this.state.subtotal)),
                                                 React.createElement("p", { className: "d-flex" },
-                                                    React.createElement("span", null, "Delivery"),
+                                                    React.createElement("span", null,
+                                                        React.createElement(Translate, { content: 'checkout.Delivery' })),
                                                     React.createElement("span", null,
                                                         "$",
                                                         this.state.delivery)),
                                                 React.createElement("hr", null),
                                                 React.createElement("p", { className: "d-flex total-price" },
-                                                    React.createElement("span", null, "Total"),
+                                                    React.createElement("span", null,
+                                                        React.createElement(Translate, { content: 'checkout.Total' })),
                                                     React.createElement("span", null,
                                                         "$",
                                                         this.state.total)))),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "cart-detail bg-light p-3 p-md-4" },
-                                                React.createElement("h3", { className: "billing-heading mb-4" }, "Payment Method"),
+                                                React.createElement("h3", { className: "billing-heading mb-4" },
+                                                    React.createElement(Translate, { content: 'checkout.PaymentMethod' })),
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("div", { className: "col-md-12" },
                                                         React.createElement("div", { className: "radio" },
                                                             React.createElement("label", null,
                                                                 React.createElement("input", { type: "radio", name: "optradio", className: "mr-2" }),
-                                                                " Paypal")))),
+                                                                React.createElement(Translate, { content: 'checkout.Paypal' }))))),
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("div", { className: "col-md-12" },
                                                         React.createElement("div", { className: "radio" },
                                                             React.createElement("label", null,
                                                                 React.createElement("input", { type: "radio", name: "optradio", className: "mr-2" }),
-                                                                " Cash on delivery")))),
+                                                                React.createElement(Translate, { content: 'checkout.CashOnDelivery' }))))),
                                                 React.createElement("p", null,
-                                                    React.createElement("a", { href: "#", className: "btn btn-primary py-3 px-4" }, "Place order"))))))))))));
+                                                    React.createElement("a", { href: "#", className: "btn btn-primary py-3 px-4" },
+                                                        React.createElement(Translate, { content: 'checkout.PlaceOrder' })))))))))))));
         }
     };
     return Checkout;

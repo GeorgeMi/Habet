@@ -18,16 +18,26 @@ var Header_1 = require("./Header");
 var Dictionary_1 = require("./Dictionary");
 var react_notifications_1 = require("react-notifications");
 require("react-notifications/lib/notifications.css");
+var sfcookies_1 = require("sfcookies");
+var Translate = require("react-translate-component");
+var en_1 = require("./languages/en");
+var it_1 = require("./languages/it");
+var ro_1 = require("./languages/ro");
 var config = require('config');
 var API_Path = config.API_Path;
 var axios = require('axios');
+var counterpart = require('counterpart');
+counterpart.registerTranslations('en', en_1.default);
+counterpart.registerTranslations('ro', ro_1.default);
+counterpart.registerTranslations('it', it_1.default);
 var RecoverPassword = /** @class */ (function (_super) {
     __extends(RecoverPassword, _super);
     function RecoverPassword(props) {
         var _this = _super.call(this, props) || this;
         var dictionary = new Dictionary_1.KeyedCollection();
         dictionary.Add(props.Active, 'cta cta-colored');
-        _this.state = { email: '', api_response: '', waitingResponse: false };
+        counterpart.setLocale(sfcookies_1.read_cookie('lang'));
+        _this.state = { email: '', api_response: '', waitingResponse: false, language: sfcookies_1.read_cookie('lang') };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         return _this;
@@ -64,17 +74,20 @@ var RecoverPassword = /** @class */ (function (_super) {
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                         React.createElement("div", { className: "col-md-12 heading-section text-center" },
-                            React.createElement("h1", { className: "mb-4" }, "Recover password")))),
+                            React.createElement("h1", { className: "mb-4" },
+                                React.createElement(Translate, { content: 'user.RecoverPassword' }))))),
                 React.createElement("section", { className: "ftco-section" },
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row justify-content-center" },
                             React.createElement("div", { className: "col-xl-10" },
                                 React.createElement("form", { action: "", className: "billing-form", onSubmit: this.handleSubmit },
-                                    React.createElement("h3", { className: "mb-4 billing-heading" }, "LogIn Details"),
+                                    React.createElement("h3", { className: "mb-4 billing-heading" },
+                                        React.createElement(Translate, { content: 'user.LogInDetails' })),
                                     React.createElement("div", { className: "row align-items-end" },
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
-                                                React.createElement("label", { htmlFor: "firstname" }, "Email"),
+                                                React.createElement("label", { htmlFor: "firstname" },
+                                                    React.createElement(Translate, { content: 'user.Email' })),
                                                 React.createElement("input", { type: "email", className: "form-control", placeholder: "", value: this.state.email, onChange: this.handleChange, name: "email", id: "email", maxLength: 32, required: true }))),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },

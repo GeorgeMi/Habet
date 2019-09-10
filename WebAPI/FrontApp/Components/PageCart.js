@@ -18,14 +18,23 @@ var Header_1 = require("./Header");
 var Dictionary_1 = require("./Dictionary");
 var sfcookies_1 = require("sfcookies");
 var react_router_hash_link_1 = require("react-router-hash-link");
+var Translate = require("react-translate-component");
+var en_1 = require("./languages/en");
+var it_1 = require("./languages/it");
+var ro_1 = require("./languages/ro");
 var config = require('config');
 var API_Path = config.API_Path;
 var axios = require('axios');
+var counterpart = require('counterpart');
+counterpart.registerTranslations('en', en_1.default);
+counterpart.registerTranslations('ro', ro_1.default);
+counterpart.registerTranslations('it', it_1.default);
 var Cart = /** @class */ (function (_super) {
     __extends(Cart, _super);
     function Cart(props) {
         var _this = _super.call(this, props) || this;
-        _this.state = { isLoaded: false, items: null, error: null, cartProducts: null, subtotal: 0, total: 0, delivery: 0 };
+        counterpart.setLocale(sfcookies_1.read_cookie('lang'));
+        _this.state = { isLoaded: false, items: null, error: null, cartProducts: null, subtotal: 0, total: 0, delivery: 0, language: sfcookies_1.read_cookie('lang') };
         _this.updateTotal = _this.updateTotal.bind(_this);
         _this.getQuantity = _this.getQuantity.bind(_this);
         _this.handleChange = _this.handleChange.bind(_this);
@@ -118,7 +127,8 @@ var Cart = /** @class */ (function (_super) {
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                         React.createElement("div", { className: "col-md-12 heading-section text-center" },
-                            React.createElement("h1", { className: "mb-4" }, "My cart")))),
+                            React.createElement("h1", { className: "mb-4" },
+                                React.createElement(Translate, { content: 'checkout.MyCart' }))))),
                 React.createElement("section", { className: "ftco-section ftco-cart" },
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row" },
@@ -129,10 +139,14 @@ var Cart = /** @class */ (function (_super) {
                                             React.createElement("tr", { className: "text-center" },
                                                 React.createElement("th", null, "\u00A0"),
                                                 React.createElement("th", null, "\u00A0"),
-                                                React.createElement("th", null, "Product"),
-                                                React.createElement("th", null, "Price"),
-                                                React.createElement("th", null, "Quantity"),
-                                                React.createElement("th", null, "Total"))),
+                                                React.createElement("th", null,
+                                                    React.createElement(Translate, { content: 'checkout.Product' })),
+                                                React.createElement("th", null,
+                                                    React.createElement(Translate, { content: 'checkout.Price' })),
+                                                React.createElement("th", null,
+                                                    React.createElement(Translate, { content: 'checkout.Quantity' })),
+                                                React.createElement("th", null,
+                                                    React.createElement(Translate, { content: 'checkout.Total' })))),
                                         React.createElement("tbody", null, items.map(function (item, i) { return (React.createElement("tr", { key: i, className: "text-center" },
                                             React.createElement("td", { className: "product-remove" },
                                                 React.createElement("span", { onClick: function () { return _this.removeProductFromCart(item.ProductId); }, className: "ion-ios-close" })),
@@ -154,23 +168,27 @@ var Cart = /** @class */ (function (_super) {
                                 React.createElement("div", { className: "cart-total mb-3" },
                                     React.createElement("h3", null, "Cart Totals"),
                                     React.createElement("p", { className: "d-flex" },
-                                        React.createElement("span", null, "Subtotal"),
+                                        React.createElement("span", null,
+                                            React.createElement(Translate, { content: 'checkout.Subtotal' })),
                                         React.createElement("span", null,
                                             "$",
                                             this.state.subtotal)),
                                     React.createElement("p", { className: "d-flex" },
-                                        React.createElement("span", null, "Delivery"),
+                                        React.createElement("span", null,
+                                            React.createElement(Translate, { content: 'checkout.Delivery' })),
                                         React.createElement("span", null,
                                             "$",
                                             this.state.delivery)),
                                     React.createElement("hr", null),
                                     React.createElement("p", { className: "d-flex total-price" },
-                                        React.createElement("span", null, "Total"),
+                                        React.createElement("span", null,
+                                            React.createElement(Translate, { content: 'checkout.Total' })),
                                         React.createElement("span", null,
                                             "$",
                                             this.state.total))),
                                 React.createElement("p", { className: "text-center" },
-                                    React.createElement(react_router_hash_link_1.HashLink, { to: "/checkout", className: "btn btn-primary py-3 px-4", subtotal: this.state.subtotal, delivery: this.state.delivery, total: this.state.total }, "Proceed to Checkout"))))))));
+                                    React.createElement(react_router_hash_link_1.HashLink, { to: "/checkout", className: "btn btn-primary py-3 px-4", subtotal: this.state.subtotal, delivery: this.state.delivery, total: this.state.total },
+                                        React.createElement(Translate, { content: 'checkout.ProceedToCheckout' })))))))));
         }
     };
     return Cart;

@@ -3,10 +3,19 @@ import { KeyedCollection } from './Dictionary';
 import { Header } from './Header';
 import { NotFound } from "./PageNotFound";
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
+import * as Translate from 'react-translate-component';
+import en from './languages/en';
+import it from './languages/it';
+import ro from './languages/ro';
 
 var config = require('config');
 var API_Path = config.API_Path;
 const axios = require('axios');
+var counterpart = require('counterpart');
+
+counterpart.registerTranslations('en', en);
+counterpart.registerTranslations('ro', ro);
+counterpart.registerTranslations('it', it);
 
 export class Product extends React.Component<any, any>
 {
@@ -14,7 +23,8 @@ export class Product extends React.Component<any, any>
         super(props);
 
         var dictionary = new KeyedCollection<string>();
-        this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary, productId: props.match.params.id, quantity: 1 };
+        counterpart.setLocale(read_cookie('lang'));
+        this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary, productId: props.match.params.id, quantity: 1, language: read_cookie('lang') };
 
         this.getImageForProduct = this.getImageForProduct.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -126,7 +136,7 @@ export class Product extends React.Component<any, any>
                     <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
                         <div className="row no-gutters slider-text align-items-center justify-content-center">
                             <div className="col-md-9 text-center">
-                                <h1 className="mb-0 bread">Product details</h1>
+                                <h1 className="mb-0 bread"><Translate content='product.ProductDetails' /></h1>
                             </div>
                         </div>
                     </div>
@@ -158,7 +168,7 @@ export class Product extends React.Component<any, any>
                                         </div>
                                         <div className="w-100"></div>
                                         <div className="col-md-12">
-                                            <p onClick={() => this.addProductToCart(item.ProductId, quantity)}><a className="btn btn-black py-3 px-5 mr-2">Add to Cart</a><a href="" className="btn btn-primary py-3 px-5">Buy now</a></p>
+                                            <p onClick={() => this.addProductToCart(item.ProductId, quantity)}><a className="btn btn-black py-3 px-5 mr-2"><Translate content='product.AddToCart' /></a><a href="" className="btn btn-primary py-3 px-5"><Translate content='product.BuyNow' /></a></p>
                                         </div>
                                     </div>
                                 </div>

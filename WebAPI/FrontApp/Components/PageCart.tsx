@@ -3,16 +3,26 @@ import { Header } from './Header';
 import { KeyedCollection } from './Dictionary';
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
 import { HashLink as Link } from 'react-router-hash-link';
+import * as Translate from 'react-translate-component';
+import en from './languages/en';
+import it from './languages/it';
+import ro from './languages/ro';
 
 var config = require('config');
 var API_Path = config.API_Path;
 const axios = require('axios');
+var counterpart = require('counterpart');
+
+counterpart.registerTranslations('en', en);
+counterpart.registerTranslations('ro', ro);
+counterpart.registerTranslations('it', it);
 
 export class Cart extends React.Component<any, any>{
 
     constructor(props) {
         super(props);
-        this.state = { isLoaded: false, items: null, error: null, cartProducts: null, subtotal:0, total:0, delivery:0 };
+        counterpart.setLocale(read_cookie('lang'));
+        this.state = { isLoaded: false, items: null, error: null, cartProducts: null, subtotal: 0, total: 0, delivery: 0, language: read_cookie('lang') };
 
         this.updateTotal = this.updateTotal.bind(this);
         this.getQuantity = this.getQuantity.bind(this);
@@ -123,7 +133,7 @@ export class Cart extends React.Component<any, any>{
                     <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
                         <div className="row justify-content-center mb-3 pb-3">
                             <div className="col-md-12 heading-section text-center">
-                                <h1 className="mb-4">My cart</h1>
+                                <h1 className="mb-4"><Translate content='checkout.MyCart' /></h1>
                             </div>
                         </div>
                     </div>
@@ -138,10 +148,10 @@ export class Cart extends React.Component<any, any>{
                                                 <tr className="text-center">
                                                     <th>&nbsp;</th>
                                                     <th>&nbsp;</th>
-                                                    <th>Product</th>
-                                                    <th>Price</th>
-                                                    <th>Quantity</th>
-                                                    <th>Total</th>
+                                                    <th><Translate content='checkout.Product' /></th>
+                                                    <th><Translate content='checkout.Price' /></th>
+                                                    <th><Translate content='checkout.Quantity' /></th>
+                                                    <th><Translate content='checkout.Total' /></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -175,21 +185,21 @@ export class Cart extends React.Component<any, any>{
                                     <div className="cart-total mb-3">
                                         <h3>Cart Totals</h3>
                                         <p className="d-flex">
-                                            <span>Subtotal</span>
+                                            <span><Translate content='checkout.Subtotal' /></span>
                                             <span>${this.state.subtotal}</span>
                                         </p>
                                         <p className="d-flex">
-                                            <span>Delivery</span>
+                                            <span><Translate content='checkout.Delivery' /></span>
                                             <span>${this.state.delivery}</span>
                                         </p>
                                         <hr />
                                         <p className="d-flex total-price">
-                                            <span>Total</span>
+                                            <span><Translate content='checkout.Total' /></span>
                                             <span>${this.state.total}</span>
                                         </p>
                                     </div>
                                     <p className="text-center">
-                                        <Link to="/checkout" className="btn btn-primary py-3 px-4" subtotal={this.state.subtotal} delivery={this.state.delivery} total={this.state.total}>Proceed to Checkout</Link>
+                                        <Link to="/checkout" className="btn btn-primary py-3 px-4" subtotal={this.state.subtotal} delivery={this.state.delivery} total={this.state.total}><Translate content='checkout.ProceedToCheckout' /></Link>
                                     </p>
                                 </div>
                             </div>

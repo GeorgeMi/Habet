@@ -17,9 +17,17 @@ var React = require("react");
 var Dictionary_1 = require("./Dictionary");
 var Header_1 = require("./Header");
 var sfcookies_1 = require("sfcookies");
+var Translate = require("react-translate-component");
+var en_1 = require("./languages/en");
+var it_1 = require("./languages/it");
+var ro_1 = require("./languages/ro");
 var config = require('config');
 var API_Path = config.API_Path;
 var axios = require('axios');
+var counterpart = require('counterpart');
+counterpart.registerTranslations('en', en_1.default);
+counterpart.registerTranslations('ro', ro_1.default);
+counterpart.registerTranslations('it', it_1.default);
 var Product = /** @class */ (function (_super) {
     __extends(Product, _super);
     function Product(props) {
@@ -36,7 +44,8 @@ var Product = /** @class */ (function (_super) {
             }
         };
         var dictionary = new Dictionary_1.KeyedCollection();
-        _this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary, productId: props.match.params.id, quantity: 1 };
+        counterpart.setLocale(sfcookies_1.read_cookie('lang'));
+        _this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary, productId: props.match.params.id, quantity: 1, language: sfcookies_1.read_cookie('lang') };
         _this.getImageForProduct = _this.getImageForProduct.bind(_this);
         _this.handleChange = _this.handleChange.bind(_this);
         return _this;
@@ -115,7 +124,8 @@ var Product = /** @class */ (function (_super) {
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                         React.createElement("div", { className: "col-md-9 text-center" },
-                            React.createElement("h1", { className: "mb-0 bread" }, "Product details")))),
+                            React.createElement("h1", { className: "mb-0 bread" },
+                                React.createElement(Translate, { content: 'product.ProductDetails' }))))),
                 React.createElement("section", { className: "ftco-section" },
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row" },
@@ -142,8 +152,10 @@ var Product = /** @class */ (function (_super) {
                                     React.createElement("div", { className: "w-100" }),
                                     React.createElement("div", { className: "col-md-12" },
                                         React.createElement("p", { onClick: function () { return _this.addProductToCart(item.ProductId, quantity); } },
-                                            React.createElement("a", { className: "btn btn-black py-3 px-5 mr-2" }, "Add to Cart"),
-                                            React.createElement("a", { href: "", className: "btn btn-primary py-3 px-5" }, "Buy now"))))))))));
+                                            React.createElement("a", { className: "btn btn-black py-3 px-5 mr-2" },
+                                                React.createElement(Translate, { content: 'product.AddToCart' })),
+                                            React.createElement("a", { href: "", className: "btn btn-primary py-3 px-5" },
+                                                React.createElement(Translate, { content: 'product.BuyNow' })))))))))));
         }
     };
     return Product;

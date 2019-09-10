@@ -3,16 +3,26 @@ import { Header } from './Header';
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies'
 import { NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
+import * as Translate from 'react-translate-component';
+import en from './languages/en';
+import it from './languages/it';
+import ro from './languages/ro';
 
 var config = require('config');
 var API_Path = config.API_Path;
 const axios = require('axios');
+var counterpart = require('counterpart');
+
+counterpart.registerTranslations('en', en);
+counterpart.registerTranslations('ro', ro);
+counterpart.registerTranslations('it', it);
 
 export class Checkout extends React.Component<any, any> {
     constructor(props) {
         super(props);
         console.log(props);
 
+        counterpart.setLocale(read_cookie('lang'));
         this.state = {
             isLoaded: false,
             error: null,
@@ -28,7 +38,8 @@ export class Checkout extends React.Component<any, any> {
             phone: '',
             email: '',
             waitingResponse: false,
-            isChanged: false
+            isChanged: false,
+            language: read_cookie('lang')
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -118,7 +129,7 @@ export class Checkout extends React.Component<any, any> {
                         <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
                             <div className="row justify-content-center mb-3 pb-3">
                                 <div className="col-md-12 heading-section text-center">
-                                    <h1 className="mb-4">Checkout</h1>
+                                    <h1 className="mb-4"><Translate content='checkout.Checkout' /></h1>
                                 </div>
                             </div>
                         </div>
@@ -136,7 +147,7 @@ export class Checkout extends React.Component<any, any> {
                             <div className="container">
                                 <div className="row no-gutters slider-text align-items-center justify-content-center">
                                     <div className="col-md-9 text-center">
-                                        <h1 className="mb-0 bread">Checkout</h1>
+                                        <h1 className="mb-0 bread"><Translate content='checkout.Checkout' /></h1>
                                     </div>
                                 </div>
                             </div>
@@ -147,24 +158,24 @@ export class Checkout extends React.Component<any, any> {
                                 <div className="row justify-content-center">
                                     <div className="col-xl-10">
                                         <form action="#" className="billing-form">
-                                            <h3 className="mb-4 billing-heading">Billing Details</h3>
+                                            <h3 className="mb-4 billing-heading"><Translate content='checkout.BillingDetails' /></h3>
                                             <div className="row align-items-end">
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label htmlFor="firstname">Firt Name</label>
+                                                        <label htmlFor="firstname"><Translate content='checkout.FirstName' /></label>
                                                         <input type="text" className="form-control" placeholder="" value={this.state.firstName} onChange={this.handleChange} name="firstName" id="firstName" maxLength={32} required />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label htmlFor="lastname">Last Name</label>
+                                                        <label htmlFor="lastname"><Translate content='checkout.LastName' /></label>
                                                         <input type="text" className="form-control" placeholder="" value={this.state.lastName} onChange={this.handleChange} name="lastName" id="lastName" maxLength={32} required />
                                                     </div>
                                                 </div>
                                                 <div className="w-100"></div>
                                                 <div className="col-md-12">
                                                     <div className="form-group">
-                                                        <label htmlFor="country">State / Country</label>
+                                                        <label htmlFor="country"><Translate content='checkout.State' /></label>
                                                         <div className="select-wrap">
                                                             <div className="icon"><span className="ion-ios-arrow-down"></span></div>
                                                             <select className="form-control" value={this.state.state} onChange={this.handleChange} name="state" id="state" required>
@@ -224,7 +235,7 @@ export class Checkout extends React.Component<any, any> {
                                                 <div className="w-100"></div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label htmlFor="streetaddress">Street Address</label>
+                                                        <label htmlFor="streetaddress"><Translate content='checkout.StreetAddress' /></label>
                                                         <input type="text" className="form-control" placeholder="Street Address" value={this.state.streetAddress} onChange={this.handleChange} name="streetAddress" id="streetAddress" maxLength={50} required />
                                                     </div>
                                                 </div>
@@ -232,26 +243,26 @@ export class Checkout extends React.Component<any, any> {
                                                 <div className="w-100"></div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label htmlFor="towncity">Town / City</label>
+                                                        <label htmlFor="towncity"><Translate content='checkout.Town' /></label>
                                                         <input type="text" className="form-control" placeholder="" value={this.state.city} onChange={this.handleChange} name="city" id="city" maxLength={32} required />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label htmlFor="postcodezip">Postcode / ZIP *</label>
+                                                        <label htmlFor="postcodezip"><Translate content='checkout.Postcode' /></label>
                                                         <input type="text" className="form-control" placeholder="" value={this.state.zipCode} onChange={this.handleChange} name="zipCode" id="zipCode" maxLength={10} required />
                                                     </div>
                                                 </div>
                                                 <div className="w-100"></div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label htmlFor="phone">Phone</label>
+                                                        <label htmlFor="phone"><Translate content='checkout.Phone' /></label>
                                                         <input type="tel" className="form-control" placeholder="" value={this.state.phone} onChange={this.handleChange} name="phone" id="phone" maxLength={32} required />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label htmlFor="emailaddress">Email Address</label>
+                                                        <label htmlFor="emailaddress"><Translate content='checkout.Email' /></label>
                                                         <input type="email" className="form-control" placeholder="" value={this.state.email} onChange={this.handleChange} name="email" id="email" maxLength={32} disabled />
                                                     </div>
                                                 </div>                                             
@@ -262,38 +273,38 @@ export class Checkout extends React.Component<any, any> {
                                                 <div className="cart-detail cart-total bg-light p-3 p-md-4">
                                                     <h3 className="billing-heading mb-4">Cart Total</h3>
                                                     <p className="d-flex">
-                                                        <span>Subtotal</span>
+                                                        <span><Translate content='checkout.Subtotal' /></span>
                                                         <span>${this.state.subtotal}</span>
                                                     </p>
                                                     <p className="d-flex">
-                                                        <span>Delivery</span>
+                                                        <span><Translate content='checkout.Delivery' /></span>
                                                         <span>${this.state.delivery}</span>
                                                     </p>
                                                     <hr />
                                                     <p className="d-flex total-price">
-                                                        <span>Total</span>
+                                                        <span><Translate content='checkout.Total' /></span>
                                                         <span>${this.state.total}</span>
                                                     </p>
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="cart-detail bg-light p-3 p-md-4">
-                                                    <h3 className="billing-heading mb-4">Payment Method</h3>
+                                                    <h3 className="billing-heading mb-4"><Translate content='checkout.PaymentMethod' /></h3>
                                                     <div className="form-group">
                                                         <div className="col-md-12">
                                                             <div className="radio">
-                                                                <label><input type="radio" name="optradio" className="mr-2" /> Paypal</label>
+                                                                <label><input type="radio" name="optradio" className="mr-2" /><Translate content='checkout.Paypal' /></label>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div className="form-group">
                                                         <div className="col-md-12">
                                                             <div className="radio">
-                                                                <label><input type="radio" name="optradio" className="mr-2" /> Cash on delivery</label>
+                                                                <label><input type="radio" name="optradio" className="mr-2" /><Translate content='checkout.CashOnDelivery' /></label>
                                                             </div>
                                                         </div>
                                                     </div>                                                
-                                                    <p><a href="#" className="btn btn-primary py-3 px-4">Place order</a></p>
+                                                    <p><a href="#" className="btn btn-primary py-3 px-4"><Translate content='checkout.PlaceOrder' /></a></p>
                                                 </div>
                                             </div>
                                         </div>

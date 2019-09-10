@@ -1,13 +1,22 @@
 ﻿import * as React from 'react';
 import { Header } from './Header';
 import { KeyedCollection } from './Dictionary';
-import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies'
+import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
 import { NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
+import * as Translate from 'react-translate-component';
+import en from './languages/en';
+import it from './languages/it';
+import ro from './languages/ro';
 
 var config = require('config');
 var API_Path = config.API_Path;
 const axios = require('axios');
+var counterpart = require('counterpart');
+
+counterpart.registerTranslations('en', en);
+counterpart.registerTranslations('ro', ro);
+counterpart.registerTranslations('it', it);
 
 export class AddProduct extends React.Component<any, any> {
     constructor(props) {
@@ -16,7 +25,8 @@ export class AddProduct extends React.Component<any, any> {
         var dictionary = new KeyedCollection<string>();
         dictionary.Add(props.Active, 'cta cta-colored');
 
-        this.state = { name: '', price: '', file:null, description: '', gender:'', type:'', image: '', api_response: '', loggedIn: false, headerDictionary: dictionary, waitingResponse: false };
+        counterpart.setLocale(read_cookie('lang'));
+        this.state = { name: '', price: '', file: null, description: '', gender: '', type: '', image: '', api_response: '', loggedIn: false, headerDictionary: dictionary, waitingResponse: false, language: read_cookie('lang') };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -73,7 +83,7 @@ export class AddProduct extends React.Component<any, any> {
                     <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
                         <div className="row justify-content-center mb-3 pb-3">
                             <div className="col-md-12 heading-section text-center">
-                                <h1 className="mb-4">Add Product</h1>
+                                <h1 className="mb-4"><Translate content='product.AddProduct' /></h1>
                             </div>
                         </div>
                     </div>
@@ -83,23 +93,23 @@ export class AddProduct extends React.Component<any, any> {
                             <div className="row justify-content-center">
                                 <div className="col-xl-10">
                                     <form action="" className="billing-form" onSubmit={this.handleSubmit}>
-                                        <h3 className="mb-4 billing-heading">Product Details</h3>
+                                        <h3 className="mb-4 billing-heading"><Translate content='product.ProductDetails' /></h3>
                                         <div className="row align-items-end">
                                             <div className="col-md-6">
                                                 <div className="form-group">
-                                                    <label htmlFor="name">Name</label>
+                                                    <label htmlFor="name"><Translate content='product.Name' /></label>
                                                     <input type="text" className="form-control" placeholder="" value={this.state.name} onChange={this.handleChange} name="name" id="name" maxLength={32} required/>
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group">
-                                                    <label htmlFor="price">Price</label>
+                                                    <label htmlFor="price"><Translate content='product.Price' /></label>
                                                     <input type="text" className="form-control" placeholder="" value={this.state.price} onChange={this.handleChange} name="price" id="price" maxLength={32} required />
                                                 </div>
                                             </div>
                                             <div className="col-md-12">
                                                 <div className="form-group">
-                                                    <label htmlFor="description">Description</label>
+                                                    <label htmlFor="description"><Translate content='product.Description' /></label>
                                                     <textarea className="form-control" value={this.state.description} onChange={this.handleChange} name="description" id="description" required></textarea>
                                                 </div>
                                             </div>
@@ -111,26 +121,26 @@ export class AddProduct extends React.Component<any, any> {
                                             <div className="w-100"></div>
                                             <div className="col-md-6">
                                                 <div className="form-group">
-                                                    <label htmlFor="gender">Gender</label>
+                                                    <label htmlFor="gender"><Translate content='product.Gender' /></label>
                                                     <div className="select-wrap">
                                                         <div className="icon"><span className="ion-ios-arrow-down"></span></div>
                                                         <select className="form-control" value={this.state.gender} onChange={this.handleChange} name="gender" id="state" required>
-                                                            <option value="">Select</option>
-                                                            <option value="Women">Women</option>
-                                                            <option value="Men">Men</option>
+                                                            <option value=""><Translate content='product.Select' /></option>
+                                                            <option value="Women"><Translate content='product.Women' /></option>
+                                                            <option value="Men"><Translate content='product.Men' /></option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group">
-                                                    <label htmlFor="type">Type</label>
+                                                    <label htmlFor="type"><Translate content='product.Type' /></label>
                                                     <div className="select-wrap">
                                                         <div className="icon"><span className="ion-ios-arrow-down"></span></div>
                                                         <select className="form-control" value={this.state.type} onChange={this.handleChange} name="type" id="type" required>
-                                                            <option value="">Select</option>
-                                                            <option value="Belts">Belt</option>
-                                                            <option value="Bags">Bag</option>
+                                                            <option value=""><Translate content='product.Select' /></option>
+                                                            <option value="Belts"><Translate content='product.Belt' /></option>
+                                                            <option value="Bags"><Translate content='product.Bag' /></option>
                                                         </select>
                                                     </div>
                                                 </div>

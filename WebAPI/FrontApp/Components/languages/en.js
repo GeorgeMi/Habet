@@ -26,7 +26,7 @@
         Women: 'Women'
     },
 
-    search: {
+    contact: {
         Title: 'Contact our Support and Sales team',
         Subtitle: 'Our team is happy to answer your questions. Fill out the form and we’ll be in touch as soon as possible.',
         Address: 'Address',
@@ -46,5 +46,66 @@
         Bags: 'Bags',
         Belts: 'Belts',
         PriceRange: 'Price Range'
+    },
+
+    checkout: {
+        Checkout: 'Checkout',
+        BillingDetails: 'Billing Details',
+        FirstName: 'First Name',
+        LastName: 'Last Name',
+        State: 'State / Country',
+        StreetAddress: 'Street Address',
+        Town: 'Town / City',
+        Postcode: 'Postcode / ZIP',
+        Phone: 'Phone',
+        Email: 'Email Address',
+        Subtotal: 'Subtotal',
+        Delivery: 'Delivery',
+        Total: 'Total',
+        PaymentMethod: 'Payment Method',
+        Paypal: 'Paypal',
+        CashOnDelivery: 'Cash on delivery',
+        PlaceOrder: 'Place order',
+        MyCart: 'My cart',
+        Product: 'Product',
+        Price: 'Price',
+        Quantity: 'Quantity',
+        ProceedToCheckout: 'Proceed to Checkout'
+    },
+
+    user: {
+        Register: 'Register',
+        LogInDetails: 'LogIn Details',
+        Email: 'Email',
+        Password: 'Password',
+        PersonalDetails: 'Personal Details',
+        FirstName: 'First Name',
+        LastName: 'Last Name',
+        State: 'State / Country',
+        Town: 'Town / City',
+        StreetAddress: 'Street Address',
+        Postcode: 'Postcode / ZIP',
+        Phone: 'Phone',
+        ChangePassword: 'Change password',
+        NewPassword: 'New Password',
+        ConfirmPassword: 'Confirm Password',
+        RecoverPassword: 'Recover password'
+    },
+
+    product: {
+        ProductDetails: 'Product Details',
+        AddToCart: 'Add to cart',
+        BuyNow: 'Buy now',
+        AddProduct: 'Add Product',
+        Name: 'Name',
+        Price: 'Price',
+        Description: 'Description',
+        Gender: 'Gender',
+        Select: 'Select',
+        Bags: 'Bags',
+        Belts: 'Belts',
+        Men: 'Men',
+        Women: 'Women',
+        Type: 'Type'
     }
 }
