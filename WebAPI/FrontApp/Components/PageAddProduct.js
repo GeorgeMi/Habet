@@ -50,8 +50,10 @@ var AddProduct = /** @class */ (function (_super) {
         var formData = new FormData();
         formData.append('Image', this.state.file);
         formData.append('data', JSON.stringify({ name: this.state.name, price: this.state.price, description: this.state.description, gender: this.state.gender, type: this.state.type }));
-        formData.append('config', JSON.stringify({ headers: { token: sfcookies_1.read_cookie('token') } }));
-        axios.post(API_Path + '/Products', formData)
+        var config = {
+            headers: { token: sfcookies_1.read_cookie('token') }
+        };
+        axios.post(API_Path + '/Products', formData, config)
             .then(function (response) {
             _this.setState({ name: '', price: '', description: '', file: null, api_response: response.data, loggedIn: true });
             react_notifications_1.NotificationManager.success(response.data.message);

@@ -41,9 +41,12 @@ export class AddProduct extends React.Component<any, any> {
         let formData = new FormData();
         formData.append('Image', this.state.file);
         formData.append('data', JSON.stringify({ name: this.state.name, price: this.state.price, description: this.state.description, gender: this.state.gender, type: this.state.type }));
-        formData.append('config', JSON.stringify({headers: {token: read_cookie('token') }}));
 
-        axios.post(API_Path + '/Products', formData)
+        const config = {
+             headers: { token: read_cookie('token') } 
+        }
+
+        axios.post(API_Path + '/Products', formData, config)
             .then((response) => {
                 this.setState({ name: '', price: '', description: '', file: null, api_response: response.data, loggedIn: true });
                 NotificationManager.success(response.data.message);
