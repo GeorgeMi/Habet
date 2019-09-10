@@ -20,13 +20,22 @@ var sfcookies_1 = require("sfcookies");
 var react_notifications_1 = require("react-notifications");
 require("react-notifications/lib/notifications.css");
 var react_js_pagination_1 = require("react-js-pagination");
+var Translate = require("react-translate-component");
+var en_1 = require("./languages/en");
+var it_1 = require("./languages/it");
+var ro_1 = require("./languages/ro");
 var config = require('config');
 var API_Path = config.API_Path;
 var axios = require('axios');
+var counterpart = require('counterpart');
+counterpart.registerTranslations('en', en_1.default);
+counterpart.registerTranslations('ro', ro_1.default);
+counterpart.registerTranslations('it', it_1.default);
 var Search = /** @class */ (function (_super) {
     __extends(Search, _super);
     function Search(props) {
         var _this = _super.call(this, props) || this;
+        counterpart.setLocale(sfcookies_1.read_cookie('lang'));
         _this.state = {
             gender: "Women",
             type: "Bags",
@@ -36,7 +45,8 @@ var Search = /** @class */ (function (_super) {
             error: null,
             waitingResponse: false,
             isChanged: false,
-            pageNumber: 1
+            pageNumber: 1,
+            language: sfcookies_1.read_cookie('lang')
         };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
@@ -148,9 +158,10 @@ var Search = /** @class */ (function (_super) {
                 React.createElement("div", null,
                     React.createElement(Header_1.Header, { Active: 'Search' }),
                     React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
-                        React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
-                            React.createElement("div", { className: "col-md-9 text-center" },
-                                React.createElement("h1", { className: "mb-0 bread" }, "Search products")))),
+                        React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
+                            React.createElement("div", { className: "col-md-12 heading-section text-center" },
+                                React.createElement("h1", { className: "mb-4" },
+                                    React.createElement(Translate, { content: 'search.SearchProducts' }))))),
                     React.createElement("section", { className: "ftco-section bg-light" },
                         React.createElement("div", { className: "container" },
                             React.createElement("div", { className: "row" },
@@ -171,10 +182,11 @@ var Search = /** @class */ (function (_super) {
                                                 React.createElement("p", { className: "bottom-area d-flex px-3" },
                                                     React.createElement("a", { href: "#", className: "add-to-cart text-center py-2 mr-1", onClick: function () { return _this.addProductToCart(item.ProductId, 1); } },
                                                         React.createElement("span", null,
-                                                            "Add to cart ",
+                                                            React.createElement(Translate, { content: 'search.AddToCart' }),
+                                                            " ",
                                                             React.createElement("i", { className: "ion-ios-add ml-1" }))),
                                                     React.createElement("a", { href: "#", className: "buy-now text-center py-2" },
-                                                        "Buy now",
+                                                        React.createElement(Translate, { content: 'search.BuyNow' }),
                                                         React.createElement("span", null,
                                                             React.createElement("i", { className: "ion-ios-cart ml-1" })))))))); })),
                                     React.createElement("div", { className: "row mt-5" },
@@ -202,40 +214,48 @@ var Search = /** @class */ (function (_super) {
                                 React.createElement("div", { className: "col-md-4 col-lg-2" },
                                     React.createElement("div", { className: "sidebar" },
                                         React.createElement("div", { className: "sidebar-box-2" },
-                                            React.createElement("h2", { className: "heading" }, "Categories"),
+                                            React.createElement("h2", { className: "heading" },
+                                                React.createElement(Translate, { content: 'search.Categories' })),
                                             React.createElement("div", { className: "fancy-collapse-panel" },
                                                 React.createElement("form", { action: "", className: "billing-form", onSubmit: this.handleSubmit },
                                                     React.createElement("div", { className: "panel-group", id: "accordion", role: "tablist", "aria-multiselectable": "true" },
                                                         React.createElement("div", { className: "panel panel-default" },
                                                             React.createElement("div", { className: "panel-heading", role: "tab", id: "headingOne" },
                                                                 React.createElement("h4", { className: "panel-title" },
-                                                                    React.createElement("a", { "data-toggle": "collapse", "data-parent": "#accordion", href: "#collapseOne", "aria-expanded": "true", "aria-controls": "collapseOne" }, "Gender"))),
+                                                                    React.createElement("a", { "data-toggle": "collapse", "data-parent": "#accordion", href: "#collapseOne", "aria-expanded": "true", "aria-controls": "collapseOne" },
+                                                                        React.createElement(Translate, { content: 'search.Gender' })))),
                                                             React.createElement("div", { id: "collapseOne", className: "panel-collapse collapse", role: "tabpanel", "aria-labelledby": "headingOne" },
                                                                 React.createElement("div", { className: "panel-body" },
                                                                     React.createElement("ul", null,
                                                                         React.createElement("li", null,
                                                                             React.createElement("input", { type: "radio", className: "form-check-input", name: "gender", value: "Men", checked: this.state.gender === "Men", onChange: this.handleChange, id: "gender-men" }),
-                                                                            React.createElement("label", { className: "form-check-label", htmlFor: "gender-men" }, "Men")),
+                                                                            React.createElement("label", { className: "form-check-label", htmlFor: "gender-men" },
+                                                                                React.createElement(Translate, { content: 'search.Men' }))),
                                                                         React.createElement("li", null,
                                                                             React.createElement("input", { type: "radio", className: "form-check-input", name: "gender", value: "Women", checked: this.state.gender === "Women", onChange: this.handleChange, id: "gender-women" }),
-                                                                            React.createElement("label", { className: "form-check-label", htmlFor: "gender-women" }, "Women")))))),
+                                                                            React.createElement("label", { className: "form-check-label", htmlFor: "gender-women" },
+                                                                                React.createElement(Translate, { content: 'search.Women' }))))))),
                                                         React.createElement("div", { className: "panel panel-default" },
                                                             React.createElement("div", { className: "panel-heading", role: "tab", id: "headingTwo" },
                                                                 React.createElement("h4", { className: "panel-title" },
-                                                                    React.createElement("a", { className: "collapsed", "data-toggle": "collapse", "data-parent": "#accordion", href: "#collapseTwo", "aria-expanded": "false", "aria-controls": "collapseTwo" }, "Products"))),
+                                                                    React.createElement("a", { className: "collapsed", "data-toggle": "collapse", "data-parent": "#accordion", href: "#collapseTwo", "aria-expanded": "false", "aria-controls": "collapseTwo" },
+                                                                        React.createElement(Translate, { content: 'search.Products' })))),
                                                             React.createElement("div", { id: "collapseTwo", className: "panel-collapse collapse", role: "tabpanel", "aria-labelledby": "headingTwo" },
                                                                 React.createElement("div", { className: "panel-body" },
                                                                     React.createElement("ul", null,
                                                                         React.createElement("li", null,
                                                                             React.createElement("input", { type: "radio", className: "form-check-input", name: "type", value: "Bags", checked: this.state.type === "Bags", id: "type-bags", onChange: this.handleChange }),
-                                                                            React.createElement("label", { className: "form-check-label", htmlFor: "type-bags" }, "Bags")),
+                                                                            React.createElement("label", { className: "form-check-label", htmlFor: "type-bags" },
+                                                                                React.createElement(Translate, { content: 'search.Bags' }))),
                                                                         React.createElement("li", null,
                                                                             React.createElement("input", { type: "radio", className: "form-check-input", name: "type", value: "Belts", checked: this.state.type === "Belts", id: "type-belts", onChange: this.handleChange }),
-                                                                            React.createElement("label", { className: "form-check-label", htmlFor: "type-belts" }, "Belts")))))),
+                                                                            React.createElement("label", { className: "form-check-label", htmlFor: "type-belts" },
+                                                                                React.createElement(Translate, { content: 'search.Belts' }))))))),
                                                         React.createElement("div", { className: "panel panel-default" },
                                                             React.createElement("div", { className: "panel-heading", role: "tab", id: "headingThree" },
                                                                 React.createElement("h4", { className: "panel-title" },
-                                                                    React.createElement("a", { className: "collapsed", "data-toggle": "collapse", "data-parent": "#accordion", href: "#collapseThree", "aria-expanded": "false", "aria-controls": "headingThree" }, "Price Range"))),
+                                                                    React.createElement("a", { className: "collapsed", "data-toggle": "collapse", "data-parent": "#accordion", href: "#collapseThree", "aria-expanded": "false", "aria-controls": "headingThree" },
+                                                                        React.createElement(Translate, { content: 'search.PriceRange' })))),
                                                             React.createElement("div", { id: "collapseThree", className: "panel-collapse collapse", role: "tabpanel", "aria-labelledby": "headingThree" },
                                                                 React.createElement("div", { className: "panel-body" },
                                                                     React.createElement("ul", null,

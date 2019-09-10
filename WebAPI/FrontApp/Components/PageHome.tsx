@@ -4,8 +4,6 @@ import { SectionIntro } from "./SectionIntro";
 import { Header } from './Header';
 import { KeyedCollection } from './Dictionary';
 
-
-
 export class Home extends React.Component<any, any> {
     constructor(props) {
         super(props);

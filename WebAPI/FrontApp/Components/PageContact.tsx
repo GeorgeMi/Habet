@@ -1,16 +1,27 @@
 ﻿import * as React from 'react';
 import { Header } from './Header';
+import * as Translate from 'react-translate-component';
+import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
+import en from './languages/en';
+import it from './languages/it';
+import ro from './languages/ro';
 
 var config = require('config');
 var API_Path = config.API_Path;
 const axios = require('axios');
+var counterpart = require('counterpart');
+
+counterpart.registerTranslations('en', en);
+counterpart.registerTranslations('ro', ro);
+counterpart.registerTranslations('it', it);
 
 export class Contact extends React.Component<any, any>{
 
     constructor(props) {
         super(props);
 
-        this.state = { name: '', email: '', subject: '', message: '', api_response: '', request_sent: false };
+        counterpart.setLocale(read_cookie('lang'));
+        this.state = { name: '', email: '', subject: '', message: '', api_response: '', request_sent: false, language: read_cookie('lang') };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -57,8 +68,8 @@ export class Contact extends React.Component<any, any>{
                     <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
                         <div className="row justify-content-center mb-3 pb-3">
                             <div className="col-md-12 heading-section text-center">
-                                <h2 className="mb-4">Contact our Support and Sales team</h2>
-                                <p>Our team is happy to answer your questions. Fill out the form and we’ll be in touch as soon as possible.</p>
+                                <h2 className="mb-4"><Translate content='contact.Title' /></h2>
+                                <p><Translate content='contact.Subtitle' /></p>
                             </div>
                         </div>
                     </div>
@@ -69,17 +80,17 @@ export class Contact extends React.Component<any, any>{
                                 <div className="w-100"></div>
                                 <div className="col-md-4 d-flex">
                                     <div className="info bg-white p-4">
-                                        <p><span>Address:</span>73 Somerfield Rd, Manchester M9 8AQ, UK</p>
+                                        <p><span><Translate content='contact.Address' />:</span> 73 Somerfield Rd, Manchester M9 8AQ, UK</p>
                                     </div>
                                 </div>
                                 <div className="col-md-4 d-flex">
                                     <div className="info bg-white p-4">
-                                        <p><span>Phone:</span> <a href="tel:+441612582629">+44 161 258 2629</a></p>
+                                        <p><span><Translate content='contact.Phone' />:</span> <a href="tel:+441612582629">+44 161 258 2629</a></p>
                                     </div>
                                 </div>
                                 <div className="col-md-4 d-flex">
                                     <div className="info bg-white p-4">
-                                        <p><span>Email:</span> <a href="mailto:habetgabriel@gmail.com">habetgabriel@gmail.com</a></p>
+                                        <p><span><Translate content='contact.Email' />:</span> <a href="mailto:habetgabriel@gmail.com">habetgabriel@gmail.com</a></p>
                                     </div>
                                 </div>
                             </div>

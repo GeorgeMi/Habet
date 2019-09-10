@@ -1,17 +1,27 @@
 ﻿import * as React from 'react';
 import { KeyedCollection } from './Dictionary';
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
+import * as Translate from 'react-translate-component';
+import en from './languages/en';
+import it from './languages/it';
+import ro from './languages/ro';
 
 var config = require('config');
 var API_Path = config.API_Path;
 const axios = require('axios');
+var counterpart = require('counterpart');
 
+counterpart.registerTranslations('en', en);
+counterpart.registerTranslations('ro', ro);
+counterpart.registerTranslations('it', it);
 
 export class SectionProducts extends React.Component<any, any>
 {
     constructor(props) {
         super(props);
-        this.state = { isLoaded: false, items: null, error: null, gender: props.Gender, type: props.Type };
+
+        counterpart.setLocale(read_cookie('lang'));
+        this.state = { isLoaded: false, items: null, error: null, gender: props.Gender, type: props.Type, language: read_cookie('lang') };
     }
        
     componentWillMount() {
@@ -76,8 +86,8 @@ export class SectionProducts extends React.Component<any, any>
                     <div className="container">
                         <div className="row justify-content-center mb-3 pb-3">
                             <div className="col-md-12 heading-section text-center">
-                                {type == 'Bags' ? <h2 className="mb-4" id={gender + "-section"}>{gender}</h2> : <div></div> }
-                                 <p id={gender + "-" + type + "-section"}>{type}</p>
+                                {type == 'Bags' ? <h2 className="mb-4" id={gender + "-section"}><Translate content={'products.'+gender} /></h2> : <div></div> }
+                                <p id={gender + "-" + type + "-section"}><Translate content={'products.' + type} /></p>
                             </div>
                         </div>
                     </div>
@@ -97,8 +107,8 @@ export class SectionProducts extends React.Component<any, any>
                                                     <p className="price"><span>${item.Price}</span></p>
                                                 </div>
                                                 <p className="bottom-area d-flex px-3">
-                                                    <a href="#" className="add-to-cart text-center py-2 mr-1" onClick={() => this.addProductToCart(item.ProductId, 1)}><span>Add to cart <i className="ion-ios-add ml-1"></i></span></a>
-                                                    <a href="#" className="buy-now text-center py-2">Buy now<span><i className="ion-ios-cart ml-1"></i></span></a>
+                                                    <a href="#" className="add-to-cart text-center py-2 mr-1" onClick={() => this.addProductToCart(item.ProductId, 1)}><span><Translate content="products.AddToCart" /><i className="ion-ios-add ml-1"></i></span></a>
+                                                    <a href="#" className="buy-now text-center py-2"><Translate content="products.BuyNow" /><span><i className="ion-ios-cart ml-1"></i></span></a>
                                                 </p>
                                             </div>
                                         </div>

@@ -32,6 +32,11 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="Components\languages\it.js" />
+    <Content Include="Components\languages\ro.js" />
+    <Content Include="Components\languages\en.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="css\ajax-loader.gif" />
     <Content Include="css\animate.css" />
     <Content Include="css\aos.css" />
@@ -143,6 +148,7 @@
     <TypeScriptCompile Include="Components\SectionProducts.tsx" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Components\languages\" />
     <Folder Include="css\" />
     <Folder Include="css\bootstrap\" />
     <Folder Include="css\css\" />

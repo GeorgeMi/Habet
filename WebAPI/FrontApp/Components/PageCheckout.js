@@ -123,10 +123,9 @@ var Checkout = /** @class */ (function (_super) {
                 React.createElement("div", null,
                     React.createElement(Header_1.Header, null),
                     React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
-                        React.createElement("div", { className: "container" },
-                            React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
-                                React.createElement("div", { className: "col-md-9 text-center" },
-                                    React.createElement("h1", { className: "mb-0 bread" }, "Checkout"))))),
+                        React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
+                            React.createElement("div", { className: "col-md-12 heading-section text-center" },
+                                React.createElement("h1", { className: "mb-4" }, "Checkout")))),
                     React.createElement("div", { className: "loading" }, "Loading\u2026"),
                     ";")));
         }

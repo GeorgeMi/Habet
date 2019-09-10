@@ -5,16 +5,26 @@ import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
 import { NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import Pagination from 'react-js-pagination';
+import * as Translate from 'react-translate-component';
+import en from './languages/en';
+import it from './languages/it';
+import ro from './languages/ro';
 
 var config = require('config');
 var API_Path = config.API_Path;
 const axios = require('axios');
+var counterpart = require('counterpart');
+
+counterpart.registerTranslations('en', en);
+counterpart.registerTranslations('ro', ro);
+counterpart.registerTranslations('it', it);
 
 export class Search extends React.Component<any, any>
 {
     constructor(props) {
         super(props);
 
+        counterpart.setLocale(read_cookie('lang'));
         this.state = {
             gender: "Women",
             type: "Bags",
@@ -24,7 +34,8 @@ export class Search extends React.Component<any, any>
             error: null,
             waitingResponse: false,
             isChanged: false,
-            pageNumber: 1
+            pageNumber: 1,
+            language: read_cookie('lang')
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -132,12 +143,13 @@ export class Search extends React.Component<any, any>
                         <Header Active={'Search'} />
 
                         <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
-                            <div className="row no-gutters slider-text align-items-center justify-content-center">
-                                <div className="col-md-9 text-center">
-                                    <h1 className="mb-0 bread">Search products</h1>
+                            <div className="row justify-content-center mb-3 pb-3">
+                                <div className="col-md-12 heading-section text-center">
+                                    <h1 className="mb-4"><Translate content={'search.SearchProducts'} /></h1>
                                 </div>
                             </div>
                         </div>
+
                         <section className="ftco-section bg-light">
                             <div className="container">
                                 <div className="row">
@@ -157,8 +169,8 @@ export class Search extends React.Component<any, any>
                                                                     <p className="price"><span>${item.Price}</span></p>
                                                                 </div>
                                                                 <p className="bottom-area d-flex px-3">
-                                                                    <a href="#" className="add-to-cart text-center py-2 mr-1" onClick={() => this.addProductToCart(item.ProductId, 1)}><span>Add to cart <i className="ion-ios-add ml-1"></i></span></a>
-                                                                    <a href="#" className="buy-now text-center py-2">Buy now<span><i className="ion-ios-cart ml-1"></i></span></a>
+                                                                    <a href="#" className="add-to-cart text-center py-2 mr-1" onClick={() => this.addProductToCart(item.ProductId, 1)}><span><Translate content={'search.AddToCart'} /> <i className="ion-ios-add ml-1"></i></span></a>
+                                                                    <a href="#" className="buy-now text-center py-2"><Translate content={'search.BuyNow'} /><span><i className="ion-ios-cart ml-1"></i></span></a>
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -202,14 +214,14 @@ export class Search extends React.Component<any, any>
                                     <div className="col-md-4 col-lg-2">
                                         <div className="sidebar">
                                             <div className="sidebar-box-2">
-                                                <h2 className="heading">Categories</h2>
+                                                <h2 className="heading"><Translate content={'search.Categories'} /></h2>
                                                 <div className="fancy-collapse-panel">
                                                     <form action="" className="billing-form" onSubmit={this.handleSubmit}>
                                                         <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                                                             <div className="panel panel-default">
                                                                 <div className="panel-heading" role="tab" id="headingOne">
                                                                     <h4 className="panel-title">
-                                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Gender
+                                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"><Translate content={'search.Gender'} />
                                  </a>
                                                                     </h4>
                                                                 </div>
@@ -219,12 +231,12 @@ export class Search extends React.Component<any, any>
                                                                             <li>
                                                                                 <input type="radio" className="form-check-input" name="gender" value="Men"
                                                                                     checked={this.state.gender === "Men"} onChange={this.handleChange} id="gender-men" />
-                                                                                <label className="form-check-label" htmlFor="gender-men">Men</label>
+                                                                                <label className="form-check-label" htmlFor="gender-men"><Translate content={'search.Men'} /></label>
                                                                             </li>
                                                                             <li>
                                                                                 <input type="radio" className="form-check-input" name="gender" value="Women"
                                                                                     checked={this.state.gender === "Women"} onChange={this.handleChange} id="gender-women" />
-                                                                                <label className="form-check-label" htmlFor="gender-women">Women</label>
+                                                                                <label className="form-check-label" htmlFor="gender-women"><Translate content={'search.Women'} /></label>
                                                                             </li>
                                                                         </ul>
                                                                     </div>
@@ -233,7 +245,7 @@ export class Search extends React.Component<any, any>
                                                             <div className="panel panel-default">
                                                                 <div className="panel-heading" role="tab" id="headingTwo">
                                                                     <h4 className="panel-title">
-                                                                        <a className="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Products</a>
+                                                                        <a className="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"><Translate content={'search.Products'} /></a>
                                                                     </h4>
                                                                 </div>
                                                                 <div id="collapseTwo" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
@@ -242,12 +254,12 @@ export class Search extends React.Component<any, any>
                                                                             <li>
                                                                                 <input type="radio" className="form-check-input" name="type" value="Bags"
                                                                                     checked={this.state.type === "Bags"} id="type-bags" onChange={this.handleChange} />
-                                                                                <label className="form-check-label" htmlFor="type-bags">Bags</label>
+                                                                                <label className="form-check-label" htmlFor="type-bags"><Translate content={'search.Bags'} /></label>
                                                                             </li>
                                                                             <li>
                                                                                 <input type="radio" className="form-check-input" name="type" value="Belts"
                                                                                     checked={this.state.type === "Belts"} id="type-belts" onChange={this.handleChange} />
-                                                                                <label className="form-check-label" htmlFor="type-belts">Belts</label>
+                                                                                <label className="form-check-label" htmlFor="type-belts"><Translate content={'search.Belts'} /></label>
                                                                             </li>
                                                                         </ul>
                                                                     </div>
@@ -257,7 +269,7 @@ export class Search extends React.Component<any, any>
                                                             <div className="panel panel-default">
                                                                 <div className="panel-heading" role="tab" id="headingThree">
                                                                     <h4 className="panel-title">
-                                                                        <a className="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="headingThree">Price Range</a>
+                                                                        <a className="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="headingThree"><Translate content={'search.PriceRange'} /></a>
                                                                     </h4>
                                                                 </div>
 

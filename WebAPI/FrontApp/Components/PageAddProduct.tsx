@@ -71,11 +71,9 @@ export class AddProduct extends React.Component<any, any> {
                     <Header />
 
                     <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
-                        <div className="container">
-                            <div className="row no-gutters slider-text align-items-center justify-content-center">
-                                <div className="col-md-9 text-center">
-                                    <h1 className="mb-0 bread">Add Product</h1>
-                                </div>
+                        <div className="row justify-content-center mb-3 pb-3">
+                            <div className="col-md-12 heading-section text-center">
+                                <h1 className="mb-4">Add Product</h1>
                             </div>
                         </div>
                     </div>
