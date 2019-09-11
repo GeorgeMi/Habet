@@ -41,6 +41,7 @@ var AddProduct = /** @class */ (function (_super) {
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.handleFileChange = _this.handleFileChange.bind(_this);
+        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
         return _this;
     }
     AddProduct.prototype.handleChange = function (event) {
@@ -73,12 +74,15 @@ var AddProduct = /** @class */ (function (_super) {
         })
             .then(this.setState({ waitingResponse: false }));
     };
+    AddProduct.prototype.langaugeChanged = function () {
+        //do nothing
+    };
     AddProduct.prototype.render = function () {
         var waitingResponse = this.state.waitingResponse;
         return (React.createElement("main", { id: "main" },
             waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
             React.createElement("div", null,
-                React.createElement(Header_1.Header, null),
+                React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                         React.createElement("div", { className: "col-md-12 heading-section text-center" },
@@ -127,7 +131,8 @@ var AddProduct = /** @class */ (function (_super) {
                                                             React.createElement(Translate, { content: 'product.Men' })))))),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
-                                                React.createElement("label", { htmlFor: "type" }, "Type"),
+                                                React.createElement("label", { htmlFor: "type" },
+                                                    React.createElement(Translate, { content: 'product.Type' })),
                                                 React.createElement("div", { className: "select-wrap" },
                                                     React.createElement("div", { className: "icon" },
                                                         React.createElement("span", { className: "ion-ios-arrow-down" })),

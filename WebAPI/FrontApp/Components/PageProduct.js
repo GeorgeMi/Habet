@@ -48,11 +48,17 @@ var Product = /** @class */ (function (_super) {
         _this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary, productId: props.match.params.id, quantity: 1, language: sfcookies_1.read_cookie('lang') };
         _this.getImageForProduct = _this.getImageForProduct.bind(_this);
         _this.handleChange = _this.handleChange.bind(_this);
+        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
         return _this;
     }
     Product.prototype.componentWillMount = function () {
         var _this = this;
-        axios.get(API_Path + '/Products/' + this.state.productId)
+        axios.get(API_Path + '/Products/', {
+            params: {
+                productId: this.state.productId,
+                lang: this.state.language
+            }
+        })
             .then(function (response) {
             var dictionary = _this.state.imageDictionary;
             _this.setState({ isLoaded: true, item: response.data, imageDictionary: dictionary });
@@ -103,12 +109,15 @@ var Product = /** @class */ (function (_super) {
         sfcookies_1.delete_cookie('cartProducts');
         sfcookies_1.bake_cookie('cartProducts', cartProducts);
     };
+    Product.prototype.langaugeChanged = function () {
+        window.location.reload(false);
+    };
     Product.prototype.render = function () {
         var _this = this;
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, item = _a.item, quantity = _a.quantity;
         if (error) {
             return (React.createElement("div", null,
-                React.createElement(Header_1.Header, null),
+                React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                         React.createElement("div", { className: "col-md-9 text-center" },
@@ -120,7 +129,7 @@ var Product = /** @class */ (function (_super) {
         }
         else {
             return (React.createElement("div", null,
-                React.createElement(Header_1.Header, null),
+                React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                         React.createElement("div", { className: "col-md-9 text-center" },

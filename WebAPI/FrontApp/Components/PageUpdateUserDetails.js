@@ -41,6 +41,7 @@ var UpdateUserDetails = /** @class */ (function (_super) {
         };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
         return _this;
     }
     UpdateUserDetails.prototype.componentWillMount = function () {
@@ -104,6 +105,9 @@ var UpdateUserDetails = /** @class */ (function (_super) {
             _this.setState({ waitingResponse: false });
         });
     };
+    UpdateUserDetails.prototype.langaugeChanged = function () {
+        //do nothing
+    };
     UpdateUserDetails.prototype.render = function () {
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, waitingResponse = _a.waitingResponse, isChanged = _a.isChanged;
         if (error) {
@@ -116,7 +120,7 @@ var UpdateUserDetails = /** @class */ (function (_super) {
             return (React.createElement("main", { id: "main" },
                 waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
                 React.createElement("div", null,
-                    React.createElement(Header_1.Header, null),
+                    React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
                     React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },
@@ -128,7 +132,7 @@ var UpdateUserDetails = /** @class */ (function (_super) {
             return (React.createElement("main", { id: "main" },
                 waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
                 React.createElement("div", null,
-                    React.createElement(Header_1.Header, null),
+                    React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
                     React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                         React.createElement("div", { className: "container" },
                             React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },

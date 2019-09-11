@@ -40,6 +40,7 @@ export class Search extends React.Component<any, any>
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.langaugeChanged = this.langaugeChanged.bind(this);
     }
 
     componentWillMount() {
@@ -48,8 +49,9 @@ export class Search extends React.Component<any, any>
                 params: {
                     top: 15,
                     from: 0,
-                    gender: "",
-                    type: "intro"
+                    gender: "none",
+                    type: "intro",
+                    lang: this.state.language
                 }
             })
             .then((response) => {
@@ -97,7 +99,8 @@ export class Search extends React.Component<any, any>
                 gender: this.state.gender,
                 type: this.state.type,
                 priceFrom: priceFrom,
-                priceTo: priceTo
+                priceTo: priceTo,
+                lang: this.state.language
             })
             .then((response) => {
                 this.setState({ isLoaded: true, items: response.data.Products });
@@ -128,6 +131,10 @@ export class Search extends React.Component<any, any>
         bake_cookie('cartProducts', cartProducts);
     } 
 
+    public langaugeChanged() {
+        window.location.reload(false);
+    }
+
     render() {
         const { error, isLoaded, items } = this.state;
 
@@ -140,7 +147,7 @@ export class Search extends React.Component<any, any>
             return (
                 <main id="main">
                     <div>
-                        <Header Active={'Search'} />
+                        <Header Active={'Search'} langaugeChanged={this.langaugeChanged}/>
 
                         <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
                             <div className="row justify-content-center mb-3 pb-3">

@@ -33,7 +33,6 @@ var Checkout = /** @class */ (function (_super) {
     __extends(Checkout, _super);
     function Checkout(props) {
         var _this = _super.call(this, props) || this;
-        console.log(props);
         counterpart.setLocale(sfcookies_1.read_cookie('lang'));
         _this.state = {
             isLoaded: false,
@@ -55,6 +54,7 @@ var Checkout = /** @class */ (function (_super) {
         };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
         return _this;
     }
     Checkout.prototype.componentWillMount = function () {
@@ -119,6 +119,9 @@ var Checkout = /** @class */ (function (_super) {
             _this.setState({ waitingResponse: false });
         });
     };
+    Checkout.prototype.langaugeChanged = function () {
+        //do nothing
+    };
     Checkout.prototype.render = function () {
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, waitingResponse = _a.waitingResponse, isChanged = _a.isChanged;
         if (error) {
@@ -131,7 +134,7 @@ var Checkout = /** @class */ (function (_super) {
             return (React.createElement("main", { id: "main" },
                 waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
                 React.createElement("div", null,
-                    React.createElement(Header_1.Header, null),
+                    React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
                     React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },
@@ -143,7 +146,7 @@ var Checkout = /** @class */ (function (_super) {
         else {
             return (React.createElement("main", { id: "main" },
                 React.createElement("div", null,
-                    React.createElement(Header_1.Header, null),
+                    React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
                     React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                         React.createElement("div", { className: "container" },
                             React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },

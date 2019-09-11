@@ -15,6 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var Dictionary_1 = require("./Dictionary");
+var sfcookies_1 = require("sfcookies");
 var config = require('config');
 var API_Path = config.API_Path;
 var axios = require('axios');
@@ -22,7 +23,7 @@ var SectionIntro = /** @class */ (function (_super) {
     __extends(SectionIntro, _super);
     function SectionIntro(props) {
         var _this = _super.call(this, props) || this;
-        _this.state = { isLoaded: false, items: null, error: null };
+        _this.state = { isLoaded: false, items: null, error: null, language: sfcookies_1.read_cookie('lang') };
         return _this;
     }
     SectionIntro.prototype.componentWillMount = function () {
@@ -31,8 +32,9 @@ var SectionIntro = /** @class */ (function (_super) {
             params: {
                 top: 5,
                 from: 0,
-                gender: "",
-                type: "intro"
+                gender: "none",
+                type: "intro",
+                lang: this.state.language
             }
         })
             .then(function (response) {

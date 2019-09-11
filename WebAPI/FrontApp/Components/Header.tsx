@@ -54,6 +54,8 @@ export class Header extends React.Component<any, any> {
 
         delete_cookie('lang');
         bake_cookie('lang', event.target.value);
+
+        this.props.langaugeChanged();
     }
 
     handleChange(event) {
@@ -101,7 +103,6 @@ export class Header extends React.Component<any, any> {
     render() {
         var { headerDictionary, loggedIn, api_response } = this.state;
         var cartItemNumber = read_cookie('cartProducts').count;
-        console.log(this.state.language);
 
         return (
             <div>

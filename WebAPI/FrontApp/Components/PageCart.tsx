@@ -28,7 +28,8 @@ export class Cart extends React.Component<any, any>{
         this.getQuantity = this.getQuantity.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.removeProductFromCart = this.removeProductFromCart.bind(this);     
-        this.updateTotalAfterRemove = this.updateTotalAfterRemove.bind(this);             
+        this.updateTotalAfterRemove = this.updateTotalAfterRemove.bind(this);  
+        this.langaugeChanged = this.langaugeChanged.bind(this);
     }
 
     readCartFromCookie(cookie) {
@@ -48,7 +49,8 @@ export class Cart extends React.Component<any, any>{
             if (cartProducts.Count() > 0) {
                 axios.post(API_Path + '/ChartProducts',
                     {
-                        productIds: cartProducts.Keys()
+                        productIds: cartProducts.Keys(),
+                        lang: this.state.language
                     })
                     .then((response) => {
                         this.setState({ isLoaded: true, items: response.data.data });
@@ -116,7 +118,11 @@ export class Cart extends React.Component<any, any>{
         var cartProducts = this.readCartFromCookie(read_cookie('cartProducts'));
         return cartProducts.Item(productId);
     }
-   
+
+    public langaugeChanged() {
+        window.location.reload(false);
+    }
+
     render() {
         const { error, isLoaded, items } = this.state;
 
@@ -128,7 +134,7 @@ export class Cart extends React.Component<any, any>{
         } else {
             return (
                 <div>
-                    <Header Active={'Cart'} />
+                    <Header Active={'Cart'} langaugeChanged={this.langaugeChanged} />
 
                     <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
                         <div className="row justify-content-center mb-3 pb-3">

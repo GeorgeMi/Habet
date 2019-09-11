@@ -17,12 +17,17 @@ var React = require("react");
 var Header_1 = require("./Header");
 var NotFound = /** @class */ (function (_super) {
     __extends(NotFound, _super);
-    function NotFound() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function NotFound(props) {
+        var _this = _super.call(this, props) || this;
+        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
+        return _this;
     }
+    NotFound.prototype.langaugeChanged = function () {
+        //do nothing
+    };
     NotFound.prototype.render = function () {
         return (React.createElement("div", null,
-            React.createElement(Header_1.Header, null),
+            React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
             React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                 React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                     React.createElement("div", { className: "col-md-9 text-center" },

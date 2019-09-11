@@ -40,6 +40,7 @@ var ChangePassword = /** @class */ (function (_super) {
         _this.state = { password: '', confirm_password: '', waitingResponse: false, language: sfcookies_1.read_cookie('lang') };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
         return _this;
     }
     ChangePassword.prototype.handleChange = function (event) {
@@ -76,12 +77,15 @@ var ChangePassword = /** @class */ (function (_super) {
             react_notifications_1.NotificationManager.error("Passwords don't match!");
         }
     };
+    ChangePassword.prototype.langaugeChanged = function () {
+        //do nothing
+    };
     ChangePassword.prototype.render = function () {
         var waitingResponse = this.state.waitingResponse;
         return (React.createElement("main", { id: "main" },
             waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
             React.createElement("div", null,
-                React.createElement(Header_1.Header, null),
+                React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },

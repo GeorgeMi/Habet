@@ -20,7 +20,6 @@ counterpart.registerTranslations('it', it);
 export class Checkout extends React.Component<any, any> {
     constructor(props) {
         super(props);
-        console.log(props);
 
         counterpart.setLocale(read_cookie('lang'));
         this.state = {
@@ -44,6 +43,7 @@ export class Checkout extends React.Component<any, any> {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.langaugeChanged = this.langaugeChanged.bind(this);
     }
 
     componentWillMount() {
@@ -112,6 +112,11 @@ export class Checkout extends React.Component<any, any> {
             );
     }
 
+
+    public langaugeChanged() {
+        //do nothing
+    }
+
     render() {
         const { error, isLoaded, waitingResponse, isChanged } = this.state;
 
@@ -124,7 +129,7 @@ export class Checkout extends React.Component<any, any> {
                     {waitingResponse ? <div className="loading">Loading&#8230;</div> : <div></div>}
 
                     <div>
-                        <Header />
+                        <Header langaugeChanged={this.langaugeChanged} />
 
                         <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
                             <div className="row justify-content-center mb-3 pb-3">
@@ -141,7 +146,7 @@ export class Checkout extends React.Component<any, any> {
             return (
                 <main id="main">
                     <div>
-                        <Header />
+                        <Header langaugeChanged={this.langaugeChanged} />
 
                         <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
                             <div className="container">

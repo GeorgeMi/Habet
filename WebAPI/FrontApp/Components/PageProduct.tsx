@@ -28,10 +28,17 @@ export class Product extends React.Component<any, any>
 
         this.getImageForProduct = this.getImageForProduct.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.langaugeChanged = this.langaugeChanged.bind(this);
     }
 
     componentWillMount() {
-        axios.get(API_Path + '/Products/' + this.state.productId)
+        axios.get(API_Path + '/Products/',
+            {
+                params: {
+                    productId: this.state.productId,
+                    lang: this.state.language
+                }
+            })
             .then((response) => {
                 var dictionary = this.state.imageDictionary;
                 this.setState({ isLoaded: true, item: response.data, imageDictionary: dictionary });
@@ -107,13 +114,17 @@ export class Product extends React.Component<any, any>
         }
     }
 
+    public langaugeChanged() {
+        window.location.reload(false);
+    }
+
     render() {
         const { error, isLoaded, item, quantity } = this.state;
 
         if (error) {
             return (
                 <div>
-                    <Header />
+                    <Header langaugeChanged={this.langaugeChanged}/>
                     <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
                         <div className="row no-gutters slider-text align-items-center justify-content-center">
                             <div className="col-md-9 text-center">
@@ -131,7 +142,7 @@ export class Product extends React.Component<any, any>
         } else {
             return (
                 <div>
-                    <Header />
+                    <Header langaugeChanged={this.langaugeChanged}/>
 
                     <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
                         <div className="row no-gutters slider-text align-items-center justify-content-center">

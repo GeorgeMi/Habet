@@ -40,6 +40,7 @@ var Register = /** @class */ (function (_super) {
         _this.state = { email: '', password: '', firstName: '', lastName: '', state: '', city: '', streetAddress: '', zipCode: '', phone: '', api_response: '', loggedIn: false, headerDictionary: dictionary, waitingResponse: false, language: sfcookies_1.read_cookie('lang') };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
         return _this;
     }
     Register.prototype.handleChange = function (event) {
@@ -61,7 +62,8 @@ var Register = /** @class */ (function (_super) {
             city: this.state.city,
             streetAddress: this.state.streetAddress,
             zipCode: this.state.zipCode,
-            phone: this.state.phone
+            phone: this.state.phone,
+            lang: this.state.language
         })
             .then(function (response) {
             _this.setState({ email: '', password: '', firstName: '', lastName: '', state: '', city: '', streetAddress: '', zipCode: '', phone: '', api_response: response.data, loggedIn: true });
@@ -73,12 +75,15 @@ var Register = /** @class */ (function (_super) {
         })
             .then(this.setState({ waitingResponse: false }));
     };
+    Register.prototype.langaugeChanged = function () {
+        //do nothing
+    };
     Register.prototype.render = function () {
         var waitingResponse = this.state.waitingResponse;
         return (React.createElement("main", { id: "main" },
             waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
             React.createElement("div", null,
-                React.createElement(Header_1.Header, null),
+                React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },

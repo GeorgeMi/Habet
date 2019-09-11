@@ -1,5 +1,6 @@
 ﻿import * as React from 'react';
 import { KeyedCollection } from './Dictionary';
+import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
 
 var config = require('config');
 var API_Path = config.API_Path;
@@ -9,7 +10,7 @@ export class SectionIntro extends React.Component<any, any> {
     constructor(props) {
         super(props);
 
-        this.state = { isLoaded: false, items: null, error: null };
+        this.state = { isLoaded: false, items: null, error: null, language: read_cookie('lang') };
     }
 
     componentWillMount() {
@@ -18,8 +19,9 @@ export class SectionIntro extends React.Component<any, any> {
                 params: {
                     top: 5,
                     from: 0,
-                    gender: "",
-                    type: "intro"
+                    gender: "none",
+                    type: "intro",
+                    lang: this.state.language
                 }
             })
             .then((response) => {

@@ -42,7 +42,8 @@ var SectionProducts = /** @class */ (function (_super) {
                 top: 20,
                 from: 0,
                 gender: this.state.gender,
-                type: this.state.type
+                type: this.state.type,
+                lang: this.state.language
             }
         })
             .then(function (response) {

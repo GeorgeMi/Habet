@@ -324,6 +324,7 @@ var Header = /** @class */ (function (_super) {
         counterpart.setLocale(event.target.value);
         sfcookies_1.delete_cookie('lang');
         sfcookies_1.bake_cookie('lang', event.target.value);
+        this.props.langaugeChanged();
     };
     Header.prototype.handleChange = function (event) {
         var _a;
@@ -367,7 +368,6 @@ var Header = /** @class */ (function (_super) {
     Header.prototype.render = function () {
         var _a = this.state, headerDictionary = _a.headerDictionary, loggedIn = _a.loggedIn, api_response = _a.api_response;
         var cartItemNumber = sfcookies_1.read_cookie('cartProducts').count;
-        console.log(this.state.language);
         return (React.createElement("div", null,
             React.createElement(react_notifications_1.NotificationContainer, null),
             React.createElement("nav", { className: "navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light", id: "ftco-navbar" },
@@ -514,6 +514,7 @@ var AddProduct = /** @class */ (function (_super) {
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.handleFileChange = _this.handleFileChange.bind(_this);
+        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
         return _this;
     }
     AddProduct.prototype.handleChange = function (event) {
@@ -546,12 +547,15 @@ var AddProduct = /** @class */ (function (_super) {
         })
             .then(this.setState({ waitingResponse: false }));
     };
+    AddProduct.prototype.langaugeChanged = function () {
+        //do nothing
+    };
     AddProduct.prototype.render = function () {
         var waitingResponse = this.state.waitingResponse;
         return (React.createElement("main", { id: "main" },
             waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
             React.createElement("div", null,
-                React.createElement(Header_1.Header, null),
+                React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                         React.createElement("div", { className: "col-md-12 heading-section text-center" },
@@ -600,7 +604,8 @@ var AddProduct = /** @class */ (function (_super) {
                                                             React.createElement(Translate, { content: 'product.Men' })))))),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
-                                                React.createElement("label", { htmlFor: "type" }, "Type"),
+                                                React.createElement("label", { htmlFor: "type" },
+                                                    React.createElement(Translate, { content: 'product.Type' })),
                                                 React.createElement("div", { className: "select-wrap" },
                                                     React.createElement("div", { className: "icon" },
                                                         React.createElement("span", { className: "ion-ios-arrow-down" })),
@@ -673,6 +678,7 @@ var Cart = /** @class */ (function (_super) {
         _this.handleChange = _this.handleChange.bind(_this);
         _this.removeProductFromCart = _this.removeProductFromCart.bind(_this);
         _this.updateTotalAfterRemove = _this.updateTotalAfterRemove.bind(_this);
+        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
         return _this;
     }
     Cart.prototype.readCartFromCookie = function (cookie) {
@@ -690,7 +696,8 @@ var Cart = /** @class */ (function (_super) {
             this.setState({ cartProducts: cartProducts });
             if (cartProducts.Count() > 0) {
                 axios.post(API_Path + '/ChartProducts', {
-                    productIds: cartProducts.Keys()
+                    productIds: cartProducts.Keys(),
+                    lang: this.state.language
                 })
                     .then(function (response) {
                     _this.setState({ isLoaded: true, items: response.data.data });
@@ -742,6 +749,9 @@ var Cart = /** @class */ (function (_super) {
         var cartProducts = this.readCartFromCookie(sfcookies_1.read_cookie('cartProducts'));
         return cartProducts.Item(productId);
     };
+    Cart.prototype.langaugeChanged = function () {
+        window.location.reload(false);
+    };
     Cart.prototype.render = function () {
         var _this = this;
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items;
@@ -756,7 +766,7 @@ var Cart = /** @class */ (function (_super) {
         }
         else {
             return (React.createElement("div", null,
-                React.createElement(Header_1.Header, { Active: 'Cart' }),
+                React.createElement(Header_1.Header, { Active: 'Cart', langaugeChanged: this.langaugeChanged }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                         React.createElement("div", { className: "col-md-12 heading-section text-center" },
@@ -881,6 +891,7 @@ var ChangePassword = /** @class */ (function (_super) {
         _this.state = { password: '', confirm_password: '', waitingResponse: false, language: sfcookies_1.read_cookie('lang') };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
         return _this;
     }
     ChangePassword.prototype.handleChange = function (event) {
@@ -917,12 +928,15 @@ var ChangePassword = /** @class */ (function (_super) {
             react_notifications_1.NotificationManager.error("Passwords don't match!");
         }
     };
+    ChangePassword.prototype.langaugeChanged = function () {
+        //do nothing
+    };
     ChangePassword.prototype.render = function () {
         var waitingResponse = this.state.waitingResponse;
         return (React.createElement("main", { id: "main" },
             waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
             React.createElement("div", null,
-                React.createElement(Header_1.Header, null),
+                React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
@@ -1001,7 +1015,6 @@ var Checkout = /** @class */ (function (_super) {
     __extends(Checkout, _super);
     function Checkout(props) {
         var _this = _super.call(this, props) || this;
-        console.log(props);
         counterpart.setLocale(sfcookies_1.read_cookie('lang'));
         _this.state = {
             isLoaded: false,
@@ -1023,6 +1036,7 @@ var Checkout = /** @class */ (function (_super) {
         };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
         return _this;
     }
     Checkout.prototype.componentWillMount = function () {
@@ -1087,6 +1101,9 @@ var Checkout = /** @class */ (function (_super) {
             _this.setState({ waitingResponse: false });
         });
     };
+    Checkout.prototype.langaugeChanged = function () {
+        //do nothing
+    };
     Checkout.prototype.render = function () {
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, waitingResponse = _a.waitingResponse, isChanged = _a.isChanged;
         if (error) {
@@ -1099,7 +1116,7 @@ var Checkout = /** @class */ (function (_super) {
             return (React.createElement("main", { id: "main" },
                 waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
                 React.createElement("div", null,
-                    React.createElement(Header_1.Header, null),
+                    React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
                     React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },
@@ -1111,7 +1128,7 @@ var Checkout = /** @class */ (function (_super) {
         else {
             return (React.createElement("main", { id: "main" },
                 React.createElement("div", null,
-                    React.createElement(Header_1.Header, null),
+                    React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
                     React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                         React.createElement("div", { className: "container" },
                             React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
@@ -1318,6 +1335,7 @@ var Contact = /** @class */ (function (_super) {
         _this.state = { name: '', email: '', subject: '', message: '', api_response: '', request_sent: false, language: sfcookies_1.read_cookie('lang') };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
         return _this;
     }
     Contact.prototype.handleChange = function (event) {
@@ -1343,6 +1361,9 @@ var Contact = /** @class */ (function (_super) {
         })
             .then();
     };
+    Contact.prototype.langaugeChanged = function () {
+        //do nothing
+    };
     Contact.prototype.render = function () {
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, request_sent = _a.request_sent;
         if (error) {
@@ -1356,7 +1377,7 @@ var Contact = /** @class */ (function (_super) {
         }
         else {
             return (React.createElement("div", null,
-                React.createElement(Header_1.Header, { Active: 'Contact' }),
+                React.createElement(Header_1.Header, { Active: 'Contact', langaugeChanged: this.langaugeChanged }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                         React.createElement("div", { className: "col-md-12 heading-section text-center" },
@@ -1528,6 +1549,7 @@ var Home = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         _this.state = { loadedComponentsDictionary: null };
         _this.setLoadedComponentsArray = _this.setLoadedComponentsArray.bind(_this);
+        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
         return _this;
     }
     Home.prototype.setLoadedComponentsArray = function (component, loaded) {
@@ -1538,8 +1560,10 @@ var Home = /** @class */ (function (_super) {
         dictionary.Add(component, loaded);
         this.setState({ loadedComponentsDictionary: dictionary });
     };
+    Home.prototype.langaugeChanged = function () {
+        window.location.reload(false);
+    };
     Home.prototype.render = function () {
-        // console.log(this.state.loadedComponentsDictionary);
         var hideLoader = false;
         if (this.state.loadedComponentsDictionary != null && this.state.loadedComponentsDictionary.Count() == 4) {
             hideLoader = true;
@@ -1547,7 +1571,7 @@ var Home = /** @class */ (function (_super) {
         return (React.createElement("main", { id: "main" },
             hideLoader ? React.createElement("div", null) : React.createElement("div", { className: "loading" }, "Loading\u2026"),
             React.createElement("div", null,
-                React.createElement(Header_1.Header, { Active: 'Home' }),
+                React.createElement(Header_1.Header, { Active: 'Home', langaugeChanged: this.langaugeChanged }),
                 React.createElement(SectionIntro_1.SectionIntro, null),
                 React.createElement("section", { className: "ftco-section bg-light" },
                     React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Bags', setLoadedComponentsArray: this.setLoadedComponentsArray }),
@@ -1589,12 +1613,17 @@ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
 var NotFound = /** @class */ (function (_super) {
     __extends(NotFound, _super);
-    function NotFound() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function NotFound(props) {
+        var _this = _super.call(this, props) || this;
+        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
+        return _this;
     }
+    NotFound.prototype.langaugeChanged = function () {
+        //do nothing
+    };
     NotFound.prototype.render = function () {
         return (React.createElement("div", null,
-            React.createElement(Header_1.Header, null),
+            React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
             React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                 React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                     React.createElement("div", { className: "col-md-9 text-center" },
@@ -1666,11 +1695,17 @@ var Product = /** @class */ (function (_super) {
         _this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary, productId: props.match.params.id, quantity: 1, language: sfcookies_1.read_cookie('lang') };
         _this.getImageForProduct = _this.getImageForProduct.bind(_this);
         _this.handleChange = _this.handleChange.bind(_this);
+        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
         return _this;
     }
     Product.prototype.componentWillMount = function () {
         var _this = this;
-        axios.get(API_Path + '/Products/' + this.state.productId)
+        axios.get(API_Path + '/Products/', {
+            params: {
+                productId: this.state.productId,
+                lang: this.state.language
+            }
+        })
             .then(function (response) {
             var dictionary = _this.state.imageDictionary;
             _this.setState({ isLoaded: true, item: response.data, imageDictionary: dictionary });
@@ -1721,12 +1756,15 @@ var Product = /** @class */ (function (_super) {
         sfcookies_1.delete_cookie('cartProducts');
         sfcookies_1.bake_cookie('cartProducts', cartProducts);
     };
+    Product.prototype.langaugeChanged = function () {
+        window.location.reload(false);
+    };
     Product.prototype.render = function () {
         var _this = this;
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, item = _a.item, quantity = _a.quantity;
         if (error) {
             return (React.createElement("div", null,
-                React.createElement(Header_1.Header, null),
+                React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                         React.createElement("div", { className: "col-md-9 text-center" },
@@ -1738,7 +1776,7 @@ var Product = /** @class */ (function (_super) {
         }
         else {
             return (React.createElement("div", null,
-                React.createElement(Header_1.Header, null),
+                React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                         React.createElement("div", { className: "col-md-9 text-center" },
@@ -1833,6 +1871,7 @@ var RecoverPassword = /** @class */ (function (_super) {
         _this.state = { email: '', api_response: '', waitingResponse: false, language: sfcookies_1.read_cookie('lang') };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
         return _this;
     }
     RecoverPassword.prototype.handleChange = function (event) {
@@ -1858,12 +1897,15 @@ var RecoverPassword = /** @class */ (function (_super) {
             _this.setState({ email: '' });
         });
     };
+    RecoverPassword.prototype.langaugeChanged = function () {
+        //do nothing
+    };
     RecoverPassword.prototype.render = function () {
         var waitingResponse = this.state.waitingResponse;
         return (React.createElement("main", { id: "main" },
             waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
             React.createElement("div", null,
-                React.createElement(Header_1.Header, null),
+                React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                         React.createElement("div", { className: "col-md-12 heading-section text-center" },
@@ -1943,6 +1985,7 @@ var Register = /** @class */ (function (_super) {
         _this.state = { email: '', password: '', firstName: '', lastName: '', state: '', city: '', streetAddress: '', zipCode: '', phone: '', api_response: '', loggedIn: false, headerDictionary: dictionary, waitingResponse: false, language: sfcookies_1.read_cookie('lang') };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
         return _this;
     }
     Register.prototype.handleChange = function (event) {
@@ -1964,7 +2007,8 @@ var Register = /** @class */ (function (_super) {
             city: this.state.city,
             streetAddress: this.state.streetAddress,
             zipCode: this.state.zipCode,
-            phone: this.state.phone
+            phone: this.state.phone,
+            lang: this.state.language
         })
             .then(function (response) {
             _this.setState({ email: '', password: '', firstName: '', lastName: '', state: '', city: '', streetAddress: '', zipCode: '', phone: '', api_response: response.data, loggedIn: true });
@@ -1976,12 +2020,15 @@ var Register = /** @class */ (function (_super) {
         })
             .then(this.setState({ waitingResponse: false }));
     };
+    Register.prototype.langaugeChanged = function () {
+        //do nothing
+    };
     Register.prototype.render = function () {
         var waitingResponse = this.state.waitingResponse;
         return (React.createElement("main", { id: "main" },
             waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
             React.createElement("div", null,
-                React.createElement(Header_1.Header, null),
+                React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
@@ -2171,6 +2218,7 @@ var Search = /** @class */ (function (_super) {
         };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
         return _this;
     }
     Search.prototype.componentWillMount = function () {
@@ -2179,8 +2227,9 @@ var Search = /** @class */ (function (_super) {
             params: {
                 top: 15,
                 from: 0,
-                gender: "",
-                type: "intro"
+                gender: "none",
+                type: "intro",
+                lang: this.state.language
             }
         })
             .then(function (response) {
@@ -2235,7 +2284,8 @@ var Search = /** @class */ (function (_super) {
             gender: this.state.gender,
             type: this.state.type,
             priceFrom: priceFrom,
-            priceTo: priceTo
+            priceTo: priceTo,
+            lang: this.state.language
         })
             .then(function (response) {
             _this.setState({ isLoaded: true, items: response.data.Products });
@@ -2262,6 +2312,9 @@ var Search = /** @class */ (function (_super) {
         sfcookies_1.delete_cookie('cartProducts');
         sfcookies_1.bake_cookie('cartProducts', cartProducts);
     };
+    Search.prototype.langaugeChanged = function () {
+        window.location.reload(false);
+    };
     Search.prototype.render = function () {
         var _this = this;
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items;
@@ -2277,7 +2330,7 @@ var Search = /** @class */ (function (_super) {
         else {
             return (React.createElement("main", { id: "main" },
                 React.createElement("div", null,
-                    React.createElement(Header_1.Header, { Active: 'Search' }),
+                    React.createElement(Header_1.Header, { Active: 'Search', langaugeChanged: this.langaugeChanged }),
                     React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },
@@ -2458,6 +2511,7 @@ var UpdateUserDetails = /** @class */ (function (_super) {
         };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
         return _this;
     }
     UpdateUserDetails.prototype.componentWillMount = function () {
@@ -2521,6 +2575,9 @@ var UpdateUserDetails = /** @class */ (function (_super) {
             _this.setState({ waitingResponse: false });
         });
     };
+    UpdateUserDetails.prototype.langaugeChanged = function () {
+        //do nothing
+    };
     UpdateUserDetails.prototype.render = function () {
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, waitingResponse = _a.waitingResponse, isChanged = _a.isChanged;
         if (error) {
@@ -2533,7 +2590,7 @@ var UpdateUserDetails = /** @class */ (function (_super) {
             return (React.createElement("main", { id: "main" },
                 waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
                 React.createElement("div", null,
-                    React.createElement(Header_1.Header, null),
+                    React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
                     React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },
@@ -2545,7 +2602,7 @@ var UpdateUserDetails = /** @class */ (function (_super) {
             return (React.createElement("main", { id: "main" },
                 waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
                 React.createElement("div", null,
-                    React.createElement(Header_1.Header, null),
+                    React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
                     React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                         React.createElement("div", { className: "container" },
                             React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
@@ -2692,6 +2749,7 @@ var Verify = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         var dictionary = new Dictionary_1.KeyedCollection();
         _this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary, token: props.match.params.id };
+        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
         return _this;
     }
     Verify.prototype.componentWillMount = function () {
@@ -2706,11 +2764,14 @@ var Verify = /** @class */ (function (_super) {
         })
             .then();
     };
+    Verify.prototype.langaugeChanged = function () {
+        //do nothing
+    };
     Verify.prototype.render = function () {
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, item = _a.item;
         if (error) {
             return (React.createElement("div", null,
-                React.createElement(Header_1.Header, null),
+                React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                         React.createElement("div", { className: "col-md-9 text-center" },
@@ -2757,6 +2818,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
+var sfcookies_1 = __webpack_require__(/*! sfcookies */ "./node_modules/sfcookies/index.js");
 var config = __webpack_require__(/*! config */ "config");
 var API_Path = config.API_Path;
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -2764,7 +2826,7 @@ var SectionIntro = /** @class */ (function (_super) {
     __extends(SectionIntro, _super);
     function SectionIntro(props) {
         var _this = _super.call(this, props) || this;
-        _this.state = { isLoaded: false, items: null, error: null };
+        _this.state = { isLoaded: false, items: null, error: null, language: sfcookies_1.read_cookie('lang') };
         return _this;
     }
     SectionIntro.prototype.componentWillMount = function () {
@@ -2773,8 +2835,9 @@ var SectionIntro = /** @class */ (function (_super) {
             params: {
                 top: 5,
                 from: 0,
-                gender: "",
-                type: "intro"
+                gender: "none",
+                type: "intro",
+                lang: this.state.language
             }
         })
             .then(function (response) {
@@ -2885,7 +2948,8 @@ var SectionProducts = /** @class */ (function (_super) {
                 top: 20,
                 from: 0,
                 gender: this.state.gender,
-                type: this.state.type
+                type: this.state.type,
+                lang: this.state.language
             }
         })
             .then(function (response) {
@@ -3089,7 +3153,8 @@ __webpack_require__.r(__webpack_exports__);
         Bags: 'Bags',
         Belts: 'Belts',
         Men: 'Men',
-        Women: 'Women'
+        Women: 'Women',
+        Type: 'Type'
     }
 });
 
@@ -3211,7 +3276,8 @@ __webpack_require__.r(__webpack_exports__);
         Bags: 'Borse',
         Belts: 'Cinture',
         Men: 'Uomini',
-        Women: 'Donne'
+        Women: 'Donne',
+        Type: 'Tipo'
     }
 });
 
@@ -3333,7 +3399,8 @@ __webpack_require__.r(__webpack_exports__);
         Bags: 'Genți',
         Belts: 'Curele',
         Men: 'Bărbați',
-        Women: 'Femei'
+        Women: 'Femei',
+        Type: 'Tip'
     }
 });
 
@@ -33907,7 +33974,7 @@ if(false) {}
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

@@ -31,10 +31,11 @@ export class SectionProducts extends React.Component<any, any>
                     top: 20,
                     from: 0,
                     gender: this.state.gender,
-                    type: this.state.type
+                    type: this.state.type,
+                    lang: this.state.language
                 }
             })
-            .then((response) => {      
+            .then((response) => {
                 this.setState({ isLoaded: true, items: response.data.data });
                 this.props.setLoadedComponentsArray("SectionProducts" + this.state.gender + this.state.type, "true");
             })

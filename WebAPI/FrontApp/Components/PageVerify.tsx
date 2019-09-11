@@ -15,6 +15,8 @@ export class Verify extends React.Component<any, any>
 
         var dictionary = new KeyedCollection<string>();
         this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary, token: props.match.params.id };
+
+        this.langaugeChanged = this.langaugeChanged.bind(this);
     }
 
     componentWillMount() {
@@ -29,12 +31,16 @@ export class Verify extends React.Component<any, any>
             .then();
     }
 
+    public langaugeChanged() {
+        //do nothing
+    }
+
     render() {
         const { error, isLoaded, item } = this.state;
         if (error) {
             return (
                 <div>
-                    <Header />
+                    <Header langaugeChanged={this.langaugeChanged}/>
                     <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
                         <div className="row no-gutters slider-text align-items-center justify-content-center">
                             <div className="col-md-9 text-center">

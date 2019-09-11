@@ -25,7 +25,7 @@ namespace Api.Controllers
         private GHContext db = new GHContext();
 
         // GET: api/Products
-        public HttpResponseMessage GetProducts(int top, int from, string gender, string type)
+        public HttpResponseMessage GetProducts(int top, int from, string gender, string type, string lang)
         {
             HttpResponseMessage responseMessage;
             var productList = new List<Products>();
@@ -65,7 +65,7 @@ namespace Api.Controllers
 
         // GET: api/Products/5
         [ResponseType(typeof(Products))]
-        public HttpResponseMessage GetProducts(int id)
+        public HttpResponseMessage GetProducts(int productId, string lang)
         {
             HttpResponseMessage responseMessage;
             JSend json;

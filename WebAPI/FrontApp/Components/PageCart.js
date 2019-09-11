@@ -40,6 +40,7 @@ var Cart = /** @class */ (function (_super) {
         _this.handleChange = _this.handleChange.bind(_this);
         _this.removeProductFromCart = _this.removeProductFromCart.bind(_this);
         _this.updateTotalAfterRemove = _this.updateTotalAfterRemove.bind(_this);
+        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
         return _this;
     }
     Cart.prototype.readCartFromCookie = function (cookie) {
@@ -57,7 +58,8 @@ var Cart = /** @class */ (function (_super) {
             this.setState({ cartProducts: cartProducts });
             if (cartProducts.Count() > 0) {
                 axios.post(API_Path + '/ChartProducts', {
-                    productIds: cartProducts.Keys()
+                    productIds: cartProducts.Keys(),
+                    lang: this.state.language
                 })
                     .then(function (response) {
                     _this.setState({ isLoaded: true, items: response.data.data });
@@ -109,6 +111,9 @@ var Cart = /** @class */ (function (_super) {
         var cartProducts = this.readCartFromCookie(sfcookies_1.read_cookie('cartProducts'));
         return cartProducts.Item(productId);
     };
+    Cart.prototype.langaugeChanged = function () {
+        window.location.reload(false);
+    };
     Cart.prototype.render = function () {
         var _this = this;
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items;
@@ -123,7 +128,7 @@ var Cart = /** @class */ (function (_super) {
         }
         else {
             return (React.createElement("div", null,
-                React.createElement(Header_1.Header, { Active: 'Cart' }),
+                React.createElement(Header_1.Header, { Active: 'Cart', langaugeChanged: this.langaugeChanged }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                         React.createElement("div", { className: "col-md-12 heading-section text-center" },

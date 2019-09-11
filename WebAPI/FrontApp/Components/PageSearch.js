@@ -50,6 +50,7 @@ var Search = /** @class */ (function (_super) {
         };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
         return _this;
     }
     Search.prototype.componentWillMount = function () {
@@ -58,8 +59,9 @@ var Search = /** @class */ (function (_super) {
             params: {
                 top: 15,
                 from: 0,
-                gender: "",
-                type: "intro"
+                gender: "none",
+                type: "intro",
+                lang: this.state.language
             }
         })
             .then(function (response) {
@@ -114,7 +116,8 @@ var Search = /** @class */ (function (_super) {
             gender: this.state.gender,
             type: this.state.type,
             priceFrom: priceFrom,
-            priceTo: priceTo
+            priceTo: priceTo,
+            lang: this.state.language
         })
             .then(function (response) {
             _this.setState({ isLoaded: true, items: response.data.Products });
@@ -141,6 +144,9 @@ var Search = /** @class */ (function (_super) {
         sfcookies_1.delete_cookie('cartProducts');
         sfcookies_1.bake_cookie('cartProducts', cartProducts);
     };
+    Search.prototype.langaugeChanged = function () {
+        window.location.reload(false);
+    };
     Search.prototype.render = function () {
         var _this = this;
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items;
@@ -156,7 +162,7 @@ var Search = /** @class */ (function (_super) {
         else {
             return (React.createElement("main", { id: "main" },
                 React.createElement("div", null,
-                    React.createElement(Header_1.Header, { Active: 'Search' }),
+                    React.createElement(Header_1.Header, { Active: 'Search', langaugeChanged: this.langaugeChanged }),
                     React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },

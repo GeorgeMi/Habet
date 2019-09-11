@@ -25,6 +25,7 @@ export class Contact extends React.Component<any, any>{
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.langaugeChanged = this.langaugeChanged.bind(this);
     }
 
     handleChange(event) {
@@ -51,6 +52,10 @@ export class Contact extends React.Component<any, any>{
             .then();
     }
 
+    public langaugeChanged() {
+        //do nothing
+    }
+
     render() {
         const { error, isLoaded, request_sent } = this.state;
         if (error) {
@@ -63,7 +68,7 @@ export class Contact extends React.Component<any, any>{
         } else {
             return (
                 <div>
-                    <Header Active={'Contact'} />
+                    <Header Active={'Contact'} langaugeChanged={this.langaugeChanged}/>
 
                     <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
                         <div className="row justify-content-center mb-3 pb-3">

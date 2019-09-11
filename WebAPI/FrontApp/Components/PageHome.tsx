@@ -10,6 +10,7 @@ export class Home extends React.Component<any, any> {
 
         this.state = { loadedComponentsDictionary: null };
         this.setLoadedComponentsArray = this.setLoadedComponentsArray.bind(this);
+        this.langaugeChanged = this.langaugeChanged.bind(this);
     }
 
    public setLoadedComponentsArray(component: string, loaded: string) {
@@ -21,9 +22,12 @@ export class Home extends React.Component<any, any> {
         dictionary.Add(component, loaded);
         this.setState({loadedComponentsDictionary: dictionary});
     }
+
+    public langaugeChanged() {
+        window.location.reload(false);
+    }
    
     render() {
-       // console.log(this.state.loadedComponentsDictionary);
         var hideLoader = false;
         if (this.state.loadedComponentsDictionary != null && this.state.loadedComponentsDictionary.Count() == 4) {
             hideLoader = true;
@@ -34,7 +38,7 @@ export class Home extends React.Component<any, any> {
                 {   hideLoader ? <div></div> : <div className="loading">Loading&#8230;</div> }
 
                 <div>
-                    <Header Active={'Home'} />
+                    <Header Active={'Home'} langaugeChanged={this.langaugeChanged}  />
 
                     <SectionIntro />
 

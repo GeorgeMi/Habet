@@ -60,6 +60,7 @@ var Header = /** @class */ (function (_super) {
         counterpart.setLocale(event.target.value);
         sfcookies_1.delete_cookie('lang');
         sfcookies_1.bake_cookie('lang', event.target.value);
+        this.props.langaugeChanged();
     };
     Header.prototype.handleChange = function (event) {
         var _a;
@@ -103,7 +104,6 @@ var Header = /** @class */ (function (_super) {
     Header.prototype.render = function () {
         var _a = this.state, headerDictionary = _a.headerDictionary, loggedIn = _a.loggedIn, api_response = _a.api_response;
         var cartItemNumber = sfcookies_1.read_cookie('cartProducts').count;
-        console.log(this.state.language);
         return (React.createElement("div", null,
             React.createElement(react_notifications_1.NotificationContainer, null),
             React.createElement("nav", { className: "navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light", id: "ftco-navbar" },
