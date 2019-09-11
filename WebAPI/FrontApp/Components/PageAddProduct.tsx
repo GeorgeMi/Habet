@@ -143,8 +143,8 @@ export class AddProduct extends React.Component<any, any> {
                                                         <div className="icon"><span className="ion-ios-arrow-down"></span></div>
                                                         <select className="form-control" value={this.state.type} onChange={this.handleChange} name="type" id="type" required>
                                                             <option value=""><Translate content='product.Select' /></option>
-                                                            <option value="Belts"><Translate content='product.Belt' /></option>
-                                                            <option value="Bags"><Translate content='product.Bag' /></option>
+                                                            <option value="Belts"><Translate content='product.Belts' /></option>
+                                                            <option value="Bags"><Translate content='product.Bags' /></option>
                                                         </select>
                                                     </div>
                                                 </div>

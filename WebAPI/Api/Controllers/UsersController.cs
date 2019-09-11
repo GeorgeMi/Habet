@@ -44,6 +44,7 @@ namespace Api.Controllers
             if (userId > 0)
             {
                 var user = db.Users.First(u => u.UserId == userId);
+                user.UsersAddresses= db.UsersAddresses.Where(u => u.UserId == userId).ToList();
                 if (null != user)
                 {
                     var result = new UserUpdateDetails()
@@ -76,10 +77,12 @@ namespace Api.Controllers
 
             try
             {
-                var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
+                var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;            
                 if (userId > 0)
                 {
                     var user = db.Users.First(u => u.UserId == userId);
+                    user.UsersAddresses = db.UsersAddresses.Where(u => u.UserId == userId).ToList();
+
                     user.FirstName = request.FirstName;
                     user.LastName = request.LastName;
                     user.UsersAddresses.First().State = request.State;
@@ -105,7 +108,8 @@ namespace Api.Controllers
                         };
                     }
                 }
-                responseMessage = Request.CreateResponse(HttpStatusCode.OK);
+                var json = new JSendMessage("success", "Your account has been updated successfully.");
+                responseMessage = Request.CreateResponse(HttpStatusCode.OK, json);
             }
             catch 
             {
