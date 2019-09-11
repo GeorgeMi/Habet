@@ -144,9 +144,10 @@ namespace Api.Controllers
             // var responseProductList = productList.OrderBy(p => p.ProductId).Skip(request.From).Take(request.Top).ToList();
 
             Random rnd = new Random();
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < request.Top; i++)
             {
-                responseProductList.Add(new Products { Name = "Name" + i, Price = i + 1, ProductId = rnd.Next(1, 4) });
+                int x = rnd.Next(1, 4);
+                responseProductList.Add(new Products { Name = "Name" + x, Price = x + 1, ProductId = x });
             }
 
             var result = new SearchDetails
@@ -165,7 +166,8 @@ namespace Api.Controllers
                 });
             }
 
-            result.ProductsNo = responseProductList.Count();
+            // result.TotalItemsCount = productList.Count();
+            result.TotalItemsCount = 10;
 
             responseMessage = Request.CreateResponse(HttpStatusCode.OK, result);
 

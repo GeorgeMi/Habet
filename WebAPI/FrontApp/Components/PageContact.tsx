@@ -2,6 +2,7 @@
 import { Header } from './Header';
 import * as Translate from 'react-translate-component';
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
+import { NotificationManager } from 'react-notifications';
 import en from './languages/en';
 import it from './languages/it';
 import ro from './languages/ro';
@@ -21,7 +22,7 @@ export class Contact extends React.Component<any, any>{
         super(props);
 
         counterpart.setLocale(read_cookie('lang'));
-        this.state = { name: '', email: '', subject: '', message: '', api_response: '', request_sent: false, language: read_cookie('lang') };
+        this.state = { name: '', email: '', subject: '', message: '', api_response: '', waitingResponse: false, language: read_cookie('lang') };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,9 +34,11 @@ export class Contact extends React.Component<any, any>{
     }
 
     handleSubmit(event) {
-        var x = this.state
-        console.log(x);
         event.preventDefault();
+
+        if (this.state.waitingResponse == false) {
+            this.setState({ waitingResponse: true });
+        }
 
         axios.post(API_Path + '/Contact', {
             name: this.state.name,
@@ -44,12 +47,16 @@ export class Contact extends React.Component<any, any>{
             message: this.state.message
         })
             .then((response) => {
-                this.setState({ name: '', email: '', subject: '', message: '', api_response: response.data.data, request_sent: true });
+                this.setState({ name: '', email: '', subject: '', message: ''});
+                NotificationManager.success(response.data.message);
             })
             .catch((error) => {
-                this.setState({ isLoaded: true, error, request_sent: true });
+                this.setState({ isLoaded: true, error });
+                NotificationManager.error("Request failed. Please, try again later.");
             })
-            .then();
+            .then(
+                this.setState({ waitingResponse: false })
+            );
     }
 
     public langaugeChanged() {
@@ -57,18 +64,14 @@ export class Contact extends React.Component<any, any>{
     }
 
     render() {
-        const { error, isLoaded, request_sent } = this.state;
-        if (error) {
-            console.log(error);
-            return <div>Error: {error.message}</div>;
+        const { waitingResponse } = this.state;
 
-        } else if (!isLoaded && request_sent) {
-            return <div className="loading">Loading&#8230;</div>;
+        return (
+            <main id="main">
+                {waitingResponse ? <div className="loading">Loading&#8230;</div> : <div></div>}
 
-        } else {
-            return (
                 <div>
-                    <Header Active={'Contact'} langaugeChanged={this.langaugeChanged}/>
+                    <Header Active={'Contact'} langaugeChanged={this.langaugeChanged} />
 
                     <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
                         <div className="row justify-content-center mb-3 pb-3">
@@ -123,7 +126,8 @@ export class Contact extends React.Component<any, any>{
                         </div>
                     </section>
                 </div>
-            );
-        }
+            </main>
+        );
+
     }
 }

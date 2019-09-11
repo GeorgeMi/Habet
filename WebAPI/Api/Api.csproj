@@ -228,6 +228,7 @@
     <Compile Include="BusinessLogic\TokenLogic.cs" />
     <Compile Include="BusinessLogic\UsersLogic.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
@@ -241,6 +242,7 @@
     <Compile Include="DTOs\RecoverDTO.cs" />
     <Compile Include="DTOs\SearchDetails.cs" />
     <Compile Include="DTOs\SearchProductsDTO.cs" />
+    <Compile Include="DTOs\SendMessageDTO.cs" />
     <Compile Include="DTOs\UserDetail.cs" />
     <Compile Include="DTOs\TokenDTO.cs" />
     <Compile Include="DTOs\UserDTO.cs" />

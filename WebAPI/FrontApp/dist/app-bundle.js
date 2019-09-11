@@ -1317,6 +1317,7 @@ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
 var Translate = __webpack_require__(/*! react-translate-component */ "./node_modules/react-translate-component/index.js");
 var sfcookies_1 = __webpack_require__(/*! sfcookies */ "./node_modules/sfcookies/index.js");
+var react_notifications_1 = __webpack_require__(/*! react-notifications */ "./node_modules/react-notifications/lib/index.js");
 var en_1 = __webpack_require__(/*! ./languages/en */ "./Components/languages/en.js");
 var it_1 = __webpack_require__(/*! ./languages/it */ "./Components/languages/it.js");
 var ro_1 = __webpack_require__(/*! ./languages/ro */ "./Components/languages/ro.js");
@@ -1332,7 +1333,7 @@ var Contact = /** @class */ (function (_super) {
     function Contact(props) {
         var _this = _super.call(this, props) || this;
         counterpart.setLocale(sfcookies_1.read_cookie('lang'));
-        _this.state = { name: '', email: '', subject: '', message: '', api_response: '', request_sent: false, language: sfcookies_1.read_cookie('lang') };
+        _this.state = { name: '', email: '', subject: '', message: '', api_response: '', waitingResponse: false, language: sfcookies_1.read_cookie('lang') };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.langaugeChanged = _this.langaugeChanged.bind(_this);
@@ -1344,9 +1345,10 @@ var Contact = /** @class */ (function (_super) {
     };
     Contact.prototype.handleSubmit = function (event) {
         var _this = this;
-        var x = this.state;
-        console.log(x);
         event.preventDefault();
+        if (this.state.waitingResponse == false) {
+            this.setState({ waitingResponse: true });
+        }
         axios.post(API_Path + '/Contact', {
             name: this.state.name,
             email: this.state.email,
@@ -1354,29 +1356,23 @@ var Contact = /** @class */ (function (_super) {
             message: this.state.message
         })
             .then(function (response) {
-            _this.setState({ name: '', email: '', subject: '', message: '', api_response: response.data.data, request_sent: true });
+            _this.setState({ name: '', email: '', subject: '', message: '' });
+            react_notifications_1.NotificationManager.success(response.data.message);
         })
             .catch(function (error) {
-            _this.setState({ isLoaded: true, error: error, request_sent: true });
+            _this.setState({ isLoaded: true, error: error });
+            react_notifications_1.NotificationManager.error("Request failed. Please, try again later.");
         })
-            .then();
+            .then(this.setState({ waitingResponse: false }));
     };
     Contact.prototype.langaugeChanged = function () {
         //do nothing
     };
     Contact.prototype.render = function () {
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, request_sent = _a.request_sent;
-        if (error) {
-            console.log(error);
-            return React.createElement("div", null,
-                "Error: ",
-                error.message);
-        }
-        else if (!isLoaded && request_sent) {
-            return React.createElement("div", { className: "loading" }, "Loading\u2026");
-        }
-        else {
-            return (React.createElement("div", null,
+        var waitingResponse = this.state.waitingResponse;
+        return (React.createElement("main", { id: "main" },
+            waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
+            React.createElement("div", null,
                 React.createElement(Header_1.Header, { Active: 'Contact', langaugeChanged: this.langaugeChanged }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
@@ -1424,8 +1420,7 @@ var Contact = /** @class */ (function (_super) {
                                     React.createElement("div", { className: "form-group" },
                                         React.createElement("textarea", { className: "form-control", placeholder: "Message", value: this.state.message, onChange: this.handleChange, name: "message", id: "message", required: true })),
                                     React.createElement("div", { className: "form-group" },
-                                        React.createElement("input", { type: "submit", value: "Send Message", className: "btn btn-primary py-3 px-5" })))))))));
-        }
+                                        React.createElement("input", { type: "submit", value: "Send Message", className: "btn btn-primary py-3 px-5" }))))))))));
     };
     return Contact;
 }(React.Component));
@@ -2213,19 +2208,23 @@ var Search = /** @class */ (function (_super) {
             error: null,
             waitingResponse: false,
             isChanged: false,
-            pageNumber: 1,
-            language: sfcookies_1.read_cookie('lang')
+            language: sfcookies_1.read_cookie('lang'),
+            activePage: 1,
+            totalItemsCount: 50,
+            itemsPerPage: 1
         };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.langaugeChanged = _this.langaugeChanged.bind(_this);
+        _this.handlePageChange = _this.handlePageChange.bind(_this);
+        _this.searchProducts = _this.searchProducts.bind(_this);
         return _this;
     }
     Search.prototype.componentWillMount = function () {
         var _this = this;
         axios.get(API_Path + '/Products', {
             params: {
-                top: 15,
+                top: this.state.itemsPerPage,
                 from: 0,
                 gender: "none",
                 type: "intro",
@@ -2247,14 +2246,17 @@ var Search = /** @class */ (function (_super) {
         }
         return cartProducts;
     };
+    Search.prototype.handlePageChange = function (pageNumber) {
+        this.setState({ activePage: pageNumber });
+        this.searchProducts(pageNumber);
+    };
     Search.prototype.handleChange = function (event) {
         var _a;
         this.setState((_a = {}, _a[event.target.name] = event.target.value, _a));
         this.setState({ isChanged: true });
     };
-    Search.prototype.handleSubmit = function (event) {
+    Search.prototype.searchProducts = function (activePage) {
         var _this = this;
-        event.preventDefault();
         var priceFrom = 0;
         var priceTo = 10000;
         if (this.state.waitingResponse == false) {
@@ -2279,8 +2281,8 @@ var Search = /** @class */ (function (_super) {
             priceFrom = 500;
         }
         axios.post(API_Path + '/SearchProducts', {
-            top: 15,
-            from: (this.state.pageNumber - 1) * 15 + 1,
+            top: this.state.itemsPerPage,
+            from: (activePage - 1) * this.state.itemsPerPage + 1,
             gender: this.state.gender,
             type: this.state.type,
             priceFrom: priceFrom,
@@ -2288,13 +2290,17 @@ var Search = /** @class */ (function (_super) {
             lang: this.state.language
         })
             .then(function (response) {
-            _this.setState({ isLoaded: true, items: response.data.Products });
+            _this.setState({ isLoaded: true, items: response.data.Products, totalItemsCount: response.data.TotalItemsCount });
         }).catch(function (error) {
             react_notifications_1.NotificationManager.error("Request failed. Please, try again later.");
         })
             .then(function () {
             _this.setState({ waitingResponse: false });
         });
+    };
+    Search.prototype.handleSubmit = function (event) {
+        event.preventDefault();
+        this.searchProducts(1);
     };
     Search.prototype.addProductToCart = function (productId, no) {
         var cookie = sfcookies_1.read_cookie('cartProducts');
@@ -2366,25 +2372,7 @@ var Search = /** @class */ (function (_super) {
                                     React.createElement("div", { className: "row mt-5" },
                                         React.createElement("div", { className: "col text-center" },
                                             React.createElement("div", { className: "block-27" },
-                                                React.createElement(react_js_pagination_1.default, { hideDisabled: true, activePage: this.state.activePage, itemsCountPerPage: 1, totalItemsCount: 10, onChange: this.handleChange })))),
-                                    React.createElement("div", { className: "row mt-5" },
-                                        React.createElement("div", { className: "col text-center" },
-                                            React.createElement("div", { className: "block-27" },
-                                                React.createElement("ul", null,
-                                                    React.createElement("li", null,
-                                                        React.createElement("a", { href: "#" }, "<")),
-                                                    React.createElement("li", { className: "active" },
-                                                        React.createElement("span", null, "1")),
-                                                    React.createElement("li", null,
-                                                        React.createElement("a", { href: "#" }, "2")),
-                                                    React.createElement("li", null,
-                                                        React.createElement("a", { href: "#" }, "3")),
-                                                    React.createElement("li", null,
-                                                        React.createElement("a", { href: "#" }, "4")),
-                                                    React.createElement("li", null,
-                                                        React.createElement("a", { href: "#" }, "5")),
-                                                    React.createElement("li", null,
-                                                        React.createElement("a", { href: "#" }, ">"))))))),
+                                                React.createElement(react_js_pagination_1.default, { hideDisabled: true, activePage: this.state.activePage, itemsCountPerPage: this.state.itemsPerPage, totalItemsCount: this.state.totalItemsCount, pageRangeDisplayed: 5, onChange: this.handlePageChange }))))),
                                 React.createElement("div", { className: "col-md-4 col-lg-2" },
                                     React.createElement("div", { className: "sidebar" },
                                         React.createElement("div", { className: "sidebar-box-2" },

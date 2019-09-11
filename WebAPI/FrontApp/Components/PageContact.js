@@ -17,6 +17,7 @@ var React = require("react");
 var Header_1 = require("./Header");
 var Translate = require("react-translate-component");
 var sfcookies_1 = require("sfcookies");
+var react_notifications_1 = require("react-notifications");
 var en_1 = require("./languages/en");
 var it_1 = require("./languages/it");
 var ro_1 = require("./languages/ro");
@@ -32,7 +33,7 @@ var Contact = /** @class */ (function (_super) {
     function Contact(props) {
         var _this = _super.call(this, props) || this;
         counterpart.setLocale(sfcookies_1.read_cookie('lang'));
-        _this.state = { name: '', email: '', subject: '', message: '', api_response: '', request_sent: false, language: sfcookies_1.read_cookie('lang') };
+        _this.state = { name: '', email: '', subject: '', message: '', api_response: '', waitingResponse: false, language: sfcookies_1.read_cookie('lang') };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.langaugeChanged = _this.langaugeChanged.bind(_this);
@@ -44,9 +45,10 @@ var Contact = /** @class */ (function (_super) {
     };
     Contact.prototype.handleSubmit = function (event) {
         var _this = this;
-        var x = this.state;
-        console.log(x);
         event.preventDefault();
+        if (this.state.waitingResponse == false) {
+            this.setState({ waitingResponse: true });
+        }
         axios.post(API_Path + '/Contact', {
             name: this.state.name,
             email: this.state.email,
@@ -54,29 +56,23 @@ var Contact = /** @class */ (function (_super) {
             message: this.state.message
         })
             .then(function (response) {
-            _this.setState({ name: '', email: '', subject: '', message: '', api_response: response.data.data, request_sent: true });
+            _this.setState({ name: '', email: '', subject: '', message: '' });
+            react_notifications_1.NotificationManager.success(response.data.message);
         })
             .catch(function (error) {
-            _this.setState({ isLoaded: true, error: error, request_sent: true });
+            _this.setState({ isLoaded: true, error: error });
+            react_notifications_1.NotificationManager.error("Request failed. Please, try again later.");
         })
-            .then();
+            .then(this.setState({ waitingResponse: false }));
     };
     Contact.prototype.langaugeChanged = function () {
         //do nothing
     };
     Contact.prototype.render = function () {
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, request_sent = _a.request_sent;
-        if (error) {
-            console.log(error);
-            return React.createElement("div", null,
-                "Error: ",
-                error.message);
-        }
-        else if (!isLoaded && request_sent) {
-            return React.createElement("div", { className: "loading" }, "Loading\u2026");
-        }
-        else {
-            return (React.createElement("div", null,
+        var waitingResponse = this.state.waitingResponse;
+        return (React.createElement("main", { id: "main" },
+            waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
+            React.createElement("div", null,
                 React.createElement(Header_1.Header, { Active: 'Contact', langaugeChanged: this.langaugeChanged }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
@@ -124,8 +120,7 @@ var Contact = /** @class */ (function (_super) {
                                     React.createElement("div", { className: "form-group" },
                                         React.createElement("textarea", { className: "form-control", placeholder: "Message", value: this.state.message, onChange: this.handleChange, name: "message", id: "message", required: true })),
                                     React.createElement("div", { className: "form-group" },
-                                        React.createElement("input", { type: "submit", value: "Send Message", className: "btn btn-primary py-3 px-5" })))))))));
-        }
+                                        React.createElement("input", { type: "submit", value: "Send Message", className: "btn btn-primary py-3 px-5" }))))))))));
     };
     return Contact;
 }(React.Component));

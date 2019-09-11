@@ -128,6 +128,27 @@ namespace Api.BusinessLogic
             }
         }
 
+        public bool StoreMessage(SendMessageDTO message)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(message.Message))
+                {
+                    throw new System.Exception("failed");
+                }
+                else
+                {
+                   StoreMessageEmail(message);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }         
+        }
+
         public bool ChangePassword(string token, string password)
         {
             var authToken = token;
@@ -312,6 +333,31 @@ namespace Api.BusinessLogic
                 token + "\">here</a>.</p>";
             mail.Body += "<p>If you did not ask to reset your password you may want to review your recent account access for any unusual activity. We're here to help if you need it. Visit the Help Center for more info or contact us.</ p>";
             mail.Body += "<h5>The GabrielHabet team</h5>";
+            mail.IsBodyHtml = true;
+
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential("habetgabriel@gmail.com", "habetpassword");
+            SmtpServer.EnableSsl = true;
+
+            SmtpServer.Send(mail);
+        }
+
+        /// <summary>
+        /// Trimitere mail de confirmare
+        /// </summary>
+        /// <param name="messageDTO"></param>
+        public void StoreMessageEmail(SendMessageDTO messageDTO)
+        {
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+            mail.From = new MailAddress("habetgabriel@gmail.com");
+            mail.To.Add("george.miron2003@gmail.com");
+            mail.Subject = $"Message from {messageDTO.Name}";
+            mail.Body = "<p>name: " + messageDTO.Name + ", </p>";
+            mail.Body += "<p>email: " + messageDTO.Email + ", </p>";
+            mail.Body += "<p>subject: " + messageDTO.Subject + ", </p>";
+            mail.Body += "<p>message: " + messageDTO.Message + ", </p>";
+
             mail.IsBodyHtml = true;
 
             SmtpServer.Port = 587;

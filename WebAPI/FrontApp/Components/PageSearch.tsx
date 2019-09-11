@@ -34,20 +34,24 @@ export class Search extends React.Component<any, any>
             error: null,
             waitingResponse: false,
             isChanged: false,
-            pageNumber: 1,
-            language: read_cookie('lang')
+            language: read_cookie('lang'),
+            activePage: 1,
+            totalItemsCount: 50,
+            itemsPerPage: 1
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.langaugeChanged = this.langaugeChanged.bind(this);
+        this.handlePageChange = this.handlePageChange.bind(this);
+        this.searchProducts = this.searchProducts.bind(this);
     }
 
     componentWillMount() {
         axios.get(API_Path + '/Products',
             {
                 params: {
-                    top: 15,
+                    top: this.state.itemsPerPage,
                     from: 0,
                     gender: "none",
                     type: "intro",
@@ -72,13 +76,17 @@ export class Search extends React.Component<any, any>
         return cartProducts;
     }
 
+    handlePageChange(pageNumber) {
+        this.setState({ activePage: pageNumber });
+        this.searchProducts(pageNumber);
+    }
+
     handleChange(event) {
         this.setState({ [event.target.name]: event.target.value });
         this.setState({ isChanged: true });
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
+    searchProducts(activePage) {
         var priceFrom = 0;
         var priceTo = 10000;
 
@@ -86,16 +94,16 @@ export class Search extends React.Component<any, any>
             this.setState({ waitingResponse: true });
         }
 
-        if (this.state.priceInterval == "1") { priceTo = 49;}
+        if (this.state.priceInterval == "1") { priceTo = 49; }
         else if (this.state.priceInterval == "2") { priceFrom = 50; priceTo = 99; }
         else if (this.state.priceInterval == "3") { priceFrom = 100; priceTo = 199; }
         else if (this.state.priceInterval == "4") { priceFrom = 200; priceTo = 499; }
-        else if (this.state.priceInterval == "5") { priceFrom = 500;}
+        else if (this.state.priceInterval == "5") { priceFrom = 500; }
 
         axios.post(API_Path + '/SearchProducts',
             {
-                top: 15,
-                from: (this.state.pageNumber - 1) * 15 + 1,
+                top: this.state.itemsPerPage,
+                from: (activePage - 1) * this.state.itemsPerPage + 1,
                 gender: this.state.gender,
                 type: this.state.type,
                 priceFrom: priceFrom,
@@ -103,7 +111,7 @@ export class Search extends React.Component<any, any>
                 lang: this.state.language
             })
             .then((response) => {
-                this.setState({ isLoaded: true, items: response.data.Products });
+                this.setState({ isLoaded: true, items: response.data.Products, totalItemsCount: response.data.TotalItemsCount });
             }).catch((error) => {
                 NotificationManager.error("Request failed. Please, try again later.");
             })
@@ -111,6 +119,13 @@ export class Search extends React.Component<any, any>
                 this.setState({ waitingResponse: false });
             }
             );
+    }
+
+
+    handleSubmit(event) {
+        event.preventDefault();
+       
+        this.searchProducts(1);
     }
 
     addProductToCart(productId: number, no: number) {
@@ -147,7 +162,7 @@ export class Search extends React.Component<any, any>
             return (
                 <main id="main">
                     <div>
-                        <Header Active={'Search'} langaugeChanged={this.langaugeChanged}/>
+                        <Header Active={'Search'} langaugeChanged={this.langaugeChanged} />
 
                         <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
                             <div className="row justify-content-center mb-3 pb-3">
@@ -185,34 +200,17 @@ export class Search extends React.Component<any, any>
                                                 ))}
                                         </div>
 
-
                                         <div className="row mt-5">
                                             <div className="col text-center">
                                                 <div className="block-27">
                                                     <Pagination
                                                         hideDisabled
                                                         activePage={this.state.activePage}
-                                                        itemsCountPerPage={1}
-                                                        totalItemsCount={10}
-                                                        onChange={this.handleChange}
+                                                        itemsCountPerPage={this.state.itemsPerPage}
+                                                        totalItemsCount={this.state.totalItemsCount}
+                                                        pageRangeDisplayed={5}
+                                                        onChange={this.handlePageChange}
                                                     />
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div className="row mt-5">
-                                            <div className="col text-center">
-                                                <div className="block-27">
-                                                    <ul>
-                                                        <li><a href="#">&lt;</a></li>
-                                                        <li className="active"><span>1</span></li>
-                                                        <li><a href="#">2</a></li>
-                                                        <li><a href="#">3</a></li>
-                                                        <li><a href="#">4</a></li>
-                                                        <li><a href="#">5</a></li>
-                                                        <li><a href="#">&gt;</a></li>
-                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
@@ -229,7 +227,7 @@ export class Search extends React.Component<any, any>
                                                                 <div className="panel-heading" role="tab" id="headingOne">
                                                                     <h4 className="panel-title">
                                                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"><Translate content={'search.Gender'} />
-                                 </a>
+                                                                        </a>
                                                                     </h4>
                                                                 </div>
                                                                 <div id="collapseOne" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
