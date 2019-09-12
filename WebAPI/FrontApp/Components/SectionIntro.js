@@ -16,9 +16,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var Dictionary_1 = require("./Dictionary");
 var sfcookies_1 = require("sfcookies");
+var Translate = require("react-translate-component");
+var en_1 = require("./languages/en");
+var it_1 = require("./languages/it");
+var ro_1 = require("./languages/ro");
 var config = require('config');
 var API_Path = config.API_Path;
 var axios = require('axios');
+var counterpart = require('counterpart');
+counterpart.registerTranslations('en', en_1.default);
+counterpart.registerTranslations('ro', ro_1.default);
+counterpart.registerTranslations('it', it_1.default);
 var SectionIntro = /** @class */ (function (_super) {
     __extends(SectionIntro, _super);
     function SectionIntro(props) {
@@ -58,13 +66,22 @@ var SectionIntro = /** @class */ (function (_super) {
         }
         else {
             var activeDictionary = new Dictionary_1.KeyedCollection();
-            items.map(function (item, i) { return (activeDictionary.Add(i, "")); });
-            activeDictionary.Add(0, "active");
+            //items.map((item, i) => (
+            //    activeDictionary.Add(i, "")
+            //));
+            //activeDictionary.Add(0, "active");
             return (React.createElement("section", { className: "ftco-section ftco-deal", style: { backgroundImage: "url('images/background.jpg')", opacity: 0.5 } },
                 React.createElement("div", { className: "container" },
                     React.createElement("div", { id: "carouselExampleControls", className: "carousel slide", "data-ride": "carousel" },
                         React.createElement("div", { className: "carousel-inner" },
-                            items.map(function (item, i) { return (React.createElement("div", { key: i, className: activeDictionary.Item(i) + " carousel-item" },
+                            React.createElement("div", { className: "active carousel-item" },
+                                React.createElement("div", { className: "row" },
+                                    React.createElement("div", { className: "offset-1 col-md-10" },
+                                        React.createElement("div", { className: "text-deal", style: { opacity: 1, fontStyle: 'italic', textAlign: 'justify' } },
+                                            React.createElement(Translate, { component: "h5", content: 'intro.P1' }),
+                                            React.createElement(Translate, { component: "h5", content: 'intro.P2' }),
+                                            React.createElement(Translate, { component: "h5", content: 'intro.P3' }))))),
+                            items.map(function (item, i) { return (React.createElement("div", { key: i, className: "carousel-item" },
                                 React.createElement("div", { className: "row" },
                                     React.createElement("div", { className: "col-md-6" },
                                         React.createElement("img", { src: item.Image, className: "img-fluid", alt: "" })),

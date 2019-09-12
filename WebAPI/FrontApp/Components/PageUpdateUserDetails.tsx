@@ -4,10 +4,19 @@ import { KeyedCollection } from './Dictionary';
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies'
 import { NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
+import * as Translate from 'react-translate-component';
+import en from './languages/en';
+import it from './languages/it';
+import ro from './languages/ro';
 
 var config = require('config');
 var API_Path = config.API_Path;
 const axios = require('axios');
+var counterpart = require('counterpart');
+
+counterpart.registerTranslations('en', en);
+counterpart.registerTranslations('ro', ro);
+counterpart.registerTranslations('it', it);
 
 export class UpdateUserDetails extends React.Component<any, any> {
     constructor(props) {
@@ -119,7 +128,7 @@ export class UpdateUserDetails extends React.Component<any, any> {
                         <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
                             <div className="row justify-content-center mb-3 pb-3">
                                 <div className="col-md-12 heading-section text-center">
-                                    <h1 className="mb-4">Update personal details</h1>
+                                    <h1 className="mb-4"><Translate content={'updateDetails.UpdatePersonalDetails'} /></h1>
                                 </div>
                             </div>
                         </div>
@@ -139,7 +148,7 @@ export class UpdateUserDetails extends React.Component<any, any> {
                             <div className="container">
                                 <div className="row no-gutters slider-text align-items-center justify-content-center">
                                     <div className="col-md-9 text-center">
-                                        <h1 className="mb-0 bread">Update personal details</h1>
+                                         <h1 className="mb-0 bread"><Translate content={'updateDetails.UpdatePersonalDetails'} /></h1>
                                     </div>
                                 </div>
                             </div>
@@ -149,24 +158,24 @@ export class UpdateUserDetails extends React.Component<any, any> {
                                 <div className="row justify-content-center">
                                     <div className="col-xl-10">
                                         <form action="" className="billing-form" onSubmit={this.handleSubmit}>
-                                            <h3 className="mb-4 billing-heading">Personal Details</h3>
+                                             <h3 className="mb-4 billing-heading"><Translate content={'user.PersonalDetails'} /></h3>
                                             <div className="row align-items-end">
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label htmlFor="firstname">First Name</label>
+                                                         <label htmlFor="firstname"><Translate content={'user.FirstName'} /></label>
                                                         <input type="text" className="form-control" placeholder="" value={this.state.firstName} onChange={this.handleChange} name="firstName" id="firstName" maxLength={32} required />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label htmlFor="lastname">Last Name</label>
+                                                         <label htmlFor="lastname"><Translate content={'user.LastName'} /></label>
                                                         <input type="text" className="form-control" placeholder="" value={this.state.lastName} onChange={this.handleChange} name="lastName" id="lastName" maxLength={32} required />
                                                     </div>
                                                 </div>
                                                 <div className="w-100"></div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label htmlFor="country">State / Country</label>
+                                                         <label htmlFor="state"><Translate content={'user.State'} /></label>
                                                         <div className="select-wrap">
                                                             <div className="icon"><span className="ion-ios-arrow-down"></span></div>
                                                             <select className="form-control" value={this.state.state} onChange={this.handleChange} name="state" id="state" required>
@@ -226,27 +235,27 @@ export class UpdateUserDetails extends React.Component<any, any> {
 
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label htmlFor="towncity">Town / City</label>
+                                                         <label htmlFor="city"><Translate content={'user.Town'} /></label>
                                                         <input type="text" className="form-control" placeholder="" value={this.state.city} onChange={this.handleChange} name="city" id="city" maxLength={32} required />
                                                     </div>
                                                 </div>
                                                 <div className="w-100"></div>
                                                 <div className="col-md-12">
                                                     <div className="form-group">
-                                                        <label htmlFor="streetaddress">Street Address</label>
-                                                        <input type="text" className="form-control" placeholder="Street Address" value={this.state.streetAddress} onChange={this.handleChange} name="streetAddress" id="streetAddress" maxLength={50} required />
+                                                         <label htmlFor="streetAddress"><Translate content={'user.StreetAddress'} /></label>
+                                                        <input type="text" className="form-control" placeholder="" value={this.state.streetAddress} onChange={this.handleChange} name="streetAddress" id="streetAddress" maxLength={50} required />
                                                     </div>
                                                 </div>
                                                 <div className="w-100"></div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label htmlFor="postcodezip">Postcode / ZIP *</label>
+                                                         <label htmlFor="zipCode"><Translate content={'user.Postcode'} /></label>
                                                         <input type="text" className="form-control" placeholder="" value={this.state.zipCode} onChange={this.handleChange} name="zipCode" id="zipCode" maxLength={10} required />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label htmlFor="phone">Phone</label>
+                                                         <label htmlFor="phone"><Translate content={'user.Phone'} /></label>
                                                         <input type="tel" className="form-control" placeholder="" value={this.state.phone} onChange={this.handleChange} name="phone" id="phone" maxLength={32} required />
                                                     </div>
                                                 </div>
@@ -255,9 +264,11 @@ export class UpdateUserDetails extends React.Component<any, any> {
                                                      <div className="form-group">
                                                          {
                                                              isChanged ?
-                                                                 <input type="submit" value="Update details" className="btn btn-primary py-3 px-5" />
-                                                                 :
-                                                                 <input type="submit" value="Update details" className="btn btn-primary py-3 px-5" disabled />
+                                                                 
+                                                                 <Translate component="input" attributes={{ value: 'updateDetails.UpdateDetails', }} type="submit" className="btn btn-primary py-3 px-5" />
+                                                                 :                                      
+                                                                 <Translate component="input" attributes={{ value: 'updateDetails.UpdateDetails', }} type="submit" className="btn btn-primary py-3 px-5" disabled/>
+
                                                          }                                                                                                               
                                                     </div>
                                                 </div>

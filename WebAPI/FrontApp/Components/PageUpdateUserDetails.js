@@ -19,9 +19,17 @@ var Dictionary_1 = require("./Dictionary");
 var sfcookies_1 = require("sfcookies");
 var react_notifications_1 = require("react-notifications");
 require("react-notifications/lib/notifications.css");
+var Translate = require("react-translate-component");
+var en_1 = require("./languages/en");
+var it_1 = require("./languages/it");
+var ro_1 = require("./languages/ro");
 var config = require('config');
 var API_Path = config.API_Path;
 var axios = require('axios');
+var counterpart = require('counterpart');
+counterpart.registerTranslations('en', en_1.default);
+counterpart.registerTranslations('ro', ro_1.default);
+counterpart.registerTranslations('it', it_1.default);
 var UpdateUserDetails = /** @class */ (function (_super) {
     __extends(UpdateUserDetails, _super);
     function UpdateUserDetails(props) {
@@ -124,7 +132,8 @@ var UpdateUserDetails = /** @class */ (function (_super) {
                     React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },
-                                React.createElement("h1", { className: "mb-4" }, "Update personal details")))),
+                                React.createElement("h1", { className: "mb-4" },
+                                    React.createElement(Translate, { content: 'updateDetails.UpdatePersonalDetails' }))))),
                     React.createElement("div", { className: "loading" }, "Loading\u2026"),
                     ";")));
         }
@@ -137,26 +146,31 @@ var UpdateUserDetails = /** @class */ (function (_super) {
                         React.createElement("div", { className: "container" },
                             React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                                 React.createElement("div", { className: "col-md-9 text-center" },
-                                    React.createElement("h1", { className: "mb-0 bread" }, "Update personal details"))))),
+                                    React.createElement("h1", { className: "mb-0 bread" },
+                                        React.createElement(Translate, { content: 'updateDetails.UpdatePersonalDetails' })))))),
                     React.createElement("section", { className: "ftco-section" },
                         React.createElement("div", { className: "container" },
                             React.createElement("div", { className: "row justify-content-center" },
                                 React.createElement("div", { className: "col-xl-10" },
                                     React.createElement("form", { action: "", className: "billing-form", onSubmit: this.handleSubmit },
-                                        React.createElement("h3", { className: "mb-4 billing-heading" }, "Personal Details"),
+                                        React.createElement("h3", { className: "mb-4 billing-heading" },
+                                            React.createElement(Translate, { content: 'user.PersonalDetails' })),
                                         React.createElement("div", { className: "row align-items-end" },
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "firstname" }, "First Name"),
+                                                    React.createElement("label", { htmlFor: "firstname" },
+                                                        React.createElement(Translate, { content: 'user.FirstName' })),
                                                     React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.firstName, onChange: this.handleChange, name: "firstName", id: "firstName", maxLength: 32, required: true }))),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "lastname" }, "Last Name"),
+                                                    React.createElement("label", { htmlFor: "lastname" },
+                                                        React.createElement(Translate, { content: 'user.LastName' })),
                                                     React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.lastName, onChange: this.handleChange, name: "lastName", id: "lastName", maxLength: 32, required: true }))),
                                             React.createElement("div", { className: "w-100" }),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "country" }, "State / Country"),
+                                                    React.createElement("label", { htmlFor: "state" },
+                                                        React.createElement(Translate, { content: 'user.State' })),
                                                     React.createElement("div", { className: "select-wrap" },
                                                         React.createElement("div", { className: "icon" },
                                                             React.createElement("span", { className: "ion-ios-arrow-down" })),
@@ -212,28 +226,32 @@ var UpdateUserDetails = /** @class */ (function (_super) {
                                                             React.createElement("option", { value: "TR" }, "Turkey"))))),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "towncity" }, "Town / City"),
+                                                    React.createElement("label", { htmlFor: "city" },
+                                                        React.createElement(Translate, { content: 'user.Town' })),
                                                     React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.city, onChange: this.handleChange, name: "city", id: "city", maxLength: 32, required: true }))),
                                             React.createElement("div", { className: "w-100" }),
                                             React.createElement("div", { className: "col-md-12" },
                                                 React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "streetaddress" }, "Street Address"),
-                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "Street Address", value: this.state.streetAddress, onChange: this.handleChange, name: "streetAddress", id: "streetAddress", maxLength: 50, required: true }))),
+                                                    React.createElement("label", { htmlFor: "streetAddress" },
+                                                        React.createElement(Translate, { content: 'user.StreetAddress' })),
+                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.streetAddress, onChange: this.handleChange, name: "streetAddress", id: "streetAddress", maxLength: 50, required: true }))),
                                             React.createElement("div", { className: "w-100" }),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "postcodezip" }, "Postcode / ZIP *"),
+                                                    React.createElement("label", { htmlFor: "zipCode" },
+                                                        React.createElement(Translate, { content: 'user.Postcode' })),
                                                     React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.zipCode, onChange: this.handleChange, name: "zipCode", id: "zipCode", maxLength: 10, required: true }))),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "phone" }, "Phone"),
+                                                    React.createElement("label", { htmlFor: "phone" },
+                                                        React.createElement(Translate, { content: 'user.Phone' })),
                                                     React.createElement("input", { type: "tel", className: "form-control", placeholder: "", value: this.state.phone, onChange: this.handleChange, name: "phone", id: "phone", maxLength: 32, required: true }))),
                                             React.createElement("div", { className: "w-100" }),
                                             React.createElement("div", { className: "col-md-8" },
                                                 React.createElement("div", { className: "form-group" }, isChanged ?
-                                                    React.createElement("input", { type: "submit", value: "Update details", className: "btn btn-primary py-3 px-5" })
+                                                    React.createElement(Translate, { component: "input", attributes: { value: 'updateDetails.UpdateDetails', }, type: "submit", className: "btn btn-primary py-3 px-5" })
                                                     :
-                                                        React.createElement("input", { type: "submit", value: "Update details", className: "btn btn-primary py-3 px-5", disabled: true }))))))))))));
+                                                        React.createElement(Translate, { component: "input", attributes: { value: 'updateDetails.UpdateDetails', }, type: "submit", className: "btn btn-primary py-3 px-5", disabled: true }))))))))))));
         }
     };
     return UpdateUserDetails;

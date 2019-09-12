@@ -180,7 +180,7 @@ export class Checkout extends React.Component<any, any> {
                                                 <div className="w-100"></div>
                                                 <div className="col-md-12">
                                                     <div className="form-group">
-                                                        <label htmlFor="country"><Translate content='checkout.State' /></label>
+                                                        <label htmlFor="state"><Translate content='checkout.State' /></label>
                                                         <div className="select-wrap">
                                                             <div className="icon"><span className="ion-ios-arrow-down"></span></div>
                                                             <select className="form-control" value={this.state.state} onChange={this.handleChange} name="state" id="state" required>
@@ -241,7 +241,7 @@ export class Checkout extends React.Component<any, any> {
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label htmlFor="streetaddress"><Translate content='checkout.StreetAddress' /></label>
-                                                        <input type="text" className="form-control" placeholder="Street Address" value={this.state.streetAddress} onChange={this.handleChange} name="streetAddress" id="streetAddress" maxLength={50} required />
+                                                        <input type="text" className="form-control" placeholder="" value={this.state.streetAddress} onChange={this.handleChange} name="streetAddress" id="streetAddress" maxLength={50} required />
                                                     </div>
                                                 </div>
 

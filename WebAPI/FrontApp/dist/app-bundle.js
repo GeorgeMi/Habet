@@ -171,6 +171,14 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var react_router_hash_link_1 = __webpack_require__(/*! react-router-hash-link */ "./node_modules/react-router-hash-link/lib/index.js");
+var Translate = __webpack_require__(/*! react-translate-component */ "./node_modules/react-translate-component/index.js");
+var en_1 = __webpack_require__(/*! ./languages/en */ "./Components/languages/en.js");
+var it_1 = __webpack_require__(/*! ./languages/it */ "./Components/languages/it.js");
+var ro_1 = __webpack_require__(/*! ./languages/ro */ "./Components/languages/ro.js");
+var counterpart = __webpack_require__(/*! counterpart */ "./node_modules/counterpart/index.js");
+counterpart.registerTranslations('en', en_1.default);
+counterpart.registerTranslations('ro', ro_1.default);
+counterpart.registerTranslations('it', it_1.default);
 var Footer = /** @class */ (function (_super) {
     __extends(Footer, _super);
     function Footer() {
@@ -188,7 +196,7 @@ var Footer = /** @class */ (function (_super) {
                     React.createElement("div", { className: "col-md-3" },
                         React.createElement("div", { className: "ftco-footer-widget mb-4" },
                             React.createElement("h2", { className: "ftco-heading-2" }, "GabrielHabet"),
-                            React.createElement("p", null, "Butterfly Gabriel Habet is a fashion brand mainly known for its bag and belt designs for both women and men."),
+                            React.createElement(Translate, { content: 'nav.FooterResume', component: "p" }),
                             React.createElement("ul", { className: "ftco-footer-social list-unstyled float-md-left float-lft mt-5" },
                                 React.createElement("li", { className: "ftco-animate" },
                                     React.createElement("a", { href: "#" },
@@ -201,21 +209,28 @@ var Footer = /** @class */ (function (_super) {
                                         React.createElement("span", { className: "icon-instagram" })))))),
                     React.createElement("div", { className: "col-md-3" },
                         React.createElement("div", { className: "ftco-footer-widget mb-4 ml-md-5" },
-                            React.createElement("h2", { className: "ftco-heading-2" }, "Menu"),
+                            React.createElement("h2", { className: "ftco-heading-2" },
+                                React.createElement(Translate, { content: 'nav.Menu' })),
                             React.createElement("ul", { className: "list-unstyled" },
                                 React.createElement("li", null,
-                                    React.createElement("a", { href: "/", className: "py-2 d-block" }, "Home")),
+                                    React.createElement("a", { href: "/", className: "py-2 d-block" },
+                                        React.createElement(Translate, { content: 'nav.Home' }))),
                                 React.createElement("li", null,
-                                    React.createElement(react_router_hash_link_1.HashLink, { to: "#Women-section", className: "py-2 d-block" }, "Women")),
+                                    React.createElement(react_router_hash_link_1.HashLink, { to: "#Women-section", className: "py-2 d-block" },
+                                        React.createElement(Translate, { content: 'nav.Women' }))),
                                 React.createElement("li", null,
-                                    React.createElement(react_router_hash_link_1.HashLink, { to: "#Men-section", className: "py-2 d-block" }, "Men")),
+                                    React.createElement(react_router_hash_link_1.HashLink, { to: "#Men-section", className: "py-2 d-block" },
+                                        React.createElement(Translate, { content: 'nav.Men' }))),
                                 React.createElement("li", null,
-                                    React.createElement("a", { href: "/#/contact", className: "py-2 d-block" }, "Contact")),
+                                    React.createElement("a", { href: "/#/contact", className: "py-2 d-block" },
+                                        React.createElement(Translate, { content: 'nav.Contact' }))),
                                 React.createElement("li", null,
-                                    React.createElement("a", { href: "/#/logIn", className: "py-2 d-block" }, "LogIn"))))),
+                                    React.createElement("a", { href: "/#/logIn", className: "py-2 d-block" },
+                                        React.createElement(Translate, { content: 'nav.Login' })))))),
                     React.createElement("div", { className: "col-md-3" },
                         React.createElement("div", { className: "ftco-footer-widget mb-4" },
-                            React.createElement("h2", { className: "ftco-heading-2" }, "Contact Us"),
+                            React.createElement("h2", { className: "ftco-heading-2" },
+                                React.createElement(Translate, { content: 'nav.ContactUs' })),
                             React.createElement("div", { className: "d-flex" },
                                 React.createElement("p", null,
                                     "73 Somerfield Rd ",
@@ -224,22 +239,29 @@ var Footer = /** @class */ (function (_super) {
                                     React.createElement("br", null),
                                     "United Kingdom ",
                                     React.createElement("br", null),
-                                    React.createElement("strong", null, "Phone:"),
-                                    " +44 161 258 2629",
+                                    React.createElement("strong", null,
+                                        React.createElement(Translate, { content: 'contact.Phone' }),
+                                        ":"),
+                                    " ",
+                                    React.createElement(Translate, { content: 'contact.PhoneValue' }),
                                     React.createElement("br", null),
-                                    React.createElement("strong", null, "Email:"),
+                                    React.createElement("strong", null,
+                                        React.createElement(Translate, { content: 'contact.Email' }),
+                                        ":"),
                                     " habetgabriel@gmail.com",
                                     React.createElement("br", null))))),
                     React.createElement("div", { className: "col-md-3" },
                         React.createElement("div", { className: "ftco-footer-widget mb-4" },
-                            React.createElement("h2", { className: "ftco-heading-2" }, "Our Newsletter"),
+                            React.createElement("h2", { className: "ftco-heading-2" },
+                                React.createElement(Translate, { content: 'nav.OurNewsletter' })),
                             React.createElement("div", { className: "block-23 mb-3" },
-                                React.createElement("p", null, "I would like to receive emails from GabrielHabet with updates and special offers of GabrielHabet. I can unsubscribe any time by clicking the unsubscribe link in the email."),
+                                React.createElement(Translate, { content: 'nav.NewsletterResume', component: "p" }),
                                 React.createElement("form", { action: "", method: "post" },
                                     React.createElement("div", { className: "input-group" },
                                         React.createElement("input", { type: "email", name: "email" }),
                                         React.createElement("span", { className: "input-group-btn" },
-                                            React.createElement("button", { className: "btn btn-info" }, "Subscribe")))))))),
+                                            React.createElement("button", { className: "btn btn-info" },
+                                                React.createElement(Translate, { content: 'nav.Subscribe' }))))))))),
                 React.createElement("div", { className: "row" },
                     React.createElement("div", { className: "col-md-12 text-center" },
                         React.createElement("div", { className: "copyright" },
@@ -596,12 +618,9 @@ var AddProduct = /** @class */ (function (_super) {
                                                     React.createElement("div", { className: "icon" },
                                                         React.createElement("span", { className: "ion-ios-arrow-down" })),
                                                     React.createElement("select", { className: "form-control", value: this.state.gender, onChange: this.handleChange, name: "gender", id: "state", required: true },
-                                                        React.createElement("option", { value: "" },
-                                                            React.createElement(Translate, { content: 'product.Select' })),
-                                                        React.createElement("option", { value: "Women" },
-                                                            React.createElement(Translate, { content: 'product.Women' })),
-                                                        React.createElement("option", { value: "Men" },
-                                                            React.createElement(Translate, { content: 'product.Men' })))))),
+                                                        React.createElement("option", { value: "" }, "Select"),
+                                                        React.createElement("option", { value: "Women" }, "Women"),
+                                                        React.createElement("option", { value: "Men" }, "Men"))))),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
                                                 React.createElement("label", { htmlFor: "type" },
@@ -610,16 +629,13 @@ var AddProduct = /** @class */ (function (_super) {
                                                     React.createElement("div", { className: "icon" },
                                                         React.createElement("span", { className: "ion-ios-arrow-down" })),
                                                     React.createElement("select", { className: "form-control", value: this.state.type, onChange: this.handleChange, name: "type", id: "type", required: true },
-                                                        React.createElement("option", { value: "" },
-                                                            React.createElement(Translate, { content: 'product.Select' })),
-                                                        React.createElement("option", { value: "Belts" },
-                                                            React.createElement(Translate, { content: 'product.Belts' })),
-                                                        React.createElement("option", { value: "Bags" },
-                                                            React.createElement(Translate, { content: 'product.Bags' })))))),
+                                                        React.createElement("option", { value: "" }, "Select"),
+                                                        React.createElement("option", { value: "Belts" }, "Belt"),
+                                                        React.createElement("option", { value: "Bags" }, "Bag"))))),
                                         React.createElement("div", { className: "w-100" }),
                                         React.createElement("div", { className: "col-md-8" },
                                             React.createElement("div", { className: "form-group" },
-                                                React.createElement("input", { type: "submit", value: "Add product", className: "btn btn-primary py-3 px-5" }))))))))))));
+                                                React.createElement(Translate, { component: "input", attributes: { value: 'product.AddProduct', }, type: "submit", className: "btn btn-primary py-3 px-5" }))))))))))));
     };
     return AddProduct;
 }(React.Component));
@@ -1156,7 +1172,7 @@ var Checkout = /** @class */ (function (_super) {
                                             React.createElement("div", { className: "w-100" }),
                                             React.createElement("div", { className: "col-md-12" },
                                                 React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "country" },
+                                                    React.createElement("label", { htmlFor: "state" },
                                                         React.createElement(Translate, { content: 'checkout.State' })),
                                                     React.createElement("div", { className: "select-wrap" },
                                                         React.createElement("div", { className: "icon" },
@@ -1216,7 +1232,7 @@ var Checkout = /** @class */ (function (_super) {
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "streetaddress" },
                                                         React.createElement(Translate, { content: 'checkout.StreetAddress' })),
-                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "Street Address", value: this.state.streetAddress, onChange: this.handleChange, name: "streetAddress", id: "streetAddress", maxLength: 50, required: true }))),
+                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.streetAddress, onChange: this.handleChange, name: "streetAddress", id: "streetAddress", maxLength: 50, required: true }))),
                                             React.createElement("div", { className: "w-100" }),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
@@ -1383,7 +1399,7 @@ var Contact = /** @class */ (function (_super) {
                                 React.createElement(Translate, { content: 'contact.Subtitle' }))))),
                 React.createElement("section", { className: "ftco-section contact-section bg-light" },
                     React.createElement("div", { className: "container" },
-                        React.createElement("div", { className: "row d-flex mb-5 contact-info" },
+                        React.createElement("div", { className: "row d-flex mb-5 contact-info", style: { textAlign: 'center' } },
                             React.createElement("div", { className: "w-100" }),
                             React.createElement("div", { className: "col-md-4 d-flex" },
                                 React.createElement("div", { className: "info bg-white p-4" },
@@ -1391,7 +1407,8 @@ var Contact = /** @class */ (function (_super) {
                                         React.createElement("span", null,
                                             React.createElement(Translate, { content: 'contact.Address' }),
                                             ":"),
-                                        " 73 Somerfield Rd, Manchester M9 8AQ, UK"))),
+                                        " ",
+                                        React.createElement(Translate, { content: 'contact.AddressValue' })))),
                             React.createElement("div", { className: "col-md-4 d-flex" },
                                 React.createElement("div", { className: "info bg-white p-4" },
                                     React.createElement("p", null,
@@ -1399,7 +1416,8 @@ var Contact = /** @class */ (function (_super) {
                                             React.createElement(Translate, { content: 'contact.Phone' }),
                                             ":"),
                                         " ",
-                                        React.createElement("a", { href: "tel:+441612582629" }, "+44 161 258 2629")))),
+                                        React.createElement("a", { href: "tel:+40753696163" },
+                                            React.createElement(Translate, { content: 'contact.PhoneValue' }))))),
                             React.createElement("div", { className: "col-md-4 d-flex" },
                                 React.createElement("div", { className: "info bg-white p-4" },
                                     React.createElement("p", null,
@@ -1412,15 +1430,23 @@ var Contact = /** @class */ (function (_super) {
                             React.createElement("div", { className: "col-md-12 order-md-last d-flex" },
                                 React.createElement("form", { action: "", className: "bg-white p-5 contact-form", onSubmit: this.handleSubmit },
                                     React.createElement("div", { className: "form-group" },
-                                        React.createElement("input", { type: "text", className: "form-control", placeholder: "Your Name", value: this.state.name, onChange: this.handleChange, name: "name", id: "name", pattern: ".{3,}", required: true })),
+                                        React.createElement("label", { htmlFor: "name" },
+                                            React.createElement(Translate, { content: 'user.FirstName' })),
+                                        React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.name, onChange: this.handleChange, name: "name", id: "name", pattern: ".{3,}", required: true })),
                                     React.createElement("div", { className: "form-group" },
-                                        React.createElement("input", { type: "text", className: "form-control", placeholder: "Your Email", value: this.state.email, onChange: this.handleChange, name: "email", id: "email", required: true })),
+                                        React.createElement("label", { htmlFor: "email" },
+                                            React.createElement(Translate, { content: 'user.Email' })),
+                                        React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.email, onChange: this.handleChange, name: "email", id: "email", required: true })),
                                     React.createElement("div", { className: "form-group" },
-                                        React.createElement("input", { type: "text", className: "form-control", placeholder: "Subject", value: this.state.subject, onChange: this.handleChange, name: "subject", id: "subject", required: true, pattern: ".{3,}" })),
+                                        React.createElement("label", { htmlFor: "subject" },
+                                            React.createElement(Translate, { content: 'contact.Subject' })),
+                                        React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.subject, onChange: this.handleChange, name: "subject", id: "subject", required: true, pattern: ".{3,}" })),
                                     React.createElement("div", { className: "form-group" },
-                                        React.createElement("textarea", { className: "form-control", placeholder: "Message", value: this.state.message, onChange: this.handleChange, name: "message", id: "message", required: true })),
+                                        React.createElement("label", { htmlFor: "message" },
+                                            React.createElement(Translate, { content: 'contact.Message' })),
+                                        React.createElement("textarea", { className: "form-control", placeholder: "", value: this.state.message, onChange: this.handleChange, name: "message", id: "message", required: true })),
                                     React.createElement("div", { className: "form-group" },
-                                        React.createElement("input", { type: "submit", value: "Send Message", className: "btn btn-primary py-3 px-5" }))))))))));
+                                        React.createElement(Translate, { component: "input", attributes: { value: 'contact.SendMessage', }, type: "submit", className: "btn btn-primary py-3 px-5" }))))))))));
     };
     return Contact;
 }(React.Component));
@@ -2064,7 +2090,7 @@ var Register = /** @class */ (function (_super) {
                                         React.createElement("div", { className: "w-100" }),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
-                                                React.createElement("label", { htmlFor: "country" },
+                                                React.createElement("label", { htmlFor: "state" },
                                                     React.createElement(Translate, { content: 'user.State' })),
                                                 React.createElement("div", { className: "select-wrap" },
                                                     React.createElement("div", { className: "icon" },
@@ -2121,19 +2147,19 @@ var Register = /** @class */ (function (_super) {
                                                         React.createElement("option", { value: "TR" }, "Turkey"))))),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
-                                                React.createElement("label", { htmlFor: "towncity" },
+                                                React.createElement("label", { htmlFor: "city" },
                                                     React.createElement(Translate, { content: 'user.Town' })),
                                                 React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.city, onChange: this.handleChange, name: "city", id: "city", maxLength: 32, required: true }))),
                                         React.createElement("div", { className: "w-100" }),
                                         React.createElement("div", { className: "col-md-12" },
                                             React.createElement("div", { className: "form-group" },
-                                                React.createElement("label", { htmlFor: "streetaddress" },
+                                                React.createElement("label", { htmlFor: "streetAddress" },
                                                     React.createElement(Translate, { content: 'user.StreetAddress' })),
-                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "Street Address", value: this.state.streetAddress, onChange: this.handleChange, name: "streetAddress", id: "streetAddress", maxLength: 50, required: true }))),
+                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.streetAddress, onChange: this.handleChange, name: "streetAddress", id: "streetAddress", maxLength: 50, required: true }))),
                                         React.createElement("div", { className: "w-100" }),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
-                                                React.createElement("label", { htmlFor: "postcodezip" },
+                                                React.createElement("label", { htmlFor: "zipCode" },
                                                     React.createElement(Translate, { content: 'user.Postcode' })),
                                                 React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.zipCode, onChange: this.handleChange, name: "zipCode", id: "zipCode", maxLength: 10, required: true }))),
                                         React.createElement("div", { className: "col-md-6" },
@@ -2438,7 +2464,7 @@ var Search = /** @class */ (function (_super) {
                                                                             React.createElement("label", { className: "form-check-label", htmlFor: "range5" }, "$500 & Above")))))),
                                                         React.createElement("div", { className: "col-md-4" },
                                                             React.createElement("div", { className: "form-group" },
-                                                                React.createElement("input", { type: "submit", value: "Filter", className: "btn btn-primary py-3 px-5" })))))))))))))));
+                                                                React.createElement(Translate, { component: "input", attributes: { value: 'search.Filter', }, type: "submit", className: "btn btn-primary py-3 px-5" })))))))))))))));
         }
     };
     return Search;
@@ -2477,9 +2503,17 @@ var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Diction
 var sfcookies_1 = __webpack_require__(/*! sfcookies */ "./node_modules/sfcookies/index.js");
 var react_notifications_1 = __webpack_require__(/*! react-notifications */ "./node_modules/react-notifications/lib/index.js");
 __webpack_require__(/*! react-notifications/lib/notifications.css */ "./node_modules/react-notifications/lib/notifications.css");
+var Translate = __webpack_require__(/*! react-translate-component */ "./node_modules/react-translate-component/index.js");
+var en_1 = __webpack_require__(/*! ./languages/en */ "./Components/languages/en.js");
+var it_1 = __webpack_require__(/*! ./languages/it */ "./Components/languages/it.js");
+var ro_1 = __webpack_require__(/*! ./languages/ro */ "./Components/languages/ro.js");
 var config = __webpack_require__(/*! config */ "config");
 var API_Path = config.API_Path;
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+var counterpart = __webpack_require__(/*! counterpart */ "./node_modules/counterpart/index.js");
+counterpart.registerTranslations('en', en_1.default);
+counterpart.registerTranslations('ro', ro_1.default);
+counterpart.registerTranslations('it', it_1.default);
 var UpdateUserDetails = /** @class */ (function (_super) {
     __extends(UpdateUserDetails, _super);
     function UpdateUserDetails(props) {
@@ -2582,7 +2616,8 @@ var UpdateUserDetails = /** @class */ (function (_super) {
                     React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },
-                                React.createElement("h1", { className: "mb-4" }, "Update personal details")))),
+                                React.createElement("h1", { className: "mb-4" },
+                                    React.createElement(Translate, { content: 'updateDetails.UpdatePersonalDetails' }))))),
                     React.createElement("div", { className: "loading" }, "Loading\u2026"),
                     ";")));
         }
@@ -2595,26 +2630,31 @@ var UpdateUserDetails = /** @class */ (function (_super) {
                         React.createElement("div", { className: "container" },
                             React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                                 React.createElement("div", { className: "col-md-9 text-center" },
-                                    React.createElement("h1", { className: "mb-0 bread" }, "Update personal details"))))),
+                                    React.createElement("h1", { className: "mb-0 bread" },
+                                        React.createElement(Translate, { content: 'updateDetails.UpdatePersonalDetails' })))))),
                     React.createElement("section", { className: "ftco-section" },
                         React.createElement("div", { className: "container" },
                             React.createElement("div", { className: "row justify-content-center" },
                                 React.createElement("div", { className: "col-xl-10" },
                                     React.createElement("form", { action: "", className: "billing-form", onSubmit: this.handleSubmit },
-                                        React.createElement("h3", { className: "mb-4 billing-heading" }, "Personal Details"),
+                                        React.createElement("h3", { className: "mb-4 billing-heading" },
+                                            React.createElement(Translate, { content: 'user.PersonalDetails' })),
                                         React.createElement("div", { className: "row align-items-end" },
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "firstname" }, "First Name"),
+                                                    React.createElement("label", { htmlFor: "firstname" },
+                                                        React.createElement(Translate, { content: 'user.FirstName' })),
                                                     React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.firstName, onChange: this.handleChange, name: "firstName", id: "firstName", maxLength: 32, required: true }))),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "lastname" }, "Last Name"),
+                                                    React.createElement("label", { htmlFor: "lastname" },
+                                                        React.createElement(Translate, { content: 'user.LastName' })),
                                                     React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.lastName, onChange: this.handleChange, name: "lastName", id: "lastName", maxLength: 32, required: true }))),
                                             React.createElement("div", { className: "w-100" }),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "country" }, "State / Country"),
+                                                    React.createElement("label", { htmlFor: "state" },
+                                                        React.createElement(Translate, { content: 'user.State' })),
                                                     React.createElement("div", { className: "select-wrap" },
                                                         React.createElement("div", { className: "icon" },
                                                             React.createElement("span", { className: "ion-ios-arrow-down" })),
@@ -2670,28 +2710,32 @@ var UpdateUserDetails = /** @class */ (function (_super) {
                                                             React.createElement("option", { value: "TR" }, "Turkey"))))),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "towncity" }, "Town / City"),
+                                                    React.createElement("label", { htmlFor: "city" },
+                                                        React.createElement(Translate, { content: 'user.Town' })),
                                                     React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.city, onChange: this.handleChange, name: "city", id: "city", maxLength: 32, required: true }))),
                                             React.createElement("div", { className: "w-100" }),
                                             React.createElement("div", { className: "col-md-12" },
                                                 React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "streetaddress" }, "Street Address"),
-                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "Street Address", value: this.state.streetAddress, onChange: this.handleChange, name: "streetAddress", id: "streetAddress", maxLength: 50, required: true }))),
+                                                    React.createElement("label", { htmlFor: "streetAddress" },
+                                                        React.createElement(Translate, { content: 'user.StreetAddress' })),
+                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.streetAddress, onChange: this.handleChange, name: "streetAddress", id: "streetAddress", maxLength: 50, required: true }))),
                                             React.createElement("div", { className: "w-100" }),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "postcodezip" }, "Postcode / ZIP *"),
+                                                    React.createElement("label", { htmlFor: "zipCode" },
+                                                        React.createElement(Translate, { content: 'user.Postcode' })),
                                                     React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.zipCode, onChange: this.handleChange, name: "zipCode", id: "zipCode", maxLength: 10, required: true }))),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "phone" }, "Phone"),
+                                                    React.createElement("label", { htmlFor: "phone" },
+                                                        React.createElement(Translate, { content: 'user.Phone' })),
                                                     React.createElement("input", { type: "tel", className: "form-control", placeholder: "", value: this.state.phone, onChange: this.handleChange, name: "phone", id: "phone", maxLength: 32, required: true }))),
                                             React.createElement("div", { className: "w-100" }),
                                             React.createElement("div", { className: "col-md-8" },
                                                 React.createElement("div", { className: "form-group" }, isChanged ?
-                                                    React.createElement("input", { type: "submit", value: "Update details", className: "btn btn-primary py-3 px-5" })
+                                                    React.createElement(Translate, { component: "input", attributes: { value: 'updateDetails.UpdateDetails', }, type: "submit", className: "btn btn-primary py-3 px-5" })
                                                     :
-                                                        React.createElement("input", { type: "submit", value: "Update details", className: "btn btn-primary py-3 px-5", disabled: true }))))))))))));
+                                                        React.createElement(Translate, { component: "input", attributes: { value: 'updateDetails.UpdateDetails', }, type: "submit", className: "btn btn-primary py-3 px-5", disabled: true }))))))))))));
         }
     };
     return UpdateUserDetails;
@@ -2807,9 +2851,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
 var sfcookies_1 = __webpack_require__(/*! sfcookies */ "./node_modules/sfcookies/index.js");
+var Translate = __webpack_require__(/*! react-translate-component */ "./node_modules/react-translate-component/index.js");
+var en_1 = __webpack_require__(/*! ./languages/en */ "./Components/languages/en.js");
+var it_1 = __webpack_require__(/*! ./languages/it */ "./Components/languages/it.js");
+var ro_1 = __webpack_require__(/*! ./languages/ro */ "./Components/languages/ro.js");
 var config = __webpack_require__(/*! config */ "config");
 var API_Path = config.API_Path;
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+var counterpart = __webpack_require__(/*! counterpart */ "./node_modules/counterpart/index.js");
+counterpart.registerTranslations('en', en_1.default);
+counterpart.registerTranslations('ro', ro_1.default);
+counterpart.registerTranslations('it', it_1.default);
 var SectionIntro = /** @class */ (function (_super) {
     __extends(SectionIntro, _super);
     function SectionIntro(props) {
@@ -2849,13 +2901,22 @@ var SectionIntro = /** @class */ (function (_super) {
         }
         else {
             var activeDictionary = new Dictionary_1.KeyedCollection();
-            items.map(function (item, i) { return (activeDictionary.Add(i, "")); });
-            activeDictionary.Add(0, "active");
+            //items.map((item, i) => (
+            //    activeDictionary.Add(i, "")
+            //));
+            //activeDictionary.Add(0, "active");
             return (React.createElement("section", { className: "ftco-section ftco-deal", style: { backgroundImage: "url('images/background.jpg')", opacity: 0.5 } },
                 React.createElement("div", { className: "container" },
                     React.createElement("div", { id: "carouselExampleControls", className: "carousel slide", "data-ride": "carousel" },
                         React.createElement("div", { className: "carousel-inner" },
-                            items.map(function (item, i) { return (React.createElement("div", { key: i, className: activeDictionary.Item(i) + " carousel-item" },
+                            React.createElement("div", { className: "active carousel-item" },
+                                React.createElement("div", { className: "row" },
+                                    React.createElement("div", { className: "offset-1 col-md-10" },
+                                        React.createElement("div", { className: "text-deal", style: { opacity: 1, fontStyle: 'italic', textAlign: 'justify' } },
+                                            React.createElement(Translate, { component: "h5", content: 'intro.P1' }),
+                                            React.createElement(Translate, { component: "h5", content: 'intro.P2' }),
+                                            React.createElement(Translate, { component: "h5", content: 'intro.P3' }))))),
+                            items.map(function (item, i) { return (React.createElement("div", { key: i, className: "carousel-item" },
                                 React.createElement("div", { className: "row" },
                                     React.createElement("div", { className: "col-md-6" },
                                         React.createElement("img", { src: item.Image, className: "img-fluid", alt: "" })),
@@ -3050,7 +3111,13 @@ __webpack_require__.r(__webpack_exports__);
         Men: 'Men',
         Search: 'Search',
         SignOut: 'SignOut',
-        Women: 'Women'
+        Women: 'Women',
+        Menu: 'Menu',
+        ContactUs: 'Contact Us',
+        OurNewsletter: 'Our Newsletter',
+        Subscribe: 'Subscribe',
+        FooterResume: 'Butterfly Gabriel Habet is a fashion brand mainly known for its bag and belt designs for both women and men.',
+        NewsletterResume: 'I would like to receive emails from GabrielHabet with updates and special offers of GabrielHabet. I can unsubscribe any time by clicking the unsubscribe link in the email.'
     },
 
     products: {
@@ -3066,8 +3133,13 @@ __webpack_require__.r(__webpack_exports__);
         Title: 'Contact our Support and Sales team',
         Subtitle: 'Our team is happy to answer your questions. Fill out the form and we’ll be in touch as soon as possible.',
         Address: 'Address',
+        AddressValue: '73 Somerfield Rd, Manchester M9 8AQ, UK',
         Phone: 'Phone',
-        Email: 'Email'
+        PhoneValue: '+44 161 258 2629',
+        Email: 'Email',
+        Subject: 'Subject',
+        Message: 'Message',
+        SendMessage: 'Send Message'
     },
 
     search: {
@@ -3081,7 +3153,8 @@ __webpack_require__.r(__webpack_exports__);
         Products: 'Products',
         Bags: 'Bags',
         Belts: 'Belts',
-        PriceRange: 'Price Range'
+        PriceRange: 'Price Range',
+        Filter: 'Filter'
     },
 
     checkout: {
@@ -3140,9 +3213,23 @@ __webpack_require__.r(__webpack_exports__);
         Select: 'Select',
         Bags: 'Bags',
         Belts: 'Belts',
+        Bag: 'Bag',
+        Belt: 'Belt',
         Men: 'Men',
         Women: 'Women',
-        Type: 'Type'
+        Type: 'Type',
+        AddProduct: 'Add product'
+    },
+
+    updateDetails: {
+        UpdatePersonalDetails: 'Update personal details',
+        UpdateDetails: 'Update Details'
+    },
+
+    intro: {
+        P1: 'Many years ago, Gabriel’s career started working as a leather cutter for Italian companies. From design to assembly and product finishing, he went through all the steps required to make leather articles, mastering his abilities in this field over time. Later on, being experienced and passionate, he started working with some of the famous in the field, creating new models for both men and women, contributing through his work to the evolution of leather processing and metal accessories. Then, it came a time when he decided to use this experience in order to create new designs of his own idea under his own new born brand: Butterfly Gabriel Habet.',
+        P2: 'His creations are exclusively handmade, designed and produced with an exigency from raw materials which are directly imported from Italy. This highlights the quality and Italian excellence in tanning and leather processing. The following collection aims to satisfy the requirements of enthusiasts of leather articles, delighting them with minimal style elements inspired by modern geometrism but with the ample freedom of defined classicism.',
+        P3: 'Thank you for stopping-by and enjoy shopping!'
     }
 });
 
@@ -3173,7 +3260,13 @@ __webpack_require__.r(__webpack_exports__);
         Men: 'Uomini',
         Search: 'Ricerca',
         SignOut: 'Disconnessione',
-        Women: 'Donne'
+        Women: 'Donne',
+        Menu: 'Menu',
+        ContactUs: 'Contattaci',
+        OurNewsletter: 'La nostra newsletter',
+        Subscribe: 'Iscriviti',
+        FooterResume: 'Butterfly Gabriel Habet è un marchio di moda noto principalmente per i suoi design di borse e cinture sia per donna che per uomo.',
+        NewsletterResume: 'I would like to receive emails from GabrielHabet with updates and special offers of GabrielHabet. I can unsubscribe any time by clicking the unsubscribe link in the email.'
     },
 
     products: {
@@ -3189,8 +3282,13 @@ __webpack_require__.r(__webpack_exports__);
         Title: 'Contatta il nostro team di supporto e vendita',
         Subtitle: 'Il nostro team è felice di rispondere alle tue domande. Compila il modulo e ti contatteremo al più presto.',
         Address: 'Indirizzo',
+        AddressValue: '73 Somerfield Rd, Manchester M9 8AQ, UK',
         Phone: 'Telefono',
-        Email: 'Smalto'
+        PhoneValue: '+44 161 258 2629',
+        Email: 'Smalto',
+        Subject: 'Soggetto',
+        Message: 'Messaggio',
+        SendMessage: 'Invia messaggio'
     },
 
     search: {
@@ -3204,7 +3302,8 @@ __webpack_require__.r(__webpack_exports__);
         Products: 'Prodotti',
         Bags: 'Borse',
         Belts: 'Cinture',
-        PriceRange: 'Fascia di prezzo'
+        PriceRange: 'Fascia di prezzo',
+        Filter: 'Filtra'
     },
 
     checkout: {
@@ -3263,9 +3362,27 @@ __webpack_require__.r(__webpack_exports__);
         Select: 'Seleziona',
         Bags: 'Borse',
         Belts: 'Cinture',
+        Bag: 'Borsa',
+        Belt: 'Cintura',
         Men: 'Uomini',
         Women: 'Donne',
-        Type: 'Tipo'
+        Type: 'Tipo',
+        AddProduct: 'Aggiungi prodotto'
+    },
+
+    updateDetails: {
+        UpdatePersonalDetails: 'Aggiorna dettagli personali',
+        UpdateDetails: 'Dettagli aggiornamento'
+    },
+
+    intro: {
+        Story: 'Many years ago, Gabriel’s career started working as a leather cutter for Italian companies. From design to assembly and product finishing, he went through all the steps required to make leather articles, mastering his abilities in this field over time. Later on, being experienced and passionate, he started working with some of the famous in the field, creating new models for both men and women, contributing through his work to the evolution of leather processing and metal accessories. Then, it came a time when he decided to use this experience in order to create new designs of his own idea under his own new born brand: Butterfly Gabriel Habet. His creations are exclusively handmade, designed and produced with an exigency from raw materials which are directly imported from Italy.This highlights the quality and Italian excellence in tanning and leather processing.The following collection aims to satisfy the requirements of enthusiasts of leather articles, delighting them with minimal style elements inspired by modern geometrism but with the ample freedom of defined classicism.Thank you for stopping - by and enjoy shopping!'
+    },
+
+    intro: {
+        P1: 'Many years ago, Gabriel’s career started working as a leather cutter for Italian companies. From design to assembly and product finishing, he went through all the steps required to make leather articles, mastering his abilities in this field over time. Later on, being experienced and passionate, he started working with some of the famous in the field, creating new models for both men and women, contributing through his work to the evolution of leather processing and metal accessories. Then, it came a time when he decided to use this experience in order to create new designs of his own idea under his own new born brand: Butterfly Gabriel Habet.',
+        P2: 'His creations are exclusively handmade, designed and produced with an exigency from raw materials which are directly imported from Italy. This highlights the quality and Italian excellence in tanning and leather processing. The following collection aims to satisfy the requirements of enthusiasts of leather articles, delighting them with minimal style elements inspired by modern geometrism but with the ample freedom of defined classicism.',
+        P3: 'Thank you for stopping-by and enjoy shopping!'
     }
 });
 
@@ -3296,7 +3413,13 @@ __webpack_require__.r(__webpack_exports__);
         Men: 'Bărbați',
         Search: 'Căutare',
         SignOut: 'Deconectare',
-        Women: 'Femei'
+        Women: 'Femei',
+        Menu: 'Meniu',
+        ContactUs: 'Contactați-ne',
+        OurNewsletter: 'Newsletter-ul nostru',
+        Subscribe: 'Abonează-te',
+        FooterResume: 'Butterfly Gabriel Habet este un brand de modă cunoscut în principal pentru design-ul geanților și curelelor atât pentru femei, cât și pentru bărbați.',
+        NewsletterResume: 'Aș dori să primesc e-mailuri de la GabrielHabet cu actualizări și oferte speciale. Ma pot dezabona oricand dand click pe linkul de dezabonare din e-mail.'
     },
 
     products: {
@@ -3312,8 +3435,13 @@ __webpack_require__.r(__webpack_exports__);
         Title: 'Contactați echipa noastră de asistență și vânzări',
         Subtitle: 'Echipa noastră este nerăbdătoare să vă răspundă la întrebări. Completați formularul și vom răspunde cât mai curând posibil.',
         Address: 'Adresa',
+        AddressValue: 'Sat Țigănași, Comuna Țigănași, Strada Principală, Nr. 126, Județ Iași',
         Phone: 'Telefon',
-        Email: 'Email'
+        PhoneValue: '+40 753 696 163',
+        Email: 'Email',
+        Subject: 'Subject',
+        Message: 'Mesaj',
+        SendMessage: 'Trimite mesaj'
     },
 
     search: {
@@ -3327,7 +3455,8 @@ __webpack_require__.r(__webpack_exports__);
         Products: 'Produse',
         Bags: 'Poşete',
         Belts: 'Curele',
-        PriceRange: 'Gama de prețuri'
+        PriceRange: 'Gama de prețuri',
+        Filter: 'Filtrează'
     },
 
     checkout: {
@@ -3386,9 +3515,23 @@ __webpack_require__.r(__webpack_exports__);
         Select: 'Selectați',
         Bags: 'Genți',
         Belts: 'Curele',
+        Bag: 'Geantă',
+        Belt: 'Curea',
         Men: 'Bărbați',
         Women: 'Femei',
-        Type: 'Tip'
+        Type: 'Tip',
+        AddProduct: 'Adaugă produs'
+    },
+
+    updateDetails: {
+        UpdatePersonalDetails: 'Actualizare date personale',
+        UpdateDetails: 'Actualizați datele personale'
+    },
+
+    intro: {
+        P1: 'Acum mulți ani, Gabriel și-a început cariera lucrând ca și croitor de piele pentru companii italiene. De la design, la asamblare și până la finalizare a trecut prin toți pașii necesari pentru a face articole din piele, excelând în domeniu de-a lungul timpului. Mai târziu, dată fiindu-i experiența și pasiunea, a început să lucreze cu firme celebre în domeniu, creând modele pentru ambele genuri, contribuind prin munca sa la evoluția procesării pielii și a diversificării accesoriilor din metal. Apoi, a venit un timp când a decis să-și folosească experiența pentru a crea modele noi, definind cu talent și meticulozitate un nou brand, „Butterfly Gabriel Habet”.',
+        P2: 'Creațiile lui sunt făcute exclusiv manual, concepute și produse cu exigență din material brut, importat direct din Italia. Acest lucru evidențiază calitatea și excelența italiană în procesarea pielii. Colecția ce urmează are intenția de a satisface cerințele amatorilor de articole din piele, încântându-i cu elemente ale stilului minimalist, inspirate din geometrismul modern, dar cu ampla libertate a clasicismului definit.',
+        P3: 'Vă mulțumim pentru atenția acordată și vă dorim spor la cumpărături!'
     }
 });
 
@@ -7053,7 +7196,7 @@ var ___CSS_LOADER_URL___2___ = getUrl(__webpack_require__(/*! ./fonts/notificati
 var ___CSS_LOADER_URL___3___ = getUrl(__webpack_require__(/*! ./fonts/notification.ttf?s3g3t9 */ "./node_modules/react-notifications/lib/fonts/notification.ttf?s3g3t9"));
 var ___CSS_LOADER_URL___4___ = getUrl(__webpack_require__(/*! ./fonts/notification.svg?s3g3t9 */ "./node_modules/react-notifications/lib/fonts/notification.svg?s3g3t9") + "#notification");
 // Module
-exports.push([module.i, "@charset \"UTF-8\";\r\n@font-face {\r\n  font-family: 'Notification';\r\n  src: url(" + ___CSS_LOADER_URL___0___ + ");\r\n  src: url(" + ___CSS_LOADER_URL___1___ + ") format(\"embedded-opentype\"), url(" + ___CSS_LOADER_URL___2___ + ") format(\"woff\"), url(" + ___CSS_LOADER_URL___3___ + ") format(\"truetype\"), url(" + ___CSS_LOADER_URL___4___ + ") format(\"svg\");\r\n  font-weight: normal;\r\n  font-style: normal;\r\n}\r\n\r\n.notification-container {\r\n  box-sizing: border-box;\r\n  position: fixed;\r\n  top: 0;\r\n  right: 0;\r\n  z-index: 999999;\r\n  width: 320px;\r\n  padding: 0px 15px;\r\n  max-height: calc(100% - 30px);\r\n  overflow-x: hidden;\r\n  overflow-y: auto;\r\n}\r\n\r\n.notification {\r\n  box-sizing: border-box;\r\n  padding: 15px 15px 15px 58px;\r\n  border-radius: 2px;\r\n  color: #fff;\r\n  background-color: #ccc;\r\n  box-shadow: 0 0 12px #999;\r\n  cursor: pointer;\r\n  font-size: 1em;\r\n  line-height: 1.2em;\r\n  position: relative;\r\n  opacity: 0.9;\r\n  margin-top: 15px;\r\n}\r\n\r\n.notification .title {\r\n  font-size: 1em;\r\n  line-height: 1.2em;\r\n  font-weight: bold;\r\n  margin: 0 0 5px 0;\r\n}\r\n\r\n.notification:hover, .notification:focus {\r\n  opacity: 1;\r\n}\r\n\r\n.notification-enter {\r\n  visibility: hidden;\r\n  transform: translate3d(100%, 0, 0);\r\n}\r\n\r\n.notification-enter.notification-enter-active {\r\n  visibility: visible;\r\n  transform: translate3d(0, 0, 0);\r\n  transition: all 0.4s;\r\n}\r\n\r\n.notification-leave {\r\n  visibility: visible;\r\n  transform: translate3d(0, 0, 0);\r\n}\r\n\r\n.notification-leave.notification-leave-active {\r\n  visibility: hidden;\r\n  transform: translate3d(100%, 0, 0);\r\n  transition: all 0.4s;\r\n}\r\n\r\n.notification:before {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 15px;\r\n  margin-top: -14px;\r\n  display: block;\r\n  font-family: 'Notification';\r\n  width: 28px;\r\n  height: 28px;\r\n  font-size: 28px;\r\n  text-align: center;\r\n  line-height: 28px;\r\n}\r\n\r\n.notification-info {\r\n  background-color: #2f96b4;\r\n}\r\n\r\n.notification-info:before {\r\n  content: \"!\";\r\n}\r\n\r\n.notification-success {\r\n  background-color: #51a351;\r\n}\r\n\r\n.notification-success:before {\r\n  content: \"✓\";\r\n}\r\n\r\n.notification-warning {\r\n  background-color: #f89406;\r\n}\r\n\r\n.notification-warning:before {\r\n  content: \"!\";\r\n}\r\n\r\n.notification-error {\r\n  background-color: #bd362f;\r\n}\r\n\r\n.notification-error:before {\r\n  content: \"✘\";\r\n}\r\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\n@font-face {\n  font-family: 'Notification';\n  src: url(" + ___CSS_LOADER_URL___0___ + ");\n  src: url(" + ___CSS_LOADER_URL___1___ + ") format(\"embedded-opentype\"), url(" + ___CSS_LOADER_URL___2___ + ") format(\"woff\"), url(" + ___CSS_LOADER_URL___3___ + ") format(\"truetype\"), url(" + ___CSS_LOADER_URL___4___ + ") format(\"svg\");\n  font-weight: normal;\n  font-style: normal;\n}\n\n.notification-container {\n  box-sizing: border-box;\n  position: fixed;\n  top: 0;\n  right: 0;\n  z-index: 999999;\n  width: 320px;\n  padding: 0px 15px;\n  max-height: calc(100% - 30px);\n  overflow-x: hidden;\n  overflow-y: auto;\n}\n\n.notification {\n  box-sizing: border-box;\n  padding: 15px 15px 15px 58px;\n  border-radius: 2px;\n  color: #fff;\n  background-color: #ccc;\n  box-shadow: 0 0 12px #999;\n  cursor: pointer;\n  font-size: 1em;\n  line-height: 1.2em;\n  position: relative;\n  opacity: 0.9;\n  margin-top: 15px;\n}\n\n.notification .title {\n  font-size: 1em;\n  line-height: 1.2em;\n  font-weight: bold;\n  margin: 0 0 5px 0;\n}\n\n.notification:hover, .notification:focus {\n  opacity: 1;\n}\n\n.notification-enter {\n  visibility: hidden;\n  transform: translate3d(100%, 0, 0);\n}\n\n.notification-enter.notification-enter-active {\n  visibility: visible;\n  transform: translate3d(0, 0, 0);\n  transition: all 0.4s;\n}\n\n.notification-leave {\n  visibility: visible;\n  transform: translate3d(0, 0, 0);\n}\n\n.notification-leave.notification-leave-active {\n  visibility: hidden;\n  transform: translate3d(100%, 0, 0);\n  transition: all 0.4s;\n}\n\n.notification:before {\n  position: absolute;\n  top: 50%;\n  left: 15px;\n  margin-top: -14px;\n  display: block;\n  font-family: 'Notification';\n  width: 28px;\n  height: 28px;\n  font-size: 28px;\n  text-align: center;\n  line-height: 28px;\n}\n\n.notification-info {\n  background-color: #2f96b4;\n}\n\n.notification-info:before {\n  content: \"!\";\n}\n\n.notification-success {\n  background-color: #51a351;\n}\n\n.notification-success:before {\n  content: \"✓\";\n}\n\n.notification-warning {\n  background-color: #f89406;\n}\n\n.notification-warning:before {\n  content: \"!\";\n}\n\n.notification-error {\n  background-color: #bd362f;\n}\n\n.notification-error:before {\n  content: \"✘\";\n}\n", ""]);
 
 
 /***/ }),

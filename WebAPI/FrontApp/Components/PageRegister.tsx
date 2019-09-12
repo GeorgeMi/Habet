@@ -128,7 +128,7 @@ export class Register extends React.Component<any, any> {
                                             <div className="w-100"></div>
                                             <div className="col-md-6">
                                                 <div className="form-group">
-                                                    <label htmlFor="country"><Translate content='user.State'/></label>
+                                                    <label htmlFor="state"><Translate content='user.State'/></label>
                                                     <div className="select-wrap">
                                                         <div className="icon"><span className="ion-ios-arrow-down"></span></div>
                                                         <select className="form-control" value={this.state.state} onChange={this.handleChange} name="state" id="state" required>
@@ -188,21 +188,21 @@ export class Register extends React.Component<any, any> {
 
                                             <div className="col-md-6">
                                                 <div className="form-group">
-                                                    <label htmlFor="towncity"><Translate content='user.Town' /></label>
+                                                    <label htmlFor="city"><Translate content='user.Town' /></label>
                                                     <input type="text" className="form-control" placeholder="" value={this.state.city} onChange={this.handleChange} name="city" id="city" maxLength={32} required/>
                                                 </div>
                                             </div>
                                             <div className="w-100"></div>
                                             <div className="col-md-12">
                                                 <div className="form-group">
-                                                    <label htmlFor="streetaddress"><Translate content='user.StreetAddress' /></label>
-                                                    <input type="text" className="form-control" placeholder="Street Address" value={this.state.streetAddress} onChange={this.handleChange} name="streetAddress" id="streetAddress" maxLength={50} required/>
+                                                    <label htmlFor="streetAddress"><Translate content='user.StreetAddress' /></label>
+                                                    <input type="text" className="form-control" placeholder="" value={this.state.streetAddress} onChange={this.handleChange} name="streetAddress" id="streetAddress" maxLength={50} required/>
                                                 </div>
                                             </div>
                                             <div className="w-100"></div>
                                             <div className="col-md-6">
                                                 <div className="form-group">
-                                                    <label htmlFor="postcodezip"><Translate content='user.Postcode' /></label>
+                                                    <label htmlFor="zipCode"><Translate content='user.Postcode' /></label>
                                                     <input type="text" className="form-control" placeholder="" value={this.state.zipCode} onChange={this.handleChange} name="zipCode" id="zipCode" maxLength={10} required/>
                                                 </div>
                                             </div>

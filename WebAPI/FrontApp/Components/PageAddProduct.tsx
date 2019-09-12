@@ -129,9 +129,9 @@ export class AddProduct extends React.Component<any, any> {
                                                     <div className="select-wrap">
                                                         <div className="icon"><span className="ion-ios-arrow-down"></span></div>
                                                         <select className="form-control" value={this.state.gender} onChange={this.handleChange} name="gender" id="state" required>
-                                                            <option value=""><Translate content='product.Select' /></option>
-                                                            <option value="Women"><Translate content='product.Women' /></option>
-                                                            <option value="Men"><Translate content='product.Men' /></option>
+                                                            <option value="">Select</option>
+                                                            <option value="Women">Women</option>
+                                                            <option value="Men">Men</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -142,9 +142,9 @@ export class AddProduct extends React.Component<any, any> {
                                                     <div className="select-wrap">
                                                         <div className="icon"><span className="ion-ios-arrow-down"></span></div>
                                                         <select className="form-control" value={this.state.type} onChange={this.handleChange} name="type" id="type" required>
-                                                            <option value=""><Translate content='product.Select' /></option>
-                                                            <option value="Belts"><Translate content='product.Belts' /></option>
-                                                            <option value="Bags"><Translate content='product.Bags' /></option>
+                                                            <option value="">Select</option>
+                                                            <option value="Belts">Belt</option>
+                                                            <option value="Bags">Bag</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -152,7 +152,7 @@ export class AddProduct extends React.Component<any, any> {
                                             <div className="w-100"></div>
                                             <div className="col-md-8">
                                                 <div className="form-group">
-                                                    <input type="submit" value="Add product" className="btn btn-primary py-3 px-5" />
+                                                    <Translate component="input" attributes={{ value: 'product.AddProduct', }} type="submit" className="btn btn-primary py-3 px-5" />
                                                 </div>
                                             </div>
                                         </div>

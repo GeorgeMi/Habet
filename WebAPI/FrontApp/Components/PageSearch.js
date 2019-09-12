@@ -275,7 +275,7 @@ var Search = /** @class */ (function (_super) {
                                                                             React.createElement("label", { className: "form-check-label", htmlFor: "range5" }, "$500 & Above")))))),
                                                         React.createElement("div", { className: "col-md-4" },
                                                             React.createElement("div", { className: "form-group" },
-                                                                React.createElement("input", { type: "submit", value: "Filter", className: "btn btn-primary py-3 px-5" })))))))))))))));
+                                                                React.createElement(Translate, { component: "input", attributes: { value: 'search.Filter', }, type: "submit", className: "btn btn-primary py-3 px-5" })))))))))))))));
         }
     };
     return Search;

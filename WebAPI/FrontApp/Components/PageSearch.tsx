@@ -312,7 +312,7 @@ export class Search extends React.Component<any, any>
                                                             </div>
                                                             <div className="col-md-4">
                                                                 <div className="form-group">
-                                                                    <input type="submit" value="Filter" className="btn btn-primary py-3 px-5" />
+                                                                    <Translate component="input" attributes={{ value: 'search.Filter', }} type="submit" className="btn btn-primary py-3 px-5" />
                                                                 </div>
                                                             </div>
                                                         </div>

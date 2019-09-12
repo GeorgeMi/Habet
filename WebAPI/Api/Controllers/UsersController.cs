@@ -37,14 +37,14 @@ namespace Api.Controllers
             //    Email = "Email"
             //};
 
-            //JSend json = new JSendData<UserUpdateDetails>("success", new List<UserUpdateDetails> { result1 });
-            //responseMessage = Request.CreateResponse(HttpStatusCode.OK, json);
-
+            //JSend json1 = new JSendData<UserUpdateDetails>("success", new List<UserUpdateDetails> { result1 });
+            //responseMessage = Request.CreateResponse(HttpStatusCode.OK, json1);
+            //return responseMessage;
 
             if (userId > 0)
             {
                 var user = db.Users.First(u => u.UserId == userId);
-                user.UsersAddresses= db.UsersAddresses.Where(u => u.UserId == userId).ToList();
+                user.UsersAddresses = db.UsersAddresses.Where(u => u.UserId == userId).ToList();
                 if (null != user)
                 {
                     var result = new UserUpdateDetails()

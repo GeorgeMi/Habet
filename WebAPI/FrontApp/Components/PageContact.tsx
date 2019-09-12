@@ -84,16 +84,16 @@ export class Contact extends React.Component<any, any>{
 
                     <section className="ftco-section contact-section bg-light">
                         <div className="container">
-                            <div className="row d-flex mb-5 contact-info">
+                            <div className="row d-flex mb-5 contact-info" style={{ textAlign: 'center'}}>
                                 <div className="w-100"></div>
                                 <div className="col-md-4 d-flex">
                                     <div className="info bg-white p-4">
-                                        <p><span><Translate content='contact.Address' />:</span> 73 Somerfield Rd, Manchester M9 8AQ, UK</p>
+                                        <p><span><Translate content='contact.Address' />:</span> <Translate content='contact.AddressValue' /></p>
                                     </div>
                                 </div>
                                 <div className="col-md-4 d-flex">
                                     <div className="info bg-white p-4">
-                                        <p><span><Translate content='contact.Phone' />:</span> <a href="tel:+441612582629">+44 161 258 2629</a></p>
+                                        <p><span><Translate content='contact.Phone' />:</span> <a href="tel:+40753696163"><Translate content='contact.PhoneValue' /></a></p>
                                     </div>
                                 </div>
                                 <div className="col-md-4 d-flex">
@@ -106,19 +106,23 @@ export class Contact extends React.Component<any, any>{
                                 <div className="col-md-12 order-md-last d-flex">
                                     <form action="" className="bg-white p-5 contact-form" onSubmit={this.handleSubmit}>
                                         <div className="form-group">
-                                            <input type="text" className="form-control" placeholder="Your Name" value={this.state.name} onChange={this.handleChange} name="name" id="name" pattern=".{3,}" required />
+                                            <label htmlFor="name"><Translate content='user.FirstName' /></label>
+                                            <input type="text" className="form-control" placeholder="" value={this.state.name} onChange={this.handleChange} name="name" id="name" pattern=".{3,}" required />
                                         </div>
                                         <div className="form-group">
-                                            <input type="text" className="form-control" placeholder="Your Email" value={this.state.email} onChange={this.handleChange} name="email" id="email" required />
+                                            <label htmlFor="email"><Translate content='user.Email' /></label>
+                                            <input type="text" className="form-control" placeholder="" value={this.state.email} onChange={this.handleChange} name="email" id="email" required />
                                         </div>
                                         <div className="form-group">
-                                            <input type="text" className="form-control" placeholder="Subject" value={this.state.subject} onChange={this.handleChange} name="subject" id="subject" required pattern=".{3,}" />
+                                            <label htmlFor="subject"><Translate content='contact.Subject' /></label>
+                                            <input type="text" className="form-control" placeholder="" value={this.state.subject} onChange={this.handleChange} name="subject" id="subject" required pattern=".{3,}" />
                                         </div>
                                         <div className="form-group">
-                                            <textarea className="form-control" placeholder="Message" value={this.state.message} onChange={this.handleChange} name="message" id="message" required></textarea>
+                                            <label htmlFor="message"><Translate content='contact.Message' /></label>
+                                            <textarea className="form-control" placeholder="" value={this.state.message} onChange={this.handleChange} name="message" id="message" required></textarea>
                                         </div>
-                                        <div className="form-group">
-                                            <input type="submit" value="Send Message" className="btn btn-primary py-3 px-5" />
+                                        <div className="form-group">                                       
+                                            <Translate component="input" attributes={{ value: 'contact.SendMessage', }} type="submit" className="btn btn-primary py-3 px-5"/>
                                         </div>
                                     </form>
                                 </div>

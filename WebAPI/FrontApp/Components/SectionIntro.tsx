@@ -1,10 +1,19 @@
 ﻿import * as React from 'react';
 import { KeyedCollection } from './Dictionary';
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
+import * as Translate from 'react-translate-component';
+import en from './languages/en';
+import it from './languages/it';
+import ro from './languages/ro';
 
 var config = require('config');
 var API_Path = config.API_Path;
 const axios = require('axios');
+var counterpart = require('counterpart');
+
+counterpart.registerTranslations('en', en);
+counterpart.registerTranslations('ro', ro);
+counterpart.registerTranslations('it', it);
 
 export class SectionIntro extends React.Component<any, any> {
     constructor(props) {
@@ -43,19 +52,32 @@ export class SectionIntro extends React.Component<any, any> {
 
         } else {
             var activeDictionary = new KeyedCollection<string>();           
-            items.map((item, i) => (
-                activeDictionary.Add(i, "")
-            ));
-            activeDictionary.Add(0, "active");
+            //items.map((item, i) => (
+            //    activeDictionary.Add(i, "")
+            //));
+            //activeDictionary.Add(0, "active");
 
             return (
                 <section className="ftco-section ftco-deal" style={{ backgroundImage: "url('images/background.jpg')", opacity: 0.5 }}>
                     <div className="container">
                         <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
                             <div className="carousel-inner">
+
+                                <div className="active carousel-item">
+                                    <div className="row">
+                                        <div className="offset-1 col-md-10">
+                                            <div className="text-deal" style={{ opacity: 1, fontStyle: 'italic', textAlign: 'justify' }}>
+                                                <Translate component="h5" content='intro.P1' />
+                                                <Translate component="h5" content='intro.P2' />
+                                                <Translate component="h5" content='intro.P3' />                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 {
                                     items.map((item, i) => (
-                                        <div key={i} className={activeDictionary.Item(i) + " carousel-item"}>
+                                        <div key={i} className="carousel-item">
                                             <div className="row">
                                                 <div className="col-md-6">
                                                     <img src={item.Image} className="img-fluid" alt="" />

@@ -123,12 +123,9 @@ var AddProduct = /** @class */ (function (_super) {
                                                     React.createElement("div", { className: "icon" },
                                                         React.createElement("span", { className: "ion-ios-arrow-down" })),
                                                     React.createElement("select", { className: "form-control", value: this.state.gender, onChange: this.handleChange, name: "gender", id: "state", required: true },
-                                                        React.createElement("option", { value: "" },
-                                                            React.createElement(Translate, { content: 'product.Select' })),
-                                                        React.createElement("option", { value: "Women" },
-                                                            React.createElement(Translate, { content: 'product.Women' })),
-                                                        React.createElement("option", { value: "Men" },
-                                                            React.createElement(Translate, { content: 'product.Men' })))))),
+                                                        React.createElement("option", { value: "" }, "Select"),
+                                                        React.createElement("option", { value: "Women" }, "Women"),
+                                                        React.createElement("option", { value: "Men" }, "Men"))))),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
                                                 React.createElement("label", { htmlFor: "type" },
@@ -137,16 +134,13 @@ var AddProduct = /** @class */ (function (_super) {
                                                     React.createElement("div", { className: "icon" },
                                                         React.createElement("span", { className: "ion-ios-arrow-down" })),
                                                     React.createElement("select", { className: "form-control", value: this.state.type, onChange: this.handleChange, name: "type", id: "type", required: true },
-                                                        React.createElement("option", { value: "" },
-                                                            React.createElement(Translate, { content: 'product.Select' })),
-                                                        React.createElement("option", { value: "Belts" },
-                                                            React.createElement(Translate, { content: 'product.Belts' })),
-                                                        React.createElement("option", { value: "Bags" },
-                                                            React.createElement(Translate, { content: 'product.Bags' })))))),
+                                                        React.createElement("option", { value: "" }, "Select"),
+                                                        React.createElement("option", { value: "Belts" }, "Belt"),
+                                                        React.createElement("option", { value: "Bags" }, "Bag"))))),
                                         React.createElement("div", { className: "w-100" }),
                                         React.createElement("div", { className: "col-md-8" },
                                             React.createElement("div", { className: "form-group" },
-                                                React.createElement("input", { type: "submit", value: "Add product", className: "btn btn-primary py-3 px-5" }))))))))))));
+                                                React.createElement(Translate, { component: "input", attributes: { value: 'product.AddProduct', }, type: "submit", className: "btn btn-primary py-3 px-5" }))))))))))));
     };
     return AddProduct;
 }(React.Component));
