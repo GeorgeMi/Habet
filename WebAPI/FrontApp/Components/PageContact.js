@@ -36,7 +36,7 @@ var Contact = /** @class */ (function (_super) {
         _this.state = { name: '', email: '', subject: '', message: '', api_response: '', waitingResponse: false, language: sfcookies_1.read_cookie('lang') };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
-        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
+        _this.reloadPage = _this.reloadPage.bind(_this);
         return _this;
     }
     Contact.prototype.handleChange = function (event) {
@@ -65,7 +65,7 @@ var Contact = /** @class */ (function (_super) {
         })
             .then(this.setState({ waitingResponse: false }));
     };
-    Contact.prototype.langaugeChanged = function () {
+    Contact.prototype.reloadPage = function () {
         //do nothing
     };
     Contact.prototype.render = function () {
@@ -73,7 +73,7 @@ var Contact = /** @class */ (function (_super) {
         return (React.createElement("main", { id: "main" },
             waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
             React.createElement("div", null,
-                React.createElement(Header_1.Header, { Active: 'Contact', langaugeChanged: this.langaugeChanged }),
+                React.createElement(Header_1.Header, { Active: 'Contact', reloadPage: this.reloadPage }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                         React.createElement("div", { className: "col-md-12 heading-section text-center" },

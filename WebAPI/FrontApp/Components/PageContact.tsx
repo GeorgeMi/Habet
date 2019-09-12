@@ -26,7 +26,7 @@ export class Contact extends React.Component<any, any>{
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.langaugeChanged = this.langaugeChanged.bind(this);
+        this.reloadPage = this.reloadPage.bind(this);
     }
 
     handleChange(event) {
@@ -59,7 +59,7 @@ export class Contact extends React.Component<any, any>{
             );
     }
 
-    public langaugeChanged() {
+    public reloadPage() {
         //do nothing
     }
 
@@ -71,7 +71,7 @@ export class Contact extends React.Component<any, any>{
                 {waitingResponse ? <div className="loading">Loading&#8230;</div> : <div></div>}
 
                 <div>
-                    <Header Active={'Contact'} langaugeChanged={this.langaugeChanged} />
+                    <Header Active={'Contact'} reloadPage={this.reloadPage} />
 
                     <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
                         <div className="row justify-content-center mb-3 pb-3">

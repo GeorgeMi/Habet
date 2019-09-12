@@ -26,7 +26,7 @@ var Verify = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         var dictionary = new Dictionary_1.KeyedCollection();
         _this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary, token: props.match.params.id };
-        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
+        _this.reloadPage = _this.reloadPage.bind(_this);
         return _this;
     }
     Verify.prototype.componentWillMount = function () {
@@ -41,14 +41,14 @@ var Verify = /** @class */ (function (_super) {
         })
             .then();
     };
-    Verify.prototype.langaugeChanged = function () {
+    Verify.prototype.reloadPage = function () {
         //do nothing
     };
     Verify.prototype.render = function () {
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, item = _a.item;
         if (error) {
             return (React.createElement("div", null,
-                React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
+                React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                         React.createElement("div", { className: "col-md-9 text-center" },

@@ -35,7 +35,15 @@ export class Header extends React.Component<any, any> {
         }
         counterpart.setLocale(lang);
 
-        this.state = { email: '', password: '', api_response: '', loggedIn: false, headerDictionary: dictionary, language: lang };
+        var currency = 'pounds'
+        if (read_cookie('currency') != null && read_cookie('currency').length !== 0) {
+            currency = read_cookie('currency');
+        }
+        else {
+            bake_cookie('currency', currency);
+        }
+
+        this.state = { email: '', password: '', api_response: '', loggedIn: false, headerDictionary: dictionary, language: lang, currency: currency };
 
         if (read_cookie('token') != null && read_cookie('token').length !== 0) {
             this.checkIfTokenIsValid();
@@ -43,6 +51,7 @@ export class Header extends React.Component<any, any> {
  
         this.handleChange = this.handleChange.bind(this);
         this.onLangChange = this.onLangChange.bind(this);
+        this.onCurrencyChange = this.onCurrencyChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.checkIfTokenIsValid = this.checkIfTokenIsValid.bind(this);
         this.signOut = this.signOut.bind(this);
@@ -55,7 +64,16 @@ export class Header extends React.Component<any, any> {
         delete_cookie('lang');
         bake_cookie('lang', event.target.value);
 
-        this.props.langaugeChanged();
+        this.props.reloadPage();
+    }
+
+    onCurrencyChange(event) {
+        this.handleChange(event);
+
+        delete_cookie('currency');
+        bake_cookie('currency', event.target.value);
+
+        this.props.reloadPage();
     }
 
     handleChange(event) {
@@ -184,12 +202,20 @@ export class Header extends React.Component<any, any> {
                                 }
 
                                 <li className="nav-item dropdown">
-                                    <select style={{backgroundColor: 'transparent'}}  value={this.state.language} onChange={this.onLangChange} name="language" id="language">
+                                    <select style={{ backgroundColor: 'transparent', transform: 'translateY(22 %)' }} value={this.state.language} onChange={this.onLangChange} name="language" id="language">
                                         <option value="en">En</option>
                                         <option value="it">It</option>
                                         <option value="ro">Ro</option>
                                     </select>
-                                </li>                              
+                                </li>   
+
+                                <li className="nav-item dropdown">
+                                    <select style={{ backgroundColor: 'transparent', transform: 'translateY(22 %)' }} value={this.state.currency} onChange={this.onCurrencyChange} name="currency" id="currency">
+                                        <option value="pounds">₤</option>
+                                        <option value="euros">€</option>
+                                        <option value="lei">Lei</option>
+                                    </select>
+                                </li>   
                             </ul>
                         </div>
                     </div>

@@ -5,17 +5,17 @@ export class NotFound extends React.Component {
     constructor(props) {
         super(props);
 
-        this.langaugeChanged = this.langaugeChanged.bind(this);
+        this.reloadPage = this.reloadPage.bind(this);
     }
 
-    public langaugeChanged() {
+    public reloadPage() {
         //do nothing
     }
 
     render() {
         return (
             <div>
-                <Header langaugeChanged={this.langaugeChanged}/>
+                <Header reloadPage={this.reloadPage}/>
                 <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
                     <div className="row no-gutters slider-text align-items-center justify-content-center">
                         <div className="col-md-9 text-center">

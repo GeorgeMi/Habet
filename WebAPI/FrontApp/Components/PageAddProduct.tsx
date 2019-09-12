@@ -33,7 +33,7 @@ export class AddProduct extends React.Component<any, any> {
         this.handleFileChange1 = this.handleFileChange1.bind(this);
         this.handleFileChange2 = this.handleFileChange2.bind(this);
         this.handleFileChange3 = this.handleFileChange3.bind(this);
-        this.langaugeChanged = this.langaugeChanged.bind(this);
+        this.reloadPage = this.reloadPage.bind(this);
     }
 
     handleChange(event) {
@@ -83,7 +83,7 @@ export class AddProduct extends React.Component<any, any> {
             );
     }
 
-    public langaugeChanged() {
+    public reloadPage() {
         //do nothing
     }
 
@@ -94,7 +94,7 @@ export class AddProduct extends React.Component<any, any> {
                 {waitingResponse ? <div className="loading">Loading&#8230;</div> : <div></div>}
 
                 <div>
-                    <Header langaugeChanged={this.langaugeChanged} />
+                    <Header reloadPage={this.reloadPage} />
 
                     <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
                         <div className="row justify-content-center mb-3 pb-3">

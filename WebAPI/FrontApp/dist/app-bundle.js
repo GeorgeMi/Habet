@@ -330,12 +330,20 @@ var Header = /** @class */ (function (_super) {
             sfcookies_1.bake_cookie('lang', lang);
         }
         counterpart.setLocale(lang);
-        _this.state = { email: '', password: '', api_response: '', loggedIn: false, headerDictionary: dictionary, language: lang };
+        var currency = 'pounds';
+        if (sfcookies_1.read_cookie('currency') != null && sfcookies_1.read_cookie('currency').length !== 0) {
+            currency = sfcookies_1.read_cookie('currency');
+        }
+        else {
+            sfcookies_1.bake_cookie('currency', currency);
+        }
+        _this.state = { email: '', password: '', api_response: '', loggedIn: false, headerDictionary: dictionary, language: lang, currency: currency };
         if (sfcookies_1.read_cookie('token') != null && sfcookies_1.read_cookie('token').length !== 0) {
             _this.checkIfTokenIsValid();
         }
         _this.handleChange = _this.handleChange.bind(_this);
         _this.onLangChange = _this.onLangChange.bind(_this);
+        _this.onCurrencyChange = _this.onCurrencyChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.checkIfTokenIsValid = _this.checkIfTokenIsValid.bind(_this);
         _this.signOut = _this.signOut.bind(_this);
@@ -346,7 +354,13 @@ var Header = /** @class */ (function (_super) {
         counterpart.setLocale(event.target.value);
         sfcookies_1.delete_cookie('lang');
         sfcookies_1.bake_cookie('lang', event.target.value);
-        this.props.langaugeChanged();
+        this.props.reloadPage();
+    };
+    Header.prototype.onCurrencyChange = function (event) {
+        this.handleChange(event);
+        sfcookies_1.delete_cookie('currency');
+        sfcookies_1.bake_cookie('currency', event.target.value);
+        this.props.reloadPage();
     };
     Header.prototype.handleChange = function (event) {
         var _a;
@@ -475,10 +489,15 @@ var Header = /** @class */ (function (_super) {
                                 :
                                     React.createElement("div", null),
                             React.createElement("li", { className: "nav-item dropdown" },
-                                React.createElement("select", { style: { backgroundColor: 'transparent' }, value: this.state.language, onChange: this.onLangChange, name: "language", id: "language" },
+                                React.createElement("select", { style: { backgroundColor: 'transparent', transform: 'translateY(22 %)' }, value: this.state.language, onChange: this.onLangChange, name: "language", id: "language" },
                                     React.createElement("option", { value: "en" }, "En"),
                                     React.createElement("option", { value: "it" }, "It"),
-                                    React.createElement("option", { value: "ro" }, "Ro")))))))));
+                                    React.createElement("option", { value: "ro" }, "Ro"))),
+                            React.createElement("li", { className: "nav-item dropdown" },
+                                React.createElement("select", { style: { backgroundColor: 'transparent', transform: 'translateY(22 %)' }, value: this.state.currency, onChange: this.onCurrencyChange, name: "currency", id: "currency" },
+                                    React.createElement("option", { value: "pounds" }, "\u20A4"),
+                                    React.createElement("option", { value: "euros" }, "\u20AC"),
+                                    React.createElement("option", { value: "lei" }, "Lei")))))))));
     };
     return Header;
 }(React.Component));
@@ -540,7 +559,7 @@ var AddProduct = /** @class */ (function (_super) {
         _this.handleFileChange1 = _this.handleFileChange1.bind(_this);
         _this.handleFileChange2 = _this.handleFileChange2.bind(_this);
         _this.handleFileChange3 = _this.handleFileChange3.bind(_this);
-        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
+        _this.reloadPage = _this.reloadPage.bind(_this);
         return _this;
     }
     AddProduct.prototype.handleChange = function (event) {
@@ -581,7 +600,7 @@ var AddProduct = /** @class */ (function (_super) {
         })
             .then(this.setState({ waitingResponse: false }));
     };
-    AddProduct.prototype.langaugeChanged = function () {
+    AddProduct.prototype.reloadPage = function () {
         //do nothing
     };
     AddProduct.prototype.render = function () {
@@ -589,7 +608,7 @@ var AddProduct = /** @class */ (function (_super) {
         return (React.createElement("main", { id: "main" },
             waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
             React.createElement("div", null,
-                React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
+                React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                         React.createElement("div", { className: "col-md-12 heading-section text-center" },
@@ -706,13 +725,13 @@ var Cart = /** @class */ (function (_super) {
     function Cart(props) {
         var _this = _super.call(this, props) || this;
         counterpart.setLocale(sfcookies_1.read_cookie('lang'));
-        _this.state = { isLoaded: false, items: null, error: null, cartProducts: null, subtotal: 0, total: 0, delivery: 0, language: sfcookies_1.read_cookie('lang') };
+        _this.state = { isLoaded: false, items: null, error: null, cartProducts: null, subtotal: 0, total: 0, delivery: 0, language: sfcookies_1.read_cookie('lang'), currency: sfcookies_1.read_cookie('currency') };
         _this.updateTotal = _this.updateTotal.bind(_this);
         _this.getQuantity = _this.getQuantity.bind(_this);
         _this.handleChange = _this.handleChange.bind(_this);
         _this.removeProductFromCart = _this.removeProductFromCart.bind(_this);
         _this.updateTotalAfterRemove = _this.updateTotalAfterRemove.bind(_this);
-        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
+        _this.reloadPage = _this.reloadPage.bind(_this);
         return _this;
     }
     Cart.prototype.readCartFromCookie = function (cookie) {
@@ -731,7 +750,8 @@ var Cart = /** @class */ (function (_super) {
             if (cartProducts.Count() > 0) {
                 axios.post(API_Path + '/ChartProducts', {
                     productIds: cartProducts.Keys(),
-                    lang: this.state.language
+                    lang: this.state.language,
+                    currency: this.state.currency
                 })
                     .then(function (response) {
                     _this.setState({ isLoaded: true, items: response.data.data });
@@ -783,12 +803,22 @@ var Cart = /** @class */ (function (_super) {
         var cartProducts = this.readCartFromCookie(sfcookies_1.read_cookie('cartProducts'));
         return cartProducts.Item(productId);
     };
-    Cart.prototype.langaugeChanged = function () {
+    Cart.prototype.reloadPage = function () {
         window.location.reload(false);
     };
     Cart.prototype.render = function () {
         var _this = this;
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, currency = _a.currency;
+        var currencyBeforeSign = '€';
+        var currencyAfterSign = '';
+        if (currency == 'lei') {
+            currencyBeforeSign = '';
+            currencyAfterSign = 'lei';
+        }
+        else if (currency == 'pounds') {
+            currencyBeforeSign = '₤';
+            currencyAfterSign = '';
+        }
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -800,7 +830,7 @@ var Cart = /** @class */ (function (_super) {
         }
         else {
             return (React.createElement("div", null,
-                React.createElement(Header_1.Header, { Active: 'Cart', langaugeChanged: this.langaugeChanged }),
+                React.createElement(Header_1.Header, { Active: 'Cart', reloadPage: this.reloadPage }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                         React.createElement("div", { className: "col-md-12 heading-section text-center" },
@@ -831,15 +861,11 @@ var Cart = /** @class */ (function (_super) {
                                                 React.createElement("img", { src: item.Image, className: "img-fluid", alt: "..." })),
                                             React.createElement("td", { className: "product-name" },
                                                 React.createElement("h3", null, item.Name)),
-                                            React.createElement("td", { className: "price" },
-                                                "$",
-                                                item.Price),
+                                            React.createElement("td", { className: "price" }, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign),
                                             React.createElement("td", { className: "quantity" },
                                                 React.createElement("div", { className: "input-group mb-3" },
                                                     React.createElement("input", { type: "text", name: item.ProductId, className: "quantity form-control input-number", value: _this.getQuantity(item.ProductId), min: "1", max: "100", onChange: _this.handleChange }))),
-                                            React.createElement("td", { className: "total" },
-                                                "$",
-                                                item.Price * _this.getQuantity(item.ProductId)))); })))))),
+                                            React.createElement("td", { className: "total" }, currencyBeforeSign + " " + item.Price * _this.getQuantity(item.ProductId) + " " + currencyAfterSign))); })))))),
                         React.createElement("div", { className: "row justify-content-start" },
                             React.createElement("div", { className: "col col-lg-5 col-md-6 mt-5 cart-wrap" },
                                 React.createElement("div", { className: "cart-total mb-3" },
@@ -847,22 +873,16 @@ var Cart = /** @class */ (function (_super) {
                                     React.createElement("p", { className: "d-flex" },
                                         React.createElement("span", null,
                                             React.createElement(Translate, { content: 'checkout.Subtotal' })),
-                                        React.createElement("span", null,
-                                            "$",
-                                            this.state.subtotal)),
+                                        React.createElement("span", null, currencyBeforeSign + " " + this.state.subtotal + " " + currencyAfterSign)),
                                     React.createElement("p", { className: "d-flex" },
                                         React.createElement("span", null,
                                             React.createElement(Translate, { content: 'checkout.Delivery' })),
-                                        React.createElement("span", null,
-                                            "$",
-                                            this.state.delivery)),
+                                        React.createElement("span", null, currencyBeforeSign + " " + this.state.delivery + " " + currencyAfterSign)),
                                     React.createElement("hr", null),
                                     React.createElement("p", { className: "d-flex total-price" },
                                         React.createElement("span", null,
                                             React.createElement(Translate, { content: 'checkout.Total' })),
-                                        React.createElement("span", null,
-                                            "$",
-                                            this.state.total))),
+                                        React.createElement("span", null, currencyBeforeSign + " " + this.state.total + " " + currencyAfterSign))),
                                 React.createElement("p", { className: "text-center" },
                                     React.createElement(react_router_hash_link_1.HashLink, { to: "/checkout", className: "btn btn-primary py-3 px-4", subtotal: this.state.subtotal, delivery: this.state.delivery, total: this.state.total },
                                         React.createElement(Translate, { content: 'checkout.ProceedToCheckout' })))))))));
@@ -925,7 +945,7 @@ var ChangePassword = /** @class */ (function (_super) {
         _this.state = { password: '', confirm_password: '', waitingResponse: false, language: sfcookies_1.read_cookie('lang') };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
-        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
+        _this.reloadPage = _this.reloadPage.bind(_this);
         return _this;
     }
     ChangePassword.prototype.handleChange = function (event) {
@@ -962,7 +982,7 @@ var ChangePassword = /** @class */ (function (_super) {
             react_notifications_1.NotificationManager.error("Passwords don't match!");
         }
     };
-    ChangePassword.prototype.langaugeChanged = function () {
+    ChangePassword.prototype.reloadPage = function () {
         //do nothing
     };
     ChangePassword.prototype.render = function () {
@@ -970,7 +990,7 @@ var ChangePassword = /** @class */ (function (_super) {
         return (React.createElement("main", { id: "main" },
             waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
             React.createElement("div", null,
-                React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
+                React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
@@ -1066,11 +1086,12 @@ var Checkout = /** @class */ (function (_super) {
             email: '',
             waitingResponse: false,
             isChanged: false,
-            language: sfcookies_1.read_cookie('lang')
+            language: sfcookies_1.read_cookie('lang'),
+            currency: sfcookies_1.read_cookie('currency')
         };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
-        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
+        _this.reloadPage = _this.reloadPage.bind(_this);
         return _this;
     }
     Checkout.prototype.componentWillMount = function () {
@@ -1135,11 +1156,21 @@ var Checkout = /** @class */ (function (_super) {
             _this.setState({ waitingResponse: false });
         });
     };
-    Checkout.prototype.langaugeChanged = function () {
+    Checkout.prototype.reloadPage = function () {
         //do nothing
     };
     Checkout.prototype.render = function () {
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, waitingResponse = _a.waitingResponse, isChanged = _a.isChanged;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, waitingResponse = _a.waitingResponse, currency = _a.currency;
+        var currencyBeforeSign = '€';
+        var currencyAfterSign = '';
+        if (currency == 'lei') {
+            currencyBeforeSign = '';
+            currencyAfterSign = 'lei';
+        }
+        else if (currency == 'pounds') {
+            currencyBeforeSign = '₤';
+            currencyAfterSign = '';
+        }
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -1150,7 +1181,7 @@ var Checkout = /** @class */ (function (_super) {
             return (React.createElement("main", { id: "main" },
                 waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
                 React.createElement("div", null,
-                    React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
+                    React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
                     React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },
@@ -1162,7 +1193,7 @@ var Checkout = /** @class */ (function (_super) {
         else {
             return (React.createElement("main", { id: "main" },
                 React.createElement("div", null,
-                    React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
+                    React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
                     React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                         React.createElement("div", { className: "container" },
                             React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
@@ -1280,22 +1311,16 @@ var Checkout = /** @class */ (function (_super) {
                                                 React.createElement("p", { className: "d-flex" },
                                                     React.createElement("span", null,
                                                         React.createElement(Translate, { content: 'checkout.Subtotal' })),
-                                                    React.createElement("span", null,
-                                                        "$",
-                                                        this.state.subtotal)),
+                                                    React.createElement("span", null, currencyBeforeSign + " " + this.state.subtotal + " " + currencyAfterSign)),
                                                 React.createElement("p", { className: "d-flex" },
                                                     React.createElement("span", null,
                                                         React.createElement(Translate, { content: 'checkout.Delivery' })),
-                                                    React.createElement("span", null,
-                                                        "$",
-                                                        this.state.delivery)),
+                                                    React.createElement("span", null, currencyBeforeSign + " " + this.state.delivery + " " + currencyAfterSign)),
                                                 React.createElement("hr", null),
                                                 React.createElement("p", { className: "d-flex total-price" },
                                                     React.createElement("span", null,
                                                         React.createElement(Translate, { content: 'checkout.Total' })),
-                                                    React.createElement("span", null,
-                                                        "$",
-                                                        this.state.total)))),
+                                                    React.createElement("span", null, currencyBeforeSign + " " + this.state.total + " " + currencyAfterSign)))),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "cart-detail bg-light p-3 p-md-4" },
                                                 React.createElement("h3", { className: "billing-heading mb-4" },
@@ -1370,7 +1395,7 @@ var Contact = /** @class */ (function (_super) {
         _this.state = { name: '', email: '', subject: '', message: '', api_response: '', waitingResponse: false, language: sfcookies_1.read_cookie('lang') };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
-        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
+        _this.reloadPage = _this.reloadPage.bind(_this);
         return _this;
     }
     Contact.prototype.handleChange = function (event) {
@@ -1399,7 +1424,7 @@ var Contact = /** @class */ (function (_super) {
         })
             .then(this.setState({ waitingResponse: false }));
     };
-    Contact.prototype.langaugeChanged = function () {
+    Contact.prototype.reloadPage = function () {
         //do nothing
     };
     Contact.prototype.render = function () {
@@ -1407,7 +1432,7 @@ var Contact = /** @class */ (function (_super) {
         return (React.createElement("main", { id: "main" },
             waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
             React.createElement("div", null,
-                React.createElement(Header_1.Header, { Active: 'Contact', langaugeChanged: this.langaugeChanged }),
+                React.createElement(Header_1.Header, { Active: 'Contact', reloadPage: this.reloadPage }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                         React.createElement("div", { className: "col-md-12 heading-section text-center" },
@@ -1588,7 +1613,7 @@ var Home = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         _this.state = { loadedComponentsDictionary: null };
         _this.setLoadedComponentsArray = _this.setLoadedComponentsArray.bind(_this);
-        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
+        _this.reloadPage = _this.reloadPage.bind(_this);
         return _this;
     }
     Home.prototype.setLoadedComponentsArray = function (component, loaded) {
@@ -1599,7 +1624,7 @@ var Home = /** @class */ (function (_super) {
         dictionary.Add(component, loaded);
         this.setState({ loadedComponentsDictionary: dictionary });
     };
-    Home.prototype.langaugeChanged = function () {
+    Home.prototype.reloadPage = function () {
         window.location.reload(false);
     };
     Home.prototype.render = function () {
@@ -1610,7 +1635,7 @@ var Home = /** @class */ (function (_super) {
         return (React.createElement("main", { id: "main" },
             hideLoader ? React.createElement("div", null) : React.createElement("div", { className: "loading" }, "Loading\u2026"),
             React.createElement("div", null,
-                React.createElement(Header_1.Header, { Active: 'Home', langaugeChanged: this.langaugeChanged }),
+                React.createElement(Header_1.Header, { Active: 'Home', reloadPage: this.reloadPage }),
                 React.createElement(SectionIntro_1.SectionIntro, null),
                 React.createElement("section", { className: "ftco-section bg-light" },
                     React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Bags', setLoadedComponentsArray: this.setLoadedComponentsArray }),
@@ -1654,15 +1679,15 @@ var NotFound = /** @class */ (function (_super) {
     __extends(NotFound, _super);
     function NotFound(props) {
         var _this = _super.call(this, props) || this;
-        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
+        _this.reloadPage = _this.reloadPage.bind(_this);
         return _this;
     }
-    NotFound.prototype.langaugeChanged = function () {
+    NotFound.prototype.reloadPage = function () {
         //do nothing
     };
     NotFound.prototype.render = function () {
         return (React.createElement("div", null,
-            React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
+            React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
             React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                 React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                     React.createElement("div", { className: "col-md-9 text-center" },
@@ -1733,10 +1758,10 @@ var Product = /** @class */ (function (_super) {
         };
         var dictionary = new Dictionary_1.KeyedCollection();
         counterpart.setLocale(sfcookies_1.read_cookie('lang'));
-        _this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary, productId: props.match.params.id, quantity: 1, language: sfcookies_1.read_cookie('lang') };
+        _this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary, productId: props.match.params.id, quantity: 1, language: sfcookies_1.read_cookie('lang'), currency: sfcookies_1.read_cookie('currency') };
         _this.getImageForProduct = _this.getImageForProduct.bind(_this);
         _this.handleChange = _this.handleChange.bind(_this);
-        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
+        _this.reloadPage = _this.reloadPage.bind(_this);
         return _this;
     }
     Product.prototype.componentWillMount = function () {
@@ -1744,7 +1769,8 @@ var Product = /** @class */ (function (_super) {
         axios.get(API_Path + '/Products/', {
             params: {
                 productId: this.state.productId,
-                lang: this.state.language
+                lang: this.state.language,
+                currency: this.state.currency
             }
         })
             .then(function (response) {
@@ -1796,15 +1822,25 @@ var Product = /** @class */ (function (_super) {
         sfcookies_1.delete_cookie('cartProducts');
         sfcookies_1.bake_cookie('cartProducts', cartProducts);
     };
-    Product.prototype.langaugeChanged = function () {
+    Product.prototype.reloadPage = function () {
         window.location.reload(false);
     };
     Product.prototype.render = function () {
         var _this = this;
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, item = _a.item, quantity = _a.quantity;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, item = _a.item, quantity = _a.quantity, currency = _a.currency;
+        var currencyBeforeSign = '€';
+        var currencyAfterSign = '';
+        if (currency == 'lei') {
+            currencyBeforeSign = '';
+            currencyAfterSign = 'lei';
+        }
+        else if (currency == 'pounds') {
+            currencyBeforeSign = '₤';
+            currencyAfterSign = '';
+        }
         if (error) {
             return (React.createElement("div", null,
-                React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
+                React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                         React.createElement("div", { className: "col-md-9 text-center" },
@@ -1818,7 +1854,7 @@ var Product = /** @class */ (function (_super) {
             var images_1 = [];
             item.Image.map(function (img, i) { return (images_1.push({ original: img, thumbnail: img })); });
             return (React.createElement("div", null,
-                React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
+                React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                         React.createElement("div", { className: "col-md-9 text-center" },
@@ -1832,9 +1868,7 @@ var Product = /** @class */ (function (_super) {
                             React.createElement("div", { className: "col-lg-6 product-details pl-md-5" },
                                 React.createElement("h3", null, item.Name),
                                 React.createElement("p", { className: "price" },
-                                    React.createElement("span", null,
-                                        "$",
-                                        item.Price)),
+                                    React.createElement("span", null, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign)),
                                 React.createElement("p", null, item.Description),
                                 React.createElement("div", { className: "row mt-4" },
                                     React.createElement("div", { className: "w-100" }),
@@ -1910,7 +1944,7 @@ var RecoverPassword = /** @class */ (function (_super) {
         _this.state = { email: '', api_response: '', waitingResponse: false, language: sfcookies_1.read_cookie('lang') };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
-        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
+        _this.reloadPage = _this.reloadPage.bind(_this);
         return _this;
     }
     RecoverPassword.prototype.handleChange = function (event) {
@@ -1936,7 +1970,7 @@ var RecoverPassword = /** @class */ (function (_super) {
             _this.setState({ email: '' });
         });
     };
-    RecoverPassword.prototype.langaugeChanged = function () {
+    RecoverPassword.prototype.reloadPage = function () {
         //do nothing
     };
     RecoverPassword.prototype.render = function () {
@@ -1944,7 +1978,7 @@ var RecoverPassword = /** @class */ (function (_super) {
         return (React.createElement("main", { id: "main" },
             waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
             React.createElement("div", null,
-                React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
+                React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                         React.createElement("div", { className: "col-md-12 heading-section text-center" },
@@ -2024,7 +2058,7 @@ var Register = /** @class */ (function (_super) {
         _this.state = { email: '', password: '', firstName: '', lastName: '', state: '', city: '', streetAddress: '', zipCode: '', phone: '', api_response: '', loggedIn: false, headerDictionary: dictionary, waitingResponse: false, language: sfcookies_1.read_cookie('lang') };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
-        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
+        _this.reloadPage = _this.reloadPage.bind(_this);
         return _this;
     }
     Register.prototype.handleChange = function (event) {
@@ -2059,7 +2093,7 @@ var Register = /** @class */ (function (_super) {
         })
             .then(this.setState({ waitingResponse: false }));
     };
-    Register.prototype.langaugeChanged = function () {
+    Register.prototype.reloadPage = function () {
         //do nothing
     };
     Register.prototype.render = function () {
@@ -2067,7 +2101,7 @@ var Register = /** @class */ (function (_super) {
         return (React.createElement("main", { id: "main" },
             waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
             React.createElement("div", null,
-                React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
+                React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
@@ -2255,11 +2289,12 @@ var Search = /** @class */ (function (_super) {
             language: sfcookies_1.read_cookie('lang'),
             activePage: 1,
             totalItemsCount: 50,
-            itemsPerPage: 1
+            itemsPerPage: 1,
+            currency: sfcookies_1.read_cookie('currency')
         };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
-        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
+        _this.reloadPage = _this.reloadPage.bind(_this);
         _this.handlePageChange = _this.handlePageChange.bind(_this);
         _this.searchProducts = _this.searchProducts.bind(_this);
         return _this;
@@ -2272,7 +2307,8 @@ var Search = /** @class */ (function (_super) {
                 from: 0,
                 gender: "none",
                 type: "intro",
-                lang: this.state.language
+                lang: this.state.language,
+                currency: this.state.currency
             }
         })
             .then(function (response) {
@@ -2362,12 +2398,22 @@ var Search = /** @class */ (function (_super) {
         sfcookies_1.delete_cookie('cartProducts');
         sfcookies_1.bake_cookie('cartProducts', cartProducts);
     };
-    Search.prototype.langaugeChanged = function () {
+    Search.prototype.reloadPage = function () {
         window.location.reload(false);
     };
     Search.prototype.render = function () {
         var _this = this;
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, currency = _a.currency;
+        var currencyBeforeSign = '€';
+        var currencyAfterSign = '';
+        if (currency == 'lei') {
+            currencyBeforeSign = '';
+            currencyAfterSign = 'lei';
+        }
+        else if (currency == 'pounds') {
+            currencyBeforeSign = '₤';
+            currencyAfterSign = '';
+        }
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -2380,7 +2426,7 @@ var Search = /** @class */ (function (_super) {
         else {
             return (React.createElement("main", { id: "main" },
                 React.createElement("div", null,
-                    React.createElement(Header_1.Header, { Active: 'Search', langaugeChanged: this.langaugeChanged }),
+                    React.createElement(Header_1.Header, { Active: 'Search', reloadPage: this.reloadPage }),
                     React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },
@@ -2400,9 +2446,7 @@ var Search = /** @class */ (function (_super) {
                                                     React.createElement("a", { href: "/#/item/" + item.ProductId }, item.Name)),
                                                 React.createElement("div", { className: "pricing" },
                                                     React.createElement("p", { className: "price" },
-                                                        React.createElement("span", null,
-                                                            "$",
-                                                            item.Price))),
+                                                        React.createElement("span", null, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign))),
                                                 React.createElement("p", { className: "bottom-area d-flex px-3" },
                                                     React.createElement("a", { href: "#", className: "add-to-cart text-center py-2 mr-1", onClick: function () { return _this.addProductToCart(item.ProductId, 1); } },
                                                         React.createElement("span", null,
@@ -2552,7 +2596,7 @@ var UpdateUserDetails = /** @class */ (function (_super) {
         };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
-        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
+        _this.reloadPage = _this.reloadPage.bind(_this);
         return _this;
     }
     UpdateUserDetails.prototype.componentWillMount = function () {
@@ -2616,7 +2660,7 @@ var UpdateUserDetails = /** @class */ (function (_super) {
             _this.setState({ waitingResponse: false });
         });
     };
-    UpdateUserDetails.prototype.langaugeChanged = function () {
+    UpdateUserDetails.prototype.reloadPage = function () {
         //do nothing
     };
     UpdateUserDetails.prototype.render = function () {
@@ -2631,7 +2675,7 @@ var UpdateUserDetails = /** @class */ (function (_super) {
             return (React.createElement("main", { id: "main" },
                 waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
                 React.createElement("div", null,
-                    React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
+                    React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
                     React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },
@@ -2644,7 +2688,7 @@ var UpdateUserDetails = /** @class */ (function (_super) {
             return (React.createElement("main", { id: "main" },
                 waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
                 React.createElement("div", null,
-                    React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
+                    React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
                     React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                         React.createElement("div", { className: "container" },
                             React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
@@ -2800,7 +2844,7 @@ var Verify = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         var dictionary = new Dictionary_1.KeyedCollection();
         _this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary, token: props.match.params.id };
-        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
+        _this.reloadPage = _this.reloadPage.bind(_this);
         return _this;
     }
     Verify.prototype.componentWillMount = function () {
@@ -2815,14 +2859,14 @@ var Verify = /** @class */ (function (_super) {
         })
             .then();
     };
-    Verify.prototype.langaugeChanged = function () {
+    Verify.prototype.reloadPage = function () {
         //do nothing
     };
     Verify.prototype.render = function () {
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, item = _a.item;
         if (error) {
             return (React.createElement("div", null,
-                React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
+                React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                         React.createElement("div", { className: "col-md-9 text-center" },
@@ -2868,7 +2912,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
 var sfcookies_1 = __webpack_require__(/*! sfcookies */ "./node_modules/sfcookies/index.js");
 var Translate = __webpack_require__(/*! react-translate-component */ "./node_modules/react-translate-component/index.js");
 var en_1 = __webpack_require__(/*! ./languages/en */ "./Components/languages/en.js");
@@ -2885,7 +2928,7 @@ var SectionIntro = /** @class */ (function (_super) {
     __extends(SectionIntro, _super);
     function SectionIntro(props) {
         var _this = _super.call(this, props) || this;
-        _this.state = { isLoaded: false, items: null, error: null, language: sfcookies_1.read_cookie('lang') };
+        _this.state = { isLoaded: false, items: null, error: null, language: sfcookies_1.read_cookie('lang'), currency: sfcookies_1.read_cookie('currency') };
         return _this;
     }
     SectionIntro.prototype.componentWillMount = function () {
@@ -2896,7 +2939,8 @@ var SectionIntro = /** @class */ (function (_super) {
                 from: 0,
                 gender: "none",
                 type: "intro",
-                lang: this.state.language
+                lang: this.state.language,
+                currency: this.state.currency
             }
         })
             .then(function (response) {
@@ -2908,7 +2952,17 @@ var SectionIntro = /** @class */ (function (_super) {
             .then();
     };
     SectionIntro.prototype.render = function () {
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, currency = _a.currency;
+        var currencyBeforeSign = '€';
+        var currencyAfterSign = '';
+        if (currency == 'lei') {
+            currencyBeforeSign = '';
+            currencyAfterSign = 'lei';
+        }
+        else if (currency == 'pounds') {
+            currencyBeforeSign = '₤';
+            currencyAfterSign = '';
+        }
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -2919,11 +2973,6 @@ var SectionIntro = /** @class */ (function (_super) {
             return React.createElement("div", null);
         }
         else {
-            var activeDictionary = new Dictionary_1.KeyedCollection();
-            //items.map((item, i) => (
-            //    activeDictionary.Add(i, "")
-            //));
-            //activeDictionary.Add(0, "active");
             return (React.createElement("section", { className: "ftco-section ftco-deal", style: { backgroundImage: "url('images/background.jpg')", opacity: 0.5 } },
                 React.createElement("div", { className: "container" },
                     React.createElement("div", { id: "carouselExampleControls", className: "carousel slide", "data-ride": "carousel" },
@@ -2944,9 +2993,7 @@ var SectionIntro = /** @class */ (function (_super) {
                                             React.createElement("h2", null,
                                                 React.createElement("a", { href: "#" }, item.Name)),
                                             React.createElement("p", { className: "price" },
-                                                React.createElement("span", null,
-                                                    "$",
-                                                    item.Price)),
+                                                React.createElement("span", null, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign)),
                                             React.createElement("p", null,
                                                 React.createElement("a", { href: "/#/item/" + item.ProductId, className: "btn btn-primary py-3 px-5" }, "Details"))))))); }),
                             React.createElement("a", { className: "carousel-control-prev", href: "#carouselExampleControls", role: "button", "data-slide": "prev" },
@@ -3006,7 +3053,7 @@ var SectionProducts = /** @class */ (function (_super) {
     function SectionProducts(props) {
         var _this = _super.call(this, props) || this;
         counterpart.setLocale(sfcookies_1.read_cookie('lang'));
-        _this.state = { isLoaded: false, items: null, error: null, gender: props.Gender, type: props.Type, language: sfcookies_1.read_cookie('lang') };
+        _this.state = { isLoaded: false, items: null, error: null, gender: props.Gender, type: props.Type, language: sfcookies_1.read_cookie('lang'), currency: sfcookies_1.read_cookie('currency') };
         return _this;
     }
     SectionProducts.prototype.componentWillMount = function () {
@@ -3017,7 +3064,8 @@ var SectionProducts = /** @class */ (function (_super) {
                 from: 0,
                 gender: this.state.gender,
                 type: this.state.type,
-                lang: this.state.language
+                lang: this.state.language,
+                currency: this.state.currency
             }
         })
             .then(function (response) {
@@ -3054,7 +3102,17 @@ var SectionProducts = /** @class */ (function (_super) {
     };
     SectionProducts.prototype.render = function () {
         var _this = this;
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, gender = _a.gender, type = _a.type;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, gender = _a.gender, type = _a.type, currency = _a.currency;
+        var currencyBeforeSign = '€';
+        var currencyAfterSign = '';
+        if (currency == 'lei') {
+            currencyBeforeSign = '';
+            currencyAfterSign = 'lei';
+        }
+        else if (currency == 'pounds') {
+            currencyBeforeSign = '₤';
+            currencyAfterSign = '';
+        }
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -3084,9 +3142,7 @@ var SectionProducts = /** @class */ (function (_super) {
                                     React.createElement("a", { href: "/#/item/" + item.ProductId }, item.Name)),
                                 React.createElement("div", { className: "pricing" },
                                     React.createElement("p", { className: "price" },
-                                        React.createElement("span", null,
-                                            "$",
-                                            item.Price))),
+                                        React.createElement("span", null, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign))),
                                 React.createElement("p", { className: "bottom-area d-flex px-3" },
                                     React.createElement("a", { href: "#", className: "add-to-cart text-center py-2 mr-1", onClick: function () { return _this.addProductToCart(item.ProductId, 1); } },
                                         React.createElement("span", null,

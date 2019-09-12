@@ -14,7 +14,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var Dictionary_1 = require("./Dictionary");
 var sfcookies_1 = require("sfcookies");
 var Translate = require("react-translate-component");
 var en_1 = require("./languages/en");
@@ -31,7 +30,7 @@ var SectionIntro = /** @class */ (function (_super) {
     __extends(SectionIntro, _super);
     function SectionIntro(props) {
         var _this = _super.call(this, props) || this;
-        _this.state = { isLoaded: false, items: null, error: null, language: sfcookies_1.read_cookie('lang') };
+        _this.state = { isLoaded: false, items: null, error: null, language: sfcookies_1.read_cookie('lang'), currency: sfcookies_1.read_cookie('currency') };
         return _this;
     }
     SectionIntro.prototype.componentWillMount = function () {
@@ -42,7 +41,8 @@ var SectionIntro = /** @class */ (function (_super) {
                 from: 0,
                 gender: "none",
                 type: "intro",
-                lang: this.state.language
+                lang: this.state.language,
+                currency: this.state.currency
             }
         })
             .then(function (response) {
@@ -54,7 +54,17 @@ var SectionIntro = /** @class */ (function (_super) {
             .then();
     };
     SectionIntro.prototype.render = function () {
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, currency = _a.currency;
+        var currencyBeforeSign = '€';
+        var currencyAfterSign = '';
+        if (currency == 'lei') {
+            currencyBeforeSign = '';
+            currencyAfterSign = 'lei';
+        }
+        else if (currency == 'pounds') {
+            currencyBeforeSign = '₤';
+            currencyAfterSign = '';
+        }
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -65,11 +75,6 @@ var SectionIntro = /** @class */ (function (_super) {
             return React.createElement("div", null);
         }
         else {
-            var activeDictionary = new Dictionary_1.KeyedCollection();
-            //items.map((item, i) => (
-            //    activeDictionary.Add(i, "")
-            //));
-            //activeDictionary.Add(0, "active");
             return (React.createElement("section", { className: "ftco-section ftco-deal", style: { backgroundImage: "url('images/background.jpg')", opacity: 0.5 } },
                 React.createElement("div", { className: "container" },
                     React.createElement("div", { id: "carouselExampleControls", className: "carousel slide", "data-ride": "carousel" },
@@ -90,9 +95,7 @@ var SectionIntro = /** @class */ (function (_super) {
                                             React.createElement("h2", null,
                                                 React.createElement("a", { href: "#" }, item.Name)),
                                             React.createElement("p", { className: "price" },
-                                                React.createElement("span", null,
-                                                    "$",
-                                                    item.Price)),
+                                                React.createElement("span", null, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign)),
                                             React.createElement("p", null,
                                                 React.createElement("a", { href: "/#/item/" + item.ProductId, className: "btn btn-primary py-3 px-5" }, "Details"))))))); }),
                             React.createElement("a", { className: "carousel-control-prev", href: "#carouselExampleControls", role: "button", "data-slide": "prev" },

@@ -6,5 +6,6 @@ namespace Api.DTOs
     {
         public List<int> ProductIds { get; set; }
         public string Lang { get; set; }
+        public string Currency { get; set; }       
     }
 }

@@ -34,13 +34,13 @@ var Cart = /** @class */ (function (_super) {
     function Cart(props) {
         var _this = _super.call(this, props) || this;
         counterpart.setLocale(sfcookies_1.read_cookie('lang'));
-        _this.state = { isLoaded: false, items: null, error: null, cartProducts: null, subtotal: 0, total: 0, delivery: 0, language: sfcookies_1.read_cookie('lang') };
+        _this.state = { isLoaded: false, items: null, error: null, cartProducts: null, subtotal: 0, total: 0, delivery: 0, language: sfcookies_1.read_cookie('lang'), currency: sfcookies_1.read_cookie('currency') };
         _this.updateTotal = _this.updateTotal.bind(_this);
         _this.getQuantity = _this.getQuantity.bind(_this);
         _this.handleChange = _this.handleChange.bind(_this);
         _this.removeProductFromCart = _this.removeProductFromCart.bind(_this);
         _this.updateTotalAfterRemove = _this.updateTotalAfterRemove.bind(_this);
-        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
+        _this.reloadPage = _this.reloadPage.bind(_this);
         return _this;
     }
     Cart.prototype.readCartFromCookie = function (cookie) {
@@ -59,7 +59,8 @@ var Cart = /** @class */ (function (_super) {
             if (cartProducts.Count() > 0) {
                 axios.post(API_Path + '/ChartProducts', {
                     productIds: cartProducts.Keys(),
-                    lang: this.state.language
+                    lang: this.state.language,
+                    currency: this.state.currency
                 })
                     .then(function (response) {
                     _this.setState({ isLoaded: true, items: response.data.data });
@@ -111,12 +112,22 @@ var Cart = /** @class */ (function (_super) {
         var cartProducts = this.readCartFromCookie(sfcookies_1.read_cookie('cartProducts'));
         return cartProducts.Item(productId);
     };
-    Cart.prototype.langaugeChanged = function () {
+    Cart.prototype.reloadPage = function () {
         window.location.reload(false);
     };
     Cart.prototype.render = function () {
         var _this = this;
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, currency = _a.currency;
+        var currencyBeforeSign = '€';
+        var currencyAfterSign = '';
+        if (currency == 'lei') {
+            currencyBeforeSign = '';
+            currencyAfterSign = 'lei';
+        }
+        else if (currency == 'pounds') {
+            currencyBeforeSign = '₤';
+            currencyAfterSign = '';
+        }
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -128,7 +139,7 @@ var Cart = /** @class */ (function (_super) {
         }
         else {
             return (React.createElement("div", null,
-                React.createElement(Header_1.Header, { Active: 'Cart', langaugeChanged: this.langaugeChanged }),
+                React.createElement(Header_1.Header, { Active: 'Cart', reloadPage: this.reloadPage }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                         React.createElement("div", { className: "col-md-12 heading-section text-center" },
@@ -159,15 +170,11 @@ var Cart = /** @class */ (function (_super) {
                                                 React.createElement("img", { src: item.Image, className: "img-fluid", alt: "..." })),
                                             React.createElement("td", { className: "product-name" },
                                                 React.createElement("h3", null, item.Name)),
-                                            React.createElement("td", { className: "price" },
-                                                "$",
-                                                item.Price),
+                                            React.createElement("td", { className: "price" }, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign),
                                             React.createElement("td", { className: "quantity" },
                                                 React.createElement("div", { className: "input-group mb-3" },
                                                     React.createElement("input", { type: "text", name: item.ProductId, className: "quantity form-control input-number", value: _this.getQuantity(item.ProductId), min: "1", max: "100", onChange: _this.handleChange }))),
-                                            React.createElement("td", { className: "total" },
-                                                "$",
-                                                item.Price * _this.getQuantity(item.ProductId)))); })))))),
+                                            React.createElement("td", { className: "total" }, currencyBeforeSign + " " + item.Price * _this.getQuantity(item.ProductId) + " " + currencyAfterSign))); })))))),
                         React.createElement("div", { className: "row justify-content-start" },
                             React.createElement("div", { className: "col col-lg-5 col-md-6 mt-5 cart-wrap" },
                                 React.createElement("div", { className: "cart-total mb-3" },
@@ -175,22 +182,16 @@ var Cart = /** @class */ (function (_super) {
                                     React.createElement("p", { className: "d-flex" },
                                         React.createElement("span", null,
                                             React.createElement(Translate, { content: 'checkout.Subtotal' })),
-                                        React.createElement("span", null,
-                                            "$",
-                                            this.state.subtotal)),
+                                        React.createElement("span", null, currencyBeforeSign + " " + this.state.subtotal + " " + currencyAfterSign)),
                                     React.createElement("p", { className: "d-flex" },
                                         React.createElement("span", null,
                                             React.createElement(Translate, { content: 'checkout.Delivery' })),
-                                        React.createElement("span", null,
-                                            "$",
-                                            this.state.delivery)),
+                                        React.createElement("span", null, currencyBeforeSign + " " + this.state.delivery + " " + currencyAfterSign)),
                                     React.createElement("hr", null),
                                     React.createElement("p", { className: "d-flex total-price" },
                                         React.createElement("span", null,
                                             React.createElement(Translate, { content: 'checkout.Total' })),
-                                        React.createElement("span", null,
-                                            "$",
-                                            this.state.total))),
+                                        React.createElement("span", null, currencyBeforeSign + " " + this.state.total + " " + currencyAfterSign))),
                                 React.createElement("p", { className: "text-center" },
                                     React.createElement(react_router_hash_link_1.HashLink, { to: "/checkout", className: "btn btn-primary py-3 px-4", subtotal: this.state.subtotal, delivery: this.state.delivery, total: this.state.total },
                                         React.createElement(Translate, { content: 'checkout.ProceedToCheckout' })))))))));

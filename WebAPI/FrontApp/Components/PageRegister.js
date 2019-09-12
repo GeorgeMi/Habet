@@ -40,7 +40,7 @@ var Register = /** @class */ (function (_super) {
         _this.state = { email: '', password: '', firstName: '', lastName: '', state: '', city: '', streetAddress: '', zipCode: '', phone: '', api_response: '', loggedIn: false, headerDictionary: dictionary, waitingResponse: false, language: sfcookies_1.read_cookie('lang') };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
-        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
+        _this.reloadPage = _this.reloadPage.bind(_this);
         return _this;
     }
     Register.prototype.handleChange = function (event) {
@@ -75,7 +75,7 @@ var Register = /** @class */ (function (_super) {
         })
             .then(this.setState({ waitingResponse: false }));
     };
-    Register.prototype.langaugeChanged = function () {
+    Register.prototype.reloadPage = function () {
         //do nothing
     };
     Register.prototype.render = function () {
@@ -83,7 +83,7 @@ var Register = /** @class */ (function (_super) {
         return (React.createElement("main", { id: "main" },
             waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
             React.createElement("div", null,
-                React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
+                React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },

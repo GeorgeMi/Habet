@@ -44,12 +44,20 @@ var Header = /** @class */ (function (_super) {
             sfcookies_1.bake_cookie('lang', lang);
         }
         counterpart.setLocale(lang);
-        _this.state = { email: '', password: '', api_response: '', loggedIn: false, headerDictionary: dictionary, language: lang };
+        var currency = 'pounds';
+        if (sfcookies_1.read_cookie('currency') != null && sfcookies_1.read_cookie('currency').length !== 0) {
+            currency = sfcookies_1.read_cookie('currency');
+        }
+        else {
+            sfcookies_1.bake_cookie('currency', currency);
+        }
+        _this.state = { email: '', password: '', api_response: '', loggedIn: false, headerDictionary: dictionary, language: lang, currency: currency };
         if (sfcookies_1.read_cookie('token') != null && sfcookies_1.read_cookie('token').length !== 0) {
             _this.checkIfTokenIsValid();
         }
         _this.handleChange = _this.handleChange.bind(_this);
         _this.onLangChange = _this.onLangChange.bind(_this);
+        _this.onCurrencyChange = _this.onCurrencyChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.checkIfTokenIsValid = _this.checkIfTokenIsValid.bind(_this);
         _this.signOut = _this.signOut.bind(_this);
@@ -60,7 +68,13 @@ var Header = /** @class */ (function (_super) {
         counterpart.setLocale(event.target.value);
         sfcookies_1.delete_cookie('lang');
         sfcookies_1.bake_cookie('lang', event.target.value);
-        this.props.langaugeChanged();
+        this.props.reloadPage();
+    };
+    Header.prototype.onCurrencyChange = function (event) {
+        this.handleChange(event);
+        sfcookies_1.delete_cookie('currency');
+        sfcookies_1.bake_cookie('currency', event.target.value);
+        this.props.reloadPage();
     };
     Header.prototype.handleChange = function (event) {
         var _a;
@@ -189,10 +203,15 @@ var Header = /** @class */ (function (_super) {
                                 :
                                     React.createElement("div", null),
                             React.createElement("li", { className: "nav-item dropdown" },
-                                React.createElement("select", { style: { backgroundColor: 'transparent' }, value: this.state.language, onChange: this.onLangChange, name: "language", id: "language" },
+                                React.createElement("select", { style: { backgroundColor: 'transparent', transform: 'translateY(22 %)' }, value: this.state.language, onChange: this.onLangChange, name: "language", id: "language" },
                                     React.createElement("option", { value: "en" }, "En"),
                                     React.createElement("option", { value: "it" }, "It"),
-                                    React.createElement("option", { value: "ro" }, "Ro")))))))));
+                                    React.createElement("option", { value: "ro" }, "Ro"))),
+                            React.createElement("li", { className: "nav-item dropdown" },
+                                React.createElement("select", { style: { backgroundColor: 'transparent', transform: 'translateY(22 %)' }, value: this.state.currency, onChange: this.onCurrencyChange, name: "currency", id: "currency" },
+                                    React.createElement("option", { value: "pounds" }, "\u20A4"),
+                                    React.createElement("option", { value: "euros" }, "\u20AC"),
+                                    React.createElement("option", { value: "lei" }, "Lei")))))))));
     };
     return Header;
 }(React.Component));

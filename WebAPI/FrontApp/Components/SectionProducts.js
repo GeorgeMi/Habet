@@ -32,7 +32,7 @@ var SectionProducts = /** @class */ (function (_super) {
     function SectionProducts(props) {
         var _this = _super.call(this, props) || this;
         counterpart.setLocale(sfcookies_1.read_cookie('lang'));
-        _this.state = { isLoaded: false, items: null, error: null, gender: props.Gender, type: props.Type, language: sfcookies_1.read_cookie('lang') };
+        _this.state = { isLoaded: false, items: null, error: null, gender: props.Gender, type: props.Type, language: sfcookies_1.read_cookie('lang'), currency: sfcookies_1.read_cookie('currency') };
         return _this;
     }
     SectionProducts.prototype.componentWillMount = function () {
@@ -43,7 +43,8 @@ var SectionProducts = /** @class */ (function (_super) {
                 from: 0,
                 gender: this.state.gender,
                 type: this.state.type,
-                lang: this.state.language
+                lang: this.state.language,
+                currency: this.state.currency
             }
         })
             .then(function (response) {
@@ -80,7 +81,17 @@ var SectionProducts = /** @class */ (function (_super) {
     };
     SectionProducts.prototype.render = function () {
         var _this = this;
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, gender = _a.gender, type = _a.type;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, gender = _a.gender, type = _a.type, currency = _a.currency;
+        var currencyBeforeSign = '€';
+        var currencyAfterSign = '';
+        if (currency == 'lei') {
+            currencyBeforeSign = '';
+            currencyAfterSign = 'lei';
+        }
+        else if (currency == 'pounds') {
+            currencyBeforeSign = '₤';
+            currencyAfterSign = '';
+        }
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -110,9 +121,7 @@ var SectionProducts = /** @class */ (function (_super) {
                                     React.createElement("a", { href: "/#/item/" + item.ProductId }, item.Name)),
                                 React.createElement("div", { className: "pricing" },
                                     React.createElement("p", { className: "price" },
-                                        React.createElement("span", null,
-                                            "$",
-                                            item.Price))),
+                                        React.createElement("span", null, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign))),
                                 React.createElement("p", { className: "bottom-area d-flex px-3" },
                                     React.createElement("a", { href: "#", className: "add-to-cart text-center py-2 mr-1", onClick: function () { return _this.addProductToCart(item.ProductId, 1); } },
                                         React.createElement("span", null,

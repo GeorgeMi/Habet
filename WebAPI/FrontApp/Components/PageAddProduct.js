@@ -43,7 +43,7 @@ var AddProduct = /** @class */ (function (_super) {
         _this.handleFileChange1 = _this.handleFileChange1.bind(_this);
         _this.handleFileChange2 = _this.handleFileChange2.bind(_this);
         _this.handleFileChange3 = _this.handleFileChange3.bind(_this);
-        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
+        _this.reloadPage = _this.reloadPage.bind(_this);
         return _this;
     }
     AddProduct.prototype.handleChange = function (event) {
@@ -84,7 +84,7 @@ var AddProduct = /** @class */ (function (_super) {
         })
             .then(this.setState({ waitingResponse: false }));
     };
-    AddProduct.prototype.langaugeChanged = function () {
+    AddProduct.prototype.reloadPage = function () {
         //do nothing
     };
     AddProduct.prototype.render = function () {
@@ -92,7 +92,7 @@ var AddProduct = /** @class */ (function (_super) {
         return (React.createElement("main", { id: "main" },
             waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
             React.createElement("div", null,
-                React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
+                React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                         React.createElement("div", { className: "col-md-12 heading-section text-center" },

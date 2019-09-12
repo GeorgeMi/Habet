@@ -48,11 +48,12 @@ var Search = /** @class */ (function (_super) {
             language: sfcookies_1.read_cookie('lang'),
             activePage: 1,
             totalItemsCount: 50,
-            itemsPerPage: 1
+            itemsPerPage: 1,
+            currency: sfcookies_1.read_cookie('currency')
         };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
-        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
+        _this.reloadPage = _this.reloadPage.bind(_this);
         _this.handlePageChange = _this.handlePageChange.bind(_this);
         _this.searchProducts = _this.searchProducts.bind(_this);
         return _this;
@@ -65,7 +66,8 @@ var Search = /** @class */ (function (_super) {
                 from: 0,
                 gender: "none",
                 type: "intro",
-                lang: this.state.language
+                lang: this.state.language,
+                currency: this.state.currency
             }
         })
             .then(function (response) {
@@ -155,12 +157,22 @@ var Search = /** @class */ (function (_super) {
         sfcookies_1.delete_cookie('cartProducts');
         sfcookies_1.bake_cookie('cartProducts', cartProducts);
     };
-    Search.prototype.langaugeChanged = function () {
+    Search.prototype.reloadPage = function () {
         window.location.reload(false);
     };
     Search.prototype.render = function () {
         var _this = this;
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, currency = _a.currency;
+        var currencyBeforeSign = '€';
+        var currencyAfterSign = '';
+        if (currency == 'lei') {
+            currencyBeforeSign = '';
+            currencyAfterSign = 'lei';
+        }
+        else if (currency == 'pounds') {
+            currencyBeforeSign = '₤';
+            currencyAfterSign = '';
+        }
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -173,7 +185,7 @@ var Search = /** @class */ (function (_super) {
         else {
             return (React.createElement("main", { id: "main" },
                 React.createElement("div", null,
-                    React.createElement(Header_1.Header, { Active: 'Search', langaugeChanged: this.langaugeChanged }),
+                    React.createElement(Header_1.Header, { Active: 'Search', reloadPage: this.reloadPage }),
                     React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },
@@ -193,9 +205,7 @@ var Search = /** @class */ (function (_super) {
                                                     React.createElement("a", { href: "/#/item/" + item.ProductId }, item.Name)),
                                                 React.createElement("div", { className: "pricing" },
                                                     React.createElement("p", { className: "price" },
-                                                        React.createElement("span", null,
-                                                            "$",
-                                                            item.Price))),
+                                                        React.createElement("span", null, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign))),
                                                 React.createElement("p", { className: "bottom-area d-flex px-3" },
                                                     React.createElement("a", { href: "#", className: "add-to-cart text-center py-2 mr-1", onClick: function () { return _this.addProductToCart(item.ProductId, 1); } },
                                                         React.createElement("span", null,

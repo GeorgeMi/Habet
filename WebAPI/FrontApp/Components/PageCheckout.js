@@ -50,11 +50,12 @@ var Checkout = /** @class */ (function (_super) {
             email: '',
             waitingResponse: false,
             isChanged: false,
-            language: sfcookies_1.read_cookie('lang')
+            language: sfcookies_1.read_cookie('lang'),
+            currency: sfcookies_1.read_cookie('currency')
         };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
-        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
+        _this.reloadPage = _this.reloadPage.bind(_this);
         return _this;
     }
     Checkout.prototype.componentWillMount = function () {
@@ -119,11 +120,21 @@ var Checkout = /** @class */ (function (_super) {
             _this.setState({ waitingResponse: false });
         });
     };
-    Checkout.prototype.langaugeChanged = function () {
+    Checkout.prototype.reloadPage = function () {
         //do nothing
     };
     Checkout.prototype.render = function () {
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, waitingResponse = _a.waitingResponse, isChanged = _a.isChanged;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, waitingResponse = _a.waitingResponse, currency = _a.currency;
+        var currencyBeforeSign = '€';
+        var currencyAfterSign = '';
+        if (currency == 'lei') {
+            currencyBeforeSign = '';
+            currencyAfterSign = 'lei';
+        }
+        else if (currency == 'pounds') {
+            currencyBeforeSign = '₤';
+            currencyAfterSign = '';
+        }
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -134,7 +145,7 @@ var Checkout = /** @class */ (function (_super) {
             return (React.createElement("main", { id: "main" },
                 waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
                 React.createElement("div", null,
-                    React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
+                    React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
                     React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },
@@ -146,7 +157,7 @@ var Checkout = /** @class */ (function (_super) {
         else {
             return (React.createElement("main", { id: "main" },
                 React.createElement("div", null,
-                    React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
+                    React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
                     React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                         React.createElement("div", { className: "container" },
                             React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
@@ -264,22 +275,16 @@ var Checkout = /** @class */ (function (_super) {
                                                 React.createElement("p", { className: "d-flex" },
                                                     React.createElement("span", null,
                                                         React.createElement(Translate, { content: 'checkout.Subtotal' })),
-                                                    React.createElement("span", null,
-                                                        "$",
-                                                        this.state.subtotal)),
+                                                    React.createElement("span", null, currencyBeforeSign + " " + this.state.subtotal + " " + currencyAfterSign)),
                                                 React.createElement("p", { className: "d-flex" },
                                                     React.createElement("span", null,
                                                         React.createElement(Translate, { content: 'checkout.Delivery' })),
-                                                    React.createElement("span", null,
-                                                        "$",
-                                                        this.state.delivery)),
+                                                    React.createElement("span", null, currencyBeforeSign + " " + this.state.delivery + " " + currencyAfterSign)),
                                                 React.createElement("hr", null),
                                                 React.createElement("p", { className: "d-flex total-price" },
                                                     React.createElement("span", null,
                                                         React.createElement(Translate, { content: 'checkout.Total' })),
-                                                    React.createElement("span", null,
-                                                        "$",
-                                                        this.state.total)))),
+                                                    React.createElement("span", null, currencyBeforeSign + " " + this.state.total + " " + currencyAfterSign)))),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "cart-detail bg-light p-3 p-md-4" },
                                                 React.createElement("h3", { className: "billing-heading mb-4" },

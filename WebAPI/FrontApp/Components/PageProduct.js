@@ -47,10 +47,10 @@ var Product = /** @class */ (function (_super) {
         };
         var dictionary = new Dictionary_1.KeyedCollection();
         counterpart.setLocale(sfcookies_1.read_cookie('lang'));
-        _this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary, productId: props.match.params.id, quantity: 1, language: sfcookies_1.read_cookie('lang') };
+        _this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary, productId: props.match.params.id, quantity: 1, language: sfcookies_1.read_cookie('lang'), currency: sfcookies_1.read_cookie('currency') };
         _this.getImageForProduct = _this.getImageForProduct.bind(_this);
         _this.handleChange = _this.handleChange.bind(_this);
-        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
+        _this.reloadPage = _this.reloadPage.bind(_this);
         return _this;
     }
     Product.prototype.componentWillMount = function () {
@@ -58,7 +58,8 @@ var Product = /** @class */ (function (_super) {
         axios.get(API_Path + '/Products/', {
             params: {
                 productId: this.state.productId,
-                lang: this.state.language
+                lang: this.state.language,
+                currency: this.state.currency
             }
         })
             .then(function (response) {
@@ -110,15 +111,25 @@ var Product = /** @class */ (function (_super) {
         sfcookies_1.delete_cookie('cartProducts');
         sfcookies_1.bake_cookie('cartProducts', cartProducts);
     };
-    Product.prototype.langaugeChanged = function () {
+    Product.prototype.reloadPage = function () {
         window.location.reload(false);
     };
     Product.prototype.render = function () {
         var _this = this;
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, item = _a.item, quantity = _a.quantity;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, item = _a.item, quantity = _a.quantity, currency = _a.currency;
+        var currencyBeforeSign = '€';
+        var currencyAfterSign = '';
+        if (currency == 'lei') {
+            currencyBeforeSign = '';
+            currencyAfterSign = 'lei';
+        }
+        else if (currency == 'pounds') {
+            currencyBeforeSign = '₤';
+            currencyAfterSign = '';
+        }
         if (error) {
             return (React.createElement("div", null,
-                React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
+                React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                         React.createElement("div", { className: "col-md-9 text-center" },
@@ -132,7 +143,7 @@ var Product = /** @class */ (function (_super) {
             var images_1 = [];
             item.Image.map(function (img, i) { return (images_1.push({ original: img, thumbnail: img })); });
             return (React.createElement("div", null,
-                React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
+                React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
                     React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                         React.createElement("div", { className: "col-md-9 text-center" },
@@ -146,9 +157,7 @@ var Product = /** @class */ (function (_super) {
                             React.createElement("div", { className: "col-lg-6 product-details pl-md-5" },
                                 React.createElement("h3", null, item.Name),
                                 React.createElement("p", { className: "price" },
-                                    React.createElement("span", null,
-                                        "$",
-                                        item.Price)),
+                                    React.createElement("span", null, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign)),
                                 React.createElement("p", null, item.Description),
                                 React.createElement("div", { className: "row mt-4" },
                                     React.createElement("div", { className: "w-100" }),

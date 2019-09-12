@@ -1,5 +1,4 @@
 ﻿import * as React from 'react';
-import { KeyedCollection } from './Dictionary';
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
 import * as Translate from 'react-translate-component';
 import en from './languages/en';
@@ -19,7 +18,7 @@ export class SectionIntro extends React.Component<any, any> {
     constructor(props) {
         super(props);
 
-        this.state = { isLoaded: false, items: null, error: null, language: read_cookie('lang') };
+        this.state = { isLoaded: false, items: null, error: null, language: read_cookie('lang'), currency: read_cookie('currency') };
     }
 
     componentWillMount() {
@@ -30,7 +29,8 @@ export class SectionIntro extends React.Component<any, any> {
                     from: 0,
                     gender: "none",
                     type: "intro",
-                    lang: this.state.language
+                    lang: this.state.language,
+                    currency: this.state.currency
                 }
             })
             .then((response) => {
@@ -42,7 +42,12 @@ export class SectionIntro extends React.Component<any, any> {
             .then();
     }
     render() {
-        const { error, isLoaded, items} = this.state;
+        const { error, isLoaded, items, currency } = this.state;
+        var currencyBeforeSign = '€';
+        var currencyAfterSign = '';
+        if (currency == 'lei') { currencyBeforeSign = ''; currencyAfterSign = 'lei' }
+        else if (currency == 'pounds') { currencyBeforeSign = '₤'; currencyAfterSign = '' }
+
         if (error) {
             console.log(error);
             return <div>Error: {error.message}</div>;
@@ -51,12 +56,6 @@ export class SectionIntro extends React.Component<any, any> {
             return <div></div>;
 
         } else {
-            var activeDictionary = new KeyedCollection<string>();           
-            //items.map((item, i) => (
-            //    activeDictionary.Add(i, "")
-            //));
-            //activeDictionary.Add(0, "active");
-
             return (
                 <section className="ftco-section ftco-deal" style={{ backgroundImage: "url('images/background.jpg')", opacity: 0.5 }}>
                     <div className="container">
@@ -85,7 +84,7 @@ export class SectionIntro extends React.Component<any, any> {
                                                 <div className="col-md-6">
                                                     <div className="text-deal">
                                                         <h2><a href="#">{item.Name}</a></h2>
-                                                        <p className="price"><span>${item.Price}</span></p>
+                                                        <p className="price"><span>{currencyBeforeSign + " " + item.Price + " " + currencyAfterSign}</span></p>
                                                         <p><a href={"/#/item/" + item.ProductId} className="btn btn-primary py-3 px-5">Details</a></p>
                                                     </div>
                                                 </div>

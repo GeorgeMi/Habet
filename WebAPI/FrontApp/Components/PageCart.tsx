@@ -22,14 +22,14 @@ export class Cart extends React.Component<any, any>{
     constructor(props) {
         super(props);
         counterpart.setLocale(read_cookie('lang'));
-        this.state = { isLoaded: false, items: null, error: null, cartProducts: null, subtotal: 0, total: 0, delivery: 0, language: read_cookie('lang') };
+        this.state = { isLoaded: false, items: null, error: null, cartProducts: null, subtotal: 0, total: 0, delivery: 0, language: read_cookie('lang'), currency: read_cookie('currency')  };
 
         this.updateTotal = this.updateTotal.bind(this);
         this.getQuantity = this.getQuantity.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.removeProductFromCart = this.removeProductFromCart.bind(this);     
         this.updateTotalAfterRemove = this.updateTotalAfterRemove.bind(this);  
-        this.langaugeChanged = this.langaugeChanged.bind(this);
+        this.reloadPage = this.reloadPage.bind(this);
     }
 
     readCartFromCookie(cookie) {
@@ -50,7 +50,8 @@ export class Cart extends React.Component<any, any>{
                 axios.post(API_Path + '/ChartProducts',
                     {
                         productIds: cartProducts.Keys(),
-                        lang: this.state.language
+                        lang: this.state.language,
+                        currency: this.state.currency
                     })
                     .then((response) => {
                         this.setState({ isLoaded: true, items: response.data.data });
@@ -119,12 +120,16 @@ export class Cart extends React.Component<any, any>{
         return cartProducts.Item(productId);
     }
 
-    public langaugeChanged() {
+    public reloadPage() {
         window.location.reload(false);
     }
 
     render() {
-        const { error, isLoaded, items } = this.state;
+        const { error, isLoaded, items, currency } = this.state;
+        var currencyBeforeSign = '€';
+        var currencyAfterSign = '';
+        if (currency == 'lei') { currencyBeforeSign = ''; currencyAfterSign = 'lei' }
+        else if (currency == 'pounds') { currencyBeforeSign = '₤'; currencyAfterSign = '' }
 
         if (error) {
             console.log(error);
@@ -134,7 +139,7 @@ export class Cart extends React.Component<any, any>{
         } else {
             return (
                 <div>
-                    <Header Active={'Cart'} langaugeChanged={this.langaugeChanged} />
+                    <Header Active={'Cart'} reloadPage={this.reloadPage} />
 
                     <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
                         <div className="row justify-content-center mb-3 pb-3">
@@ -170,7 +175,7 @@ export class Cart extends React.Component<any, any>{
 
                                                             <td className="product-name"><h3>{item.Name}</h3></td>
 
-                                                            <td className="price">${item.Price}</td>
+                                                            <td className="price">{currencyBeforeSign + " " + item.Price + " " + currencyAfterSign}</td>
 
                                                             <td className="quantity">
                                                                 <div className="input-group mb-3">
@@ -178,7 +183,7 @@ export class Cart extends React.Component<any, any>{
                                                                 </div>
                                                             </td>
 
-                                                            <td className="total">${item.Price * this.getQuantity(item.ProductId)}</td>
+                                                            <td className="total">{currencyBeforeSign + " " + item.Price * this.getQuantity(item.ProductId)+ " " + currencyAfterSign}</td>
                                                         </tr>
                                                     ))}
                                             </tbody>
@@ -192,16 +197,16 @@ export class Cart extends React.Component<any, any>{
                                         <h3>Cart Totals</h3>
                                         <p className="d-flex">
                                             <span><Translate content='checkout.Subtotal' /></span>
-                                            <span>${this.state.subtotal}</span>
+                                            <span>{currencyBeforeSign + " " + this.state.subtotal + " " + currencyAfterSign}</span>
                                         </p>
                                         <p className="d-flex">
                                             <span><Translate content='checkout.Delivery' /></span>
-                                            <span>${this.state.delivery}</span>
+                                            <span>{currencyBeforeSign + " " + this.state.delivery + " " + currencyAfterSign}</span>
                                         </p>
                                         <hr />
                                         <p className="d-flex total-price">
                                             <span><Translate content='checkout.Total' /></span>
-                                            <span>${this.state.total}</span>
+                                            <span>{currencyBeforeSign + " " + this.state.total + " " + currencyAfterSign}</span>
                                         </p>
                                     </div>
                                     <p className="text-center">

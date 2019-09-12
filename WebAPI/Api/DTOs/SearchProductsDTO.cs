@@ -14,5 +14,6 @@ namespace Api.DTOs
         public int PriceFrom { get; set; }
         public int PriceTo { get; set; }
         public string Lang { get; set; }
+        public string Currency { get; set; }
     }
 }

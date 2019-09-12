@@ -38,12 +38,13 @@ export class Checkout extends React.Component<any, any> {
             email: '',
             waitingResponse: false,
             isChanged: false,
-            language: read_cookie('lang')
+            language: read_cookie('lang'),
+            currency: read_cookie('currency')
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.langaugeChanged = this.langaugeChanged.bind(this);
+        this.reloadPage = this.reloadPage.bind(this);
     }
 
     componentWillMount() {
@@ -113,12 +114,16 @@ export class Checkout extends React.Component<any, any> {
     }
 
 
-    public langaugeChanged() {
+    public reloadPage() {
         //do nothing
     }
 
     render() {
-        const { error, isLoaded, waitingResponse, isChanged } = this.state;
+        const { error, isLoaded, waitingResponse, currency } = this.state;
+        var currencyBeforeSign = '€';
+        var currencyAfterSign = '';
+        if (currency == 'lei') { currencyBeforeSign = ''; currencyAfterSign = 'lei' }
+        else if (currency == 'pounds') { currencyBeforeSign = '₤'; currencyAfterSign = '' }
 
         if (error) {
             console.log(error);
@@ -129,7 +134,7 @@ export class Checkout extends React.Component<any, any> {
                     {waitingResponse ? <div className="loading">Loading&#8230;</div> : <div></div>}
 
                     <div>
-                        <Header langaugeChanged={this.langaugeChanged} />
+                        <Header reloadPage={this.reloadPage} />
 
                         <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
                             <div className="row justify-content-center mb-3 pb-3">
@@ -146,7 +151,7 @@ export class Checkout extends React.Component<any, any> {
             return (
                 <main id="main">
                     <div>
-                        <Header langaugeChanged={this.langaugeChanged} />
+                        <Header reloadPage={this.reloadPage} />
 
                         <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
                             <div className="container">
@@ -279,16 +284,16 @@ export class Checkout extends React.Component<any, any> {
                                                     <h3 className="billing-heading mb-4">Cart Total</h3>
                                                     <p className="d-flex">
                                                         <span><Translate content='checkout.Subtotal' /></span>
-                                                        <span>${this.state.subtotal}</span>
+                                                        <span>{currencyBeforeSign + " " + this.state.subtotal + " " + currencyAfterSign}</span>
                                                     </p>
                                                     <p className="d-flex">
                                                         <span><Translate content='checkout.Delivery' /></span>
-                                                        <span>${this.state.delivery}</span>
+                                                        <span>{currencyBeforeSign + " " + this.state.delivery + " " + currencyAfterSign}</span>
                                                     </p>
                                                     <hr />
                                                     <p className="d-flex total-price">
                                                         <span><Translate content='checkout.Total' /></span>
-                                                        <span>${this.state.total}</span>
+                                                        <span>{currencyBeforeSign + " " + this.state.total + " " + currencyAfterSign}</span>
                                                     </p>
                                                 </div>
                                             </div>

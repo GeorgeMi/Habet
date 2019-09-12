@@ -21,7 +21,7 @@ export class SectionProducts extends React.Component<any, any>
         super(props);
 
         counterpart.setLocale(read_cookie('lang'));
-        this.state = { isLoaded: false, items: null, error: null, gender: props.Gender, type: props.Type, language: read_cookie('lang') };
+        this.state = { isLoaded: false, items: null, error: null, gender: props.Gender, type: props.Type, language: read_cookie('lang'), currency: read_cookie('currency') };
     }
        
     componentWillMount() {
@@ -32,7 +32,8 @@ export class SectionProducts extends React.Component<any, any>
                     from: 0,
                     gender: this.state.gender,
                     type: this.state.type,
-                    lang: this.state.language
+                    lang: this.state.language,
+                    currency: this.state.currency
                 }
             })
             .then((response) => {
@@ -74,7 +75,11 @@ export class SectionProducts extends React.Component<any, any>
 
 
     render() {
-        const { error, isLoaded, items, gender, type} = this.state;
+        const { error, isLoaded, items, gender, type, currency } = this.state;
+        var currencyBeforeSign = '€';
+        var currencyAfterSign = '';
+        if (currency == 'lei') { currencyBeforeSign = ''; currencyAfterSign = 'lei' }
+        else if (currency == 'pounds') { currencyBeforeSign = '₤'; currencyAfterSign = ''}
        
         if (error) {
             console.log(error);
@@ -105,7 +110,7 @@ export class SectionProducts extends React.Component<any, any>
                                             <div className="text py-3 pb-4 px-3">
                                                 <h3><a href={"/#/item/" + item.ProductId}>{item.Name}</a></h3>
                                                 <div className="pricing">
-                                                    <p className="price"><span>${item.Price}</span></p>
+                                                    <p className="price"><span>{currencyBeforeSign + " " + item.Price + " " + currencyAfterSign}</span></p>
                                                 </div>
                                                 <p className="bottom-area d-flex px-3">
                                                     <a href="#" className="add-to-cart text-center py-2 mr-1" onClick={() => this.addProductToCart(item.ProductId, 1)}><span><Translate content="products.AddToCart" /><i className="ion-ios-add ml-1"></i></span></a>

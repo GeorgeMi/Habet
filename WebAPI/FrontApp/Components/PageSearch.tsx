@@ -37,12 +37,13 @@ export class Search extends React.Component<any, any>
             language: read_cookie('lang'),
             activePage: 1,
             totalItemsCount: 50,
-            itemsPerPage: 1
+            itemsPerPage: 1,
+            currency: read_cookie('currency')
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.langaugeChanged = this.langaugeChanged.bind(this);
+        this.reloadPage = this.reloadPage.bind(this);
         this.handlePageChange = this.handlePageChange.bind(this);
         this.searchProducts = this.searchProducts.bind(this);
     }
@@ -55,7 +56,8 @@ export class Search extends React.Component<any, any>
                     from: 0,
                     gender: "none",
                     type: "intro",
-                    lang: this.state.language
+                    lang: this.state.language,
+                    currency: this.state.currency
                 }
             })
             .then((response) => {
@@ -146,12 +148,16 @@ export class Search extends React.Component<any, any>
         bake_cookie('cartProducts', cartProducts);
     } 
 
-    public langaugeChanged() {
+    public reloadPage() {
         window.location.reload(false);
     }
 
     render() {
-        const { error, isLoaded, items } = this.state;
+        const { error, isLoaded, items, currency } = this.state;
+        var currencyBeforeSign = '€';
+        var currencyAfterSign = '';
+        if (currency == 'lei') { currencyBeforeSign = ''; currencyAfterSign = 'lei' }
+        else if (currency == 'pounds') { currencyBeforeSign = '₤'; currencyAfterSign = '' }
 
         if (error) {
             console.log(error);
@@ -162,7 +168,7 @@ export class Search extends React.Component<any, any>
             return (
                 <main id="main">
                     <div>
-                        <Header Active={'Search'} langaugeChanged={this.langaugeChanged} />
+                        <Header Active={'Search'} reloadPage={this.reloadPage} />
 
                         <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
                             <div className="row justify-content-center mb-3 pb-3">
@@ -188,7 +194,7 @@ export class Search extends React.Component<any, any>
                                                             <div className="text py-3 pb-4 px-3">
                                                                 <h3><a href={"/#/item/" + item.ProductId}>{item.Name}</a></h3>
                                                                 <div className="pricing">
-                                                                    <p className="price"><span>${item.Price}</span></p>
+                                                                    <p className="price"><span>{currencyBeforeSign + " " + item.Price + " " + currencyAfterSign}</span></p>
                                                                 </div>
                                                                 <p className="bottom-area d-flex px-3">
                                                                     <a href="#" className="add-to-cart text-center py-2 mr-1" onClick={() => this.addProductToCart(item.ProductId, 1)}><span><Translate content={'search.AddToCart'} /> <i className="ion-ios-add ml-1"></i></span></a>

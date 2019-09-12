@@ -10,7 +10,7 @@ export class Home extends React.Component<any, any> {
 
         this.state = { loadedComponentsDictionary: null };
         this.setLoadedComponentsArray = this.setLoadedComponentsArray.bind(this);
-        this.langaugeChanged = this.langaugeChanged.bind(this);
+        this.reloadPage = this.reloadPage.bind(this);
     }
 
    public setLoadedComponentsArray(component: string, loaded: string) {
@@ -23,7 +23,7 @@ export class Home extends React.Component<any, any> {
         this.setState({loadedComponentsDictionary: dictionary});
     }
 
-    public langaugeChanged() {
+    public reloadPage() {
         window.location.reload(false);
     }
    
@@ -38,7 +38,7 @@ export class Home extends React.Component<any, any> {
                 {   hideLoader ? <div></div> : <div className="loading">Loading&#8230;</div> }
 
                 <div>
-                    <Header Active={'Home'} langaugeChanged={this.langaugeChanged}  />
+                    <Header Active={'Home'} reloadPage={this.reloadPage}  />
 
                     <SectionIntro />
 

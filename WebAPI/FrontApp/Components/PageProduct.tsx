@@ -26,11 +26,11 @@ export class Product extends React.Component<any, any>
 
         var dictionary = new KeyedCollection<string>();
         counterpart.setLocale(read_cookie('lang'));
-        this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary, productId: props.match.params.id, quantity: 1, language: read_cookie('lang') };
+        this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary, productId: props.match.params.id, quantity: 1, language: read_cookie('lang'), currency: read_cookie('currency') };
 
         this.getImageForProduct = this.getImageForProduct.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.langaugeChanged = this.langaugeChanged.bind(this);
+        this.reloadPage = this.reloadPage.bind(this);
     }
 
     componentWillMount() {
@@ -38,7 +38,8 @@ export class Product extends React.Component<any, any>
             {
                 params: {
                     productId: this.state.productId,
-                    lang: this.state.language
+                    lang: this.state.language,
+                    currency: this.state.currency
                 }
             })
             .then((response) => {
@@ -114,17 +115,21 @@ export class Product extends React.Component<any, any>
         }
     }
 
-    public langaugeChanged() {
+    public reloadPage() {
         window.location.reload(false);
     }
 
     render() {
-        const { error, isLoaded, item, quantity } = this.state;     
+        const { error, isLoaded, item, quantity, currency } = this.state; 
+        var currencyBeforeSign = '€';
+        var currencyAfterSign = '';
+        if (currency == 'lei') { currencyBeforeSign = ''; currencyAfterSign = 'lei' }
+        else if (currency == 'pounds') { currencyBeforeSign = '₤'; currencyAfterSign = '' }
 
         if (error) {
             return (
                 <div>
-                    <Header langaugeChanged={this.langaugeChanged}/>
+                    <Header reloadPage={this.reloadPage}/>
                     <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
                         <div className="row no-gutters slider-text align-items-center justify-content-center">
                             <div className="col-md-9 text-center">
@@ -146,7 +151,7 @@ export class Product extends React.Component<any, any>
             
             return (
                 <div>
-                    <Header langaugeChanged={this.langaugeChanged}/>
+                    <Header reloadPage={this.reloadPage}/>
 
                     <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
                         <div className="row no-gutters slider-text align-items-center justify-content-center">
@@ -164,7 +169,7 @@ export class Product extends React.Component<any, any>
                                 </div>
                                 <div className="col-lg-6 product-details pl-md-5">
                                     <h3>{item.Name}</h3>
-                                    <p className="price"><span>${item.Price}</span></p>
+                                    <p className="price"><span>{currencyBeforeSign + " " + item.Price + " " + currencyAfterSign}</span></p>
                                     <p>{item.Description}</p>
                                     <div className="row mt-4">
                                         <div className="w-100"></div>

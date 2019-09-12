@@ -24,7 +24,7 @@ var Home = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         _this.state = { loadedComponentsDictionary: null };
         _this.setLoadedComponentsArray = _this.setLoadedComponentsArray.bind(_this);
-        _this.langaugeChanged = _this.langaugeChanged.bind(_this);
+        _this.reloadPage = _this.reloadPage.bind(_this);
         return _this;
     }
     Home.prototype.setLoadedComponentsArray = function (component, loaded) {
@@ -35,7 +35,7 @@ var Home = /** @class */ (function (_super) {
         dictionary.Add(component, loaded);
         this.setState({ loadedComponentsDictionary: dictionary });
     };
-    Home.prototype.langaugeChanged = function () {
+    Home.prototype.reloadPage = function () {
         window.location.reload(false);
     };
     Home.prototype.render = function () {
@@ -46,7 +46,7 @@ var Home = /** @class */ (function (_super) {
         return (React.createElement("main", { id: "main" },
             hideLoader ? React.createElement("div", null) : React.createElement("div", { className: "loading" }, "Loading\u2026"),
             React.createElement("div", null,
-                React.createElement(Header_1.Header, { Active: 'Home', langaugeChanged: this.langaugeChanged }),
+                React.createElement(Header_1.Header, { Active: 'Home', reloadPage: this.reloadPage }),
                 React.createElement(SectionIntro_1.SectionIntro, null),
                 React.createElement("section", { className: "ftco-section bg-light" },
                     React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Bags', setLoadedComponentsArray: this.setLoadedComponentsArray }),
