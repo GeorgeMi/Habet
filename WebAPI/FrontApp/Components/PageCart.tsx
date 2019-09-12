@@ -210,7 +210,14 @@ export class Cart extends React.Component<any, any>{
                                         </p>
                                     </div>
                                     <p className="text-center">
-                                        <Link to="/checkout" className="btn btn-primary py-3 px-4" subtotal={this.state.subtotal} delivery={this.state.delivery} total={this.state.total}><Translate content='checkout.ProceedToCheckout' /></Link>
+                                        <Link to={
+                                            {
+                                                pathname: "/checkout",
+                                                subtotal:  this.state.subtotal,
+                                                delivery:  this.state.delivery,
+                                                total:  this.state.total 
+                                            }
+                                        } className="btn btn-primary py-3 px-4" ><Translate content='checkout.ProceedToCheckout' /></Link>
                                     </p>
                                 </div>
                             </div>

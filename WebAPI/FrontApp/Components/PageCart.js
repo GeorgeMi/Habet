@@ -193,7 +193,12 @@ var Cart = /** @class */ (function (_super) {
                                             React.createElement(Translate, { content: 'checkout.Total' })),
                                         React.createElement("span", null, currencyBeforeSign + " " + this.state.total + " " + currencyAfterSign))),
                                 React.createElement("p", { className: "text-center" },
-                                    React.createElement(react_router_hash_link_1.HashLink, { to: "/checkout", className: "btn btn-primary py-3 px-4", subtotal: this.state.subtotal, delivery: this.state.delivery, total: this.state.total },
+                                    React.createElement(react_router_hash_link_1.HashLink, { to: {
+                                            pathname: "/checkout",
+                                            subtotal: this.state.subtotal,
+                                            delivery: this.state.delivery,
+                                            total: this.state.total
+                                        }, className: "btn btn-primary py-3 px-4" },
                                         React.createElement(Translate, { content: 'checkout.ProceedToCheckout' })))))))));
         }
     };

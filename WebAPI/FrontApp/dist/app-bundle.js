@@ -884,7 +884,12 @@ var Cart = /** @class */ (function (_super) {
                                             React.createElement(Translate, { content: 'checkout.Total' })),
                                         React.createElement("span", null, currencyBeforeSign + " " + this.state.total + " " + currencyAfterSign))),
                                 React.createElement("p", { className: "text-center" },
-                                    React.createElement(react_router_hash_link_1.HashLink, { to: "/checkout", className: "btn btn-primary py-3 px-4", subtotal: this.state.subtotal, delivery: this.state.delivery, total: this.state.total },
+                                    React.createElement(react_router_hash_link_1.HashLink, { to: {
+                                            pathname: "/checkout",
+                                            subtotal: this.state.subtotal,
+                                            delivery: this.state.delivery,
+                                            total: this.state.total
+                                        }, className: "btn btn-primary py-3 px-4" },
                                         React.createElement(Translate, { content: 'checkout.ProceedToCheckout' })))))))));
         }
     };
@@ -1069,13 +1074,14 @@ var Checkout = /** @class */ (function (_super) {
     __extends(Checkout, _super);
     function Checkout(props) {
         var _this = _super.call(this, props) || this;
+        console.log(_this.props);
         counterpart.setLocale(sfcookies_1.read_cookie('lang'));
         _this.state = {
             isLoaded: false,
             error: null,
-            subtotal: props.subtotal,
-            total: props.total,
-            delivery: props.delivery,
+            subtotal: _this.props.location.subtotal,
+            total: _this.props.location.total,
+            delivery: _this.props.location.delivery,
             firstName: '',
             lastName: '',
             state: '',

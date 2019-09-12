@@ -25,9 +25,9 @@ export class Checkout extends React.Component<any, any> {
         this.state = {
             isLoaded: false,
             error: null,
-            subtotal: props.subtotal,
-            total: props.total,
-            delivery: props.delivery,
+            subtotal: this.props.location.subtotal,
+            total: this.props.location.total,
+            delivery: this.props.location.delivery,
             firstName: '',
             lastName: '',
             state: '',
