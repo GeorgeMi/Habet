@@ -13,5 +13,6 @@ namespace Api.Models
         public int Width { get; set; }
         public int Height { get; set; }
         public string ContentType { get; set; }
+        public DateTime Date { get; set; }
     }
 }

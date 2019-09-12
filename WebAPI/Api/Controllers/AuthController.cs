@@ -23,14 +23,14 @@ namespace Api.Controllers
         public HttpResponseMessage Post(UserDTO user)
         {
             HttpResponseMessage responseMessage;
-           // string response = auth.Authenticate(user.Email, user.Password);
-            string response = "123";
+            string response = auth.Authenticate(user.Email, user.Password);
+          //  string response = "123";
 
             if (response != null)
             {
                 // Username si parola valide
-               // string role = users.GetUserRole(user.Email);
-                string role = "admin";
+               string role = users.GetUserRole(user.Email);
+              //  string role = "admin";
                 TokenMessage msg = new TokenMessage(response, role);
                 responseMessage = Request.CreateResponse(HttpStatusCode.OK, msg);
             }

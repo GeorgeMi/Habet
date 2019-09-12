@@ -33,7 +33,6 @@ var Checkout = /** @class */ (function (_super) {
     __extends(Checkout, _super);
     function Checkout(props) {
         var _this = _super.call(this, props) || this;
-        console.log(_this.props);
         counterpart.setLocale(sfcookies_1.read_cookie('lang'));
         _this.state = {
             isLoaded: false,
