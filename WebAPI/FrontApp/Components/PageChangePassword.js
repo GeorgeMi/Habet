@@ -112,7 +112,7 @@ var ChangePassword = /** @class */ (function (_super) {
                                                 React.createElement("input", { type: "password", className: "form-control", placeholder: "", value: this.state.confirm_password, onChange: this.handleChange, name: "confirm_password", id: "confirm_password", maxLength: 32, required: true }))),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
-                                                React.createElement("input", { type: "submit", value: "Change password", className: "btn btn-primary py-3 px-5" }))))))))))));
+                                                React.createElement(Translate, { component: "input", attributes: { value: 'user.ChangePassword', }, type: "submit", className: "btn btn-primary py-3 px-5" }))))))))))));
     };
     return ChangePassword;
 }(React.Component));

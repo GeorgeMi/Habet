@@ -101,7 +101,8 @@
         ChangePassword: 'Cambia password',
         NewPassword: 'Nuova password',
         ConfirmPassword: 'Conferma password',
-        RecoverPassword: 'Ripristina password'
+        RecoverPassword: 'Ripristina password',
+        ChangePassword: 'Cambia la password'
     },
 
     product: {

@@ -200,17 +200,19 @@ export class Search extends React.Component<any, any>
                                                 ))}
                                         </div>
 
-                                        <div className="row mt-5">
-                                            <div className="col text-center">
-                                                <div className="block-27">
-                                                    <Pagination
-                                                        hideDisabled
-                                                        activePage={this.state.activePage}
-                                                        itemsCountPerPage={this.state.itemsPerPage}
-                                                        totalItemsCount={this.state.totalItemsCount}
-                                                        pageRangeDisplayed={5}
-                                                        onChange={this.handlePageChange}
-                                                    />
+                                        <div className="offset-3 col-md-6">
+                                            <div className="row mt-5">
+                                                <div className="col text-center">
+                                                    <div className="block-27">
+                                                        <Pagination
+                                                            hideDisabled
+                                                            activePage={this.state.activePage}
+                                                            itemsCountPerPage={this.state.itemsPerPage}
+                                                            totalItemsCount={this.state.totalItemsCount}
+                                                            pageRangeDisplayed={5}
+                                                            onChange={this.handlePageChange}
+                                                        />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

@@ -101,7 +101,8 @@
         ChangePassword: 'Schimbă parola',
         NewPassword: 'Parolă nouă',
         ConfirmPassword: 'Confirmă parola',
-        RecoverPassword: 'Recuperare parolă'
+        RecoverPassword: 'Recuperare parolă',
+        ChangePassword: 'Schimbați parola'
     },
 
     product: {

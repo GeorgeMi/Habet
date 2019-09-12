@@ -101,7 +101,8 @@
         ChangePassword: 'Change password',
         NewPassword: 'New Password',
         ConfirmPassword: 'Confirm Password',
-        RecoverPassword: 'Recover password'
+        RecoverPassword: 'Recover password',
+        ChangePassword: 'Change password'
     },
 
     product: {

@@ -394,7 +394,9 @@ var Header = /** @class */ (function (_super) {
             React.createElement(react_notifications_1.NotificationContainer, null),
             React.createElement("nav", { className: "navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light", id: "ftco-navbar" },
                 React.createElement("div", { className: "container" },
-                    React.createElement("a", { className: "navbar-brand", href: "/#/" }, "GabrielHabet"),
+                    React.createElement("a", { className: "navbar-brand", href: "/#/" },
+                        React.createElement("img", { src: "images/logo.png" }),
+                        " GabrielHabet"),
                     React.createElement("button", { className: "navbar-toggler", type: "button", "data-toggle": "collapse", "data-target": "#ftco-nav", "aria-controls": "ftco-nav", "aria-expanded": "false", "aria-label": "Toggle navigation" },
                         React.createElement("span", { className: "oi oi-menu" }),
                         " Menu"),
@@ -995,7 +997,7 @@ var ChangePassword = /** @class */ (function (_super) {
                                                 React.createElement("input", { type: "password", className: "form-control", placeholder: "", value: this.state.confirm_password, onChange: this.handleChange, name: "confirm_password", id: "confirm_password", maxLength: 32, required: true }))),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
-                                                React.createElement("input", { type: "submit", value: "Change password", className: "btn btn-primary py-3 px-5" }))))))))))));
+                                                React.createElement(Translate, { component: "input", attributes: { value: 'user.ChangePassword', }, type: "submit", className: "btn btn-primary py-3 px-5" }))))))))))));
     };
     return ChangePassword;
 }(React.Component));
@@ -2411,10 +2413,11 @@ var Search = /** @class */ (function (_super) {
                                                         React.createElement(Translate, { content: 'search.BuyNow' }),
                                                         React.createElement("span", null,
                                                             React.createElement("i", { className: "ion-ios-cart ml-1" })))))))); })),
-                                    React.createElement("div", { className: "row mt-5" },
-                                        React.createElement("div", { className: "col text-center" },
-                                            React.createElement("div", { className: "block-27" },
-                                                React.createElement(react_js_pagination_1.default, { hideDisabled: true, activePage: this.state.activePage, itemsCountPerPage: this.state.itemsPerPage, totalItemsCount: this.state.totalItemsCount, pageRangeDisplayed: 5, onChange: this.handlePageChange }))))),
+                                    React.createElement("div", { className: "offset-3 col-md-6" },
+                                        React.createElement("div", { className: "row mt-5" },
+                                            React.createElement("div", { className: "col text-center" },
+                                                React.createElement("div", { className: "block-27" },
+                                                    React.createElement(react_js_pagination_1.default, { hideDisabled: true, activePage: this.state.activePage, itemsCountPerPage: this.state.itemsPerPage, totalItemsCount: this.state.totalItemsCount, pageRangeDisplayed: 5, onChange: this.handlePageChange })))))),
                                 React.createElement("div", { className: "col-md-4 col-lg-2" },
                                     React.createElement("div", { className: "sidebar" },
                                         React.createElement("div", { className: "sidebar-box-2" },
@@ -3214,7 +3217,8 @@ __webpack_require__.r(__webpack_exports__);
         ChangePassword: 'Change password',
         NewPassword: 'New Password',
         ConfirmPassword: 'Confirm Password',
-        RecoverPassword: 'Recover password'
+        RecoverPassword: 'Recover password',
+        ChangePassword: 'Change password'
     },
 
     product: {
@@ -3363,7 +3367,8 @@ __webpack_require__.r(__webpack_exports__);
         ChangePassword: 'Cambia password',
         NewPassword: 'Nuova password',
         ConfirmPassword: 'Conferma password',
-        RecoverPassword: 'Ripristina password'
+        RecoverPassword: 'Ripristina password',
+        ChangePassword: 'Cambia la password'
     },
 
     product: {
@@ -3512,7 +3517,8 @@ __webpack_require__.r(__webpack_exports__);
         ChangePassword: 'Schimbă parola',
         NewPassword: 'Parolă nouă',
         ConfirmPassword: 'Confirmă parola',
-        RecoverPassword: 'Recuperare parolă'
+        RecoverPassword: 'Recuperare parolă',
+        ChangePassword: 'Schimbați parola'
     },
 
     product: {

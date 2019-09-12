@@ -113,7 +113,7 @@ export class ChangePassword extends React.Component<any, any> {
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group">
-                                                    <input type="submit" value="Change password" className="btn btn-primary py-3 px-5" />
+                                                    <Translate component="input" attributes={{ value: 'user.ChangePassword', }} type="submit" className="btn btn-primary py-3 px-5" />
                                                 </div>
                                             </div>
                                         </div>
