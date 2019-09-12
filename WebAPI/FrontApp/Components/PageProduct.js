@@ -21,6 +21,8 @@ var Translate = require("react-translate-component");
 var en_1 = require("./languages/en");
 var it_1 = require("./languages/it");
 var ro_1 = require("./languages/ro");
+var react_image_gallery_1 = require("react-image-gallery");
+require("react-image-gallery/styles/css/image-gallery.css");
 var config = require('config');
 var API_Path = config.API_Path;
 var axios = require('axios');
@@ -62,7 +64,6 @@ var Product = /** @class */ (function (_super) {
             .then(function (response) {
             var dictionary = _this.state.imageDictionary;
             _this.setState({ isLoaded: true, item: response.data, imageDictionary: dictionary });
-            //     this.getImageForProduct(response.data.productId);
         })
             .catch(function (error) {
             _this.setState({ isLoaded: true, error: error });
@@ -128,6 +129,8 @@ var Product = /** @class */ (function (_super) {
             return React.createElement("div", { className: "loading" }, "Loading\u2026");
         }
         else {
+            var images_1 = [];
+            item.Image.map(function (img, i) { return (images_1.push({ original: img, thumbnail: img })); });
             return (React.createElement("div", null,
                 React.createElement(Header_1.Header, { langaugeChanged: this.langaugeChanged }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
@@ -139,8 +142,7 @@ var Product = /** @class */ (function (_super) {
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row" },
                             React.createElement("div", { className: "col-lg-6 mb-5" },
-                                React.createElement("a", { href: item.Image, className: "image-popup prod-img-bg" },
-                                    React.createElement("img", { src: item.Image, className: "img-fluid", alt: "..." }))),
+                                React.createElement(react_image_gallery_1.default, { items: images_1, showPlayButton: false, showFullscreenButton: false, showNav: false, autoPlay: true })),
                             React.createElement("div", { className: "col-lg-6 product-details pl-md-5" },
                                 React.createElement("h3", null, item.Name),
                                 React.createElement("p", { className: "price" },
@@ -152,12 +154,10 @@ var Product = /** @class */ (function (_super) {
                                     React.createElement("div", { className: "w-100" }),
                                     React.createElement("div", { className: "input-group col-md-6 d-flex mb-3" },
                                         React.createElement("span", { className: "input-group-btn mr-2" },
-                                            React.createElement("button", { type: "button", className: "quantity-left-minus btn", "data-type": "minus", "data-field": "", onClick: this.decreaseQuantity },
-                                                React.createElement("i", { className: "ion-ios-remove" }))),
+                                            React.createElement("button", { type: "button", className: "quantity-left-minus btn", "data-type": "minus", "data-field": "", onClick: this.decreaseQuantity }, "-")),
                                         React.createElement("input", { type: "text", id: "quantity", name: "quantity", className: "quantity form-control input-number", min: "1", max: "100", value: quantity, onChange: this.handleChange }),
                                         React.createElement("span", { className: "input-group-btn ml-2" },
-                                            React.createElement("button", { type: "button", className: "quantity-right-plus btn", "data-type": "plus", "data-field": "", onClick: this.increaseQuantity },
-                                                React.createElement("i", { className: "ion-ios-add" })))),
+                                            React.createElement("button", { type: "button", className: "quantity-right-plus btn", "data-type": "plus", "data-field": "", onClick: this.increaseQuantity }, "+"))),
                                     React.createElement("div", { className: "w-100" }),
                                     React.createElement("div", { className: "col-md-12" },
                                         React.createElement("p", { onClick: function () { return _this.addProductToCart(item.ProductId, quantity); } },

@@ -26,11 +26,13 @@ export class AddProduct extends React.Component<any, any> {
         dictionary.Add(props.Active, 'cta cta-colored');
 
         counterpart.setLocale(read_cookie('lang'));
-        this.state = { name: '', price: '', file: null, description: '', gender: '', type: '', image: '', api_response: '', loggedIn: false, headerDictionary: dictionary, waitingResponse: false, language: read_cookie('lang') };
+        this.state = { name: '', price: '', file1: null, file2: null,file3: null, description: '', gender: '', type: '', image: '', api_response: '', loggedIn: false, headerDictionary: dictionary, waitingResponse: false, language: read_cookie('lang') };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleFileChange = this.handleFileChange.bind(this);
+        this.handleFileChange1 = this.handleFileChange1.bind(this);
+        this.handleFileChange2 = this.handleFileChange2.bind(this);
+        this.handleFileChange3 = this.handleFileChange3.bind(this);
         this.langaugeChanged = this.langaugeChanged.bind(this);
     }
 
@@ -38,8 +40,16 @@ export class AddProduct extends React.Component<any, any> {
         this.setState({ [event.target.name]: event.target.value });
     }
 
-    handleFileChange(event) {
-        this.setState({ file: event.target.files[0] });
+    handleFileChange1(event) {
+        this.setState({ file1: event.target.files[0] });
+    }
+
+    handleFileChange2(event) {
+        this.setState({ file2: event.target.files[0] });
+    }
+
+    handleFileChange3(event) {
+        this.setState({ file3: event.target.files[0] });
     }
 
     handleSubmit(event) {
@@ -50,7 +60,9 @@ export class AddProduct extends React.Component<any, any> {
         }
 
         let formData = new FormData();
-        formData.append('Image', this.state.file);
+        formData.append('Image1', this.state.file1);
+        formData.append('Image2', this.state.file2);
+        formData.append('Image3', this.state.file3);
         formData.append('data', JSON.stringify({ name: this.state.name, price: this.state.price, description: this.state.description, gender: this.state.gender, type: this.state.type }));
 
         const config = {
@@ -119,9 +131,22 @@ export class AddProduct extends React.Component<any, any> {
                                             </div>
                                             <div className="col-md-12">
                                                 <div className="form-group">
-                                                    <input type="file" onChange={this.handleFileChange} accept="image/*" required />
+                                                    <input type="file" onChange={this.handleFileChange1} accept="image/*" required />
                                                 </div>
                                             </div> 
+
+                                            <div className="col-md-12">
+                                                <div className="form-group">
+                                                    <input type="file" onChange={this.handleFileChange2} accept="image/*" required />
+                                                </div>
+                                            </div> 
+
+                                            <div className="col-md-12">
+                                                <div className="form-group">
+                                                    <input type="file" onChange={this.handleFileChange3} accept="image/*" required />
+                                                </div>
+                                            </div> 
+
                                             <div className="w-100"></div>
                                             <div className="col-md-6">
                                                 <div className="form-group">

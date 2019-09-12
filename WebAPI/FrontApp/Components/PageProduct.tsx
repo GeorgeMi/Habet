@@ -7,6 +7,8 @@ import * as Translate from 'react-translate-component';
 import en from './languages/en';
 import it from './languages/it';
 import ro from './languages/ro';
+import ImageGallery from 'react-image-gallery';
+import 'react-image-gallery/styles/css/image-gallery.css';
 
 var config = require('config');
 var API_Path = config.API_Path;
@@ -42,8 +44,6 @@ export class Product extends React.Component<any, any>
             .then((response) => {
                 var dictionary = this.state.imageDictionary;
                 this.setState({ isLoaded: true, item: response.data, imageDictionary: dictionary });
-
-           //     this.getImageForProduct(response.data.productId);
             })
             .catch((error) => {
                 this.setState({ isLoaded: true, error });
@@ -119,7 +119,7 @@ export class Product extends React.Component<any, any>
     }
 
     render() {
-        const { error, isLoaded, item, quantity } = this.state;
+        const { error, isLoaded, item, quantity } = this.state;     
 
         if (error) {
             return (
@@ -140,6 +140,10 @@ export class Product extends React.Component<any, any>
             return <div className="loading">Loading&#8230;</div>;
 
         } else {
+
+            const images = [ ];
+            item.Image.map((img, i) => (images.push({ original: img, thumbnail: img })));
+            
             return (
                 <div>
                     <Header langaugeChanged={this.langaugeChanged}/>
@@ -156,7 +160,7 @@ export class Product extends React.Component<any, any>
                         <div className="container">
                             <div className="row">
                                 <div className="col-lg-6 mb-5">
-                                    <a href={item.Image} className="image-popup prod-img-bg"><img src={item.Image} className="img-fluid" alt="..." /></a>
+                                    <ImageGallery items={images} showPlayButton={false} showFullscreenButton={false} showNav={false} autoPlay={true} />
                                 </div>
                                 <div className="col-lg-6 product-details pl-md-5">
                                     <h3>{item.Name}</h3>
@@ -167,13 +171,13 @@ export class Product extends React.Component<any, any>
                                         <div className="input-group col-md-6 d-flex mb-3">
                                             <span className="input-group-btn mr-2">
                                                 <button type="button" className="quantity-left-minus btn" data-type="minus" data-field="" onClick={this.decreaseQuantity}>
-                                                    <i className="ion-ios-remove"></i>
+                                                   -
                                                 </button>
                                             </span>
                                             <input type="text" id="quantity" name="quantity" className="quantity form-control input-number" min="1" max="100" value={quantity} onChange={this.handleChange} />
                                             <span className="input-group-btn ml-2">
                                                 <button type="button" className="quantity-right-plus btn" data-type="plus" data-field="" onClick={this.increaseQuantity}>
-                                                    <i className="ion-ios-add"></i>
+                                                   +
                                                 </button>
                                             </span>
                                         </div>
@@ -186,6 +190,9 @@ export class Product extends React.Component<any, any>
                             </div>
                         </div>
                     </section>
+
+                   
+
                 </div>
             );
         }

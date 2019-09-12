@@ -37,10 +37,12 @@ var AddProduct = /** @class */ (function (_super) {
         var dictionary = new Dictionary_1.KeyedCollection();
         dictionary.Add(props.Active, 'cta cta-colored');
         counterpart.setLocale(sfcookies_1.read_cookie('lang'));
-        _this.state = { name: '', price: '', file: null, description: '', gender: '', type: '', image: '', api_response: '', loggedIn: false, headerDictionary: dictionary, waitingResponse: false, language: sfcookies_1.read_cookie('lang') };
+        _this.state = { name: '', price: '', file1: null, file2: null, file3: null, description: '', gender: '', type: '', image: '', api_response: '', loggedIn: false, headerDictionary: dictionary, waitingResponse: false, language: sfcookies_1.read_cookie('lang') };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
-        _this.handleFileChange = _this.handleFileChange.bind(_this);
+        _this.handleFileChange1 = _this.handleFileChange1.bind(_this);
+        _this.handleFileChange2 = _this.handleFileChange2.bind(_this);
+        _this.handleFileChange3 = _this.handleFileChange3.bind(_this);
         _this.langaugeChanged = _this.langaugeChanged.bind(_this);
         return _this;
     }
@@ -48,8 +50,14 @@ var AddProduct = /** @class */ (function (_super) {
         var _a;
         this.setState((_a = {}, _a[event.target.name] = event.target.value, _a));
     };
-    AddProduct.prototype.handleFileChange = function (event) {
-        this.setState({ file: event.target.files[0] });
+    AddProduct.prototype.handleFileChange1 = function (event) {
+        this.setState({ file1: event.target.files[0] });
+    };
+    AddProduct.prototype.handleFileChange2 = function (event) {
+        this.setState({ file2: event.target.files[0] });
+    };
+    AddProduct.prototype.handleFileChange3 = function (event) {
+        this.setState({ file3: event.target.files[0] });
     };
     AddProduct.prototype.handleSubmit = function (event) {
         var _this = this;
@@ -58,7 +66,9 @@ var AddProduct = /** @class */ (function (_super) {
             this.setState({ waitingResponse: true });
         }
         var formData = new FormData();
-        formData.append('Image', this.state.file);
+        formData.append('Image1', this.state.file1);
+        formData.append('Image2', this.state.file2);
+        formData.append('Image3', this.state.file3);
         formData.append('data', JSON.stringify({ name: this.state.name, price: this.state.price, description: this.state.description, gender: this.state.gender, type: this.state.type }));
         var config = {
             headers: { token: sfcookies_1.read_cookie('token') }
@@ -113,7 +123,13 @@ var AddProduct = /** @class */ (function (_super) {
                                                 React.createElement("textarea", { className: "form-control", value: this.state.description, onChange: this.handleChange, name: "description", id: "description", required: true }))),
                                         React.createElement("div", { className: "col-md-12" },
                                             React.createElement("div", { className: "form-group" },
-                                                React.createElement("input", { type: "file", onChange: this.handleFileChange, accept: "image/*", required: true }))),
+                                                React.createElement("input", { type: "file", onChange: this.handleFileChange1, accept: "image/*", required: true }))),
+                                        React.createElement("div", { className: "col-md-12" },
+                                            React.createElement("div", { className: "form-group" },
+                                                React.createElement("input", { type: "file", onChange: this.handleFileChange2, accept: "image/*", required: true }))),
+                                        React.createElement("div", { className: "col-md-12" },
+                                            React.createElement("div", { className: "form-group" },
+                                                React.createElement("input", { type: "file", onChange: this.handleFileChange3, accept: "image/*", required: true }))),
                                         React.createElement("div", { className: "w-100" }),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },

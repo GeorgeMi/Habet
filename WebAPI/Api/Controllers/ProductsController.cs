@@ -53,7 +53,7 @@ namespace Api.Controllers
                     Name = product.Name,
                     Price = product.Price,
                     ProductId = product.ProductId,
-                    Image = new ProductsImagesController().GetProductsImages(product.ProductId)
+                    Image = new ProductsImagesController().GetProductsImage(product.ProductId)
                 });
             }
 
@@ -121,7 +121,7 @@ namespace Api.Controllers
                     Name = product.Name,
                     Price = product.Price,
                     ProductId = product.ProductId,
-                    Image = new ProductsImagesController().GetProductsImages(product.ProductId)
+                    Image = new ProductsImagesController().GetProductsImage(product.ProductId)
                 });
             }
 
@@ -162,7 +162,7 @@ namespace Api.Controllers
                     Name = product.Name,
                     Price = product.Price,
                     ProductId = product.ProductId,
-                    Image = new ProductsImagesController().GetProductsImages(product.ProductId)
+                    Image = new ProductsImagesController().GetProductsImage(product.ProductId)
                 });
             }
 
@@ -225,31 +225,33 @@ namespace Api.Controllers
 
                 db.SaveChanges();
 
-                var postedFile = httpRequest.Files[0];
-                
-                Stream fs = postedFile.InputStream;
-                BinaryReader br = new BinaryReader(fs);
-                var bytes = br.ReadBytes((int)fs.Length);
-                using (Stream memStream = new MemoryStream(bytes))
+                foreach (string fileName in httpRequest.Files)
                 {
-                    using (Image img = Image.FromStream(memStream))
+                    var postedFile = httpRequest.Files[fileName];
+                    Stream fs = postedFile.InputStream;
+                    BinaryReader br = new BinaryReader(fs);
+                    var bytes = br.ReadBytes((int)fs.Length);
+                    using (Stream memStream = new MemoryStream(bytes))
                     {
-                        ProductsImages imageEntity = new ProductsImages()
+                        using (Image img = Image.FromStream(memStream))
                         {
-                            Id = Guid.NewGuid(),
-                            Name = Encoding.ASCII.GetBytes(postedFile.FileName),
-                            Data = bytes,
-                            Width = img.Width,
-                            Height = img.Height,
-                            Length = bytes.Length,
-                            ContentType = postedFile.ContentType,
-                            ProductId = productToAdd.ProductId
-                        };
+                            ProductsImages imageEntity = new ProductsImages()
+                            {
+                                Id = Guid.NewGuid(),
+                                Name = Encoding.ASCII.GetBytes(postedFile.FileName),
+                                Data = bytes,
+                                Width = img.Width,
+                                Height = img.Height,
+                                Length = bytes.Length,
+                                ContentType = postedFile.ContentType,
+                                ProductId = productToAdd.ProductId
+                            };
 
-                        db.ProductsImages.Add(imageEntity);
+                            db.ProductsImages.Add(imageEntity);
+                        }
+
+                        db.SaveChanges();
                     }
-
-                    db.SaveChanges();
                 }
             }
             catch (DbUpdateException)
