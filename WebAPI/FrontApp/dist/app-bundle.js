@@ -397,13 +397,24 @@ var Header = /** @class */ (function (_super) {
         })
             .then();
     };
+    Header.prototype.readCartFromCookie = function (cookie) {
+        var cartProducts = new Dictionary_1.KeyedCollection();
+        for (var prop in cookie.items) {
+            cartProducts.Add(parseInt(prop, 10), parseInt(cookie.items[prop], 10));
+        }
+        return cartProducts;
+    };
     Header.prototype.signOut = function () {
         sfcookies_1.delete_cookie('token');
         window.location.reload();
     };
     Header.prototype.render = function () {
         var _a = this.state, headerDictionary = _a.headerDictionary, loggedIn = _a.loggedIn, api_response = _a.api_response;
-        var cartItemNumber = sfcookies_1.read_cookie('cartProducts').count;
+        var cartProducts = this.readCartFromCookie(sfcookies_1.read_cookie('cartProducts'));
+        var cartItemNumber = 0;
+        if (cartProducts.Count() > 0) {
+            cartItemNumber = cartProducts.Values().reduce(function (result, number) { return result + number; });
+        }
         return (React.createElement("div", null,
             React.createElement(react_notifications_1.NotificationContainer, null),
             React.createElement("nav", { className: "navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light", id: "ftco-navbar" },
@@ -420,20 +431,20 @@ var Header = /** @class */ (function (_super) {
                                 React.createElement("a", { href: "/", className: "nav-link" },
                                     React.createElement(Translate, { content: "nav.Home" }))),
                             React.createElement("li", { className: "nav-item dropdown " + headerDictionary.Item('Women') },
-                                React.createElement(react_router_hash_link_1.HashLink, { className: "nav-link dropdown-toggle", to: "#Women-section", id: "dropdown04", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
+                                React.createElement(react_router_hash_link_1.HashLink, { className: "nav-link dropdown-toggle", to: "/#Women-section", id: "dropdown04", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
                                     React.createElement(Translate, { content: "nav.Women" })),
                                 React.createElement("div", { className: "dropdown-content", "aria-labelledby": "dropdown04" },
-                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "#Women-Bags-section" },
+                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Women-Bags-section" },
                                         React.createElement(Translate, { content: "nav.Bags" })),
-                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "#Women-Belts-section" },
+                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Women-Belts-section" },
                                         React.createElement(Translate, { content: "nav.Belts" })))),
                             React.createElement("li", { className: "nav-item dropdown " + headerDictionary.Item('Men') },
-                                React.createElement(react_router_hash_link_1.HashLink, { className: "nav-link dropdown-toggle", to: "#Men-section", id: "dropdown04", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
+                                React.createElement(react_router_hash_link_1.HashLink, { className: "nav-link dropdown-toggle", to: "/#Men-section", id: "dropdown04", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
                                     React.createElement(Translate, { content: "nav.Men" })),
                                 React.createElement("div", { className: "dropdown-content", "aria-labelledby": "dropdown04" },
-                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "#Men-Bags-section" },
+                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Men-Bags-section" },
                                         React.createElement(Translate, { content: "nav.Bags" })),
-                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "#Men-Belts-section" },
+                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Men-Belts-section" },
                                         React.createElement(Translate, { content: "nav.Belts" })))),
                             React.createElement("li", { className: "nav-item " + headerDictionary.Item('Search') },
                                 React.createElement("a", { href: "/#/search", className: "nav-link" },
@@ -636,7 +647,7 @@ var AddProduct = /** @class */ (function (_super) {
                                             React.createElement("div", { className: "form-group" },
                                                 React.createElement("label", { htmlFor: "description" },
                                                     React.createElement(Translate, { content: 'product.Description' })),
-                                                React.createElement("textarea", { className: "form-control", value: this.state.description, onChange: this.handleChange, name: "description", id: "description", required: true }))),
+                                                React.createElement("textarea", { className: "form-control", value: this.state.description, onChange: this.handleChange, name: "description", id: "description", rows: 10, style: { resize: 'vertical' }, required: true }))),
                                         React.createElement("div", { className: "col-md-12" },
                                             React.createElement("div", { className: "form-group" },
                                                 React.createElement("input", { type: "file", onChange: this.handleFileChange1, accept: "image/*", required: true }))),
@@ -710,6 +721,7 @@ var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Diction
 var sfcookies_1 = __webpack_require__(/*! sfcookies */ "./node_modules/sfcookies/index.js");
 var react_router_hash_link_1 = __webpack_require__(/*! react-router-hash-link */ "./node_modules/react-router-hash-link/lib/index.js");
 var Translate = __webpack_require__(/*! react-translate-component */ "./node_modules/react-translate-component/index.js");
+var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 var en_1 = __webpack_require__(/*! ./languages/en */ "./Components/languages/en.js");
 var it_1 = __webpack_require__(/*! ./languages/it */ "./Components/languages/it.js");
 var ro_1 = __webpack_require__(/*! ./languages/ro */ "./Components/languages/ro.js");
@@ -826,9 +838,20 @@ var Cart = /** @class */ (function (_super) {
                 error.message);
         }
         else if (!isLoaded) {
-            return React.createElement("div", null);
+            return (React.createElement("div", null,
+                React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
+                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                    React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
+                        React.createElement("div", { className: "col-md-12 heading-section text-center" },
+                            React.createElement("h1", { className: "mb-4" },
+                                React.createElement(Translate, { content: 'checkout.Checkout' }))))),
+                React.createElement("div", { className: "loading" }, "Loading\u2026"),
+                ";"));
         }
         else {
+            if (sfcookies_1.read_cookie('token') == null || sfcookies_1.read_cookie('token').length == 0) {
+                return React.createElement(react_router_dom_1.Redirect, { to: '/#/' });
+            }
             return (React.createElement("div", null,
                 React.createElement(Header_1.Header, { Active: 'Cart', reloadPage: this.reloadPage }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
@@ -1059,6 +1082,7 @@ var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
 var sfcookies_1 = __webpack_require__(/*! sfcookies */ "./node_modules/sfcookies/index.js");
 var react_notifications_1 = __webpack_require__(/*! react-notifications */ "./node_modules/react-notifications/lib/index.js");
 __webpack_require__(/*! react-notifications/lib/notifications.css */ "./node_modules/react-notifications/lib/notifications.css");
+var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 var Translate = __webpack_require__(/*! react-translate-component */ "./node_modules/react-translate-component/index.js");
 var en_1 = __webpack_require__(/*! ./languages/en */ "./Components/languages/en.js");
 var it_1 = __webpack_require__(/*! ./languages/it */ "./Components/languages/it.js");
@@ -1196,6 +1220,9 @@ var Checkout = /** @class */ (function (_super) {
                     ";")));
         }
         else {
+            if (sfcookies_1.read_cookie('token') == null || sfcookies_1.read_cookie('token').length == 0) {
+                return React.createElement(react_router_dom_1.Redirect, { to: '/#/' });
+            }
             return (React.createElement("main", { id: "main" },
                 React.createElement("div", null,
                     React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
@@ -1733,6 +1760,7 @@ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
 var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
 var sfcookies_1 = __webpack_require__(/*! sfcookies */ "./node_modules/sfcookies/index.js");
+var react_notifications_1 = __webpack_require__(/*! react-notifications */ "./node_modules/react-notifications/lib/index.js");
 var Translate = __webpack_require__(/*! react-translate-component */ "./node_modules/react-translate-component/index.js");
 var en_1 = __webpack_require__(/*! ./languages/en */ "./Components/languages/en.js");
 var it_1 = __webpack_require__(/*! ./languages/it */ "./Components/languages/it.js");
@@ -1767,6 +1795,8 @@ var Product = /** @class */ (function (_super) {
         _this.getImageForProduct = _this.getImageForProduct.bind(_this);
         _this.handleChange = _this.handleChange.bind(_this);
         _this.reloadPage = _this.reloadPage.bind(_this);
+        _this.addProductToCart = _this.addProductToCart.bind(_this);
+        _this.buyProduct = _this.buyProduct.bind(_this);
         return _this;
     }
     Product.prototype.componentWillMount = function () {
@@ -1812,20 +1842,35 @@ var Product = /** @class */ (function (_super) {
         return cartProducts;
     };
     Product.prototype.addProductToCart = function (productId, no) {
-        var cookie = sfcookies_1.read_cookie('cartProducts');
-        if (cookie.length == 0) {
-            var cartProducts = new Dictionary_1.KeyedCollection();
+        if (sfcookies_1.read_cookie('token') == null || sfcookies_1.read_cookie('token').length == 0) {
+            react_notifications_1.NotificationManager.info("Please login in order to add products to cart.");
         }
         else {
-            var cartProducts = this.readCartFromCookie(cookie);
-            if (cartProducts.ContainsKey(productId)) {
-                no = no + cartProducts.Item(productId);
-                cartProducts.Remove(productId);
+            var cookie = sfcookies_1.read_cookie('cartProducts');
+            if (cookie.length == 0) {
+                var cartProducts = new Dictionary_1.KeyedCollection();
             }
+            else {
+                var cartProducts = this.readCartFromCookie(cookie);
+                if (cartProducts.ContainsKey(productId)) {
+                    no = no + cartProducts.Item(productId);
+                    cartProducts.Remove(productId);
+                }
+            }
+            cartProducts.Add(productId, no);
+            sfcookies_1.delete_cookie('cartProducts');
+            sfcookies_1.bake_cookie('cartProducts', cartProducts);
+            this.setState({ state: this.state });
         }
-        cartProducts.Add(productId, no);
-        sfcookies_1.delete_cookie('cartProducts');
-        sfcookies_1.bake_cookie('cartProducts', cartProducts);
+    };
+    Product.prototype.buyProduct = function (productId) {
+        if (sfcookies_1.read_cookie('token') == null || sfcookies_1.read_cookie('token').length == 0) {
+            react_notifications_1.NotificationManager.info("Please login in order to add products to cart.");
+        }
+        else {
+            this.addProductToCart(productId, 1);
+            document.location.href = "/#/cart";
+        }
     };
     Product.prototype.reloadPage = function () {
         window.location.reload(false);
@@ -1888,7 +1933,7 @@ var Product = /** @class */ (function (_super) {
                                         React.createElement("p", { onClick: function () { return _this.addProductToCart(item.ProductId, quantity); } },
                                             React.createElement("a", { className: "btn btn-black py-3 px-5 mr-2" },
                                                 React.createElement(Translate, { content: 'product.AddToCart' })),
-                                            React.createElement("a", { href: "", className: "btn btn-primary py-3 px-5" },
+                                            React.createElement("a", { href: "javascript:void(0)", onClick: function () { return _this.buyProduct(item.ProductId); }, className: "btn btn-primary py-3 px-5" },
                                                 React.createElement(Translate, { content: 'product.BuyNow' })))))))))));
         }
     };
@@ -2302,6 +2347,8 @@ var Search = /** @class */ (function (_super) {
         _this.reloadPage = _this.reloadPage.bind(_this);
         _this.handlePageChange = _this.handlePageChange.bind(_this);
         _this.searchProducts = _this.searchProducts.bind(_this);
+        _this.addProductToCart = _this.addProductToCart.bind(_this);
+        _this.buyProduct = _this.buyProduct.bind(_this);
         return _this;
     }
     Search.prototype.componentWillMount = function () {
@@ -2388,20 +2435,35 @@ var Search = /** @class */ (function (_super) {
         this.searchProducts(1);
     };
     Search.prototype.addProductToCart = function (productId, no) {
-        var cookie = sfcookies_1.read_cookie('cartProducts');
-        if (cookie.length == 0) {
-            var cartProducts = new Dictionary_1.KeyedCollection();
+        if (sfcookies_1.read_cookie('token') == null || sfcookies_1.read_cookie('token').length == 0) {
+            react_notifications_1.NotificationManager.info("Please login in order to add products to cart.");
         }
         else {
-            var cartProducts = this.readCartFromCookie(cookie);
-            if (cartProducts.ContainsKey(productId)) {
-                no = no + cartProducts.Item(productId);
-                cartProducts.Remove(productId);
+            var cookie = sfcookies_1.read_cookie('cartProducts');
+            if (cookie.length == 0) {
+                var cartProducts = new Dictionary_1.KeyedCollection();
             }
+            else {
+                var cartProducts = this.readCartFromCookie(cookie);
+                if (cartProducts.ContainsKey(productId)) {
+                    no = no + cartProducts.Item(productId);
+                    cartProducts.Remove(productId);
+                }
+            }
+            cartProducts.Add(productId, no);
+            sfcookies_1.delete_cookie('cartProducts');
+            sfcookies_1.bake_cookie('cartProducts', cartProducts);
+            this.setState({ state: this.state });
         }
-        cartProducts.Add(productId, no);
-        sfcookies_1.delete_cookie('cartProducts');
-        sfcookies_1.bake_cookie('cartProducts', cartProducts);
+    };
+    Search.prototype.buyProduct = function (productId) {
+        if (sfcookies_1.read_cookie('token') == null || sfcookies_1.read_cookie('token').length == 0) {
+            react_notifications_1.NotificationManager.info("Please login in order to add products to cart.");
+        }
+        else {
+            this.addProductToCart(productId, 1);
+            document.location.href = "/#/cart";
+        }
     };
     Search.prototype.reloadPage = function () {
         window.location.reload(false);
@@ -2453,12 +2515,12 @@ var Search = /** @class */ (function (_super) {
                                                     React.createElement("p", { className: "price" },
                                                         React.createElement("span", null, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign))),
                                                 React.createElement("p", { className: "bottom-area d-flex px-3" },
-                                                    React.createElement("a", { href: "#", className: "add-to-cart text-center py-2 mr-1", onClick: function () { return _this.addProductToCart(item.ProductId, 1); } },
+                                                    React.createElement("a", { href: "javascript:void(0)", className: "add-to-cart text-center py-2 mr-1", onClick: function () { return _this.addProductToCart(item.ProductId, 1); } },
                                                         React.createElement("span", null,
                                                             React.createElement(Translate, { content: 'search.AddToCart' }),
                                                             " ",
                                                             React.createElement("i", { className: "ion-ios-add ml-1" }))),
-                                                    React.createElement("a", { href: "#", className: "buy-now text-center py-2" },
+                                                    React.createElement("a", { href: "javascript:void(0)", onClick: function () { return _this.buyProduct(item.ProductId); }, className: "buy-now text-center py-2" },
                                                         React.createElement(Translate, { content: 'search.BuyNow' }),
                                                         React.createElement("span", null,
                                                             React.createElement("i", { className: "ion-ios-cart ml-1" })))))))); })),
@@ -3042,6 +3104,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
 var sfcookies_1 = __webpack_require__(/*! sfcookies */ "./node_modules/sfcookies/index.js");
+var react_notifications_1 = __webpack_require__(/*! react-notifications */ "./node_modules/react-notifications/lib/index.js");
 var Translate = __webpack_require__(/*! react-translate-component */ "./node_modules/react-translate-component/index.js");
 var en_1 = __webpack_require__(/*! ./languages/en */ "./Components/languages/en.js");
 var it_1 = __webpack_require__(/*! ./languages/it */ "./Components/languages/it.js");
@@ -3059,6 +3122,8 @@ var SectionProducts = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         counterpart.setLocale(sfcookies_1.read_cookie('lang'));
         _this.state = { isLoaded: false, items: null, error: null, gender: props.Gender, type: props.Type, language: sfcookies_1.read_cookie('lang'), currency: sfcookies_1.read_cookie('currency') };
+        _this.addProductToCart = _this.addProductToCart.bind(_this);
+        _this.buyProduct = _this.buyProduct.bind(_this);
         return _this;
     }
     SectionProducts.prototype.componentWillMount = function () {
@@ -3090,20 +3155,35 @@ var SectionProducts = /** @class */ (function (_super) {
         return cartProducts;
     };
     SectionProducts.prototype.addProductToCart = function (productId, no) {
-        var cookie = sfcookies_1.read_cookie('cartProducts');
-        if (cookie.length == 0) {
-            var cartProducts = new Dictionary_1.KeyedCollection();
+        if (sfcookies_1.read_cookie('token') == null || sfcookies_1.read_cookie('token').length == 0) {
+            react_notifications_1.NotificationManager.info("Please login in order to add products to cart.");
         }
         else {
-            var cartProducts = this.readCartFromCookie(cookie);
-            if (cartProducts.ContainsKey(productId)) {
-                no = no + cartProducts.Item(productId);
-                cartProducts.Remove(productId);
+            var cookie = sfcookies_1.read_cookie('cartProducts');
+            if (cookie.length == 0) {
+                var cartProducts = new Dictionary_1.KeyedCollection();
             }
+            else {
+                var cartProducts = this.readCartFromCookie(cookie);
+                if (cartProducts.ContainsKey(productId)) {
+                    no = no + cartProducts.Item(productId);
+                    cartProducts.Remove(productId);
+                }
+            }
+            cartProducts.Add(productId, no);
+            sfcookies_1.delete_cookie('cartProducts');
+            sfcookies_1.bake_cookie('cartProducts', cartProducts);
+            this.setState({ state: this.state });
         }
-        cartProducts.Add(productId, no);
-        sfcookies_1.delete_cookie('cartProducts');
-        sfcookies_1.bake_cookie('cartProducts', cartProducts);
+    };
+    SectionProducts.prototype.buyProduct = function (productId) {
+        if (sfcookies_1.read_cookie('token') == null || sfcookies_1.read_cookie('token').length == 0) {
+            react_notifications_1.NotificationManager.info("Please login in order to add products to cart.");
+        }
+        else {
+            this.addProductToCart(productId, 1);
+            document.location.href = "/#/cart";
+        }
     };
     SectionProducts.prototype.render = function () {
         var _this = this;
@@ -3130,13 +3210,13 @@ var SectionProducts = /** @class */ (function (_super) {
         else {
             return (React.createElement("div", null,
                 React.createElement("div", { className: "container" },
-                    React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
-                        React.createElement("div", { className: "col-md-12 heading-section text-center" },
+                    React.createElement("div", { className: "jumbotron", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url('images/banner_" + gender + "_" + type + ".jpg')" } },
+                        React.createElement("div", { className: "col-md-12 heading-section text-center", style: { fontFamily: 'Brush Script St', opacity: 1 } },
                             type == 'Bags' ? React.createElement("h2", { className: "mb-4", id: gender + "-section" },
-                                React.createElement(Translate, { content: 'products.' + gender })) : React.createElement("div", null),
-                            React.createElement("p", { id: gender + "-" + type + "-section" },
-                                React.createElement(Translate, { content: 'products.' + type }))))),
-                React.createElement("div", { className: "container" },
+                                React.createElement(Translate, { content: 'products.' + gender })) : React.createElement("h2", { className: "mb-4", id: gender + "-section", style: { opacity: 0 } },
+                                React.createElement(Translate, { content: 'products.' + gender })),
+                            React.createElement("h2", { id: gender + "-" + type + "-section" },
+                                React.createElement(Translate, { content: 'products.' + type })))),
                     React.createElement("div", { className: "row" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 product-item filter-app wow fadeInUp" },
                         React.createElement("div", { className: "product d-flex flex-column" },
                             React.createElement("a", { href: "/#/item/" + item.ProductId, className: "img-prod" },
@@ -3149,11 +3229,11 @@ var SectionProducts = /** @class */ (function (_super) {
                                     React.createElement("p", { className: "price" },
                                         React.createElement("span", null, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign))),
                                 React.createElement("p", { className: "bottom-area d-flex px-3" },
-                                    React.createElement("a", { href: "#", className: "add-to-cart text-center py-2 mr-1", onClick: function () { return _this.addProductToCart(item.ProductId, 1); } },
+                                    React.createElement("a", { href: "javascript:void(0)", className: "add-to-cart text-center py-2 mr-1", onClick: function () { return _this.addProductToCart(item.ProductId, 1); } },
                                         React.createElement("span", null,
                                             React.createElement(Translate, { content: "products.AddToCart" }),
                                             React.createElement("i", { className: "ion-ios-add ml-1" }))),
-                                    React.createElement("a", { href: "#", className: "buy-now text-center py-2" },
+                                    React.createElement("a", { href: "javascript:void(0)", onClick: function () { return _this.buyProduct(item.ProductId); }, className: "buy-now text-center py-2" },
                                         React.createElement(Translate, { content: "products.BuyNow" }),
                                         React.createElement("span", null,
                                             React.createElement("i", { className: "ion-ios-cart ml-1" })))))))); })))));
@@ -3564,7 +3644,7 @@ __webpack_require__.r(__webpack_exports__);
 
     user: {
         Register: 'Register',
-        LogInDetails: 'Detalii logare”',
+        LogInDetails: 'Detalii logare',
         Email: 'Email',
         Password: 'Parolă',
         PersonalDetails: 'Detalii personale',
@@ -7268,7 +7348,7 @@ module.exports = factory(
 
 exports = module.exports = __webpack_require__(/*! ../../../css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "@charset \"UTF-8\";\r\n/*!\r\n  Ionicons, v2.0.0\r\n  Created by Ben Sperry for the Ionic Framework, http://ionicons.com/\r\n  https://twitter.com/benjsperry  https://twitter.com/ionicframework\r\n  MIT License: https://github.com/driftyco/ionicons\r\n\r\n  Android-style icons originally built by Google’s\r\n  Material Design Icons: https://github.com/google/material-design-icons\r\n  used under CC BY http://creativecommons.org/licenses/by/4.0/\r\n  Modified icons to fit ionicon’s grid from original.\r\n*/\r\n@font-face {\r\n  font-family: \"Ionicons\";\r\n  src: url(\"https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/fonts/ionicons.eot?v=2.0.0\");\r\n  src: url(\"https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/fonts/ionicons.eot?v=2.0.0#iefix\") format(\"embedded-opentype\"), url(\"https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/fonts/ionicons.ttf?v=2.0.0\") format(\"truetype\"), url(\"https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/fonts/ionicons.woff?v=2.0.0\") format(\"woff\"), url(\"https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/fonts/ionicons.svg?v=2.0.0#Ionicons\") format(\"svg\");\r\n  font-weight: normal;\r\n  font-style: normal; }\r\n\r\n.image-gallery-fullscreen-button::before,\r\n.image-gallery-play-button::before,\r\n.image-gallery-left-nav::before,\r\n.image-gallery-right-nav::before {\r\n  display: inline-block;\r\n  font-family: \"Ionicons\";\r\n  speak: none;\r\n  font-style: normal;\r\n  font-weight: normal;\r\n  font-variant: normal;\r\n  text-transform: none;\r\n  text-rendering: auto;\r\n  line-height: 1;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale; }\r\n\r\n.image-gallery {\r\n  -webkit-user-select: none;\r\n  -moz-user-select: none;\r\n  -ms-user-select: none;\r\n  -o-user-select: none;\r\n  user-select: none;\r\n  -webkit-tap-highlight-color: transparent; }\r\n  .image-gallery.fullscreen-modal {\r\n    background: #000;\r\n    bottom: 0;\r\n    height: 100%;\r\n    left: 0;\r\n    position: fixed;\r\n    right: 0;\r\n    top: 0;\r\n    width: 100%;\r\n    z-index: 5; }\r\n    .image-gallery.fullscreen-modal .image-gallery-content {\r\n      top: 50%;\r\n      transform: translateY(-50%); }\r\n\r\n.image-gallery-content {\r\n  position: relative;\r\n  line-height: 0;\r\n  top: 0; }\r\n  .image-gallery-content.fullscreen {\r\n    background: #000; }\r\n    .image-gallery-content.fullscreen .image-gallery-slide {\r\n      background: #000; }\r\n\r\n.image-gallery-slide-wrapper {\r\n  position: relative; }\r\n  .image-gallery-slide-wrapper.left, .image-gallery-slide-wrapper.right {\r\n    display: inline-block;\r\n    width: calc(100% - 113px); }\r\n    @media (max-width: 768px) {\r\n      .image-gallery-slide-wrapper.left, .image-gallery-slide-wrapper.right {\r\n        width: calc(100% - 84px); } }\r\n  .image-gallery-slide-wrapper.image-gallery-rtl {\r\n    direction: rtl; }\r\n\r\n.image-gallery-fullscreen-button,\r\n.image-gallery-play-button,\r\n.image-gallery-left-nav,\r\n.image-gallery-right-nav {\r\n  appearance: none;\r\n  background-color: transparent;\r\n  border: 0;\r\n  cursor: pointer;\r\n  outline: none;\r\n  position: absolute;\r\n  z-index: 4; }\r\n  .image-gallery-fullscreen-button::before,\r\n  .image-gallery-play-button::before,\r\n  .image-gallery-left-nav::before,\r\n  .image-gallery-right-nav::before {\r\n    color: #fff;\r\n    line-height: .7;\r\n    text-shadow: 0 2px 2px #1a1a1a;\r\n    transition: color .2s ease-out; }\r\n  .image-gallery-fullscreen-button:hover::before,\r\n  .image-gallery-play-button:hover::before,\r\n  .image-gallery-left-nav:hover::before,\r\n  .image-gallery-right-nav:hover::before {\r\n    color: #337ab7; }\r\n    @media (max-width: 768px) {\r\n      .image-gallery-fullscreen-button:hover::before,\r\n      .image-gallery-play-button:hover::before,\r\n      .image-gallery-left-nav:hover::before,\r\n      .image-gallery-right-nav:hover::before {\r\n        color: #fff; } }\r\n\r\n.image-gallery-fullscreen-button,\r\n.image-gallery-play-button {\r\n  bottom: 0; }\r\n  .image-gallery-fullscreen-button::before,\r\n  .image-gallery-play-button::before {\r\n    font-size: 2.7em;\r\n    padding: 15px 20px;\r\n    text-shadow: 0 1px 1px #1a1a1a; }\r\n    @media (max-width: 768px) {\r\n      .image-gallery-fullscreen-button::before,\r\n      .image-gallery-play-button::before {\r\n        font-size: 2.4em; } }\r\n    @media (max-width: 480px) {\r\n      .image-gallery-fullscreen-button::before,\r\n      .image-gallery-play-button::before {\r\n        font-size: 2em; } }\r\n  .image-gallery-fullscreen-button:hover::before,\r\n  .image-gallery-play-button:hover::before {\r\n    color: #fff;\r\n    transform: scale(1.1); }\r\n    @media (max-width: 768px) {\r\n      .image-gallery-fullscreen-button:hover::before,\r\n      .image-gallery-play-button:hover::before {\r\n        transform: none; } }\r\n\r\n.image-gallery-fullscreen-button {\r\n  right: 0; }\r\n  .image-gallery-fullscreen-button::before {\r\n    content: \"\"; }\r\n  .image-gallery-fullscreen-button.active::before {\r\n    content: \"\"; }\r\n  .image-gallery-fullscreen-button.active:hover::before {\r\n    transform: scale(0.9); }\r\n\r\n.image-gallery-play-button {\r\n  left: 0; }\r\n  .image-gallery-play-button::before {\r\n    content: \"\"; }\r\n  .image-gallery-play-button.active::before {\r\n    content: \"\"; }\r\n\r\n.image-gallery-left-nav,\r\n.image-gallery-right-nav {\r\n  color: #fff;\r\n  font-size: 5em;\r\n  padding: 50px 15px;\r\n  top: 50%;\r\n  transform: translateY(-50%); }\r\n  .image-gallery-left-nav[disabled],\r\n  .image-gallery-right-nav[disabled] {\r\n    cursor: disabled;\r\n    opacity: .6;\r\n    pointer-events: none; }\r\n  @media (max-width: 768px) {\r\n    .image-gallery-left-nav,\r\n    .image-gallery-right-nav {\r\n      font-size: 3.4em;\r\n      padding: 20px 15px; } }\r\n  @media (max-width: 480px) {\r\n    .image-gallery-left-nav,\r\n    .image-gallery-right-nav {\r\n      font-size: 2.4em;\r\n      padding: 0 15px; } }\r\n\r\n.image-gallery-left-nav {\r\n  left: 0; }\r\n  .image-gallery-left-nav::before {\r\n    content: \"\"; }\r\n\r\n.image-gallery-right-nav {\r\n  right: 0; }\r\n  .image-gallery-right-nav::before {\r\n    content: \"\"; }\r\n\r\n.image-gallery-slides {\r\n  line-height: 0;\r\n  overflow: hidden;\r\n  position: relative;\r\n  white-space: nowrap; }\r\n\r\n.image-gallery-slide {\r\n  background: #fff;\r\n  left: 0;\r\n  position: absolute;\r\n  top: 0;\r\n  width: 100%; }\r\n  .image-gallery-slide.center {\r\n    position: relative; }\r\n  .image-gallery-slide img {\r\n    width: 100%; }\r\n  .image-gallery-slide .image-gallery-description {\r\n    background: rgba(0, 0, 0, 0.4);\r\n    bottom: 70px;\r\n    color: #fff;\r\n    left: 0;\r\n    line-height: 1;\r\n    padding: 10px 20px;\r\n    position: absolute;\r\n    white-space: normal; }\r\n    @media (max-width: 768px) {\r\n      .image-gallery-slide .image-gallery-description {\r\n        bottom: 45px;\r\n        font-size: .8em;\r\n        padding: 8px 15px; } }\r\n\r\n.image-gallery-bullets {\r\n  bottom: 20px;\r\n  left: 0;\r\n  margin: 0 auto;\r\n  position: absolute;\r\n  right: 0;\r\n  width: 80%;\r\n  z-index: 4; }\r\n  .image-gallery-bullets .image-gallery-bullets-container {\r\n    margin: 0;\r\n    padding: 0;\r\n    text-align: center; }\r\n  .image-gallery-bullets .image-gallery-bullet {\r\n    appearance: none;\r\n    background-color: transparent;\r\n    border: 1px solid #fff;\r\n    border-radius: 50%;\r\n    box-shadow: 0 1px 0 #1a1a1a;\r\n    cursor: pointer;\r\n    display: inline-block;\r\n    margin: 0 5px;\r\n    outline: none;\r\n    padding: 5px; }\r\n    @media (max-width: 768px) {\r\n      .image-gallery-bullets .image-gallery-bullet {\r\n        margin: 0 3px;\r\n        padding: 3px; } }\r\n    @media (max-width: 480px) {\r\n      .image-gallery-bullets .image-gallery-bullet {\r\n        padding: 2.7px; } }\r\n    .image-gallery-bullets .image-gallery-bullet.active {\r\n      background: #fff; }\r\n\r\n.image-gallery-thumbnails-wrapper {\r\n  position: relative; }\r\n  .image-gallery-thumbnails-wrapper.thumbnails-wrapper-rtl {\r\n    direction: rtl; }\r\n  .image-gallery-thumbnails-wrapper.left, .image-gallery-thumbnails-wrapper.right {\r\n    display: inline-block;\r\n    vertical-align: top;\r\n    width: 108px; }\r\n    @media (max-width: 768px) {\r\n      .image-gallery-thumbnails-wrapper.left, .image-gallery-thumbnails-wrapper.right {\r\n        width: 81px; } }\r\n    .image-gallery-thumbnails-wrapper.left .image-gallery-thumbnails, .image-gallery-thumbnails-wrapper.right .image-gallery-thumbnails {\r\n      height: 100%;\r\n      width: 100%;\r\n      left: 0;\r\n      padding: 0;\r\n      position: absolute;\r\n      top: 0; }\r\n      .image-gallery-thumbnails-wrapper.left .image-gallery-thumbnails .image-gallery-thumbnail, .image-gallery-thumbnails-wrapper.right .image-gallery-thumbnails .image-gallery-thumbnail {\r\n        display: block;\r\n        margin-right: 0;\r\n        padding: 0; }\r\n        .image-gallery-thumbnails-wrapper.left .image-gallery-thumbnails .image-gallery-thumbnail + .image-gallery-thumbnail, .image-gallery-thumbnails-wrapper.right .image-gallery-thumbnails .image-gallery-thumbnail + .image-gallery-thumbnail {\r\n          margin-left: 0; }\r\n  .image-gallery-thumbnails-wrapper.left {\r\n    margin-right: 5px; }\r\n    @media (max-width: 768px) {\r\n      .image-gallery-thumbnails-wrapper.left {\r\n        margin-right: 3px; } }\r\n  .image-gallery-thumbnails-wrapper.right {\r\n    margin-left: 5px; }\r\n    @media (max-width: 768px) {\r\n      .image-gallery-thumbnails-wrapper.right {\r\n        margin-left: 3px; } }\r\n\r\n.image-gallery-thumbnails {\r\n  overflow: hidden;\r\n  padding: 5px 0; }\r\n  @media (max-width: 768px) {\r\n    .image-gallery-thumbnails {\r\n      padding: 3px 0; } }\r\n  .image-gallery-thumbnails .image-gallery-thumbnails-container {\r\n    cursor: pointer;\r\n    text-align: center;\r\n    transition: transform .45s ease-out;\r\n    white-space: nowrap; }\r\n\r\n.image-gallery-thumbnail {\r\n  display: inline-block;\r\n  border: 4px solid transparent;\r\n  transition: border .3s ease-out;\r\n  width: 100px; }\r\n  @media (max-width: 768px) {\r\n    .image-gallery-thumbnail {\r\n      border: 3px solid transparent;\r\n      width: 75px; } }\r\n  .image-gallery-thumbnail + .image-gallery-thumbnail {\r\n    margin-left: 2px; }\r\n  .image-gallery-thumbnail .image-gallery-thumbnail-inner {\r\n    position: relative; }\r\n  .image-gallery-thumbnail img {\r\n    vertical-align: middle;\r\n    width: 100%; }\r\n  .image-gallery-thumbnail.active {\r\n    border: 4px solid #337ab7; }\r\n    @media (max-width: 768px) {\r\n      .image-gallery-thumbnail.active {\r\n        border: 3px solid #337ab7; } }\r\n\r\n.image-gallery-thumbnail-label {\r\n  box-sizing: border-box;\r\n  color: white;\r\n  font-size: 1em;\r\n  left: 0;\r\n  line-height: 1em;\r\n  padding: 5%;\r\n  position: absolute;\r\n  top: 50%;\r\n  text-shadow: 1px 1px 0 black;\r\n  transform: translateY(-50%);\r\n  white-space: normal;\r\n  width: 100%; }\r\n  @media (max-width: 768px) {\r\n    .image-gallery-thumbnail-label {\r\n      font-size: .8em;\r\n      line-height: .8em; } }\r\n\r\n.image-gallery-index {\r\n  background: rgba(0, 0, 0, 0.4);\r\n  color: #fff;\r\n  line-height: 1;\r\n  padding: 10px 20px;\r\n  position: absolute;\r\n  right: 0;\r\n  top: 0;\r\n  z-index: 4; }\r\n  @media (max-width: 768px) {\r\n    .image-gallery-index {\r\n      font-size: .8em;\r\n      padding: 5px 10px; } }\r\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\n/*!\n  Ionicons, v2.0.0\n  Created by Ben Sperry for the Ionic Framework, http://ionicons.com/\n  https://twitter.com/benjsperry  https://twitter.com/ionicframework\n  MIT License: https://github.com/driftyco/ionicons\n\n  Android-style icons originally built by Google’s\n  Material Design Icons: https://github.com/google/material-design-icons\n  used under CC BY http://creativecommons.org/licenses/by/4.0/\n  Modified icons to fit ionicon’s grid from original.\n*/\n@font-face {\n  font-family: \"Ionicons\";\n  src: url(\"https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/fonts/ionicons.eot?v=2.0.0\");\n  src: url(\"https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/fonts/ionicons.eot?v=2.0.0#iefix\") format(\"embedded-opentype\"), url(\"https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/fonts/ionicons.ttf?v=2.0.0\") format(\"truetype\"), url(\"https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/fonts/ionicons.woff?v=2.0.0\") format(\"woff\"), url(\"https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/fonts/ionicons.svg?v=2.0.0#Ionicons\") format(\"svg\");\n  font-weight: normal;\n  font-style: normal; }\n\n.image-gallery-fullscreen-button::before,\n.image-gallery-play-button::before,\n.image-gallery-left-nav::before,\n.image-gallery-right-nav::before {\n  display: inline-block;\n  font-family: \"Ionicons\";\n  speak: none;\n  font-style: normal;\n  font-weight: normal;\n  font-variant: normal;\n  text-transform: none;\n  text-rendering: auto;\n  line-height: 1;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale; }\n\n.image-gallery {\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  -o-user-select: none;\n  user-select: none;\n  -webkit-tap-highlight-color: transparent; }\n  .image-gallery.fullscreen-modal {\n    background: #000;\n    bottom: 0;\n    height: 100%;\n    left: 0;\n    position: fixed;\n    right: 0;\n    top: 0;\n    width: 100%;\n    z-index: 5; }\n    .image-gallery.fullscreen-modal .image-gallery-content {\n      top: 50%;\n      transform: translateY(-50%); }\n\n.image-gallery-content {\n  position: relative;\n  line-height: 0;\n  top: 0; }\n  .image-gallery-content.fullscreen {\n    background: #000; }\n    .image-gallery-content.fullscreen .image-gallery-slide {\n      background: #000; }\n\n.image-gallery-slide-wrapper {\n  position: relative; }\n  .image-gallery-slide-wrapper.left, .image-gallery-slide-wrapper.right {\n    display: inline-block;\n    width: calc(100% - 113px); }\n    @media (max-width: 768px) {\n      .image-gallery-slide-wrapper.left, .image-gallery-slide-wrapper.right {\n        width: calc(100% - 84px); } }\n  .image-gallery-slide-wrapper.image-gallery-rtl {\n    direction: rtl; }\n\n.image-gallery-fullscreen-button,\n.image-gallery-play-button,\n.image-gallery-left-nav,\n.image-gallery-right-nav {\n  appearance: none;\n  background-color: transparent;\n  border: 0;\n  cursor: pointer;\n  outline: none;\n  position: absolute;\n  z-index: 4; }\n  .image-gallery-fullscreen-button::before,\n  .image-gallery-play-button::before,\n  .image-gallery-left-nav::before,\n  .image-gallery-right-nav::before {\n    color: #fff;\n    line-height: .7;\n    text-shadow: 0 2px 2px #1a1a1a;\n    transition: color .2s ease-out; }\n  .image-gallery-fullscreen-button:hover::before,\n  .image-gallery-play-button:hover::before,\n  .image-gallery-left-nav:hover::before,\n  .image-gallery-right-nav:hover::before {\n    color: #337ab7; }\n    @media (max-width: 768px) {\n      .image-gallery-fullscreen-button:hover::before,\n      .image-gallery-play-button:hover::before,\n      .image-gallery-left-nav:hover::before,\n      .image-gallery-right-nav:hover::before {\n        color: #fff; } }\n\n.image-gallery-fullscreen-button,\n.image-gallery-play-button {\n  bottom: 0; }\n  .image-gallery-fullscreen-button::before,\n  .image-gallery-play-button::before {\n    font-size: 2.7em;\n    padding: 15px 20px;\n    text-shadow: 0 1px 1px #1a1a1a; }\n    @media (max-width: 768px) {\n      .image-gallery-fullscreen-button::before,\n      .image-gallery-play-button::before {\n        font-size: 2.4em; } }\n    @media (max-width: 480px) {\n      .image-gallery-fullscreen-button::before,\n      .image-gallery-play-button::before {\n        font-size: 2em; } }\n  .image-gallery-fullscreen-button:hover::before,\n  .image-gallery-play-button:hover::before {\n    color: #fff;\n    transform: scale(1.1); }\n    @media (max-width: 768px) {\n      .image-gallery-fullscreen-button:hover::before,\n      .image-gallery-play-button:hover::before {\n        transform: none; } }\n\n.image-gallery-fullscreen-button {\n  right: 0; }\n  .image-gallery-fullscreen-button::before {\n    content: \"\"; }\n  .image-gallery-fullscreen-button.active::before {\n    content: \"\"; }\n  .image-gallery-fullscreen-button.active:hover::before {\n    transform: scale(0.9); }\n\n.image-gallery-play-button {\n  left: 0; }\n  .image-gallery-play-button::before {\n    content: \"\"; }\n  .image-gallery-play-button.active::before {\n    content: \"\"; }\n\n.image-gallery-left-nav,\n.image-gallery-right-nav {\n  color: #fff;\n  font-size: 5em;\n  padding: 50px 15px;\n  top: 50%;\n  transform: translateY(-50%); }\n  .image-gallery-left-nav[disabled],\n  .image-gallery-right-nav[disabled] {\n    cursor: disabled;\n    opacity: .6;\n    pointer-events: none; }\n  @media (max-width: 768px) {\n    .image-gallery-left-nav,\n    .image-gallery-right-nav {\n      font-size: 3.4em;\n      padding: 20px 15px; } }\n  @media (max-width: 480px) {\n    .image-gallery-left-nav,\n    .image-gallery-right-nav {\n      font-size: 2.4em;\n      padding: 0 15px; } }\n\n.image-gallery-left-nav {\n  left: 0; }\n  .image-gallery-left-nav::before {\n    content: \"\"; }\n\n.image-gallery-right-nav {\n  right: 0; }\n  .image-gallery-right-nav::before {\n    content: \"\"; }\n\n.image-gallery-slides {\n  line-height: 0;\n  overflow: hidden;\n  position: relative;\n  white-space: nowrap; }\n\n.image-gallery-slide {\n  background: #fff;\n  left: 0;\n  position: absolute;\n  top: 0;\n  width: 100%; }\n  .image-gallery-slide.center {\n    position: relative; }\n  .image-gallery-slide img {\n    width: 100%; }\n  .image-gallery-slide .image-gallery-description {\n    background: rgba(0, 0, 0, 0.4);\n    bottom: 70px;\n    color: #fff;\n    left: 0;\n    line-height: 1;\n    padding: 10px 20px;\n    position: absolute;\n    white-space: normal; }\n    @media (max-width: 768px) {\n      .image-gallery-slide .image-gallery-description {\n        bottom: 45px;\n        font-size: .8em;\n        padding: 8px 15px; } }\n\n.image-gallery-bullets {\n  bottom: 20px;\n  left: 0;\n  margin: 0 auto;\n  position: absolute;\n  right: 0;\n  width: 80%;\n  z-index: 4; }\n  .image-gallery-bullets .image-gallery-bullets-container {\n    margin: 0;\n    padding: 0;\n    text-align: center; }\n  .image-gallery-bullets .image-gallery-bullet {\n    appearance: none;\n    background-color: transparent;\n    border: 1px solid #fff;\n    border-radius: 50%;\n    box-shadow: 0 1px 0 #1a1a1a;\n    cursor: pointer;\n    display: inline-block;\n    margin: 0 5px;\n    outline: none;\n    padding: 5px; }\n    @media (max-width: 768px) {\n      .image-gallery-bullets .image-gallery-bullet {\n        margin: 0 3px;\n        padding: 3px; } }\n    @media (max-width: 480px) {\n      .image-gallery-bullets .image-gallery-bullet {\n        padding: 2.7px; } }\n    .image-gallery-bullets .image-gallery-bullet.active {\n      background: #fff; }\n\n.image-gallery-thumbnails-wrapper {\n  position: relative; }\n  .image-gallery-thumbnails-wrapper.thumbnails-wrapper-rtl {\n    direction: rtl; }\n  .image-gallery-thumbnails-wrapper.left, .image-gallery-thumbnails-wrapper.right {\n    display: inline-block;\n    vertical-align: top;\n    width: 108px; }\n    @media (max-width: 768px) {\n      .image-gallery-thumbnails-wrapper.left, .image-gallery-thumbnails-wrapper.right {\n        width: 81px; } }\n    .image-gallery-thumbnails-wrapper.left .image-gallery-thumbnails, .image-gallery-thumbnails-wrapper.right .image-gallery-thumbnails {\n      height: 100%;\n      width: 100%;\n      left: 0;\n      padding: 0;\n      position: absolute;\n      top: 0; }\n      .image-gallery-thumbnails-wrapper.left .image-gallery-thumbnails .image-gallery-thumbnail, .image-gallery-thumbnails-wrapper.right .image-gallery-thumbnails .image-gallery-thumbnail {\n        display: block;\n        margin-right: 0;\n        padding: 0; }\n        .image-gallery-thumbnails-wrapper.left .image-gallery-thumbnails .image-gallery-thumbnail + .image-gallery-thumbnail, .image-gallery-thumbnails-wrapper.right .image-gallery-thumbnails .image-gallery-thumbnail + .image-gallery-thumbnail {\n          margin-left: 0; }\n  .image-gallery-thumbnails-wrapper.left {\n    margin-right: 5px; }\n    @media (max-width: 768px) {\n      .image-gallery-thumbnails-wrapper.left {\n        margin-right: 3px; } }\n  .image-gallery-thumbnails-wrapper.right {\n    margin-left: 5px; }\n    @media (max-width: 768px) {\n      .image-gallery-thumbnails-wrapper.right {\n        margin-left: 3px; } }\n\n.image-gallery-thumbnails {\n  overflow: hidden;\n  padding: 5px 0; }\n  @media (max-width: 768px) {\n    .image-gallery-thumbnails {\n      padding: 3px 0; } }\n  .image-gallery-thumbnails .image-gallery-thumbnails-container {\n    cursor: pointer;\n    text-align: center;\n    transition: transform .45s ease-out;\n    white-space: nowrap; }\n\n.image-gallery-thumbnail {\n  display: inline-block;\n  border: 4px solid transparent;\n  transition: border .3s ease-out;\n  width: 100px; }\n  @media (max-width: 768px) {\n    .image-gallery-thumbnail {\n      border: 3px solid transparent;\n      width: 75px; } }\n  .image-gallery-thumbnail + .image-gallery-thumbnail {\n    margin-left: 2px; }\n  .image-gallery-thumbnail .image-gallery-thumbnail-inner {\n    position: relative; }\n  .image-gallery-thumbnail img {\n    vertical-align: middle;\n    width: 100%; }\n  .image-gallery-thumbnail.active {\n    border: 4px solid #337ab7; }\n    @media (max-width: 768px) {\n      .image-gallery-thumbnail.active {\n        border: 3px solid #337ab7; } }\n\n.image-gallery-thumbnail-label {\n  box-sizing: border-box;\n  color: white;\n  font-size: 1em;\n  left: 0;\n  line-height: 1em;\n  padding: 5%;\n  position: absolute;\n  top: 50%;\n  text-shadow: 1px 1px 0 black;\n  transform: translateY(-50%);\n  white-space: normal;\n  width: 100%; }\n  @media (max-width: 768px) {\n    .image-gallery-thumbnail-label {\n      font-size: .8em;\n      line-height: .8em; } }\n\n.image-gallery-index {\n  background: rgba(0, 0, 0, 0.4);\n  color: #fff;\n  line-height: 1;\n  padding: 10px 20px;\n  position: absolute;\n  right: 0;\n  top: 0;\n  z-index: 4; }\n  @media (max-width: 768px) {\n    .image-gallery-index {\n      font-size: .8em;\n      padding: 5px 10px; } }\n", ""]);
 
 
 /***/ }),
@@ -7289,7 +7369,7 @@ var ___CSS_LOADER_URL___2___ = getUrl(__webpack_require__(/*! ./fonts/notificati
 var ___CSS_LOADER_URL___3___ = getUrl(__webpack_require__(/*! ./fonts/notification.ttf?s3g3t9 */ "./node_modules/react-notifications/lib/fonts/notification.ttf?s3g3t9"));
 var ___CSS_LOADER_URL___4___ = getUrl(__webpack_require__(/*! ./fonts/notification.svg?s3g3t9 */ "./node_modules/react-notifications/lib/fonts/notification.svg?s3g3t9") + "#notification");
 // Module
-exports.push([module.i, "@charset \"UTF-8\";\r\n@font-face {\r\n  font-family: 'Notification';\r\n  src: url(" + ___CSS_LOADER_URL___0___ + ");\r\n  src: url(" + ___CSS_LOADER_URL___1___ + ") format(\"embedded-opentype\"), url(" + ___CSS_LOADER_URL___2___ + ") format(\"woff\"), url(" + ___CSS_LOADER_URL___3___ + ") format(\"truetype\"), url(" + ___CSS_LOADER_URL___4___ + ") format(\"svg\");\r\n  font-weight: normal;\r\n  font-style: normal;\r\n}\r\n\r\n.notification-container {\r\n  box-sizing: border-box;\r\n  position: fixed;\r\n  top: 0;\r\n  right: 0;\r\n  z-index: 999999;\r\n  width: 320px;\r\n  padding: 0px 15px;\r\n  max-height: calc(100% - 30px);\r\n  overflow-x: hidden;\r\n  overflow-y: auto;\r\n}\r\n\r\n.notification {\r\n  box-sizing: border-box;\r\n  padding: 15px 15px 15px 58px;\r\n  border-radius: 2px;\r\n  color: #fff;\r\n  background-color: #ccc;\r\n  box-shadow: 0 0 12px #999;\r\n  cursor: pointer;\r\n  font-size: 1em;\r\n  line-height: 1.2em;\r\n  position: relative;\r\n  opacity: 0.9;\r\n  margin-top: 15px;\r\n}\r\n\r\n.notification .title {\r\n  font-size: 1em;\r\n  line-height: 1.2em;\r\n  font-weight: bold;\r\n  margin: 0 0 5px 0;\r\n}\r\n\r\n.notification:hover, .notification:focus {\r\n  opacity: 1;\r\n}\r\n\r\n.notification-enter {\r\n  visibility: hidden;\r\n  transform: translate3d(100%, 0, 0);\r\n}\r\n\r\n.notification-enter.notification-enter-active {\r\n  visibility: visible;\r\n  transform: translate3d(0, 0, 0);\r\n  transition: all 0.4s;\r\n}\r\n\r\n.notification-leave {\r\n  visibility: visible;\r\n  transform: translate3d(0, 0, 0);\r\n}\r\n\r\n.notification-leave.notification-leave-active {\r\n  visibility: hidden;\r\n  transform: translate3d(100%, 0, 0);\r\n  transition: all 0.4s;\r\n}\r\n\r\n.notification:before {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 15px;\r\n  margin-top: -14px;\r\n  display: block;\r\n  font-family: 'Notification';\r\n  width: 28px;\r\n  height: 28px;\r\n  font-size: 28px;\r\n  text-align: center;\r\n  line-height: 28px;\r\n}\r\n\r\n.notification-info {\r\n  background-color: #2f96b4;\r\n}\r\n\r\n.notification-info:before {\r\n  content: \"!\";\r\n}\r\n\r\n.notification-success {\r\n  background-color: #51a351;\r\n}\r\n\r\n.notification-success:before {\r\n  content: \"✓\";\r\n}\r\n\r\n.notification-warning {\r\n  background-color: #f89406;\r\n}\r\n\r\n.notification-warning:before {\r\n  content: \"!\";\r\n}\r\n\r\n.notification-error {\r\n  background-color: #bd362f;\r\n}\r\n\r\n.notification-error:before {\r\n  content: \"✘\";\r\n}\r\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\n@font-face {\n  font-family: 'Notification';\n  src: url(" + ___CSS_LOADER_URL___0___ + ");\n  src: url(" + ___CSS_LOADER_URL___1___ + ") format(\"embedded-opentype\"), url(" + ___CSS_LOADER_URL___2___ + ") format(\"woff\"), url(" + ___CSS_LOADER_URL___3___ + ") format(\"truetype\"), url(" + ___CSS_LOADER_URL___4___ + ") format(\"svg\");\n  font-weight: normal;\n  font-style: normal;\n}\n\n.notification-container {\n  box-sizing: border-box;\n  position: fixed;\n  top: 0;\n  right: 0;\n  z-index: 999999;\n  width: 320px;\n  padding: 0px 15px;\n  max-height: calc(100% - 30px);\n  overflow-x: hidden;\n  overflow-y: auto;\n}\n\n.notification {\n  box-sizing: border-box;\n  padding: 15px 15px 15px 58px;\n  border-radius: 2px;\n  color: #fff;\n  background-color: #ccc;\n  box-shadow: 0 0 12px #999;\n  cursor: pointer;\n  font-size: 1em;\n  line-height: 1.2em;\n  position: relative;\n  opacity: 0.9;\n  margin-top: 15px;\n}\n\n.notification .title {\n  font-size: 1em;\n  line-height: 1.2em;\n  font-weight: bold;\n  margin: 0 0 5px 0;\n}\n\n.notification:hover, .notification:focus {\n  opacity: 1;\n}\n\n.notification-enter {\n  visibility: hidden;\n  transform: translate3d(100%, 0, 0);\n}\n\n.notification-enter.notification-enter-active {\n  visibility: visible;\n  transform: translate3d(0, 0, 0);\n  transition: all 0.4s;\n}\n\n.notification-leave {\n  visibility: visible;\n  transform: translate3d(0, 0, 0);\n}\n\n.notification-leave.notification-leave-active {\n  visibility: hidden;\n  transform: translate3d(100%, 0, 0);\n  transition: all 0.4s;\n}\n\n.notification:before {\n  position: absolute;\n  top: 50%;\n  left: 15px;\n  margin-top: -14px;\n  display: block;\n  font-family: 'Notification';\n  width: 28px;\n  height: 28px;\n  font-size: 28px;\n  text-align: center;\n  line-height: 28px;\n}\n\n.notification-info {\n  background-color: #2f96b4;\n}\n\n.notification-info:before {\n  content: \"!\";\n}\n\n.notification-success {\n  background-color: #51a351;\n}\n\n.notification-success:before {\n  content: \"✓\";\n}\n\n.notification-warning {\n  background-color: #f89406;\n}\n\n.notification-warning:before {\n  content: \"!\";\n}\n\n.notification-error {\n  background-color: #bd362f;\n}\n\n.notification-error:before {\n  content: \"✘\";\n}\n", ""]);
 
 
 /***/ }),

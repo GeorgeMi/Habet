@@ -17,6 +17,7 @@ var React = require("react");
 var Dictionary_1 = require("./Dictionary");
 var Header_1 = require("./Header");
 var sfcookies_1 = require("sfcookies");
+var react_notifications_1 = require("react-notifications");
 var Translate = require("react-translate-component");
 var en_1 = require("./languages/en");
 var it_1 = require("./languages/it");
@@ -51,6 +52,8 @@ var Product = /** @class */ (function (_super) {
         _this.getImageForProduct = _this.getImageForProduct.bind(_this);
         _this.handleChange = _this.handleChange.bind(_this);
         _this.reloadPage = _this.reloadPage.bind(_this);
+        _this.addProductToCart = _this.addProductToCart.bind(_this);
+        _this.buyProduct = _this.buyProduct.bind(_this);
         return _this;
     }
     Product.prototype.componentWillMount = function () {
@@ -96,20 +99,35 @@ var Product = /** @class */ (function (_super) {
         return cartProducts;
     };
     Product.prototype.addProductToCart = function (productId, no) {
-        var cookie = sfcookies_1.read_cookie('cartProducts');
-        if (cookie.length == 0) {
-            var cartProducts = new Dictionary_1.KeyedCollection();
+        if (sfcookies_1.read_cookie('token') == null || sfcookies_1.read_cookie('token').length == 0) {
+            react_notifications_1.NotificationManager.info("Please login in order to add products to cart.");
         }
         else {
-            var cartProducts = this.readCartFromCookie(cookie);
-            if (cartProducts.ContainsKey(productId)) {
-                no = no + cartProducts.Item(productId);
-                cartProducts.Remove(productId);
+            var cookie = sfcookies_1.read_cookie('cartProducts');
+            if (cookie.length == 0) {
+                var cartProducts = new Dictionary_1.KeyedCollection();
             }
+            else {
+                var cartProducts = this.readCartFromCookie(cookie);
+                if (cartProducts.ContainsKey(productId)) {
+                    no = no + cartProducts.Item(productId);
+                    cartProducts.Remove(productId);
+                }
+            }
+            cartProducts.Add(productId, no);
+            sfcookies_1.delete_cookie('cartProducts');
+            sfcookies_1.bake_cookie('cartProducts', cartProducts);
+            this.setState({ state: this.state });
         }
-        cartProducts.Add(productId, no);
-        sfcookies_1.delete_cookie('cartProducts');
-        sfcookies_1.bake_cookie('cartProducts', cartProducts);
+    };
+    Product.prototype.buyProduct = function (productId) {
+        if (sfcookies_1.read_cookie('token') == null || sfcookies_1.read_cookie('token').length == 0) {
+            react_notifications_1.NotificationManager.info("Please login in order to add products to cart.");
+        }
+        else {
+            this.addProductToCart(productId, 1);
+            document.location.href = "/#/cart";
+        }
     };
     Product.prototype.reloadPage = function () {
         window.location.reload(false);
@@ -172,7 +190,7 @@ var Product = /** @class */ (function (_super) {
                                         React.createElement("p", { onClick: function () { return _this.addProductToCart(item.ProductId, quantity); } },
                                             React.createElement("a", { className: "btn btn-black py-3 px-5 mr-2" },
                                                 React.createElement(Translate, { content: 'product.AddToCart' })),
-                                            React.createElement("a", { href: "", className: "btn btn-primary py-3 px-5" },
+                                            React.createElement("a", { href: "javascript:void(0)", onClick: function () { return _this.buyProduct(item.ProductId); }, className: "btn btn-primary py-3 px-5" },
                                                 React.createElement(Translate, { content: 'product.BuyNow' })))))))))));
         }
     };

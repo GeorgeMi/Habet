@@ -56,6 +56,8 @@ var Search = /** @class */ (function (_super) {
         _this.reloadPage = _this.reloadPage.bind(_this);
         _this.handlePageChange = _this.handlePageChange.bind(_this);
         _this.searchProducts = _this.searchProducts.bind(_this);
+        _this.addProductToCart = _this.addProductToCart.bind(_this);
+        _this.buyProduct = _this.buyProduct.bind(_this);
         return _this;
     }
     Search.prototype.componentWillMount = function () {
@@ -142,20 +144,35 @@ var Search = /** @class */ (function (_super) {
         this.searchProducts(1);
     };
     Search.prototype.addProductToCart = function (productId, no) {
-        var cookie = sfcookies_1.read_cookie('cartProducts');
-        if (cookie.length == 0) {
-            var cartProducts = new Dictionary_1.KeyedCollection();
+        if (sfcookies_1.read_cookie('token') == null || sfcookies_1.read_cookie('token').length == 0) {
+            react_notifications_1.NotificationManager.info("Please login in order to add products to cart.");
         }
         else {
-            var cartProducts = this.readCartFromCookie(cookie);
-            if (cartProducts.ContainsKey(productId)) {
-                no = no + cartProducts.Item(productId);
-                cartProducts.Remove(productId);
+            var cookie = sfcookies_1.read_cookie('cartProducts');
+            if (cookie.length == 0) {
+                var cartProducts = new Dictionary_1.KeyedCollection();
             }
+            else {
+                var cartProducts = this.readCartFromCookie(cookie);
+                if (cartProducts.ContainsKey(productId)) {
+                    no = no + cartProducts.Item(productId);
+                    cartProducts.Remove(productId);
+                }
+            }
+            cartProducts.Add(productId, no);
+            sfcookies_1.delete_cookie('cartProducts');
+            sfcookies_1.bake_cookie('cartProducts', cartProducts);
+            this.setState({ state: this.state });
         }
-        cartProducts.Add(productId, no);
-        sfcookies_1.delete_cookie('cartProducts');
-        sfcookies_1.bake_cookie('cartProducts', cartProducts);
+    };
+    Search.prototype.buyProduct = function (productId) {
+        if (sfcookies_1.read_cookie('token') == null || sfcookies_1.read_cookie('token').length == 0) {
+            react_notifications_1.NotificationManager.info("Please login in order to add products to cart.");
+        }
+        else {
+            this.addProductToCart(productId, 1);
+            document.location.href = "/#/cart";
+        }
     };
     Search.prototype.reloadPage = function () {
         window.location.reload(false);
@@ -207,12 +224,12 @@ var Search = /** @class */ (function (_super) {
                                                     React.createElement("p", { className: "price" },
                                                         React.createElement("span", null, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign))),
                                                 React.createElement("p", { className: "bottom-area d-flex px-3" },
-                                                    React.createElement("a", { href: "#", className: "add-to-cart text-center py-2 mr-1", onClick: function () { return _this.addProductToCart(item.ProductId, 1); } },
+                                                    React.createElement("a", { href: "javascript:void(0)", className: "add-to-cart text-center py-2 mr-1", onClick: function () { return _this.addProductToCart(item.ProductId, 1); } },
                                                         React.createElement("span", null,
                                                             React.createElement(Translate, { content: 'search.AddToCart' }),
                                                             " ",
                                                             React.createElement("i", { className: "ion-ios-add ml-1" }))),
-                                                    React.createElement("a", { href: "#", className: "buy-now text-center py-2" },
+                                                    React.createElement("a", { href: "javascript:void(0)", onClick: function () { return _this.buyProduct(item.ProductId); }, className: "buy-now text-center py-2" },
                                                         React.createElement(Translate, { content: 'search.BuyNow' }),
                                                         React.createElement("span", null,
                                                             React.createElement("i", { className: "ion-ios-cart ml-1" })))))))); })),

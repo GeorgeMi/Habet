@@ -120,7 +120,7 @@ var AddProduct = /** @class */ (function (_super) {
                                             React.createElement("div", { className: "form-group" },
                                                 React.createElement("label", { htmlFor: "description" },
                                                     React.createElement(Translate, { content: 'product.Description' })),
-                                                React.createElement("textarea", { className: "form-control", value: this.state.description, onChange: this.handleChange, name: "description", id: "description", required: true }))),
+                                                React.createElement("textarea", { className: "form-control", value: this.state.description, onChange: this.handleChange, name: "description", id: "description", rows: 10, style: { resize: 'vertical' }, required: true }))),
                                         React.createElement("div", { className: "col-md-12" },
                                             React.createElement("div", { className: "form-group" },
                                                 React.createElement("input", { type: "file", onChange: this.handleFileChange1, accept: "image/*", required: true }))),

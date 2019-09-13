@@ -111,13 +111,24 @@ var Header = /** @class */ (function (_super) {
         })
             .then();
     };
+    Header.prototype.readCartFromCookie = function (cookie) {
+        var cartProducts = new Dictionary_1.KeyedCollection();
+        for (var prop in cookie.items) {
+            cartProducts.Add(parseInt(prop, 10), parseInt(cookie.items[prop], 10));
+        }
+        return cartProducts;
+    };
     Header.prototype.signOut = function () {
         sfcookies_1.delete_cookie('token');
         window.location.reload();
     };
     Header.prototype.render = function () {
         var _a = this.state, headerDictionary = _a.headerDictionary, loggedIn = _a.loggedIn, api_response = _a.api_response;
-        var cartItemNumber = sfcookies_1.read_cookie('cartProducts').count;
+        var cartProducts = this.readCartFromCookie(sfcookies_1.read_cookie('cartProducts'));
+        var cartItemNumber = 0;
+        if (cartProducts.Count() > 0) {
+            cartItemNumber = cartProducts.Values().reduce(function (result, number) { return result + number; });
+        }
         return (React.createElement("div", null,
             React.createElement(react_notifications_1.NotificationContainer, null),
             React.createElement("nav", { className: "navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light", id: "ftco-navbar" },
@@ -134,20 +145,20 @@ var Header = /** @class */ (function (_super) {
                                 React.createElement("a", { href: "/", className: "nav-link" },
                                     React.createElement(Translate, { content: "nav.Home" }))),
                             React.createElement("li", { className: "nav-item dropdown " + headerDictionary.Item('Women') },
-                                React.createElement(react_router_hash_link_1.HashLink, { className: "nav-link dropdown-toggle", to: "#Women-section", id: "dropdown04", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
+                                React.createElement(react_router_hash_link_1.HashLink, { className: "nav-link dropdown-toggle", to: "/#Women-section", id: "dropdown04", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
                                     React.createElement(Translate, { content: "nav.Women" })),
                                 React.createElement("div", { className: "dropdown-content", "aria-labelledby": "dropdown04" },
-                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "#Women-Bags-section" },
+                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Women-Bags-section" },
                                         React.createElement(Translate, { content: "nav.Bags" })),
-                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "#Women-Belts-section" },
+                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Women-Belts-section" },
                                         React.createElement(Translate, { content: "nav.Belts" })))),
                             React.createElement("li", { className: "nav-item dropdown " + headerDictionary.Item('Men') },
-                                React.createElement(react_router_hash_link_1.HashLink, { className: "nav-link dropdown-toggle", to: "#Men-section", id: "dropdown04", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
+                                React.createElement(react_router_hash_link_1.HashLink, { className: "nav-link dropdown-toggle", to: "/#Men-section", id: "dropdown04", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
                                     React.createElement(Translate, { content: "nav.Men" })),
                                 React.createElement("div", { className: "dropdown-content", "aria-labelledby": "dropdown04" },
-                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "#Men-Bags-section" },
+                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Men-Bags-section" },
                                         React.createElement(Translate, { content: "nav.Bags" })),
-                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "#Men-Belts-section" },
+                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Men-Belts-section" },
                                         React.createElement(Translate, { content: "nav.Belts" })))),
                             React.createElement("li", { className: "nav-item " + headerDictionary.Item('Search') },
                                 React.createElement("a", { href: "/#/search", className: "nav-link" },

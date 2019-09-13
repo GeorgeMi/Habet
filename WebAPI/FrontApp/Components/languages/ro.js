@@ -87,7 +87,7 @@
 
     user: {
         Register: 'Register',
-        LogInDetails: 'Detalii logare”',
+        LogInDetails: 'Detalii logare',
         Email: 'Email',
         Password: 'Parolă',
         PersonalDetails: 'Detalii personale',

@@ -45,7 +45,9 @@ export class Search extends React.Component<any, any>
         this.handleSubmit = this.handleSubmit.bind(this);
         this.reloadPage = this.reloadPage.bind(this);
         this.handlePageChange = this.handlePageChange.bind(this);
-        this.searchProducts = this.searchProducts.bind(this);
+        this.searchProducts = this.searchProducts.bind(this);     
+        this.addProductToCart = this.addProductToCart.bind(this);
+        this.buyProduct = this.buyProduct.bind(this); 
     }
 
     componentWillMount() {
@@ -131,22 +133,41 @@ export class Search extends React.Component<any, any>
     }
 
     addProductToCart(productId: number, no: number) {
-        var cookie = read_cookie('cartProducts');
-        if (cookie.length == 0) {
-            var cartProducts = new KeyedCollection<number>();
+        if (read_cookie('token') == null || read_cookie('token').length == 0) {
+            NotificationManager.info("Please login in order to add products to cart.");
         }
         else {
-            var cartProducts = this.readCartFromCookie(cookie);
-            if (cartProducts.ContainsKey(productId)) {
-                no = no + cartProducts.Item(productId);
-                cartProducts.Remove(productId);
-            }
-        }
 
-        cartProducts.Add(productId, no);
-        delete_cookie('cartProducts');
-        bake_cookie('cartProducts', cartProducts);
-    } 
+            var cookie = read_cookie('cartProducts');
+            if (cookie.length == 0) {
+                var cartProducts = new KeyedCollection<number>();
+            }
+            else {
+                var cartProducts = this.readCartFromCookie(cookie);
+                if (cartProducts.ContainsKey(productId)) {
+                    no = no + cartProducts.Item(productId);
+                    cartProducts.Remove(productId);
+                }
+            }
+
+            cartProducts.Add(productId, no);
+            delete_cookie('cartProducts');
+            bake_cookie('cartProducts', cartProducts);
+
+            this.setState({ state: this.state });
+        }
+    }
+
+    buyProduct(productId: number) {
+        if (read_cookie('token') == null || read_cookie('token').length == 0) {
+            NotificationManager.info("Please login in order to add products to cart.");
+        }
+        else {
+            this.addProductToCart(productId, 1);
+
+            document.location.href = "/#/cart";
+        }
+    }
 
     public reloadPage() {
         window.location.reload(false);
@@ -197,8 +218,8 @@ export class Search extends React.Component<any, any>
                                                                     <p className="price"><span>{currencyBeforeSign + " " + item.Price + " " + currencyAfterSign}</span></p>
                                                                 </div>
                                                                 <p className="bottom-area d-flex px-3">
-                                                                    <a href="#" className="add-to-cart text-center py-2 mr-1" onClick={() => this.addProductToCart(item.ProductId, 1)}><span><Translate content={'search.AddToCart'} /> <i className="ion-ios-add ml-1"></i></span></a>
-                                                                    <a href="#" className="buy-now text-center py-2"><Translate content={'search.BuyNow'} /><span><i className="ion-ios-cart ml-1"></i></span></a>
+                                                                    <a href="javascript:void(0)" className="add-to-cart text-center py-2 mr-1" onClick={() => this.addProductToCart(item.ProductId, 1)}><span><Translate content={'search.AddToCart'} /> <i className="ion-ios-add ml-1"></i></span></a>
+                                                                    <a href="javascript:void(0)" onClick={() => this.buyProduct(item.ProductId)} className="buy-now text-center py-2"><Translate content={'search.BuyNow'} /><span><i className="ion-ios-cart ml-1"></i></span></a>
                                                                 </p>
                                                             </div>
                                                         </div>

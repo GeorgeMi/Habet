@@ -3,6 +3,7 @@ import { Header } from './Header';
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies'
 import { NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
+import { Redirect } from 'react-router-dom'
 import * as Translate from 'react-translate-component';
 import en from './languages/en';
 import it from './languages/it';
@@ -148,6 +149,10 @@ export class Checkout extends React.Component<any, any> {
                 </main>
             );
         } else {
+            if (read_cookie('token') == null || read_cookie('token').length == 0) {
+                return <Redirect to='/#/' />;
+            }
+
             return (
                 <main id="main">
                     <div>

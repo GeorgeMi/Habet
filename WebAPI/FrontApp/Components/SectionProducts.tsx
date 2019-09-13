@@ -1,6 +1,7 @@
 ﻿import * as React from 'react';
 import { KeyedCollection } from './Dictionary';
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
+import { NotificationManager } from 'react-notifications';
 import * as Translate from 'react-translate-component';
 import en from './languages/en';
 import it from './languages/it';
@@ -21,7 +22,10 @@ export class SectionProducts extends React.Component<any, any>
         super(props);
 
         counterpart.setLocale(read_cookie('lang'));
-        this.state = { isLoaded: false, items: null, error: null, gender: props.Gender, type: props.Type, language: read_cookie('lang'), currency: read_cookie('currency') };
+        this.state = { isLoaded: false, items: null, error: null, gender: props.Gender, type: props.Type, language: read_cookie('lang'), currency: read_cookie('currency')};
+
+        this.addProductToCart = this.addProductToCart.bind(this);
+        this.buyProduct = this.buyProduct.bind(this);      
     }
        
     componentWillMount() {
@@ -56,23 +60,42 @@ export class SectionProducts extends React.Component<any, any>
     }
 
     addProductToCart(productId: number, no: number) {
-        var cookie = read_cookie('cartProducts');
-        if (cookie.length == 0) {
-            var cartProducts = new KeyedCollection<number>();
+        if (read_cookie('token') == null || read_cookie('token').length == 0) {
+            NotificationManager.info("Please login in order to add products to cart.");
         }
         else {
-            var cartProducts = this.readCartFromCookie(cookie);
-            if (cartProducts.ContainsKey(productId)) {
-                no = no + cartProducts.Item(productId);
-                cartProducts.Remove(productId);
-            }
-        }
 
-        cartProducts.Add(productId, no);
-        delete_cookie('cartProducts');
-        bake_cookie('cartProducts', cartProducts);
+            var cookie = read_cookie('cartProducts');
+            if (cookie.length == 0) {
+                var cartProducts = new KeyedCollection<number>();
+            }
+            else {
+                var cartProducts = this.readCartFromCookie(cookie);
+                if (cartProducts.ContainsKey(productId)) {
+                    no = no + cartProducts.Item(productId);
+                    cartProducts.Remove(productId);
+                }
+            }
+
+            cartProducts.Add(productId, no);
+            delete_cookie('cartProducts');
+            bake_cookie('cartProducts', cartProducts);
+
+
+            this.setState({ state: this.state });
+        }
     }
 
+    buyProduct(productId: number) {
+        if (read_cookie('token') == null || read_cookie('token').length == 0) {
+            NotificationManager.info("Please login in order to add products to cart.");
+        }
+        else {
+            this.addProductToCart(productId, 1);
+
+            document.location.href = "/#/cart";
+        }
+    }
 
     render() {
         const { error, isLoaded, items, gender, type, currency } = this.state;
@@ -90,15 +113,13 @@ export class SectionProducts extends React.Component<any, any>
             return (
                 <div >
                     <div className="container">
-                        <div className="row justify-content-center mb-3 pb-3">
-                            <div className="col-md-12 heading-section text-center">
-                                {type == 'Bags' ? <h2 className="mb-4" id={gender + "-section"}><Translate content={'products.'+gender} /></h2> : <div></div> }
-                                <p id={gender + "-" + type + "-section"}><Translate content={'products.' + type} /></p>
+                        <div className="jumbotron" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url('images/banner_" + gender + "_" + type+".jpg')" }}>
+                            <div className="col-md-12 heading-section text-center" style={{ fontFamily: 'Brush Script St', opacity: 1 }}>
+                                {type == 'Bags' ? <h2 className="mb-4" id={gender + "-section"}><Translate content={'products.' + gender} /></h2> : <h2 className="mb-4" id={gender + "-section"} style={{ opacity: 0 }}><Translate content={'products.' + gender} /></h2>}
+                                <h2 id={gender + "-" + type + "-section"}><Translate content={'products.' + type} /></h2>
                             </div>
                         </div>
-                    </div>
-                    <div className="container">
-                        <div className="row">
+                        <div className="row">                      
                             {
                                 items.map((item, i) => (
 
@@ -113,8 +134,8 @@ export class SectionProducts extends React.Component<any, any>
                                                     <p className="price"><span>{currencyBeforeSign + " " + item.Price + " " + currencyAfterSign}</span></p>
                                                 </div>
                                                 <p className="bottom-area d-flex px-3">
-                                                    <a href="#" className="add-to-cart text-center py-2 mr-1" onClick={() => this.addProductToCart(item.ProductId, 1)}><span><Translate content="products.AddToCart" /><i className="ion-ios-add ml-1"></i></span></a>
-                                                    <a href="#" className="buy-now text-center py-2"><Translate content="products.BuyNow" /><span><i className="ion-ios-cart ml-1"></i></span></a>
+                                                    <a href="javascript:void(0)" className="add-to-cart text-center py-2 mr-1" onClick={() => this.addProductToCart(item.ProductId, 1)}><span><Translate content="products.AddToCart" /><i className="ion-ios-add ml-1"></i></span></a>
+                                                    <a href="javascript:void(0)" onClick={() => this.buyProduct(item.ProductId)} className="buy-now text-center py-2"><Translate content="products.BuyNow" /><span><i className="ion-ios-cart ml-1"></i></span></a>
                                                 </p>
                                             </div>
                                         </div>

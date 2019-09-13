@@ -3,6 +3,7 @@ import { KeyedCollection } from './Dictionary';
 import { Header } from './Header';
 import { NotFound } from "./PageNotFound";
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
+import { NotificationManager } from 'react-notifications';
 import * as Translate from 'react-translate-component';
 import en from './languages/en';
 import it from './languages/it';
@@ -31,6 +32,8 @@ export class Product extends React.Component<any, any>
         this.getImageForProduct = this.getImageForProduct.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.reloadPage = this.reloadPage.bind(this);
+        this.addProductToCart = this.addProductToCart.bind(this);
+        this.buyProduct = this.buyProduct.bind(this); 
     }
 
     componentWillMount() {
@@ -81,23 +84,40 @@ export class Product extends React.Component<any, any>
     }
 
     addProductToCart(productId: number, no: number) {
-        var cookie = read_cookie('cartProducts');
-        if (cookie.length == 0)
-        {
-            var cartProducts = new KeyedCollection<number>();
+        if (read_cookie('token') == null || read_cookie('token').length == 0) {
+            NotificationManager.info("Please login in order to add products to cart.");
         }
-        else
-        {
-            var cartProducts = this.readCartFromCookie(cookie);
-            if (cartProducts.ContainsKey(productId)) {
-                no = no + cartProducts.Item(productId);
-                cartProducts.Remove(productId);
-            }
-        }
+        else {
 
-        cartProducts.Add(productId, no);
-        delete_cookie('cartProducts');
-        bake_cookie('cartProducts', cartProducts);
+            var cookie = read_cookie('cartProducts');
+            if (cookie.length == 0) {
+                var cartProducts = new KeyedCollection<number>();
+            }
+            else {
+                var cartProducts = this.readCartFromCookie(cookie);
+                if (cartProducts.ContainsKey(productId)) {
+                    no = no + cartProducts.Item(productId);
+                    cartProducts.Remove(productId);
+                }
+            }
+
+            cartProducts.Add(productId, no);
+            delete_cookie('cartProducts');
+            bake_cookie('cartProducts', cartProducts);
+
+            this.setState({ state: this.state });
+        }
+    }
+
+    buyProduct(productId: number) {
+        if (read_cookie('token') == null || read_cookie('token').length == 0) {
+            NotificationManager.info("Please login in order to add products to cart.");
+        }
+        else {
+            this.addProductToCart(productId, 1);
+
+            document.location.href = "/#/cart";
+        }
     }
    
     increaseQuantity = () => {
@@ -188,7 +208,7 @@ export class Product extends React.Component<any, any>
                                         </div>
                                         <div className="w-100"></div>
                                         <div className="col-md-12">
-                                            <p onClick={() => this.addProductToCart(item.ProductId, quantity)}><a className="btn btn-black py-3 px-5 mr-2"><Translate content='product.AddToCart' /></a><a href="" className="btn btn-primary py-3 px-5"><Translate content='product.BuyNow' /></a></p>
+                                            <p onClick={() => this.addProductToCart(item.ProductId, quantity)}><a className="btn btn-black py-3 px-5 mr-2"><Translate content='product.AddToCart' /></a><a href="javascript:void(0)" onClick={() => this.buyProduct(item.ProductId)} className="btn btn-primary py-3 px-5"><Translate content='product.BuyNow' /></a></p>
                                         </div>
                                     </div>
                                 </div>

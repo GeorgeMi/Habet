@@ -4,6 +4,7 @@ import { KeyedCollection } from './Dictionary';
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
 import { HashLink as Link } from 'react-router-hash-link';
 import * as Translate from 'react-translate-component';
+import { Redirect } from 'react-router-dom'
 import en from './languages/en';
 import it from './languages/it';
 import ro from './languages/ro';
@@ -135,8 +136,24 @@ export class Cart extends React.Component<any, any>{
             console.log(error);
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
-            return <div></div>;
+            return (
+                <div>
+                    <Header reloadPage={this.reloadPage} />
+
+                    <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
+                        <div className="row justify-content-center mb-3 pb-3">
+                            <div className="col-md-12 heading-section text-center">
+                                <h1 className="mb-4"><Translate content='checkout.Checkout' /></h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="loading">Loading&#8230;</div>;
+                </div>);
         } else {
+            if (read_cookie('token') == null || read_cookie('token').length == 0) {
+                return <Redirect to='/#/' />;
+            }
+
             return (
                 <div>
                     <Header Active={'Cart'} reloadPage={this.reloadPage} />

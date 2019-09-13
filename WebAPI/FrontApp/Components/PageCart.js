@@ -19,6 +19,7 @@ var Dictionary_1 = require("./Dictionary");
 var sfcookies_1 = require("sfcookies");
 var react_router_hash_link_1 = require("react-router-hash-link");
 var Translate = require("react-translate-component");
+var react_router_dom_1 = require("react-router-dom");
 var en_1 = require("./languages/en");
 var it_1 = require("./languages/it");
 var ro_1 = require("./languages/ro");
@@ -135,9 +136,20 @@ var Cart = /** @class */ (function (_super) {
                 error.message);
         }
         else if (!isLoaded) {
-            return React.createElement("div", null);
+            return (React.createElement("div", null,
+                React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
+                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                    React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
+                        React.createElement("div", { className: "col-md-12 heading-section text-center" },
+                            React.createElement("h1", { className: "mb-4" },
+                                React.createElement(Translate, { content: 'checkout.Checkout' }))))),
+                React.createElement("div", { className: "loading" }, "Loading\u2026"),
+                ";"));
         }
         else {
+            if (sfcookies_1.read_cookie('token') == null || sfcookies_1.read_cookie('token').length == 0) {
+                return React.createElement(react_router_dom_1.Redirect, { to: '/#/' });
+            }
             return (React.createElement("div", null,
                 React.createElement(Header_1.Header, { Active: 'Cart', reloadPage: this.reloadPage }),
                 React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },

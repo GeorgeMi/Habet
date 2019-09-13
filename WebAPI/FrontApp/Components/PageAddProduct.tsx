@@ -126,7 +126,7 @@ export class AddProduct extends React.Component<any, any> {
                                             <div className="col-md-12">
                                                 <div className="form-group">
                                                     <label htmlFor="description"><Translate content='product.Description' /></label>
-                                                    <textarea className="form-control" value={this.state.description} onChange={this.handleChange} name="description" id="description" required></textarea>
+                                                    <textarea className="form-control" value={this.state.description} onChange={this.handleChange} name="description" id="description" rows={10} style={{ resize: 'vertical'}} required></textarea>
                                                 </div>
                                             </div>
                                             <div className="col-md-12">

@@ -113,6 +113,14 @@ export class Header extends React.Component<any, any> {
             );
     }
 
+    readCartFromCookie(cookie) {
+        var cartProducts = new KeyedCollection<number>();
+        for (var prop in cookie.items) {
+            cartProducts.Add(parseInt(prop, 10), parseInt(cookie.items[prop], 10));
+        }
+        return cartProducts;
+    }
+
     signOut() {
         delete_cookie('token');
         window.location.reload();
@@ -120,7 +128,12 @@ export class Header extends React.Component<any, any> {
 
     render() {
         var { headerDictionary, loggedIn, api_response } = this.state;
-        var cartItemNumber = read_cookie('cartProducts').count;
+
+        var cartProducts = this.readCartFromCookie(read_cookie('cartProducts'));
+        var cartItemNumber = 0;
+        if (cartProducts.Count() > 0) {
+            cartItemNumber = cartProducts.Values().reduce((result, number) => result + number);
+        }
 
         return (
             <div>
@@ -137,17 +150,17 @@ export class Header extends React.Component<any, any> {
                             <ul className="navbar-nav ml-auto">
                                 <li className={"nav-item " + headerDictionary.Item('Home')}><a href="/" className="nav-link"><Translate content="nav.Home"/></a></li>
                                 <li className={"nav-item dropdown " + headerDictionary.Item('Women')}>
-                                    <Link className="nav-link dropdown-toggle" to="#Women-section" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><Translate content="nav.Women" /></Link>
+                                    <Link className="nav-link dropdown-toggle" to="/#Women-section" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><Translate content="nav.Women" /></Link>
                                     <div className="dropdown-content" aria-labelledby="dropdown04">
-                                        <Link className="dropdown-item" to="#Women-Bags-section"><Translate content="nav.Bags" /></Link>
-                                        <Link className="dropdown-item" to="#Women-Belts-section"><Translate content="nav.Belts" /></Link>
+                                        <Link className="dropdown-item" to="/#Women-Bags-section"><Translate content="nav.Bags" /></Link>
+                                        <Link className="dropdown-item" to="/#Women-Belts-section"><Translate content="nav.Belts" /></Link>
                                     </div>
                                 </li>
                                 <li className={"nav-item dropdown " + headerDictionary.Item('Men')}>
-                                    <Link className="nav-link dropdown-toggle" to="#Men-section" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><Translate content="nav.Men" /></Link>
+                                    <Link className="nav-link dropdown-toggle" to="/#Men-section" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><Translate content="nav.Men" /></Link>
                                     <div className="dropdown-content" aria-labelledby="dropdown04">
-                                        <Link className="dropdown-item" to="#Men-Bags-section"><Translate content="nav.Bags" /></Link>
-                                        <Link className="dropdown-item" to="#Men-Belts-section"><Translate content="nav.Belts" /></Link>
+                                        <Link className="dropdown-item" to="/#Men-Bags-section"><Translate content="nav.Bags" /></Link>
+                                        <Link className="dropdown-item" to="/#Men-Belts-section"><Translate content="nav.Belts" /></Link>
                                     </div>
                                 </li>
                                 <li className={"nav-item " + headerDictionary.Item('Search')}><a href="/#/search" className="nav-link"><Translate content="nav.Search" /></a></li>

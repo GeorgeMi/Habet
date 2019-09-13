@@ -18,6 +18,7 @@ var Header_1 = require("./Header");
 var sfcookies_1 = require("sfcookies");
 var react_notifications_1 = require("react-notifications");
 require("react-notifications/lib/notifications.css");
+var react_router_dom_1 = require("react-router-dom");
 var Translate = require("react-translate-component");
 var en_1 = require("./languages/en");
 var it_1 = require("./languages/it");
@@ -155,6 +156,9 @@ var Checkout = /** @class */ (function (_super) {
                     ";")));
         }
         else {
+            if (sfcookies_1.read_cookie('token') == null || sfcookies_1.read_cookie('token').length == 0) {
+                return React.createElement(react_router_dom_1.Redirect, { to: '/#/' });
+            }
             return (React.createElement("main", { id: "main" },
                 React.createElement("div", null,
                     React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
