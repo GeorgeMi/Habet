@@ -2281,6 +2281,137 @@ exports.Register = Register;
 
 /***/ }),
 
+/***/ "./Components/PageResetPassword.js":
+/*!*****************************************!*\
+  !*** ./Components/PageResetPassword.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
+var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
+var sfcookies_1 = __webpack_require__(/*! sfcookies */ "./node_modules/sfcookies/index.js");
+var react_notifications_1 = __webpack_require__(/*! react-notifications */ "./node_modules/react-notifications/lib/index.js");
+__webpack_require__(/*! react-notifications/lib/notifications.css */ "./node_modules/react-notifications/lib/notifications.css");
+var Translate = __webpack_require__(/*! react-translate-component */ "./node_modules/react-translate-component/index.js");
+var en_1 = __webpack_require__(/*! ./languages/en */ "./Components/languages/en.js");
+var it_1 = __webpack_require__(/*! ./languages/it */ "./Components/languages/it.js");
+var ro_1 = __webpack_require__(/*! ./languages/ro */ "./Components/languages/ro.js");
+var config = __webpack_require__(/*! config */ "config");
+var API_Path = config.API_Path;
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+var counterpart = __webpack_require__(/*! counterpart */ "./node_modules/counterpart/index.js");
+counterpart.registerTranslations('en', en_1.default);
+counterpart.registerTranslations('ro', ro_1.default);
+counterpart.registerTranslations('it', it_1.default);
+var ResetPassword = /** @class */ (function (_super) {
+    __extends(ResetPassword, _super);
+    function ResetPassword(props) {
+        var _this = _super.call(this, props) || this;
+        var dictionary = new Dictionary_1.KeyedCollection();
+        dictionary.Add(props.Active, 'cta cta-colored');
+        counterpart.setLocale(sfcookies_1.read_cookie('lang'));
+        _this.state = { password: '', confirm_password: '', waitingResponse: false, language: sfcookies_1.read_cookie('lang'), token: props.match.params.id };
+        _this.handleChange = _this.handleChange.bind(_this);
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.reloadPage = _this.reloadPage.bind(_this);
+        return _this;
+    }
+    ResetPassword.prototype.handleChange = function (event) {
+        var _a;
+        this.setState((_a = {}, _a[event.target.name] = event.target.value, _a));
+    };
+    ResetPassword.prototype.handleSubmit = function (event) {
+        var _this = this;
+        event.preventDefault();
+        if (this.state.password == this.state.confirm_password) {
+            if (this.state.waitingResponse == false) {
+                this.setState({ waitingResponse: true });
+            }
+            axios.post(API_Path + '/ChangePassword', {
+                password: this.state.password
+            }, {
+                headers: {
+                    token: this.state.token //the token is a variable which holds the token
+                }
+            })
+                .then(function (response) {
+                react_notifications_1.NotificationManager.success(response.data.message);
+                _this.setState({ password: '', confirm_password: '' });
+            })
+                .catch(function (error) {
+                _this.setState({ error: error, confirm_password: '' });
+                react_notifications_1.NotificationManager.error("Request failed. Please, try again later.");
+            })
+                .then(function () {
+                _this.setState({ waitingResponse: false });
+            });
+        }
+        else {
+            react_notifications_1.NotificationManager.error("Passwords don't match!");
+        }
+    };
+    ResetPassword.prototype.reloadPage = function () {
+        //do nothing
+    };
+    ResetPassword.prototype.render = function () {
+        var waitingResponse = this.state.waitingResponse;
+        return (React.createElement("main", { id: "main" },
+            waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
+            React.createElement("div", null,
+                React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
+                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                    React.createElement("div", { className: "container" },
+                        React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
+                            React.createElement("div", { className: "col-md-9 text-center" },
+                                React.createElement("h1", { className: "mb-0 bread" },
+                                    React.createElement(Translate, { content: 'user.ChangePassword' })))))),
+                React.createElement("section", { className: "ftco-section" },
+                    React.createElement("div", { className: "container" },
+                        React.createElement("div", { className: "row justify-content-center" },
+                            React.createElement("div", { className: "col-xl-10" },
+                                React.createElement("form", { action: "", className: "billing-form", onSubmit: this.handleSubmit },
+                                    React.createElement("h3", { className: "mb-4 billing-heading" },
+                                        React.createElement(Translate, { content: 'user.LogInDetails' })),
+                                    React.createElement("div", { className: "row align-items-end" },
+                                        React.createElement("div", { className: "col-md-6" },
+                                            React.createElement("div", { className: "form-group" },
+                                                React.createElement("label", { htmlFor: "lastname" },
+                                                    React.createElement(Translate, { content: 'user.NewPassword' })),
+                                                React.createElement("input", { type: "password", className: "form-control", placeholder: "", value: this.state.password, onChange: this.handleChange, name: "password", id: "password", maxLength: 32, required: true }))),
+                                        React.createElement("div", { className: "col-md-6" },
+                                            React.createElement("div", { className: "form-group" },
+                                                React.createElement("label", { htmlFor: "lastname" },
+                                                    React.createElement(Translate, { content: 'user.ConfirmPassword' })),
+                                                React.createElement("input", { type: "password", className: "form-control", placeholder: "", value: this.state.confirm_password, onChange: this.handleChange, name: "confirm_password", id: "confirm_password", maxLength: 32, required: true }))),
+                                        React.createElement("div", { className: "col-md-6" },
+                                            React.createElement("div", { className: "form-group" },
+                                                React.createElement(Translate, { component: "input", attributes: { value: 'user.ChangePassword', }, type: "submit", className: "btn btn-primary py-3 px-5" }))))))))))));
+    };
+    return ResetPassword;
+}(React.Component));
+exports.ResetPassword = ResetPassword;
+//# sourceMappingURL=PageResetPassword.js.map
+
+/***/ }),
+
 /***/ "./Components/PageSearch.js":
 /*!**********************************!*\
   !*** ./Components/PageSearch.js ***!
@@ -2902,6 +3033,7 @@ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
 var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
 var react_notifications_1 = __webpack_require__(/*! react-notifications */ "./node_modules/react-notifications/lib/index.js");
+var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 var config = __webpack_require__(/*! config */ "config");
 var API_Path = config.API_Path;
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -2944,8 +3076,7 @@ var Verify = /** @class */ (function (_super) {
             return React.createElement("div", { className: "loading" }, "Loading\u2026");
         }
         else {
-            var Router = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
-            Router.browserHistory.push('http://localhost:1337/#/');
+            return React.createElement(react_router_dom_1.Redirect, { to: '/#/' });
         }
     };
     return Verify;
@@ -3734,6 +3865,7 @@ var PageCart_1 = __webpack_require__(/*! ./Components/PageCart */ "./Components/
 var PageRegister_1 = __webpack_require__(/*! ./Components/PageRegister */ "./Components/PageRegister.js");
 var PageVerify_1 = __webpack_require__(/*! ./Components/PageVerify */ "./Components/PageVerify.js");
 var PageRecoverPassword_1 = __webpack_require__(/*! ./Components/PageRecoverPassword */ "./Components/PageRecoverPassword.js");
+var PageResetPassword_1 = __webpack_require__(/*! ./Components/PageResetPassword */ "./Components/PageResetPassword.js");
 var PageChangePassword_1 = __webpack_require__(/*! ./Components/PageChangePassword */ "./Components/PageChangePassword.js");
 var PageAddProduct_1 = __webpack_require__(/*! ./Components/PageAddProduct */ "./Components/PageAddProduct.js");
 var PageUpdateUserDetails_1 = __webpack_require__(/*! ./Components/PageUpdateUserDetails */ "./Components/PageUpdateUserDetails.js");
@@ -3757,6 +3889,7 @@ var App = /** @class */ (function (_super) {
                     React.createElement(react_router_1.Route, { exact: true, path: "/cookie_policy", component: PageCookiePolicy_1.CookiePolicy }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/verify/:id", component: PageVerify_1.Verify }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/recover_password", component: PageRecoverPassword_1.RecoverPassword }),
+                    React.createElement(react_router_1.Route, { exact: true, path: "/reset_password/:id", component: PageResetPassword_1.ResetPassword }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/change_password", component: PageChangePassword_1.ChangePassword }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/user_details", component: PageUpdateUserDetails_1.UpdateUserDetails }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/add_product", component: PageAddProduct_1.AddProduct }),

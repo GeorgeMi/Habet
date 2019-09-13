@@ -2,7 +2,7 @@
 import { KeyedCollection } from './Dictionary';
 import { Header } from './Header';
 import { NotificationManager } from 'react-notifications';
-import { Route, Redirect } from 'react-router'
+import { Redirect } from 'react-router-dom'
 
 var config = require('config');
 var API_Path = config.API_Path;
@@ -56,8 +56,7 @@ export class Verify extends React.Component<any, any>
             return <div className="loading">Loading&#8230;</div>;
 
         } else {
-            var Router = require('react-router');
-            Router.browserHistory.push('http://localhost:1337/#/');
+            return <Redirect to='/#/' />;
         }
     }
 }

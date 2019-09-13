@@ -17,6 +17,7 @@ var React = require("react");
 var Dictionary_1 = require("./Dictionary");
 var Header_1 = require("./Header");
 var react_notifications_1 = require("react-notifications");
+var react_router_dom_1 = require("react-router-dom");
 var config = require('config');
 var API_Path = config.API_Path;
 var axios = require('axios');
@@ -59,8 +60,7 @@ var Verify = /** @class */ (function (_super) {
             return React.createElement("div", { className: "loading" }, "Loading\u2026");
         }
         else {
-            var Router = require('react-router');
-            Router.browserHistory.push('http://localhost:1337/#/');
+            return React.createElement(react_router_dom_1.Redirect, { to: '/#/' });
         }
     };
     return Verify;
