@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
-  <parameter name="Api.Models.ApiContext-Web.config Connection String" description="Api.Models.ApiContext Connection String used in web.config by the application to access the database." defaultValue="Api.Models.ApiContext_ConnectionString" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="F:\\workspace\\Habet\\WebAPI\\Api\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='Api.Models.ApiContext']/@connectionString" />
+  <parameter name="GHContext-Web.config Connection String" description="GHContext Connection String used in web.config by the application to access the database." defaultValue="Data Source=(localdb)\MSSQLLocalDB; Initial Catalog=GHContext-20190801152502; Integrated Security=True; MultipleActiveResultSets=True; AttachDbFilename=|DataDirectory|GHContext-20190801152502.mdf" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="F:\\workspace\\Habet\\WebAPI\\Api\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='GHContext']/@connectionString" />
   </parameter>
 </parameters>
