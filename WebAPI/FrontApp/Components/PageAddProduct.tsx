@@ -26,7 +26,8 @@ export class AddProduct extends React.Component<any, any> {
         dictionary.Add(props.Active, 'cta cta-colored');
 
         counterpart.setLocale(read_cookie('lang'));
-        this.state = { name: '', price: '', file1: null, file2: null,file3: null, description: '', gender: '', type: '', image: '', api_response: '', loggedIn: false, headerDictionary: dictionary, waitingResponse: false, language: read_cookie('lang') };
+        this.state = {
+            name_ro: '', name_it: '', name_en: '', price: '', file1: null, file2: null, file3: null, description_ro: '', description_it: '', description_en: '', gender: '', type: '', image: '', api_response: '', loggedIn: false, headerDictionary: dictionary, waitingResponse: false, language: read_cookie('lang') };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -63,7 +64,17 @@ export class AddProduct extends React.Component<any, any> {
         formData.append('Image1', this.state.file1);
         formData.append('Image2', this.state.file2);
         formData.append('Image3', this.state.file3);
-        formData.append('data', JSON.stringify({ name: this.state.name, price: this.state.price, description: this.state.description, gender: this.state.gender, type: this.state.type }));
+        formData.append('data', JSON.stringify({
+            name_ro: this.state.name_ro,
+            name_it: this.state.name_it,
+            name_en: this.state.name_en,
+            price: this.state.price,
+            description_ro: this.state.description_ro,
+            description_it: this.state.description_it,
+            description_en: this.state.description_en,
+            gender: this.state.gender,
+            type: this.state.type
+        }));
 
         const config = {
              headers: { token: read_cookie('token') } 
@@ -71,7 +82,7 @@ export class AddProduct extends React.Component<any, any> {
 
         axios.post(API_Path + '/Products', formData, config)
             .then((response) => {
-                this.setState({ name: '', price: '', description: '', file: null, api_response: response.data, loggedIn: true });
+                this.setState({ name_ro: '', name_it: '', name_en: '', price: '', description_ro: '', description_it: '', description_en: '', file: null, api_response: response.data, loggedIn: true });
                 NotificationManager.success(response.data.message);
             })
             .catch((error) => {
@@ -113,8 +124,20 @@ export class AddProduct extends React.Component<any, any> {
                                         <div className="row align-items-end">
                                             <div className="col-md-6">
                                                 <div className="form-group">
-                                                    <label htmlFor="name"><Translate content='product.Name' /></label>
-                                                    <input type="text" className="form-control" placeholder="" value={this.state.name} onChange={this.handleChange} name="name" id="name" maxLength={32} required/>
+                                                    <label htmlFor="name_ro"><Translate content='product.Name' /> (RO)</label>
+                                                    <input type="text" className="form-control" placeholder="" value={this.state.name_ro} onChange={this.handleChange} name="name_ro" id="name_ro" maxLength={32} required/>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group">
+                                                    <label htmlFor="name_it"><Translate content='product.Name' /> (IT)</label>
+                                                    <input type="text" className="form-control" placeholder="" value={this.state.name_it} onChange={this.handleChange} name="name_it" id="name_it" maxLength={32} required />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group">
+                                                    <label htmlFor="name_en"><Translate content='product.Name' /> (EN)</label>
+                                                    <input type="text" className="form-control" placeholder="" value={this.state.name_en} onChange={this.handleChange} name="name_en" id="name_en" maxLength={32} required />
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
@@ -125,8 +148,20 @@ export class AddProduct extends React.Component<any, any> {
                                             </div>
                                             <div className="col-md-12">
                                                 <div className="form-group">
-                                                    <label htmlFor="description"><Translate content='product.Description' /></label>
-                                                    <textarea className="form-control" value={this.state.description} onChange={this.handleChange} name="description" id="description" rows={10} style={{ resize: 'vertical'}} required></textarea>
+                                                    <label htmlFor="description_ro"><Translate content='product.Description' /> (RO)</label>
+                                                    <textarea className="form-control" value={this.state.description_ro} onChange={this.handleChange} name="description_ro" id="description_ro" rows={10} style={{ resize: 'vertical'}} required></textarea>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-12">
+                                                <div className="form-group">
+                                                    <label htmlFor="description_it"><Translate content='product.Description' /> (IT)</label>
+                                                    <textarea className="form-control" value={this.state.description_it} onChange={this.handleChange} name="description_it" id="description_it" rows={10} style={{ resize: 'vertical' }} required></textarea>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-12">
+                                                <div className="form-group">
+                                                    <label htmlFor="description_en"><Translate content='product.Description' /> (EN)</label>
+                                                    <textarea className="form-control" value={this.state.description_en} onChange={this.handleChange} name="description_en" id="description_en" rows={10} style={{ resize: 'vertical' }} required></textarea>
                                                 </div>
                                             </div>
                                             <div className="col-md-12">

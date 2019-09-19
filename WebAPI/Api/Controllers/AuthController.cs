@@ -29,8 +29,8 @@ namespace Api.Controllers
             if (response != null)
             {
                 // Username si parola valide
-              string role = users.GetUserRole(user.Email);
-              //  string role = "admin";
+                string role = users.GetUserRole(user.Email);
+             //   string role = "admin";
                 TokenMessage msg = new TokenMessage(response, role);
                 responseMessage = Request.CreateResponse(HttpStatusCode.OK, msg);
             }

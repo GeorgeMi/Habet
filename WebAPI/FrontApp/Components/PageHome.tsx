@@ -3,6 +3,16 @@ import { SectionProducts } from "./SectionProducts";
 import { SectionIntro } from "./SectionIntro";
 import { Header } from './Header';
 import { KeyedCollection } from './Dictionary';
+import * as Translate from 'react-translate-component';
+import en from './languages/en';
+import it from './languages/it';
+import ro from './languages/ro';
+
+var counterpart = require('counterpart');
+
+counterpart.registerTranslations('en', en);
+counterpart.registerTranslations('ro', ro);
+counterpart.registerTranslations('it', it);
 
 export class Home extends React.Component<any, any> {
     constructor(props) {
@@ -41,6 +51,20 @@ export class Home extends React.Component<any, any> {
                     <Header Active={'Home'} reloadPage={this.reloadPage}  />
 
                     <SectionIntro />
+
+                    <section className="ftco-section-2 bg-light">  
+                        <div className="container">           
+                            <div className="row">
+                                <div className="offset-1 col-md-10">
+                                    <div className="text-deal" style={{ opacity: 1, fontStyle: 'italic', textAlign: 'justify' }}>
+                                        <Translate component="h5" content='intro.P1' />
+                                        <Translate component="h5" content='intro.P2' />
+                                        <Translate component="h5" content='intro.P3' />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
 
                     <section className="ftco-section bg-light">                     
                         <SectionProducts Gender={'Women'} Type={'Bags'} setLoadedComponentsArray={this.setLoadedComponentsArray} />

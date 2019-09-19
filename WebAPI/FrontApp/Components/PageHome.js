@@ -18,6 +18,14 @@ var SectionProducts_1 = require("./SectionProducts");
 var SectionIntro_1 = require("./SectionIntro");
 var Header_1 = require("./Header");
 var Dictionary_1 = require("./Dictionary");
+var Translate = require("react-translate-component");
+var en_1 = require("./languages/en");
+var it_1 = require("./languages/it");
+var ro_1 = require("./languages/ro");
+var counterpart = require('counterpart');
+counterpart.registerTranslations('en', en_1.default);
+counterpart.registerTranslations('ro', ro_1.default);
+counterpart.registerTranslations('it', it_1.default);
 var Home = /** @class */ (function (_super) {
     __extends(Home, _super);
     function Home(props) {
@@ -48,6 +56,14 @@ var Home = /** @class */ (function (_super) {
             React.createElement("div", null,
                 React.createElement(Header_1.Header, { Active: 'Home', reloadPage: this.reloadPage }),
                 React.createElement(SectionIntro_1.SectionIntro, null),
+                React.createElement("section", { className: "ftco-section-2 bg-light" },
+                    React.createElement("div", { className: "container" },
+                        React.createElement("div", { className: "row" },
+                            React.createElement("div", { className: "offset-1 col-md-10" },
+                                React.createElement("div", { className: "text-deal", style: { opacity: 1, fontStyle: 'italic', textAlign: 'justify' } },
+                                    React.createElement(Translate, { component: "h5", content: 'intro.P1' }),
+                                    React.createElement(Translate, { component: "h5", content: 'intro.P2' }),
+                                    React.createElement(Translate, { component: "h5", content: 'intro.P3' })))))),
                 React.createElement("section", { className: "ftco-section bg-light" },
                     React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Bags', setLoadedComponentsArray: this.setLoadedComponentsArray }),
                     React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Belts', setLoadedComponentsArray: this.setLoadedComponentsArray }),

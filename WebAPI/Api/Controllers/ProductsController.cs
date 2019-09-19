@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
-using System.Web.Mvc;
 using Api.DTOs;
 using Api.Messages;
 using Api.Models;
@@ -42,7 +41,12 @@ namespace Api.Controllers
             //Random rnd = new Random();
             //for (int i = 0; i < 3; i++)
             //{
-            //    productList.Add(new Products { Name = "Name" + i, Price = i + 1, ProductId = rnd.Next(1, 4) });
+            //    productList.Add(new Products {
+            //        Name_RO = "Name_RO" + i,
+            //        Name_EN = "Name_EN" + i,
+            //        Name_IT = "Name_IT" + i,
+            //        Price = i + 1,
+            //        ProductId = rnd.Next(1, 4) });
             //}
 
             List<ProductInfo> result = new List<ProductInfo>();
@@ -50,7 +54,7 @@ namespace Api.Controllers
             {
                 result.Add(new ProductInfo
                 {
-                    Name = product.Name,
+                    Name = ComputeName(product, lang),
                     Price = ExchangePrice(product.Price, currency),
                     ProductId = product.ProductId,
                     Image = new ProductsImagesController().GetProductsImage(product.ProductId)
@@ -71,17 +75,27 @@ namespace Api.Controllers
             JSend json;
             var product = db.Products.Find(productId);
             //Random rnd = new Random();
-            //var product = new Products { Name = "Name" + 1, Price = 1, Description = "Description", ProductId = rnd.Next(1, 4) };
+            //var product = new Products
+            //{
+            //    Name_RO = "Name_RO" + 1,
+            //    Name_EN = "Name_EN" + 1,
+            //    Name_IT = "Name_IT" + 1,
+            //    Price = 1,
+            //    Description_RO = "Description_RO",
+            //    Description_EN = "Description_EN",
+            //    Description_IT = "Description_IT",
+            //    ProductId = rnd.Next(1, 4)
+            //};
 
 
             if (product != null)
             {
                 var productDetail = new ProductDetail
                 {
-                    Name = product.Name,
+                    Name = ComputeName(product, lang),
                     Price = ExchangePrice(product.Price, currency),
                     ProductId = product.ProductId,
-                    Description = product.Description,
+                    Description = ComputeDescription(product, lang),
                     Image = new ProductsImagesController().GetProductsImages(product.ProductId)
                 };
 
@@ -93,7 +107,6 @@ namespace Api.Controllers
                 responseMessage = Request.CreateResponse(HttpStatusCode.NotFound, json);
             }
 
-            //return new Products { Description = "Description" + id, Name = "Name" + id, Price = id, ProductId = id };
             return responseMessage;
         }
 
@@ -110,7 +123,14 @@ namespace Api.Controllers
             //Random rnd = new Random();
             //for (int i = 0; i < request.ProductIds.Count; i++)
             //{
-            //    productList.Add(new Products { Name = "Name" + i, Price = i + 1, ProductId = request.ProductIds[i] });
+            //    productList.Add(new Products
+            //    {
+            //        Name_RO = "Name_RO" + i,
+            //        Name_EN = "Name_EN" + i,
+            //        Name_IT = "Name_IT" + i,
+            //        Price = i + 1,
+            //        ProductId = request.ProductIds[i]
+            //    });
             //}
 
             var result = new List<ProductInfo>();
@@ -118,7 +138,7 @@ namespace Api.Controllers
             {
                 result.Add(new ProductInfo
                 {
-                    Name = product.Name,
+                    Name = ComputeName(product, request.Lang),
                     Price = ExchangePrice(product.Price, request.Currency),
                     ProductId = product.ProductId,
                     Image = new ProductsImagesController().GetProductsImage(product.ProductId)
@@ -146,7 +166,13 @@ namespace Api.Controllers
             //for (int i = 0; i < request.Top; i++)
             //{
             //    int x = rnd.Next(1, 4);
-            //    responseProductList.Add(new Products { Name = "Name" + x, Price = x + 1, ProductId = x });
+            //    responseProductList.Add(new Products
+            //    {
+            //        Name_RO = "Name_RO" + x,
+            //        Name_EN = "Name_EN" + x,
+            //        Name_IT = "Name_IT" + x,
+            //        Price = x + 1,
+            //        ProductId = x });
             //}
 
             var result = new SearchDetails
@@ -158,15 +184,15 @@ namespace Api.Controllers
             {
                 result.Products.Add(new ProductInfo
                 {
-                    Name = product.Name,
+                    Name = ComputeName(product, request.Lang),
                     Price = ExchangePrice(product.Price, request.Currency),
                     ProductId = product.ProductId,
                     Image = new ProductsImagesController().GetProductsImage(product.ProductId)
                 });
             }
 
-           // result.TotalItemsCount = productList.Count();
-            result.TotalItemsCount = 10;
+            result.TotalItemsCount = productList.Count();
+          //  result.TotalItemsCount = 10;
 
             responseMessage = Request.CreateResponse(HttpStatusCode.OK, result);
 
@@ -221,7 +247,6 @@ namespace Api.Controllers
                 var httpRequest = HttpContext.Current.Request;
                 var productToAdd = Newtonsoft.Json.JsonConvert.DeserializeObject<Products>(httpRequest.Form["data"]);
                 db.Products.Add(productToAdd);
-
                 db.SaveChanges();
 
                 foreach (string fileName in httpRequest.Files)
@@ -316,6 +341,45 @@ namespace Api.Controllers
             }
 
             return (double)System.Math.Round(result, 2);
+        }
+
+
+        private string ComputeName(Products product, string lang)
+        {
+            string name;
+            switch (lang)
+            {
+                case "ro":
+                    name = product.Name_RO;
+                    break;
+                case "it":
+                    name = product.Name_IT;
+                    break;
+                default:
+                    name = product.Name_EN;
+                    break;
+            }
+
+            return name;
+        }
+
+        private string ComputeDescription(Products product, string lang)
+        {
+            string description;
+            switch (lang)
+            {
+                case "ro":
+                    description = product.Description_RO;
+                    break;
+                case "it":
+                    description = product.Description_IT;
+                    break;
+                default:
+                    description = product.Description_EN;
+                    break;
+            }
+
+            return description;
         }
     }
 }

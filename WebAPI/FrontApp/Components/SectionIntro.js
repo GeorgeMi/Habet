@@ -15,7 +15,6 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var sfcookies_1 = require("sfcookies");
-var Translate = require("react-translate-component");
 var en_1 = require("./languages/en");
 var it_1 = require("./languages/it");
 var ro_1 = require("./languages/ro");
@@ -31,6 +30,7 @@ var SectionIntro = /** @class */ (function (_super) {
     function SectionIntro(props) {
         var _this = _super.call(this, props) || this;
         _this.state = { isLoaded: false, items: null, error: null, language: sfcookies_1.read_cookie('lang'), currency: sfcookies_1.read_cookie('currency') };
+        _this.setActiveClassName = _this.setActiveClassName.bind(_this);
         return _this;
     }
     SectionIntro.prototype.componentWillMount = function () {
@@ -53,7 +53,15 @@ var SectionIntro = /** @class */ (function (_super) {
         })
             .then();
     };
+    SectionIntro.prototype.setActiveClassName = function (id) {
+        if (id == 0) {
+            return "active";
+        }
+        else
+            return "";
+    };
     SectionIntro.prototype.render = function () {
+        var _this = this;
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, currency = _a.currency;
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
@@ -75,18 +83,11 @@ var SectionIntro = /** @class */ (function (_super) {
             return React.createElement("div", null);
         }
         else {
-            return (React.createElement("section", { className: "ftco-section ftco-deal", style: { backgroundImage: "url('images/background.jpg')", opacity: 0.5 } },
+            return (React.createElement("section", { className: "ftco-section ftco-deal", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url('images/background.jpg')" } },
                 React.createElement("div", { className: "container" },
                     React.createElement("div", { id: "carouselExampleControls", className: "carousel slide", "data-ride": "carousel" },
                         React.createElement("div", { className: "carousel-inner" },
-                            React.createElement("div", { className: "active carousel-item" },
-                                React.createElement("div", { className: "row" },
-                                    React.createElement("div", { className: "offset-1 col-md-10" },
-                                        React.createElement("div", { className: "text-deal", style: { opacity: 1, fontStyle: 'italic', textAlign: 'justify' } },
-                                            React.createElement(Translate, { component: "h5", content: 'intro.P1' }),
-                                            React.createElement(Translate, { component: "h5", content: 'intro.P2' }),
-                                            React.createElement(Translate, { component: "h5", content: 'intro.P3' }))))),
-                            items.map(function (item, i) { return (React.createElement("div", { key: i, className: "carousel-item" },
+                            items.map(function (item, i) { return (React.createElement("div", { key: i, className: _this.setActiveClassName(i) + " carousel-item" },
                                 React.createElement("div", { className: "row" },
                                     React.createElement("div", { className: "col-md-6" },
                                         React.createElement("img", { src: item.Image, className: "img-fluid", alt: "" })),

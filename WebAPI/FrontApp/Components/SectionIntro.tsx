@@ -19,6 +19,7 @@ export class SectionIntro extends React.Component<any, any> {
         super(props);
 
         this.state = { isLoaded: false, items: null, error: null, language: read_cookie('lang'), currency: read_cookie('currency') };
+        this.setActiveClassName = this.setActiveClassName.bind(this);
     }
 
     componentWillMount() {
@@ -41,6 +42,14 @@ export class SectionIntro extends React.Component<any, any> {
             })
             .then();
     }
+
+    setActiveClassName(id: number) {
+        if (id == 0) {
+            return "active";
+        }
+        else return ""
+    }
+
     render() {
         const { error, isLoaded, items, currency } = this.state;
         var currencyBeforeSign = '€';
@@ -57,26 +66,13 @@ export class SectionIntro extends React.Component<any, any> {
 
         } else {
             return (
-                <section className="ftco-section ftco-deal" style={{ backgroundImage: "url('images/background.jpg')", opacity: 0.5 }}>
+                <section className="ftco-section ftco-deal" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url('images/background.jpg')"}}>                
                     <div className="container">
                         <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
                             <div className="carousel-inner">
-
-                                <div className="active carousel-item">
-                                    <div className="row">
-                                        <div className="offset-1 col-md-10">
-                                            <div className="text-deal" style={{ opacity: 1, fontStyle: 'italic', textAlign: 'justify' }}>
-                                                <Translate component="h5" content='intro.P1' />
-                                                <Translate component="h5" content='intro.P2' />
-                                                <Translate component="h5" content='intro.P3' />                                               
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 {
                                     items.map((item, i) => (
-                                        <div key={i} className="carousel-item">
+                                        <div key={i} className={this.setActiveClassName(i) + " carousel-item"}>
                                             <div className="row">
                                                 <div className="col-md-6">
                                                     <img src={item.Image} className="img-fluid" alt="" />
