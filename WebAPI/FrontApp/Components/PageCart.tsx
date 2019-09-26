@@ -232,7 +232,8 @@ export class Cart extends React.Component<any, any>{
                                                 pathname: "/checkout",
                                                 subtotal:  this.state.subtotal,
                                                 delivery:  this.state.delivery,
-                                                total:  this.state.total 
+                                                total: this.state.total,
+                                                cartProducts: this.state.cartProducts
                                             }
                                         } className="btn btn-primary py-3 px-4" ><Translate content='checkout.ProceedToCheckout' /></Link>
                                     </p>

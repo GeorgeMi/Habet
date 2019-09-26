@@ -29,6 +29,8 @@ export class Checkout extends React.Component<any, any> {
             subtotal: this.props.location.subtotal,
             total: this.props.location.total,
             delivery: this.props.location.delivery,
+            cartProducts: this.props.location.cartProducts.items,
+            paymentMethod: '',
             firstName: '',
             lastName: '',
             state: '',
@@ -89,14 +91,18 @@ export class Checkout extends React.Component<any, any> {
             this.setState({ waitingResponse: true });
         }
 
-        axios.put(API_Path + '/Users', {
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            state: this.state.state,
-            city: this.state.city,
-            streetAddress: this.state.streetAddress,
-            zipCode: this.state.zipCode,
-            phone: this.state.phone
+        axios.post(API_Path + '/Orders', {
+            userDetails: {
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                state: this.state.state,
+                city: this.state.city,
+                streetAddress: this.state.streetAddress,
+                zipCode: this.state.zipCode,
+                phone: this.state.phone
+            },
+            cartProducts: this.state.cartProducts,
+            paymentMethod: this.state.paymentMethod,
         }, {
                 headers: {
                     token: read_cookie('token') //the token is a variable which holds the token
@@ -172,7 +178,7 @@ export class Checkout extends React.Component<any, any> {
                             <div className="container">
                                 <div className="row justify-content-center">
                                     <div className="col-xl-10">
-                                        <form action="#" className="billing-form">
+                                        <form action="" className="billing-form" onSubmit={this.handleSubmit}>
                                             <h3 className="mb-4 billing-heading"><Translate content='checkout.BillingDetails' /></h3>
                                             <div className="row align-items-end">
                                                 <div className="col-md-6">
@@ -280,49 +286,52 @@ export class Checkout extends React.Component<any, any> {
                                                         <label htmlFor="emailaddress"><Translate content='checkout.Email' /></label>
                                                         <input type="email" className="form-control" placeholder="" value={this.state.email} onChange={this.handleChange} name="email" id="email" maxLength={32} disabled />
                                                     </div>
-                                                </div>                                             
-                                            </div>
-                                        </form>
-                                        <div className="row mt-5 pt-3 d-flex">
-                                            <div className="col-md-6 d-flex">
-                                                <div className="cart-detail cart-total bg-light p-3 p-md-4">
-                                                    <h3 className="billing-heading mb-4">Cart Total</h3>
-                                                    <p className="d-flex">
-                                                        <span><Translate content='checkout.Subtotal' /></span>
-                                                        <span>{currencyBeforeSign + " " + this.state.subtotal + " " + currencyAfterSign}</span>
-                                                    </p>
-                                                    <p className="d-flex">
-                                                        <span><Translate content='checkout.Delivery' /></span>
-                                                        <span>{currencyBeforeSign + " " + this.state.delivery + " " + currencyAfterSign}</span>
-                                                    </p>
-                                                    <hr />
-                                                    <p className="d-flex total-price">
-                                                        <span><Translate content='checkout.Total' /></span>
-                                                        <span>{currencyBeforeSign + " " + this.state.total + " " + currencyAfterSign}</span>
-                                                    </p>
                                                 </div>
                                             </div>
-                                            <div className="col-md-6">
-                                                <div className="cart-detail bg-light p-3 p-md-4">
-                                                    <h3 className="billing-heading mb-4"><Translate content='checkout.PaymentMethod' /></h3>
-                                                    <div className="form-group">
-                                                        <div className="col-md-12">
-                                                            <div className="radio">
-                                                                <label><input type="radio" name="optradio" className="mr-2" /><Translate content='checkout.Paypal' /></label>
+
+                                            <div className="row mt-5 pt-3 d-flex">
+                                                <div className="col-md-6 d-flex">
+                                                    <div className="cart-detail cart-total bg-light p-3 p-md-4">
+                                                        <h3 className="billing-heading mb-4">Cart Total</h3>
+                                                        <p className="d-flex">
+                                                            <span><Translate content='checkout.Subtotal' /></span>
+                                                            <span>{currencyBeforeSign + " " + this.state.subtotal + " " + currencyAfterSign}</span>
+                                                        </p>
+                                                        <p className="d-flex">
+                                                            <span><Translate content='checkout.Delivery' /></span>
+                                                            <span>{currencyBeforeSign + " " + this.state.delivery + " " + currencyAfterSign}</span>
+                                                        </p>
+                                                        <hr />
+                                                        <p className="d-flex total-price">
+                                                            <span><Translate content='checkout.Total' /></span>
+                                                            <span>{currencyBeforeSign + " " + this.state.total + " " + currencyAfterSign}</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div className="cart-detail bg-light p-3 p-md-4">
+                                                        <h3 className="billing-heading mb-4"><Translate content='checkout.PaymentMethod' /></h3>
+                                                        <div className="form-group">
+                                                            <div className="col-md-12">
+                                                                <div className="radio">
+                                                                    <label><input type="radio" name="paymentMethod" value="Paypal" checked={this.state.paymentMethod === "Paypal"} onChange={this.handleChange} id="Paypal" className="mr-2" /><Translate content='checkout.Paypal' /></label>
+                                                                </div>
                                                             </div>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <div className="col-md-12">
+                                                                <div className="radio">
+                                                                    <label><input type="radio" name="paymentMethod" value="Cash" checked={this.state.paymentMethod === "Cash"} onChange={this.handleChange} id="Cash" className="mr-2" defaultChecked /><Translate content='checkout.CashOnDelivery' /></label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <Translate component="input" attributes={{ value: 'checkout.PlaceOrder' }} type="submit" className="btn btn-primary py-3 px-4" />
                                                         </div>
                                                     </div>
-                                                    <div className="form-group">
-                                                        <div className="col-md-12">
-                                                            <div className="radio">
-                                                                <label><input type="radio" name="optradio" className="mr-2" /><Translate content='checkout.CashOnDelivery' /></label>
-                                                            </div>
-                                                        </div>
-                                                    </div>                                                
-                                                    <p><a href="#" className="btn btn-primary py-3 px-4"><Translate content='checkout.PlaceOrder' /></a></p>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

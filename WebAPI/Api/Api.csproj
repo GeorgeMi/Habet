@@ -226,6 +226,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BusinessLogic\AuthLogic.cs" />
     <Compile Include="BusinessLogic\TokenLogic.cs" />
+    <Compile Include="BusinessLogic\OrderLogic.cs" />
     <Compile Include="BusinessLogic\UsersLogic.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
@@ -234,6 +235,7 @@
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProductsImagesController.cs" />
+    <Compile Include="DTOs\AddOrderDTO.cs" />
     <Compile Include="DTOs\AddProductDTO.cs" />
     <Compile Include="DTOs\GetCartProductsDTO.cs" />
     <Compile Include="DTOs\ProductDetail.cs" />

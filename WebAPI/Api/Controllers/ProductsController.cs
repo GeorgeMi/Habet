@@ -31,23 +31,25 @@ namespace Api.Controllers
 
             if (type == "intro")
             {
-                productList = db.Products.OrderBy(p => p.ProductId).Skip(Math.Max(0, db.Products.Count() - top)).Take(top).ToList();
+             //   productList = db.Products.OrderBy(p => p.ProductId).Skip(Math.Max(0, db.Products.Count() - top)).Take(top).ToList();
             }
             else
             {
-                productList = db.Products.Where(p => p.Gender == gender && p.Type == type).OrderBy(p => p.ProductId).Skip(from).Take(top).ToList();
+               // productList = db.Products.Where(p => p.Gender == gender && p.Type == type).OrderBy(p => p.ProductId).Skip(from).Take(top).ToList();
             }
 
-            //Random rnd = new Random();
-            //for (int i = 0; i < 3; i++)
-            //{
-            //    productList.Add(new Products {
-            //        Name_RO = "Name_RO" + i,
-            //        Name_EN = "Name_EN" + i,
-            //        Name_IT = "Name_IT" + i,
-            //        Price = i + 1,
-            //        ProductId = rnd.Next(1, 4) });
-            //}
+            Random rnd = new Random();
+            for (int i = 0; i < 3; i++)
+            {
+                productList.Add(new Products
+                {
+                    Name_RO = "Name_RO" + i,
+                    Name_EN = "Name_EN" + i,
+                    Name_IT = "Name_IT" + i,
+                    Price = i + 1,
+                    ProductId = rnd.Next(1, 4)
+                });
+            }
 
             List<ProductInfo> result = new List<ProductInfo>();
             foreach (var product in productList)
@@ -73,19 +75,19 @@ namespace Api.Controllers
         {
             HttpResponseMessage responseMessage;
             JSend json;
-            var product = db.Products.Find(productId);
-            //Random rnd = new Random();
-            //var product = new Products
-            //{
-            //    Name_RO = "Name_RO" + 1,
-            //    Name_EN = "Name_EN" + 1,
-            //    Name_IT = "Name_IT" + 1,
-            //    Price = 1,
-            //    Description_RO = "Description_RO",
-            //    Description_EN = "Description_EN",
-            //    Description_IT = "Description_IT",
-            //    ProductId = rnd.Next(1, 4)
-            //};
+          //  var product = db.Products.Find(productId);
+            Random rnd = new Random();
+            var product = new Products
+            {
+                Name_RO = "Name_RO" + 1,
+                Name_EN = "Name_EN" + 1,
+                Name_IT = "Name_IT" + 1,
+                Price = 1,
+                Description_RO = "Description_RO",
+                Description_EN = "Description_EN",
+                Description_IT = "Description_IT",
+                ProductId = rnd.Next(1, 4)
+            };
 
 
             if (product != null)
@@ -117,21 +119,21 @@ namespace Api.Controllers
         public HttpResponseMessage GetCartProducts(GetCartProductsDTO request)
         {
             HttpResponseMessage responseMessage;
-            var productList = db.Products.Where(p=> request.ProductIds.Contains(p.ProductId)).ToList();
+       //     var productList = db.Products.Where(p=> request.ProductIds.Contains(p.ProductId)).ToList();
 
-            //var productList = new List<Products>();
-            //Random rnd = new Random();
-            //for (int i = 0; i < request.ProductIds.Count; i++)
-            //{
-            //    productList.Add(new Products
-            //    {
-            //        Name_RO = "Name_RO" + i,
-            //        Name_EN = "Name_EN" + i,
-            //        Name_IT = "Name_IT" + i,
-            //        Price = i + 1,
-            //        ProductId = request.ProductIds[i]
-            //    });
-            //}
+            var productList = new List<Products>();
+            Random rnd = new Random();
+            for (int i = 0; i < request.ProductIds.Count; i++)
+            {
+                productList.Add(new Products
+                {
+                    Name_RO = "Name_RO" + i,
+                    Name_EN = "Name_EN" + i,
+                    Name_IT = "Name_IT" + i,
+                    Price = i + 1,
+                    ProductId = request.ProductIds[i]
+                });
+            }
 
             var result = new List<ProductInfo>();
             foreach (var product in productList)
@@ -158,22 +160,23 @@ namespace Api.Controllers
         public HttpResponseMessage GetSearchProducts(SearchProductsDTO request)
         {
             HttpResponseMessage responseMessage;
-            var productList = db.Products.Where(p => p.Gender == request.Gender && p.Type == request.Type && p.Price >= request.PriceFrom && p.Price <= request.PriceTo).ToList();
-            var responseProductList = productList.OrderBy(p => p.ProductId).Skip(request.From).Take(request.Top).ToList();
+        //    var productList = db.Products.Where(p => p.Gender == request.Gender && p.Type == request.Type && p.Price >= request.PriceFrom && p.Price <= request.PriceTo).ToList();
+       //     var responseProductList = productList.OrderBy(p => p.ProductId).Skip(request.From).Take(request.Top).ToList();
 
-            //var responseProductList = new List<Products>();
-            //Random rnd = new Random();
-            //for (int i = 0; i < request.Top; i++)
-            //{
-            //    int x = rnd.Next(1, 4);
-            //    responseProductList.Add(new Products
-            //    {
-            //        Name_RO = "Name_RO" + x,
-            //        Name_EN = "Name_EN" + x,
-            //        Name_IT = "Name_IT" + x,
-            //        Price = x + 1,
-            //        ProductId = x });
-            //}
+            var responseProductList = new List<Products>();
+            Random rnd = new Random();
+            for (int i = 0; i < request.Top; i++)
+            {
+                int x = rnd.Next(1, 4);
+                responseProductList.Add(new Products
+                {
+                    Name_RO = "Name_RO" + x,
+                    Name_EN = "Name_EN" + x,
+                    Name_IT = "Name_IT" + x,
+                    Price = x + 1,
+                    ProductId = x
+                });
+            }
 
             var result = new SearchDetails
             {
@@ -191,8 +194,8 @@ namespace Api.Controllers
                 });
             }
 
-            result.TotalItemsCount = productList.Count();
-          //  result.TotalItemsCount = 10;
+          //  result.TotalItemsCount = productList.Count();
+            result.TotalItemsCount = 10;
 
             responseMessage = Request.CreateResponse(HttpStatusCode.OK, result);
 

@@ -12,6 +12,9 @@ namespace Api.Models
 
         public int OrderId { get; set; }
         public int UserId { get; set; }
+        public double Subtotal { get; set; }
+        public double Shipping { get; set; }
+        public string PaymentMethod { get; set; }
         public DateTime Date { get; set; }
 
         public virtual Users User { get; set; }

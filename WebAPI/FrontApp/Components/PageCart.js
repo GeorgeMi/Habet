@@ -209,7 +209,8 @@ var Cart = /** @class */ (function (_super) {
                                             pathname: "/checkout",
                                             subtotal: this.state.subtotal,
                                             delivery: this.state.delivery,
-                                            total: this.state.total
+                                            total: this.state.total,
+                                            cartProducts: this.state.cartProducts
                                         }, className: "btn btn-primary py-3 px-4" },
                                         React.createElement(Translate, { content: 'checkout.ProceedToCheckout' })))))))));
         }

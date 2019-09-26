@@ -122,7 +122,7 @@ export class Contact extends React.Component<any, any>{
                                             <textarea className="form-control" placeholder="" value={this.state.message} onChange={this.handleChange} name="message" id="message" required></textarea>
                                         </div>
                                         <div className="form-group">                                       
-                                            <Translate component="input" attributes={{ value: 'contact.SendMessage', }} type="submit" className="btn btn-primary py-3 px-5"/>
+                                            <Translate component="input" attributes={{ value: 'contact.SendMessage' }} type="submit" className="btn btn-primary py-3 px-5"/>
                                         </div>
                                     </form>
                                 </div>

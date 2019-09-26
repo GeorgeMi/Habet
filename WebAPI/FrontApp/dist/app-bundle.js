@@ -949,7 +949,8 @@ var Cart = /** @class */ (function (_super) {
                                             pathname: "/checkout",
                                             subtotal: this.state.subtotal,
                                             delivery: this.state.delivery,
-                                            total: this.state.total
+                                            total: this.state.total,
+                                            cartProducts: this.state.cartProducts
                                         }, className: "btn btn-primary py-3 px-4" },
                                         React.createElement(Translate, { content: 'checkout.ProceedToCheckout' })))))))));
         }
@@ -1143,6 +1144,8 @@ var Checkout = /** @class */ (function (_super) {
             subtotal: _this.props.location.subtotal,
             total: _this.props.location.total,
             delivery: _this.props.location.delivery,
+            cartProducts: _this.props.location.cartProducts.items,
+            paymentMethod: '',
             firstName: '',
             lastName: '',
             state: '',
@@ -1200,14 +1203,18 @@ var Checkout = /** @class */ (function (_super) {
         if (this.state.waitingResponse == false) {
             this.setState({ waitingResponse: true });
         }
-        axios.put(API_Path + '/Users', {
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            state: this.state.state,
-            city: this.state.city,
-            streetAddress: this.state.streetAddress,
-            zipCode: this.state.zipCode,
-            phone: this.state.phone
+        axios.post(API_Path + '/Orders', {
+            userDetails: {
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                state: this.state.state,
+                city: this.state.city,
+                streetAddress: this.state.streetAddress,
+                zipCode: this.state.zipCode,
+                phone: this.state.phone
+            },
+            cartProducts: this.state.cartProducts,
+            paymentMethod: this.state.paymentMethod,
         }, {
             headers: {
                 token: sfcookies_1.read_cookie('token') //the token is a variable which holds the token
@@ -1274,7 +1281,7 @@ var Checkout = /** @class */ (function (_super) {
                         React.createElement("div", { className: "container" },
                             React.createElement("div", { className: "row justify-content-center" },
                                 React.createElement("div", { className: "col-xl-10" },
-                                    React.createElement("form", { action: "#", className: "billing-form" },
+                                    React.createElement("form", { action: "", className: "billing-form", onSubmit: this.handleSubmit },
                                         React.createElement("h3", { className: "mb-4 billing-heading" },
                                             React.createElement(Translate, { content: 'checkout.BillingDetails' })),
                                         React.createElement("div", { className: "row align-items-end" },
@@ -1373,43 +1380,42 @@ var Checkout = /** @class */ (function (_super) {
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "emailaddress" },
                                                         React.createElement(Translate, { content: 'checkout.Email' })),
-                                                    React.createElement("input", { type: "email", className: "form-control", placeholder: "", value: this.state.email, onChange: this.handleChange, name: "email", id: "email", maxLength: 32, disabled: true }))))),
-                                    React.createElement("div", { className: "row mt-5 pt-3 d-flex" },
-                                        React.createElement("div", { className: "col-md-6 d-flex" },
-                                            React.createElement("div", { className: "cart-detail cart-total bg-light p-3 p-md-4" },
-                                                React.createElement("h3", { className: "billing-heading mb-4" }, "Cart Total"),
-                                                React.createElement("p", { className: "d-flex" },
-                                                    React.createElement("span", null,
-                                                        React.createElement(Translate, { content: 'checkout.Subtotal' })),
-                                                    React.createElement("span", null, currencyBeforeSign + " " + this.state.subtotal + " " + currencyAfterSign)),
-                                                React.createElement("p", { className: "d-flex" },
-                                                    React.createElement("span", null,
-                                                        React.createElement(Translate, { content: 'checkout.Delivery' })),
-                                                    React.createElement("span", null, currencyBeforeSign + " " + this.state.delivery + " " + currencyAfterSign)),
-                                                React.createElement("hr", null),
-                                                React.createElement("p", { className: "d-flex total-price" },
-                                                    React.createElement("span", null,
-                                                        React.createElement(Translate, { content: 'checkout.Total' })),
-                                                    React.createElement("span", null, currencyBeforeSign + " " + this.state.total + " " + currencyAfterSign)))),
-                                        React.createElement("div", { className: "col-md-6" },
-                                            React.createElement("div", { className: "cart-detail bg-light p-3 p-md-4" },
-                                                React.createElement("h3", { className: "billing-heading mb-4" },
-                                                    React.createElement(Translate, { content: 'checkout.PaymentMethod' })),
-                                                React.createElement("div", { className: "form-group" },
-                                                    React.createElement("div", { className: "col-md-12" },
-                                                        React.createElement("div", { className: "radio" },
-                                                            React.createElement("label", null,
-                                                                React.createElement("input", { type: "radio", name: "optradio", className: "mr-2" }),
-                                                                React.createElement(Translate, { content: 'checkout.Paypal' }))))),
-                                                React.createElement("div", { className: "form-group" },
-                                                    React.createElement("div", { className: "col-md-12" },
-                                                        React.createElement("div", { className: "radio" },
-                                                            React.createElement("label", null,
-                                                                React.createElement("input", { type: "radio", name: "optradio", className: "mr-2" }),
-                                                                React.createElement(Translate, { content: 'checkout.CashOnDelivery' }))))),
-                                                React.createElement("p", null,
-                                                    React.createElement("a", { href: "#", className: "btn btn-primary py-3 px-4" },
-                                                        React.createElement(Translate, { content: 'checkout.PlaceOrder' })))))))))))));
+                                                    React.createElement("input", { type: "email", className: "form-control", placeholder: "", value: this.state.email, onChange: this.handleChange, name: "email", id: "email", maxLength: 32, disabled: true })))),
+                                        React.createElement("div", { className: "row mt-5 pt-3 d-flex" },
+                                            React.createElement("div", { className: "col-md-6 d-flex" },
+                                                React.createElement("div", { className: "cart-detail cart-total bg-light p-3 p-md-4" },
+                                                    React.createElement("h3", { className: "billing-heading mb-4" }, "Cart Total"),
+                                                    React.createElement("p", { className: "d-flex" },
+                                                        React.createElement("span", null,
+                                                            React.createElement(Translate, { content: 'checkout.Subtotal' })),
+                                                        React.createElement("span", null, currencyBeforeSign + " " + this.state.subtotal + " " + currencyAfterSign)),
+                                                    React.createElement("p", { className: "d-flex" },
+                                                        React.createElement("span", null,
+                                                            React.createElement(Translate, { content: 'checkout.Delivery' })),
+                                                        React.createElement("span", null, currencyBeforeSign + " " + this.state.delivery + " " + currencyAfterSign)),
+                                                    React.createElement("hr", null),
+                                                    React.createElement("p", { className: "d-flex total-price" },
+                                                        React.createElement("span", null,
+                                                            React.createElement(Translate, { content: 'checkout.Total' })),
+                                                        React.createElement("span", null, currencyBeforeSign + " " + this.state.total + " " + currencyAfterSign)))),
+                                            React.createElement("div", { className: "col-md-6" },
+                                                React.createElement("div", { className: "cart-detail bg-light p-3 p-md-4" },
+                                                    React.createElement("h3", { className: "billing-heading mb-4" },
+                                                        React.createElement(Translate, { content: 'checkout.PaymentMethod' })),
+                                                    React.createElement("div", { className: "form-group" },
+                                                        React.createElement("div", { className: "col-md-12" },
+                                                            React.createElement("div", { className: "radio" },
+                                                                React.createElement("label", null,
+                                                                    React.createElement("input", { type: "radio", name: "paymentMethod", value: "Paypal", checked: this.state.paymentMethod === "Paypal", onChange: this.handleChange, id: "Paypal", className: "mr-2" }),
+                                                                    React.createElement(Translate, { content: 'checkout.Paypal' }))))),
+                                                    React.createElement("div", { className: "form-group" },
+                                                        React.createElement("div", { className: "col-md-12" },
+                                                            React.createElement("div", { className: "radio" },
+                                                                React.createElement("label", null,
+                                                                    React.createElement("input", { type: "radio", name: "paymentMethod", value: "Cash", checked: this.state.paymentMethod === "Cash", onChange: this.handleChange, id: "Cash", className: "mr-2", defaultChecked: true }),
+                                                                    React.createElement(Translate, { content: 'checkout.CashOnDelivery' }))))),
+                                                    React.createElement("div", { className: "form-group" },
+                                                        React.createElement(Translate, { component: "input", attributes: { value: 'checkout.PlaceOrder' }, type: "submit", className: "btn btn-primary py-3 px-4" })))))))))))));
         }
     };
     return Checkout;
@@ -1559,7 +1565,7 @@ var Contact = /** @class */ (function (_super) {
                                             React.createElement(Translate, { content: 'contact.Message' })),
                                         React.createElement("textarea", { className: "form-control", placeholder: "", value: this.state.message, onChange: this.handleChange, name: "message", id: "message", required: true })),
                                     React.createElement("div", { className: "form-group" },
-                                        React.createElement(Translate, { component: "input", attributes: { value: 'contact.SendMessage', }, type: "submit", className: "btn btn-primary py-3 px-5" }))))))))));
+                                        React.createElement(Translate, { component: "input", attributes: { value: 'contact.SendMessage' }, type: "submit", className: "btn btn-primary py-3 px-5" }))))))))));
     };
     return Contact;
 }(React.Component));
@@ -36658,7 +36664,7 @@ if(false) {}
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
