@@ -1,5 +1,3 @@
-D:\project\Habet\WebAPI\Api\bin\System.Collections.Immutable.dll
-D:\project\Habet\WebAPI\Api\bin\System.Web.Http.xml
 F:\workspace\Habet\WebAPI\Api\bin\Remotion.Linq.dll
 F:\workspace\Habet\WebAPI\Api\bin\System.Buffers.xml
 F:\workspace\Habet\WebAPI\Api\bin\System.Net.Http.Formatting.xml
@@ -150,6 +148,9 @@ F:\workspace\Habet\WebAPI\Api\obj\Debug\Api.csproj.CoreCompileInputs.cache
 F:\workspace\Habet\WebAPI\Api\obj\Debug\Api.csproj.CopyComplete
 F:\workspace\Habet\WebAPI\Api\obj\Debug\Api.dll
 F:\workspace\Habet\WebAPI\Api\obj\Debug\Api.pdb
+D:\project\Habet\WebAPI\Api\bin\Microsoft.AspNetCore.Http.Features.xml
+D:\project\Habet\WebAPI\Api\bin\Microsoft.Extensions.Logging.Abstractions.xml
+D:\project\Habet\WebAPI\Api\bin\Nest.xml
 D:\project\Habet\WebAPI\Api\bin\Api.dll.config
 D:\project\Habet\WebAPI\Api\bin\Api.dll
 D:\project\Habet\WebAPI\Api\bin\Api.pdb
@@ -229,6 +230,7 @@ D:\project\Habet\WebAPI\Api\bin\Newtonsoft.Json.Bson.dll
 D:\project\Habet\WebAPI\Api\bin\Newtonsoft.Json.dll
 D:\project\Habet\WebAPI\Api\bin\Remotion.Linq.dll
 D:\project\Habet\WebAPI\Api\bin\System.Buffers.dll
+D:\project\Habet\WebAPI\Api\bin\System.Collections.Immutable.dll
 D:\project\Habet\WebAPI\Api\bin\System.ComponentModel.Annotations.dll
 D:\project\Habet\WebAPI\Api\bin\System.Data.SqlClient.dll
 D:\project\Habet\WebAPI\Api\bin\System.Diagnostics.DiagnosticSource.dll
@@ -253,7 +255,6 @@ D:\project\Habet\WebAPI\Api\bin\EntityFramework.xml
 D:\project\Habet\WebAPI\Api\bin\EntityFramework.SqlServer.xml
 D:\project\Habet\WebAPI\Api\bin\GreenPipes.xml
 D:\project\Habet\WebAPI\Api\bin\MassTransit.xml
-D:\project\Habet\WebAPI\Api\bin\Microsoft.AspNetCore.Http.Features.xml
 D:\project\Habet\WebAPI\Api\bin\Microsoft.EntityFrameworkCore.xml
 D:\project\Habet\WebAPI\Api\bin\Microsoft.EntityFrameworkCore.Abstractions.xml
 D:\project\Habet\WebAPI\Api\bin\Microsoft.EntityFrameworkCore.Design.xml
@@ -267,10 +268,8 @@ D:\project\Habet\WebAPI\Api\bin\Microsoft.Extensions.Configuration.Binder.xml
 D:\project\Habet\WebAPI\Api\bin\Microsoft.Extensions.DependencyInjection.xml
 D:\project\Habet\WebAPI\Api\bin\Microsoft.Extensions.DependencyInjection.Abstractions.xml
 D:\project\Habet\WebAPI\Api\bin\Microsoft.Extensions.Logging.xml
-D:\project\Habet\WebAPI\Api\bin\Microsoft.Extensions.Logging.Abstractions.xml
 D:\project\Habet\WebAPI\Api\bin\Microsoft.Extensions.Options.xml
 D:\project\Habet\WebAPI\Api\bin\Microsoft.Extensions.Primitives.xml
-D:\project\Habet\WebAPI\Api\bin\Nest.xml
 D:\project\Habet\WebAPI\Api\bin\NewId.xml
 D:\project\Habet\WebAPI\Api\bin\Newtonsoft.Json.xml
 D:\project\Habet\WebAPI\Api\bin\Newtonsoft.Json.Bson.xml
@@ -291,9 +290,9 @@ D:\project\Habet\WebAPI\Api\bin\System.Web.WebPages.xml
 D:\project\Habet\WebAPI\Api\bin\System.Web.WebPages.Deployment.xml
 D:\project\Habet\WebAPI\Api\bin\System.Web.WebPages.Razor.xml
 D:\project\Habet\WebAPI\Api\bin\System.Net.Http.Formatting.xml
+D:\project\Habet\WebAPI\Api\bin\System.Web.Http.xml
 D:\project\Habet\WebAPI\Api\bin\System.Web.Http.WebHost.xml
 D:\project\Habet\WebAPI\Api\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\project\Habet\WebAPI\Api\obj\Debug\Api.csproj.CoreCompileInputs.cache
 D:\project\Habet\WebAPI\Api\obj\Debug\Api.csproj.CopyComplete
 D:\project\Habet\WebAPI\Api\obj\Debug\Api.dll
 D:\project\Habet\WebAPI\Api\obj\Debug\Api.pdb

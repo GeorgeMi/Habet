@@ -81,36 +81,18 @@ namespace Api.Controllers
                 var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
                 if (userId > 0)
                 {
-                    //var user = db.Users.First(u => u.UserId == userId);
-                    var user = new Users()
-                    {
-                        UsersAddresses = new List<UsersAddresses>()
-                        { new UsersAddresses{
-                            State = "RO123",
-                            Address = "StreetAddress123",
-                            City = "City123",
-                            ZipCode = "ZipCode123"
-                        }
-                        }
-                    };
-
-                   // user.UsersAddresses = db.UsersAddresses.Where(u => u.UserId == userId).ToList();
-
-                    user.FirstName = request.UserDetails.FirstName;
-                    user.LastName = request.UserDetails.LastName;
-                    user.UsersAddresses.First().State = request.UserDetails.State;
-                    user.UsersAddresses.First().Address = request.UserDetails.StreetAddress;
-                    user.UsersAddresses.First().City = request.UserDetails.City;
-                    user.UsersAddresses.First().ZipCode = request.UserDetails.ZipCode;
-                    user.Phone = request.UserDetails.Phone;
-
-                    // db.Users.Update(user);
-                    // db.SaveChanges();
-
                     var order = new Orders
                     {
                         Date = DateTime.Now,
                         UserId = userId.Value,
+                        FirstName = request.UserDetails.FirstName,
+                        LastName = request.UserDetails.LastName,
+                        State = request.UserDetails.State,
+                        Address = request.UserDetails.StreetAddress,
+                        City = request.UserDetails.City,
+                        ZipCode = request.UserDetails.ZipCode,
+                        Phone = request.UserDetails.Phone,
+                        Email = request.UserDetails.Email,
                         ProductsOrders = new List<ProductsOrders>()
                     };
 
@@ -155,7 +137,7 @@ namespace Api.Controllers
                     // db.SaveChanges();
 
                     var OrderLogic = new OrderLogic(db);
-                    OrderLogic.SendOrderEmail(order, user.UsersAddresses.First(), user, productList);
+                    OrderLogic.SendOrderEmail(order, productList);
                 }
             }
             catch (DbUpdateException)

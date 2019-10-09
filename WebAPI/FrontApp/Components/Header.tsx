@@ -48,7 +48,7 @@ export class Header extends React.Component<any, any> {
         if (read_cookie('token') != null && read_cookie('token').length !== 0) {
             this.checkIfTokenIsValid();
         }
- 
+
         this.handleChange = this.handleChange.bind(this);
         this.onLangChange = this.onLangChange.bind(this);
         this.onCurrencyChange = this.onCurrencyChange.bind(this);
@@ -93,7 +93,7 @@ export class Header extends React.Component<any, any> {
                 bake_cookie('token', response.data.token);
             })
             .catch((error) => {
-                this.setState({ error});
+                this.setState({ error });
                 NotificationManager.error('Invalid email or password.');
             })
             .then();
@@ -106,7 +106,7 @@ export class Header extends React.Component<any, any> {
             .then((response) => {
                 this.setState({ loggedIn: true, api_response: response.data });
             })
-            .catch((error) => {     
+            .catch((error) => {
                 delete_cookie('token');
             })
             .then(
@@ -148,7 +148,7 @@ export class Header extends React.Component<any, any> {
 	                    </button>
                         <div className="collapse navbar-collapse" id="ftco-nav">
                             <ul className="navbar-nav ml-auto">
-                                <li className={"nav-item " + headerDictionary.Item('Home')}><a href="/" className="nav-link"><Translate content="nav.Home"/></a></li>
+                                <li className={"nav-item " + headerDictionary.Item('Home')}><a href="/" className="nav-link"><Translate content="nav.Home" /></a></li>
                                 <li className={"nav-item dropdown " + headerDictionary.Item('Women')}>
                                     <Link className="nav-link dropdown-toggle" to="/#Women-section" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><Translate content="nav.Women" /></Link>
                                     <div className="dropdown-content" aria-labelledby="dropdown04">
@@ -201,8 +201,9 @@ export class Header extends React.Component<any, any> {
                                             <div className="dropdown-content" aria-labelledby="dropdown04">
                                                 <Link className="dropdown-item" to="/user_details"><Translate content="nav.EditDetails" /></Link>
                                                 <Link className="dropdown-item" to="/change_password"><Translate content="nav.ChangePassword" /></Link>
+                                                <Link className="dropdown-item" to="/orders">Orders</Link>
                                                 {
-                                                    api_response.role == 'admin' ?                                                       
+                                                    api_response.role == 'admin' ?
                                                         <Link className="dropdown-item" to="/add_product"><Translate content="nav.AddProduct" /></Link>
                                                         :
                                                         <div></div>
@@ -220,7 +221,7 @@ export class Header extends React.Component<any, any> {
                                         <option value="it">It</option>
                                         <option value="ro">Ro</option>
                                     </select>
-                                </li>   
+                                </li>
 
                                 <li className="nav-item dropdown">
                                     <select style={{ backgroundColor: 'transparent', transform: 'translateY(22 %)' }} value={this.state.currency} onChange={this.onCurrencyChange} name="currency" id="currency">
@@ -228,12 +229,12 @@ export class Header extends React.Component<any, any> {
                                         <option value="euros">€</option>
                                         <option value="lei">Lei</option>
                                     </select>
-                                </li>   
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </nav>
             </div>
-        );      
+        );
     }
 }

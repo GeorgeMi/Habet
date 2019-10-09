@@ -19,6 +19,10 @@ import { ChangePassword } from "./Components/PageChangePassword";
 import { AddProduct } from "./Components/PageAddProduct";
 import { UpdateUserDetails } from "./Components/PageUpdateUserDetails";
 import { CookiePolicy } from "./Components/PageCookiePolicy";
+import { OrderHistory } from "./Components/PageOrderHistory";
+import { Order } from "./Components/PageOrder";
+import { CreditCardPayment } from "./Components/PageCreditCardPayment";
+import { PayPalPayment } from "./Components/PagePayPalPayment";
 
 
 class App extends React.Component {
@@ -41,7 +45,12 @@ class App extends React.Component {
                         <Route exact path="/change_password" component={ChangePassword} />
                         <Route exact path="/user_details" component={UpdateUserDetails} />   
                         <Route exact path="/add_product" component={AddProduct} />   
-                        <Route component={NotFound} />                        
+                        <Route exact path="/add_product" component={AddProduct} />   
+                        <Route exact path="/orders" component={OrderHistory} />     
+                        <Route exact path="/order/:id" component={Order} />   
+                        <Route exact path="/card_payment" component={CreditCardPayment} />   
+                        <Route exact path="/paypal_payment" component={PayPalPayment} />   
+                        <Route component={NotFound} />  
                     </Switch>
                     <Footer />
                 </div>
