@@ -23,6 +23,7 @@ var Translate = require("react-translate-component");
 var en_1 = require("./languages/en");
 var it_1 = require("./languages/it");
 var ro_1 = require("./languages/ro");
+var react_paypal_express_checkout_1 = require("react-paypal-express-checkout");
 var config = require('config');
 var API_Path = config.API_Path;
 var axios = require('axios');
@@ -142,6 +143,38 @@ var Checkout = /** @class */ (function (_super) {
             currencyBeforeSign = '₤';
             currencyAfterSign = '';
         }
+        //-------------- PayPal ---------------------
+        var onSuccess = function (payment) {
+            // Congratulation, it came here means everything's fine!
+            console.log("The payment was succeeded!", payment);
+            // You can bind the "payment" object's value to your state or props or whatever here, please see below for sample returned data
+        };
+        var onCancel = function (data) {
+            // User pressed "cancel" or close Paypal's popup!
+            console.log('The payment was cancelled!', data);
+            // You can bind the "data" object's value to your state or props or whatever here, please see below for sample returned data
+        };
+        var onError = function (err) {
+            // The main Paypal's script cannot be loaded or somethings block the loading of that script!
+            console.log("Error!", err);
+            // Because the Paypal's main script is loaded asynchronously from "https://www.paypalobjects.com/api/checkout.js"
+            // => sometimes it may take about 0.5 second for everything to get set, or for the button to appear
+        };
+        var env = 'sandbox'; // you can set here to 'production' for production
+        //let currency = 'USD'; // or you can set this value from your props or state
+        var total = 1; // same as above, this is the total amount (based on currency) to be paid by using Paypal express checkout
+        // Document on Paypal's currency code: https://developer.paypal.com/docs/classic/api/currency_codes/
+        var client = {
+            sandbox: 'YOUR-SANDBOX-APP-ID',
+            production: 'YOUR-PRODUCTION-APP-ID',
+        };
+        // In order to get production's app-ID, you will have to send your app to Paypal for approval first
+        // For sandbox app-ID (after logging into your developer account, please locate the "REST API apps" section, click "Create App"):
+        //   => https://developer.paypal.com/docs/classic/lifecycle/sb_credentials/
+        // For production app-ID:
+        //   => https://developer.paypal.com/docs/classic/lifecycle/goingLive/
+        // NB. You can also have many Paypal express checkout buttons on page, just pass in the correct amount and they will work!
+        //-------------- PayPal ---------------------
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -251,7 +284,7 @@ var Checkout = /** @class */ (function (_super) {
                                                             React.createElement("option", { value: "CH" }, "Switzerland"),
                                                             React.createElement("option", { value: "TR" }, "Turkey"))))),
                                             React.createElement("div", { className: "w-100" }),
-                                            React.createElement("div", { className: "col-md-6" },
+                                            React.createElement("div", { className: "col-md-12" },
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "streetaddress" },
                                                         React.createElement(Translate, { content: 'checkout.StreetAddress' })),
@@ -309,10 +342,12 @@ var Checkout = /** @class */ (function (_super) {
                                                         React.createElement("div", { className: "col-md-12" },
                                                             React.createElement("div", { className: "radio" },
                                                                 React.createElement("label", null,
-                                                                    React.createElement("input", { type: "radio", name: "paymentMethod", value: "Cash", checked: this.state.paymentMethod === "Cash", onChange: this.handleChange, id: "Cash", className: "mr-2", defaultChecked: true }),
-                                                                    React.createElement(Translate, { content: 'checkout.CashOnDelivery' }))))),
-                                                    React.createElement("div", { className: "form-group" },
-                                                        React.createElement(Translate, { component: "input", attributes: { value: 'checkout.PlaceOrder' }, type: "submit", className: "btn btn-primary py-3 px-4" })))))))))))));
+                                                                    React.createElement("input", { type: "radio", name: "paymentMethod", value: "Card", checked: this.state.paymentMethod === "Card", onChange: this.handleChange, id: "Card", className: "mr-2", defaultChecked: true }),
+                                                                    React.createElement(Translate, { content: 'checkout.CreditCard' }))))),
+                                                    React.createElement("div", { className: "form-group" }, this.state.paymentMethod === "Card" ?
+                                                        React.createElement(Translate, { component: "input", attributes: { value: 'checkout.PlaceOrder' }, type: "submit", className: "btn btn-primary py-3 px-4" })
+                                                        :
+                                                            React.createElement(react_paypal_express_checkout_1.default, { env: env, client: client, currency: currency, total: total, onError: onError, onSuccess: onSuccess, onCancel: onCancel })))))))))))));
         }
     };
     return Checkout;

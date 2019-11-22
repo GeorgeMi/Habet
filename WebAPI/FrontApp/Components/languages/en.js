@@ -20,7 +20,8 @@
         OurNewsletter: 'Our Newsletter',
         Subscribe: 'Subscribe',
         FooterResume: 'Butterfly Gabriel Habet is a fashion brand mainly known for its bag and belt designs for both women and men.',
-        NewsletterResume: 'I would like to receive emails from GabrielHabet with updates and special offers of GabrielHabet. I can unsubscribe any time by clicking the unsubscribe link in the email.'
+        NewsletterResume: 'I would like to receive emails from GabrielHabet with updates and special offers of GabrielHabet. I can unsubscribe any time by clicking the unsubscribe link in the email.',
+        Orders: 'Orders'
     },
 
     products: {
@@ -76,7 +77,7 @@
         Total: 'Total',
         PaymentMethod: 'Payment Method',
         Paypal: 'Paypal',
-        CashOnDelivery: 'Cash on delivery',
+        CreditCard: 'Credit card',
         PlaceOrder: 'Place order',
         MyCart: 'My cart',
         Product: 'Product',
@@ -134,5 +135,13 @@
         P1: 'Many years ago, Gabriel’s career started working as a leather cutter for Italian companies. From design to assembly and product finishing, he went through all the steps required to make leather articles, mastering his abilities in this field over time. Later on, being experienced and passionate, he started working with some of the famous in the field, creating new models for both men and women, contributing through his work to the evolution of leather processing and metal accessories. Then, it came a time when he decided to use this experience in order to create new designs of his own idea under his own new born brand: Butterfly Gabriel Habet.',
         P2: 'His creations are exclusively handmade, designed and produced with an exigency from raw materials which are directly imported from Italy. This highlights the quality and Italian excellence in tanning and leather processing. The following collection aims to satisfy the requirements of enthusiasts of leather articles, delighting them with minimal style elements inspired by modern geometrism but with the ample freedom of defined classicism.',
         P3: 'Thank you for stopping-by and enjoy shopping!'
-    }
+    },
+
+    order: {
+        Total: 'Total',
+        OrderNo: 'Order no.',
+        PlacedOn: 'Placed on',
+        OrderDetails: 'Order details',
+        OrderHistory: 'Orders history'
+    },
 }

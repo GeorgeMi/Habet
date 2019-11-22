@@ -22,7 +22,6 @@ import { CookiePolicy } from "./Components/PageCookiePolicy";
 import { OrderHistory } from "./Components/PageOrderHistory";
 import { Order } from "./Components/PageOrder";
 import { CreditCardPayment } from "./Components/PageCreditCardPayment";
-import { PayPalPayment } from "./Components/PagePayPalPayment";
 
 
 class App extends React.Component {
@@ -49,7 +48,6 @@ class App extends React.Component {
                         <Route exact path="/orders" component={OrderHistory} />     
                         <Route exact path="/order/:id" component={Order} />   
                         <Route exact path="/card_payment" component={CreditCardPayment} />   
-                        <Route exact path="/paypal_payment" component={PayPalPayment} />   
                         <Route component={NotFound} />  
                     </Switch>
                     <Footer />

@@ -235,10 +235,13 @@
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProductsImagesController.cs" />
+    <Compile Include="DTOs\GetOrderDTO.cs" />
     <Compile Include="DTOs\AddOrderDTO.cs" />
     <Compile Include="DTOs\AddProductDTO.cs" />
     <Compile Include="DTOs\GetCartProductsDTO.cs" />
+    <Compile Include="DTOs\ListOrdersDTO.cs" />
     <Compile Include="DTOs\ProductDetail.cs" />
+    <Compile Include="DTOs\OrderProductInfo.cs" />
     <Compile Include="DTOs\ProductInfo.cs" />
     <Compile Include="DTOs\ChangePasswordDTO.cs" />
     <Compile Include="DTOs\RecoverDTO.cs" />

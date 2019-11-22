@@ -27,19 +27,10 @@ export class Order extends React.Component<any, any> {
             isLoaded: false,
             error: null,
             subtotal: '',
-            total: '',
-            delivery: '',
-            cartProducts: '',
+            shipping: '',
             paymentMethod: '',
-            firstName: '',
-            lastName: '',
-            state: '',
-            city: '',
-            streetAddress: '',
-            zipCode: '',
-            phone: '',
-            email: '',
             waitingResponse: false,
+            orderId: props.match.params.id,
             isChanged: false,
             language: read_cookie('lang'),
             currency: read_cookie('currency')
@@ -50,25 +41,26 @@ export class Order extends React.Component<any, any> {
 
     componentWillMount() {
         if (read_cookie('token') != null && read_cookie('token').length !== 0) {
-            axios.get(API_Path + '/Users',
+            axios.get(API_Path + '/Orders',
                 {
                     headers: {
                         token: read_cookie('token') //the token is a variable which holds the token
+                    },
+                    params: {
+                        orderId: this.state.orderId,
+                        lang: this.state.language
                     }
                 })
                 .then((response) => {
-                    var user_details = response.data.data[0];
+                    var order = response.data;
                     this.setState({
                         isLoaded: true,
-                        firstName: user_details.FirstName,
-                        lastName: user_details.LastName,
-                        state: user_details.State,
-                        city: user_details.City,
-                        streetAddress: user_details.StreetAddress,
-                        zipCode: user_details.ZipCode,
-                        phone: user_details.Phone,
-                        email: user_details.Email,
-                        items: response.data.data
+                        userDetails: order.UserDetails,
+                        products: order.Products,
+                        currency: order.Currency,
+                        subtotal: order.Subtotal,
+                        shipping: order.Shipping,
+                        paymentMethod: order.PaymentMethod,
                     });
                 })
                 .catch((error) => {
@@ -83,7 +75,7 @@ export class Order extends React.Component<any, any> {
     }
 
     render() {
-        const { error, isLoaded, waitingResponse, currency, items } = this.state;
+        const { error, isLoaded, waitingResponse, currency, userDetails, products } = this.state;
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
         if (currency == 'lei') { currencyBeforeSign = ''; currencyAfterSign = 'lei' }
@@ -148,7 +140,7 @@ export class Order extends React.Component<any, any> {
                                                 </thead>
                                                 <tbody>
                                                     {
-                                                        items.map((item, i) => (
+                                                        products.map((item, i) => (
                                                             <tr key={i} className="text-center">
                                                                 <td className="image-prod"><img src={item.Image} className="img-fluid" alt="..." /></td>
 
@@ -158,11 +150,11 @@ export class Order extends React.Component<any, any> {
 
                                                                 <td className="quantity">
                                                                     <div className="input-group mb-3">
-                                                                        <input type="text" name={item.ProductId} className="quantity form-control input-number" value={item.Qty} min="1" max="100" disabled/>
+                                                                        <input type="text" name={item.ProductId} className="quantity form-control input-number" value={item.Amount} disabled/>
                                                                     </div>
                                                                 </td>
 
-                                                                <td className="total">{currencyBeforeSign + " " + item.Price * item.Qty + " " + currencyAfterSign}</td>
+                                                                <td className="total">{currencyBeforeSign + " " + item.Price * item.Amount + " " + currencyAfterSign}</td>
                                                             </tr>
                                                         ))}
                                                 </tbody>
@@ -179,27 +171,27 @@ export class Order extends React.Component<any, any> {
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label htmlFor="firstname"><Translate content='checkout.FirstName' /></label>
-                                                        <input type="text" className="form-control" placeholder="" value={this.state.firstName} name="firstName" id="firstName" maxLength={32} disabled />
+                                                        <input type="text" className="form-control" placeholder="" value={userDetails.FirstName} name="firstName" id="firstName" maxLength={32} disabled />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label htmlFor="lastname"><Translate content='checkout.LastName' /></label>
-                                                        <input type="text" className="form-control" placeholder="" value={this.state.lastName} name="lastName" id="lastName" maxLength={32} disabled />
+                                                        <input type="text" className="form-control" placeholder="" value={userDetails.LastName} name="lastName" id="lastName" maxLength={32} disabled />
                                                     </div>
                                                 </div>
                                                 <div className="w-100"></div>
                                                 <div className="col-md-12">
                                                     <div className="form-group">
                                                         <label htmlFor="state"><Translate content='checkout.State' /></label>
-                                                        <input type="text" className="form-control" placeholder="" value={this.state.state} name="state" id="state" maxLength={50} disabled />
+                                                        <input type="text" className="form-control" placeholder="" value={userDetails.State} name="state" id="state" maxLength={50} disabled />
                                                     </div>
                                                 </div>
                                                 <div className="w-100"></div>
-                                                <div className="col-md-6">
+                                                <div className="col-md-12">
                                                     <div className="form-group">
                                                         <label htmlFor="streetaddress"><Translate content='checkout.StreetAddress' /></label>
-                                                        <input type="text" className="form-control" placeholder="" value={this.state.streetAddress} name="streetAddress" id="streetAddress" maxLength={50} disabled />
+                                                        <input type="text" className="form-control" placeholder="" value={userDetails.StreetAddress} name="streetAddress" id="streetAddress" maxLength={50} disabled />
                                                     </div>
                                                 </div>
 
@@ -207,26 +199,26 @@ export class Order extends React.Component<any, any> {
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label htmlFor="towncity"><Translate content='checkout.Town' /></label>
-                                                        <input type="text" className="form-control" placeholder="" value={this.state.city} name="city" id="city" maxLength={32} disabled />
+                                                        <input type="text" className="form-control" placeholder="" value={userDetails.City} name="city" id="city" maxLength={32} disabled />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label htmlFor="postcodezip"><Translate content='checkout.Postcode' /></label>
-                                                        <input type="text" className="form-control" placeholder="" value={this.state.zipCode} name="zipCode" id="zipCode" maxLength={10} disabled />
+                                                        <input type="text" className="form-control" placeholder="" value={userDetails.ZipCode} name="zipCode" id="zipCode" maxLength={10} disabled />
                                                     </div>
                                                 </div>
                                                 <div className="w-100"></div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label htmlFor="phone"><Translate content='checkout.Phone' /></label>
-                                                        <input type="tel" className="form-control" placeholder="" value={this.state.phone} name="phone" id="phone" maxLength={32} disabled />
+                                                        <input type="tel" className="form-control" placeholder="" value={userDetails.Phone} name="phone" id="phone" maxLength={32} disabled />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label htmlFor="emailaddress"><Translate content='checkout.Email' /></label>
-                                                        <input type="email" className="form-control" placeholder="" value={this.state.email} name="email" id="email" maxLength={32} disabled />
+                                                        <input type="email" className="form-control" placeholder="" value={userDetails.Email} name="email" id="email" maxLength={32} disabled />
                                                     </div>
                                                 </div>
                                             </div>
@@ -241,12 +233,12 @@ export class Order extends React.Component<any, any> {
                                                         </p>
                                                         <p className="d-flex">
                                                             <span><Translate content='checkout.Delivery' /></span>
-                                                            <span>{currencyBeforeSign + " " + this.state.delivery + " " + currencyAfterSign}</span>
+                                                            <span>{currencyBeforeSign + " " + this.state.shipping + " " + currencyAfterSign}</span>
                                                         </p>
                                                         <hr />
                                                         <p className="d-flex total-price">
                                                             <span><Translate content='checkout.Total' /></span>
-                                                            <span>{currencyBeforeSign + " " + this.state.total + " " + currencyAfterSign}</span>
+                                                            <span>{currencyBeforeSign + " " + eval(this.state.subtotal + this.state.shipping) + " " + currencyAfterSign}</span>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -255,20 +247,8 @@ export class Order extends React.Component<any, any> {
                                                         <h3 className="billing-heading mb-4"><Translate content='checkout.PaymentMethod' /></h3>
                                                         <div className="form-group">
                                                             <div className="col-md-12">
-                                                                <div className="radio">
-                                                                    <label><input type="radio" name="paymentMethod" value="Paypal" checked={this.state.paymentMethod === "Paypal"}  id="Paypal" className="mr-2" /><Translate content='checkout.Paypal' /></label>
-                                                                </div>
+                                                              <label>{this.state.paymentMethod}</label>
                                                             </div>
-                                                        </div>
-                                                        <div className="form-group">
-                                                            <div className="col-md-12">
-                                                                <div className="radio">
-                                                                    <label><input type="radio" name="paymentMethod" value="Cash" checked={this.state.paymentMethod === "Cash"}  id="Cash" className="mr-2" defaultChecked /><Translate content='checkout.CashOnDelivery' /></label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="form-group">
-                                                            <Translate component="input" attributes={{ value: 'checkout.PlaceOrder' }} type="submit" className="btn btn-primary py-3 px-4" />
                                                         </div>
                                                     </div>
                                                 </div>

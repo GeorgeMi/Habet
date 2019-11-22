@@ -23,43 +23,131 @@ namespace Api.Controllers
         {
             HttpResponseMessage responseMessage;
             var token = Request.Headers.SingleOrDefault(x => x.Key == "token").Value.First();
-            var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
+            //  var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
 
-            var orderList = db.Orders.Where(o => o.UserId == userId).OrderByDescending(o=> o.Date).ToList();       
+            // var orderList = db.Orders.Where(o => o.UserId == userId).OrderByDescending(o => o.Date).ToList();
+            var orderList = new List<Orders>();
 
-            JSend json = new JSendData<Orders>("success", orderList);
+            Random rnd = new Random();
+            for (int i = 0; i < 3; i++)
+            {
+                orderList.Add(new Orders
+                {
+                    Subtotal = i^3,
+                    Shipping = i,
+                    Date = DateTime.Now.AddMonths(-i),
+                    OrderId = rnd.Next(1, 4),
+                    Currency = "lei"
+                });
+            }
+
+            var responseOrderList = new List<ListOrdersDTO>();
+
+            foreach (var order in orderList)
+            {
+                responseOrderList.Add(new ListOrdersDTO
+                {
+                    OrderId = order.OrderId,
+                    Total = (order.Subtotal + order.Shipping) + " " + order.Currency,
+                    Date = string.Format("{0:f}", order.Date)
+                });
+            }
+
+            JSend json = new JSendData<ListOrdersDTO>("success", responseOrderList);
             responseMessage = Request.CreateResponse(HttpStatusCode.OK, json);
 
             return responseMessage;
         }
 
         // GET: api/Orders/5
-        public HttpResponseMessage GetOrders(int id, string lang, string currency)
+        public HttpResponseMessage GetOrders(int orderId, string lang)
         {
             HttpResponseMessage responseMessage;
             JSend json;
             var token = Request.Headers.SingleOrDefault(x => x.Key == "token").Value.First();
-            var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
+           //       var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
 
-            var order = db.Orders.FirstOrDefault(o=> o.OrderId == id && o.UserId == userId);
-            if (order != null)
+           // var order = db.Orders.FirstOrDefault(o=> o.OrderId == orderId && o.UserId == userId);
+            var order = new Orders {
+                    FirstName = "FirstName",
+                    LastName = "LastName",
+                    State = "State",
+                    Address = "Address",
+                    City = "City",
+                    ZipCode = "ZipCode",
+                    Phone = "Phone",
+                    Email = "Email",            
+                    PaymentMethod = "Cash",
+                    Currency = "lei",
+                    ProductsOrders = new List<ProductsOrders>(),
+                    Subtotal = 123,
+                    Shipping=20
+            };
+
+            for (int i = 0; i < 3; i++)
             {
-                var productList = (order.ProductsOrders.Select(product => db.Products.FirstOrDefault(p => p.ProductId == product.ProductId))).ToList();
+                order.ProductsOrders.Add(new ProductsOrders
+                {
+                    OrderId = orderId,
+                    ProductId = i,
+                    ProductPrice = i + 1,
+                    Amount =  i + 1,
 
-                var result = new List<ProductInfo>();
+                });
+            }
+
+            if (order != null)
+            {             
+                var productsOrdersList = order.ProductsOrders;
+                //  var productList = (order.ProductsOrders.Select(product => db.Products.FirstOrDefault(p => p.ProductId == product.ProductId))).ToList();
+
+                var productList = new List<Products>();
+                for (int i = 0; i < 3; i++)
+                {
+                    productList.Add(new Products
+                    {
+                        Name_RO = "Name_RO" + i,
+                        Name_EN = "Name_EN" + i,
+                        Name_IT = "Name_IT" + i,
+                        Price = i + 1,
+                        ProductId = i
+                    });
+                }
+
+                var result = new GetOrderDTO()
+                {
+                    UserDetails = new UserUpdateDetails
+                    {
+                        FirstName = order.FirstName,
+                        LastName = order.LastName,
+                        State = order.State,
+                        StreetAddress = order.Address,
+                        City = order.City,
+                        ZipCode = order.ZipCode,
+                        Phone = order.Phone,
+                        Email = order.Email
+                    },
+                    PaymentMethod = order.PaymentMethod,
+                    Currency = order.Currency,
+                    Subtotal = order.Subtotal,
+                    Shipping = order.Shipping,
+                    Products = new List<OrderProductInfo>(),
+                };
+
                 foreach (var product in productList)
                 {
-                    result.Add(new ProductInfo
+                    var productsOrder = productsOrdersList.FirstOrDefault(p => p.ProductId == product.ProductId);
+                    result.Products.Add(new OrderProductInfo
                     {
                         Name = ComputeName(product, lang),
-                        Price = ExchangePrice(product.Price, currency),
+                        Price = ExchangePrice(productsOrder.ProductPrice, order.Currency),
                         ProductId = product.ProductId,
+                        Amount = productsOrder.Amount,
                         Image = new ProductsImagesController().GetProductsImage(product.ProductId)
                     });
                 }
 
-                json = new JSendData<ProductInfo>("success", result);
-                responseMessage = Request.CreateResponse(HttpStatusCode.OK, json);
+                responseMessage = Request.CreateResponse(HttpStatusCode.OK, result);
             }
             else
             {
@@ -93,6 +181,7 @@ namespace Api.Controllers
                         ZipCode = request.UserDetails.ZipCode,
                         Phone = request.UserDetails.Phone,
                         Email = request.UserDetails.Email,
+                        Currency = request.Currency,
                         ProductsOrders = new List<ProductsOrders>()
                     };
 
@@ -100,7 +189,7 @@ namespace Api.Controllers
                     var productList = new List<Products>();
                     foreach (var requestProduct in request.CartProducts)
                     {
-                       // var product = db.Products.Find(requestProduct.Key);
+                        //var product = db.Products.Find(requestProduct.Key);
                        var product = new Products
                        {
                            Name_RO = "Name_RO" + 1,

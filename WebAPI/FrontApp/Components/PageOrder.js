@@ -38,19 +38,10 @@ var Order = /** @class */ (function (_super) {
             isLoaded: false,
             error: null,
             subtotal: '',
-            total: '',
-            delivery: '',
-            cartProducts: '',
+            shipping: '',
             paymentMethod: '',
-            firstName: '',
-            lastName: '',
-            state: '',
-            city: '',
-            streetAddress: '',
-            zipCode: '',
-            phone: '',
-            email: '',
             waitingResponse: false,
+            orderId: props.match.params.id,
             isChanged: false,
             language: sfcookies_1.read_cookie('lang'),
             currency: sfcookies_1.read_cookie('currency')
@@ -61,24 +52,25 @@ var Order = /** @class */ (function (_super) {
     Order.prototype.componentWillMount = function () {
         var _this = this;
         if (sfcookies_1.read_cookie('token') != null && sfcookies_1.read_cookie('token').length !== 0) {
-            axios.get(API_Path + '/Users', {
+            axios.get(API_Path + '/Orders', {
                 headers: {
                     token: sfcookies_1.read_cookie('token') //the token is a variable which holds the token
+                },
+                params: {
+                    orderId: this.state.orderId,
+                    lang: this.state.language
                 }
             })
                 .then(function (response) {
-                var user_details = response.data.data[0];
+                var order = response.data;
                 _this.setState({
                     isLoaded: true,
-                    firstName: user_details.FirstName,
-                    lastName: user_details.LastName,
-                    state: user_details.State,
-                    city: user_details.City,
-                    streetAddress: user_details.StreetAddress,
-                    zipCode: user_details.ZipCode,
-                    phone: user_details.Phone,
-                    email: user_details.Email,
-                    items: response.data.data
+                    userDetails: order.UserDetails,
+                    products: order.Products,
+                    currency: order.Currency,
+                    subtotal: order.Subtotal,
+                    shipping: order.Shipping,
+                    paymentMethod: order.PaymentMethod,
                 });
             })
                 .catch(function (error) {
@@ -91,7 +83,7 @@ var Order = /** @class */ (function (_super) {
         //do nothing
     };
     Order.prototype.render = function () {
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, waitingResponse = _a.waitingResponse, currency = _a.currency, items = _a.items;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, waitingResponse = _a.waitingResponse, currency = _a.currency, userDetails = _a.userDetails, products = _a.products;
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
         if (currency == 'lei') {
@@ -151,7 +143,7 @@ var Order = /** @class */ (function (_super) {
                                                         React.createElement(Translate, { content: 'checkout.Quantity' })),
                                                     React.createElement("th", null,
                                                         React.createElement(Translate, { content: 'checkout.Total' })))),
-                                            React.createElement("tbody", null, items.map(function (item, i) { return (React.createElement("tr", { key: i, className: "text-center" },
+                                            React.createElement("tbody", null, products.map(function (item, i) { return (React.createElement("tr", { key: i, className: "text-center" },
                                                 React.createElement("td", { className: "image-prod" },
                                                     React.createElement("img", { src: item.Image, className: "img-fluid", alt: "..." })),
                                                 React.createElement("td", { className: "product-name" },
@@ -159,8 +151,8 @@ var Order = /** @class */ (function (_super) {
                                                 React.createElement("td", { className: "price" }, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign),
                                                 React.createElement("td", { className: "quantity" },
                                                     React.createElement("div", { className: "input-group mb-3" },
-                                                        React.createElement("input", { type: "text", name: item.ProductId, className: "quantity form-control input-number", value: item.Qty, min: "1", max: "100", disabled: true }))),
-                                                React.createElement("td", { className: "total" }, currencyBeforeSign + " " + item.Price * item.Qty + " " + currencyAfterSign))); })))))),
+                                                        React.createElement("input", { type: "text", name: item.ProductId, className: "quantity form-control input-number", value: item.Amount, disabled: true }))),
+                                                React.createElement("td", { className: "total" }, currencyBeforeSign + " " + item.Price * item.Amount + " " + currencyAfterSign))); })))))),
                             React.createElement("div", { className: "row justify-content-center" },
                                 React.createElement("div", { className: "col-xl-10" },
                                     React.createElement("form", { action: "", className: "billing-form" },
@@ -171,46 +163,46 @@ var Order = /** @class */ (function (_super) {
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "firstname" },
                                                         React.createElement(Translate, { content: 'checkout.FirstName' })),
-                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.firstName, name: "firstName", id: "firstName", maxLength: 32, disabled: true }))),
+                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: userDetails.FirstName, name: "firstName", id: "firstName", maxLength: 32, disabled: true }))),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "lastname" },
                                                         React.createElement(Translate, { content: 'checkout.LastName' })),
-                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.lastName, name: "lastName", id: "lastName", maxLength: 32, disabled: true }))),
+                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: userDetails.LastName, name: "lastName", id: "lastName", maxLength: 32, disabled: true }))),
                                             React.createElement("div", { className: "w-100" }),
                                             React.createElement("div", { className: "col-md-12" },
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "state" },
                                                         React.createElement(Translate, { content: 'checkout.State' })),
-                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.state, name: "state", id: "state", maxLength: 50, disabled: true }))),
+                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: userDetails.State, name: "state", id: "state", maxLength: 50, disabled: true }))),
                                             React.createElement("div", { className: "w-100" }),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "streetaddress" },
                                                         React.createElement(Translate, { content: 'checkout.StreetAddress' })),
-                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.streetAddress, name: "streetAddress", id: "streetAddress", maxLength: 50, disabled: true }))),
+                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: userDetails.StreetAddress, name: "streetAddress", id: "streetAddress", maxLength: 50, disabled: true }))),
                                             React.createElement("div", { className: "w-100" }),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "towncity" },
                                                         React.createElement(Translate, { content: 'checkout.Town' })),
-                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.city, name: "city", id: "city", maxLength: 32, disabled: true }))),
+                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: userDetails.City, name: "city", id: "city", maxLength: 32, disabled: true }))),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "postcodezip" },
                                                         React.createElement(Translate, { content: 'checkout.Postcode' })),
-                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.zipCode, name: "zipCode", id: "zipCode", maxLength: 10, disabled: true }))),
+                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: userDetails.ZipCode, name: "zipCode", id: "zipCode", maxLength: 10, disabled: true }))),
                                             React.createElement("div", { className: "w-100" }),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "phone" },
                                                         React.createElement(Translate, { content: 'checkout.Phone' })),
-                                                    React.createElement("input", { type: "tel", className: "form-control", placeholder: "", value: this.state.phone, name: "phone", id: "phone", maxLength: 32, disabled: true }))),
+                                                    React.createElement("input", { type: "tel", className: "form-control", placeholder: "", value: userDetails.Phone, name: "phone", id: "phone", maxLength: 32, disabled: true }))),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "emailaddress" },
                                                         React.createElement(Translate, { content: 'checkout.Email' })),
-                                                    React.createElement("input", { type: "email", className: "form-control", placeholder: "", value: this.state.email, name: "email", id: "email", maxLength: 32, disabled: true })))),
+                                                    React.createElement("input", { type: "email", className: "form-control", placeholder: "", value: userDetails.Email, name: "email", id: "email", maxLength: 32, disabled: true })))),
                                         React.createElement("div", { className: "row mt-5 pt-3 d-flex" },
                                             React.createElement("div", { className: "col-md-6 d-flex" },
                                                 React.createElement("div", { className: "cart-detail cart-total bg-light p-3 p-md-4" },
@@ -222,30 +214,19 @@ var Order = /** @class */ (function (_super) {
                                                     React.createElement("p", { className: "d-flex" },
                                                         React.createElement("span", null,
                                                             React.createElement(Translate, { content: 'checkout.Delivery' })),
-                                                        React.createElement("span", null, currencyBeforeSign + " " + this.state.delivery + " " + currencyAfterSign)),
+                                                        React.createElement("span", null, currencyBeforeSign + " " + this.state.shipping + " " + currencyAfterSign)),
                                                     React.createElement("hr", null),
                                                     React.createElement("p", { className: "d-flex total-price" },
                                                         React.createElement("span", null,
                                                             React.createElement(Translate, { content: 'checkout.Total' })),
-                                                        React.createElement("span", null, currencyBeforeSign + " " + this.state.total + " " + currencyAfterSign)))),
+                                                        React.createElement("span", null, currencyBeforeSign + " " + eval(this.state.subtotal + this.state.shipping) + " " + currencyAfterSign)))),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "cart-detail bg-light p-3 p-md-4" },
                                                     React.createElement("h3", { className: "billing-heading mb-4" },
                                                         React.createElement(Translate, { content: 'checkout.PaymentMethod' })),
                                                     React.createElement("div", { className: "form-group" },
                                                         React.createElement("div", { className: "col-md-12" },
-                                                            React.createElement("div", { className: "radio" },
-                                                                React.createElement("label", null,
-                                                                    React.createElement("input", { type: "radio", name: "paymentMethod", value: "Paypal", checked: this.state.paymentMethod === "Paypal", id: "Paypal", className: "mr-2" }),
-                                                                    React.createElement(Translate, { content: 'checkout.Paypal' }))))),
-                                                    React.createElement("div", { className: "form-group" },
-                                                        React.createElement("div", { className: "col-md-12" },
-                                                            React.createElement("div", { className: "radio" },
-                                                                React.createElement("label", null,
-                                                                    React.createElement("input", { type: "radio", name: "paymentMethod", value: "Cash", checked: this.state.paymentMethod === "Cash", id: "Cash", className: "mr-2", defaultChecked: true }),
-                                                                    React.createElement(Translate, { content: 'checkout.CashOnDelivery' }))))),
-                                                    React.createElement("div", { className: "form-group" },
-                                                        React.createElement(Translate, { component: "input", attributes: { value: 'checkout.PlaceOrder' }, type: "submit", className: "btn btn-primary py-3 px-4" })))))))))))));
+                                                            React.createElement("label", null, this.state.paymentMethod))))))))))))));
         }
     };
     return Order;

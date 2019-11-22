@@ -129,7 +129,6 @@
     <TypeScriptCompile Include="Components\PageCart.tsx" />
     <TypeScriptCompile Include="Components\PageAddProduct.tsx" />
     <TypeScriptCompile Include="Components\PageCreditCardPayment.tsx" />
-    <TypeScriptCompile Include="Components\PagePayPalPayment.tsx" />
     <TypeScriptCompile Include="Components\PageOrder.tsx" />
     <TypeScriptCompile Include="Components\PageOrderHistory.tsx" />
     <TypeScriptCompile Include="Components\PageResetPassword.tsx" />

@@ -490,7 +490,8 @@ var Header = /** @class */ (function (_super) {
                                             React.createElement(Translate, { content: "nav.EditDetails" })),
                                         React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/change_password" },
                                             React.createElement(Translate, { content: "nav.ChangePassword" })),
-                                        React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/orders" }, "Orders"),
+                                        React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/orders" },
+                                            React.createElement(Translate, { content: "nav.Orders" })),
                                         api_response.role == 'admin' ?
                                             React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/add_product" },
                                                 React.createElement(Translate, { content: "nav.AddProduct" }))
@@ -1127,6 +1128,7 @@ var Translate = __webpack_require__(/*! react-translate-component */ "./node_mod
 var en_1 = __webpack_require__(/*! ./languages/en */ "./Components/languages/en.js");
 var it_1 = __webpack_require__(/*! ./languages/it */ "./Components/languages/it.js");
 var ro_1 = __webpack_require__(/*! ./languages/ro */ "./Components/languages/ro.js");
+var react_paypal_express_checkout_1 = __webpack_require__(/*! react-paypal-express-checkout */ "./node_modules/react-paypal-express-checkout/index.js");
 var config = __webpack_require__(/*! config */ "config");
 var API_Path = config.API_Path;
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -1246,6 +1248,38 @@ var Checkout = /** @class */ (function (_super) {
             currencyBeforeSign = '₤';
             currencyAfterSign = '';
         }
+        //-------------- PayPal ---------------------
+        var onSuccess = function (payment) {
+            // Congratulation, it came here means everything's fine!
+            console.log("The payment was succeeded!", payment);
+            // You can bind the "payment" object's value to your state or props or whatever here, please see below for sample returned data
+        };
+        var onCancel = function (data) {
+            // User pressed "cancel" or close Paypal's popup!
+            console.log('The payment was cancelled!', data);
+            // You can bind the "data" object's value to your state or props or whatever here, please see below for sample returned data
+        };
+        var onError = function (err) {
+            // The main Paypal's script cannot be loaded or somethings block the loading of that script!
+            console.log("Error!", err);
+            // Because the Paypal's main script is loaded asynchronously from "https://www.paypalobjects.com/api/checkout.js"
+            // => sometimes it may take about 0.5 second for everything to get set, or for the button to appear
+        };
+        var env = 'sandbox'; // you can set here to 'production' for production
+        //let currency = 'USD'; // or you can set this value from your props or state
+        var total = 1; // same as above, this is the total amount (based on currency) to be paid by using Paypal express checkout
+        // Document on Paypal's currency code: https://developer.paypal.com/docs/classic/api/currency_codes/
+        var client = {
+            sandbox: 'YOUR-SANDBOX-APP-ID',
+            production: 'YOUR-PRODUCTION-APP-ID',
+        };
+        // In order to get production's app-ID, you will have to send your app to Paypal for approval first
+        // For sandbox app-ID (after logging into your developer account, please locate the "REST API apps" section, click "Create App"):
+        //   => https://developer.paypal.com/docs/classic/lifecycle/sb_credentials/
+        // For production app-ID:
+        //   => https://developer.paypal.com/docs/classic/lifecycle/goingLive/
+        // NB. You can also have many Paypal express checkout buttons on page, just pass in the correct amount and they will work!
+        //-------------- PayPal ---------------------
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -1355,7 +1389,7 @@ var Checkout = /** @class */ (function (_super) {
                                                             React.createElement("option", { value: "CH" }, "Switzerland"),
                                                             React.createElement("option", { value: "TR" }, "Turkey"))))),
                                             React.createElement("div", { className: "w-100" }),
-                                            React.createElement("div", { className: "col-md-6" },
+                                            React.createElement("div", { className: "col-md-12" },
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "streetaddress" },
                                                         React.createElement(Translate, { content: 'checkout.StreetAddress' })),
@@ -1413,10 +1447,12 @@ var Checkout = /** @class */ (function (_super) {
                                                         React.createElement("div", { className: "col-md-12" },
                                                             React.createElement("div", { className: "radio" },
                                                                 React.createElement("label", null,
-                                                                    React.createElement("input", { type: "radio", name: "paymentMethod", value: "Cash", checked: this.state.paymentMethod === "Cash", onChange: this.handleChange, id: "Cash", className: "mr-2", defaultChecked: true }),
-                                                                    React.createElement(Translate, { content: 'checkout.CashOnDelivery' }))))),
-                                                    React.createElement("div", { className: "form-group" },
-                                                        React.createElement(Translate, { component: "input", attributes: { value: 'checkout.PlaceOrder' }, type: "submit", className: "btn btn-primary py-3 px-4" })))))))))))));
+                                                                    React.createElement("input", { type: "radio", name: "paymentMethod", value: "Card", checked: this.state.paymentMethod === "Card", onChange: this.handleChange, id: "Card", className: "mr-2", defaultChecked: true }),
+                                                                    React.createElement(Translate, { content: 'checkout.CreditCard' }))))),
+                                                    React.createElement("div", { className: "form-group" }, this.state.paymentMethod === "Card" ?
+                                                        React.createElement(Translate, { component: "input", attributes: { value: 'checkout.PlaceOrder' }, type: "submit", className: "btn btn-primary py-3 px-4" })
+                                                        :
+                                                            React.createElement(react_paypal_express_checkout_1.default, { env: env, client: client, currency: currency, total: total, onError: onError, onSuccess: onSuccess, onCancel: onCancel })))))))))))));
         }
     };
     return Checkout;
@@ -2033,19 +2069,10 @@ var Order = /** @class */ (function (_super) {
             isLoaded: false,
             error: null,
             subtotal: '',
-            total: '',
-            delivery: '',
-            cartProducts: '',
+            shipping: '',
             paymentMethod: '',
-            firstName: '',
-            lastName: '',
-            state: '',
-            city: '',
-            streetAddress: '',
-            zipCode: '',
-            phone: '',
-            email: '',
             waitingResponse: false,
+            orderId: props.match.params.id,
             isChanged: false,
             language: sfcookies_1.read_cookie('lang'),
             currency: sfcookies_1.read_cookie('currency')
@@ -2056,24 +2083,25 @@ var Order = /** @class */ (function (_super) {
     Order.prototype.componentWillMount = function () {
         var _this = this;
         if (sfcookies_1.read_cookie('token') != null && sfcookies_1.read_cookie('token').length !== 0) {
-            axios.get(API_Path + '/Users', {
+            axios.get(API_Path + '/Orders', {
                 headers: {
                     token: sfcookies_1.read_cookie('token') //the token is a variable which holds the token
+                },
+                params: {
+                    orderId: this.state.orderId,
+                    lang: this.state.language
                 }
             })
                 .then(function (response) {
-                var user_details = response.data.data[0];
+                var order = response.data;
                 _this.setState({
                     isLoaded: true,
-                    firstName: user_details.FirstName,
-                    lastName: user_details.LastName,
-                    state: user_details.State,
-                    city: user_details.City,
-                    streetAddress: user_details.StreetAddress,
-                    zipCode: user_details.ZipCode,
-                    phone: user_details.Phone,
-                    email: user_details.Email,
-                    items: response.data.data
+                    userDetails: order.UserDetails,
+                    products: order.Products,
+                    currency: order.Currency,
+                    subtotal: order.Subtotal,
+                    shipping: order.Shipping,
+                    paymentMethod: order.PaymentMethod,
                 });
             })
                 .catch(function (error) {
@@ -2086,7 +2114,7 @@ var Order = /** @class */ (function (_super) {
         //do nothing
     };
     Order.prototype.render = function () {
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, waitingResponse = _a.waitingResponse, currency = _a.currency, items = _a.items;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, waitingResponse = _a.waitingResponse, currency = _a.currency, userDetails = _a.userDetails, products = _a.products;
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
         if (currency == 'lei') {
@@ -2146,7 +2174,7 @@ var Order = /** @class */ (function (_super) {
                                                         React.createElement(Translate, { content: 'checkout.Quantity' })),
                                                     React.createElement("th", null,
                                                         React.createElement(Translate, { content: 'checkout.Total' })))),
-                                            React.createElement("tbody", null, items.map(function (item, i) { return (React.createElement("tr", { key: i, className: "text-center" },
+                                            React.createElement("tbody", null, products.map(function (item, i) { return (React.createElement("tr", { key: i, className: "text-center" },
                                                 React.createElement("td", { className: "image-prod" },
                                                     React.createElement("img", { src: item.Image, className: "img-fluid", alt: "..." })),
                                                 React.createElement("td", { className: "product-name" },
@@ -2154,8 +2182,8 @@ var Order = /** @class */ (function (_super) {
                                                 React.createElement("td", { className: "price" }, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign),
                                                 React.createElement("td", { className: "quantity" },
                                                     React.createElement("div", { className: "input-group mb-3" },
-                                                        React.createElement("input", { type: "text", name: item.ProductId, className: "quantity form-control input-number", value: item.Qty, min: "1", max: "100", disabled: true }))),
-                                                React.createElement("td", { className: "total" }, currencyBeforeSign + " " + item.Price * item.Qty + " " + currencyAfterSign))); })))))),
+                                                        React.createElement("input", { type: "text", name: item.ProductId, className: "quantity form-control input-number", value: item.Amount, disabled: true }))),
+                                                React.createElement("td", { className: "total" }, currencyBeforeSign + " " + item.Price * item.Amount + " " + currencyAfterSign))); })))))),
                             React.createElement("div", { className: "row justify-content-center" },
                                 React.createElement("div", { className: "col-xl-10" },
                                     React.createElement("form", { action: "", className: "billing-form" },
@@ -2166,46 +2194,46 @@ var Order = /** @class */ (function (_super) {
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "firstname" },
                                                         React.createElement(Translate, { content: 'checkout.FirstName' })),
-                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.firstName, name: "firstName", id: "firstName", maxLength: 32, disabled: true }))),
+                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: userDetails.FirstName, name: "firstName", id: "firstName", maxLength: 32, disabled: true }))),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "lastname" },
                                                         React.createElement(Translate, { content: 'checkout.LastName' })),
-                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.lastName, name: "lastName", id: "lastName", maxLength: 32, disabled: true }))),
+                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: userDetails.LastName, name: "lastName", id: "lastName", maxLength: 32, disabled: true }))),
                                             React.createElement("div", { className: "w-100" }),
                                             React.createElement("div", { className: "col-md-12" },
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "state" },
                                                         React.createElement(Translate, { content: 'checkout.State' })),
-                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.state, name: "state", id: "state", maxLength: 50, disabled: true }))),
+                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: userDetails.State, name: "state", id: "state", maxLength: 50, disabled: true }))),
                                             React.createElement("div", { className: "w-100" }),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "streetaddress" },
                                                         React.createElement(Translate, { content: 'checkout.StreetAddress' })),
-                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.streetAddress, name: "streetAddress", id: "streetAddress", maxLength: 50, disabled: true }))),
+                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: userDetails.StreetAddress, name: "streetAddress", id: "streetAddress", maxLength: 50, disabled: true }))),
                                             React.createElement("div", { className: "w-100" }),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "towncity" },
                                                         React.createElement(Translate, { content: 'checkout.Town' })),
-                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.city, name: "city", id: "city", maxLength: 32, disabled: true }))),
+                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: userDetails.City, name: "city", id: "city", maxLength: 32, disabled: true }))),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "postcodezip" },
                                                         React.createElement(Translate, { content: 'checkout.Postcode' })),
-                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.zipCode, name: "zipCode", id: "zipCode", maxLength: 10, disabled: true }))),
+                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: userDetails.ZipCode, name: "zipCode", id: "zipCode", maxLength: 10, disabled: true }))),
                                             React.createElement("div", { className: "w-100" }),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "phone" },
                                                         React.createElement(Translate, { content: 'checkout.Phone' })),
-                                                    React.createElement("input", { type: "tel", className: "form-control", placeholder: "", value: this.state.phone, name: "phone", id: "phone", maxLength: 32, disabled: true }))),
+                                                    React.createElement("input", { type: "tel", className: "form-control", placeholder: "", value: userDetails.Phone, name: "phone", id: "phone", maxLength: 32, disabled: true }))),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "emailaddress" },
                                                         React.createElement(Translate, { content: 'checkout.Email' })),
-                                                    React.createElement("input", { type: "email", className: "form-control", placeholder: "", value: this.state.email, name: "email", id: "email", maxLength: 32, disabled: true })))),
+                                                    React.createElement("input", { type: "email", className: "form-control", placeholder: "", value: userDetails.Email, name: "email", id: "email", maxLength: 32, disabled: true })))),
                                         React.createElement("div", { className: "row mt-5 pt-3 d-flex" },
                                             React.createElement("div", { className: "col-md-6 d-flex" },
                                                 React.createElement("div", { className: "cart-detail cart-total bg-light p-3 p-md-4" },
@@ -2217,30 +2245,19 @@ var Order = /** @class */ (function (_super) {
                                                     React.createElement("p", { className: "d-flex" },
                                                         React.createElement("span", null,
                                                             React.createElement(Translate, { content: 'checkout.Delivery' })),
-                                                        React.createElement("span", null, currencyBeforeSign + " " + this.state.delivery + " " + currencyAfterSign)),
+                                                        React.createElement("span", null, currencyBeforeSign + " " + this.state.shipping + " " + currencyAfterSign)),
                                                     React.createElement("hr", null),
                                                     React.createElement("p", { className: "d-flex total-price" },
                                                         React.createElement("span", null,
                                                             React.createElement(Translate, { content: 'checkout.Total' })),
-                                                        React.createElement("span", null, currencyBeforeSign + " " + this.state.total + " " + currencyAfterSign)))),
+                                                        React.createElement("span", null, currencyBeforeSign + " " + eval(this.state.subtotal + this.state.shipping) + " " + currencyAfterSign)))),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "cart-detail bg-light p-3 p-md-4" },
                                                     React.createElement("h3", { className: "billing-heading mb-4" },
                                                         React.createElement(Translate, { content: 'checkout.PaymentMethod' })),
                                                     React.createElement("div", { className: "form-group" },
                                                         React.createElement("div", { className: "col-md-12" },
-                                                            React.createElement("div", { className: "radio" },
-                                                                React.createElement("label", null,
-                                                                    React.createElement("input", { type: "radio", name: "paymentMethod", value: "Paypal", checked: this.state.paymentMethod === "Paypal", id: "Paypal", className: "mr-2" }),
-                                                                    React.createElement(Translate, { content: 'checkout.Paypal' }))))),
-                                                    React.createElement("div", { className: "form-group" },
-                                                        React.createElement("div", { className: "col-md-12" },
-                                                            React.createElement("div", { className: "radio" },
-                                                                React.createElement("label", null,
-                                                                    React.createElement("input", { type: "radio", name: "paymentMethod", value: "Cash", checked: this.state.paymentMethod === "Cash", id: "Cash", className: "mr-2", defaultChecked: true }),
-                                                                    React.createElement(Translate, { content: 'checkout.CashOnDelivery' }))))),
-                                                    React.createElement("div", { className: "form-group" },
-                                                        React.createElement(Translate, { component: "input", attributes: { value: 'checkout.PlaceOrder' }, type: "submit", className: "btn btn-primary py-3 px-4" })))))))))))));
+                                                            React.createElement("label", null, this.state.paymentMethod))))))))))))));
         }
     };
     return Order;
@@ -2276,9 +2293,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
 var sfcookies_1 = __webpack_require__(/*! sfcookies */ "./node_modules/sfcookies/index.js");
-var react_notifications_1 = __webpack_require__(/*! react-notifications */ "./node_modules/react-notifications/lib/index.js");
 __webpack_require__(/*! react-notifications/lib/notifications.css */ "./node_modules/react-notifications/lib/notifications.css");
 var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+var react_router_hash_link_1 = __webpack_require__(/*! react-router-hash-link */ "./node_modules/react-router-hash-link/lib/index.js");
 var Translate = __webpack_require__(/*! react-translate-component */ "./node_modules/react-translate-component/index.js");
 var en_1 = __webpack_require__(/*! ./languages/en */ "./Components/languages/en.js");
 var it_1 = __webpack_require__(/*! ./languages/it */ "./Components/languages/it.js");
@@ -2297,51 +2314,25 @@ var OrderHistory = /** @class */ (function (_super) {
         counterpart.setLocale(sfcookies_1.read_cookie('lang'));
         _this.state = {
             isLoaded: false,
+            items: null,
             error: null,
-            subtotal: _this.props.location.subtotal,
-            total: _this.props.location.total,
-            delivery: _this.props.location.delivery,
-            cartProducts: _this.props.location.cartProducts.items,
-            paymentMethod: '',
-            firstName: '',
-            lastName: '',
-            state: '',
-            city: '',
-            streetAddress: '',
-            zipCode: '',
-            phone: '',
-            email: '',
             waitingResponse: false,
-            isChanged: false,
             language: sfcookies_1.read_cookie('lang'),
             currency: sfcookies_1.read_cookie('currency')
         };
-        _this.handleChange = _this.handleChange.bind(_this);
-        _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.reloadPage = _this.reloadPage.bind(_this);
         return _this;
     }
     OrderHistory.prototype.componentWillMount = function () {
         var _this = this;
         if (sfcookies_1.read_cookie('token') != null && sfcookies_1.read_cookie('token').length !== 0) {
-            axios.get(API_Path + '/Users', {
+            axios.get(API_Path + '/Orders', {
                 headers: {
                     token: sfcookies_1.read_cookie('token') //the token is a variable which holds the token
                 }
             })
                 .then(function (response) {
-                var user_details = response.data.data[0];
-                _this.setState({
-                    isLoaded: true,
-                    firstName: user_details.FirstName,
-                    lastName: user_details.LastName,
-                    state: user_details.State,
-                    city: user_details.City,
-                    streetAddress: user_details.StreetAddress,
-                    zipCode: user_details.ZipCode,
-                    phone: user_details.Phone,
-                    email: user_details.Email
-                });
+                _this.setState({ isLoaded: true, items: response.data.data });
             })
                 .catch(function (error) {
                 _this.setState({ isLoaded: true, error: error });
@@ -2349,49 +2340,11 @@ var OrderHistory = /** @class */ (function (_super) {
                 .then();
         }
     };
-    OrderHistory.prototype.handleChange = function (event) {
-        var _a;
-        this.setState((_a = {}, _a[event.target.name] = event.target.value, _a));
-        this.setState({ isChanged: true });
-    };
-    OrderHistory.prototype.handleSubmit = function (event) {
-        var _this = this;
-        event.preventDefault();
-        if (this.state.waitingResponse == false) {
-            this.setState({ waitingResponse: true });
-        }
-        axios.post(API_Path + '/Orders', {
-            userDetails: {
-                firstName: this.state.firstName,
-                lastName: this.state.lastName,
-                state: this.state.state,
-                city: this.state.city,
-                streetAddress: this.state.streetAddress,
-                zipCode: this.state.zipCode,
-                phone: this.state.phone
-            },
-            cartProducts: this.state.cartProducts,
-            paymentMethod: this.state.paymentMethod,
-        }, {
-            headers: {
-                token: sfcookies_1.read_cookie('token') //the token is a variable which holds the token
-            }
-        })
-            .then(function (response) {
-            react_notifications_1.NotificationManager.success(response.data.message);
-        })
-            .catch(function (error) {
-            react_notifications_1.NotificationManager.error("Request failed. Please, try again later.");
-        })
-            .then(function () {
-            _this.setState({ waitingResponse: false });
-        });
-    };
     OrderHistory.prototype.reloadPage = function () {
         //do nothing
     };
     OrderHistory.prototype.render = function () {
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, waitingResponse = _a.waitingResponse, currency = _a.currency;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, waitingResponse = _a.waitingResponse, items = _a.items, currency = _a.currency;
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
         if (currency == 'lei') {
@@ -2417,7 +2370,7 @@ var OrderHistory = /** @class */ (function (_super) {
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },
                                 React.createElement("h1", { className: "mb-4" },
-                                    React.createElement(Translate, { content: 'checkout.Checkout' }))))),
+                                    React.createElement(Translate, { content: 'order.OrderHistory' }))))),
                     React.createElement("div", { className: "loading" }, "Loading\u2026"),
                     ";")));
         }
@@ -2433,295 +2386,34 @@ var OrderHistory = /** @class */ (function (_super) {
                             React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                                 React.createElement("div", { className: "col-md-9 text-center" },
                                     React.createElement("h1", { className: "mb-0 bread" },
-                                        React.createElement(Translate, { content: 'checkout.Checkout' })))))),
+                                        React.createElement(Translate, { content: 'order.OrderHistory' })))))),
                     React.createElement("section", { className: "ftco-section" },
                         React.createElement("div", { className: "container" },
-                            React.createElement("div", { className: "row justify-content-center" },
-                                React.createElement("div", { className: "col-xl-10" },
-                                    React.createElement("form", { action: "", className: "billing-form", onSubmit: this.handleSubmit },
-                                        React.createElement("h3", { className: "mb-4 billing-heading" },
-                                            React.createElement(Translate, { content: 'checkout.BillingDetails' })),
-                                        React.createElement("div", { className: "row align-items-end" },
-                                            React.createElement("div", { className: "col-md-6" },
-                                                React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "firstname" },
-                                                        React.createElement(Translate, { content: 'checkout.FirstName' })),
-                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.firstName, onChange: this.handleChange, name: "firstName", id: "firstName", maxLength: 32, required: true }))),
-                                            React.createElement("div", { className: "col-md-6" },
-                                                React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "lastname" },
-                                                        React.createElement(Translate, { content: 'checkout.LastName' })),
-                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.lastName, onChange: this.handleChange, name: "lastName", id: "lastName", maxLength: 32, required: true }))),
-                                            React.createElement("div", { className: "w-100" }),
-                                            React.createElement("div", { className: "col-md-12" },
-                                                React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "state" },
-                                                        React.createElement(Translate, { content: 'checkout.State' })),
-                                                    React.createElement("div", { className: "select-wrap" },
-                                                        React.createElement("div", { className: "icon" },
-                                                            React.createElement("span", { className: "ion-ios-arrow-down" })),
-                                                        React.createElement("select", { className: "form-control", value: this.state.state, onChange: this.handleChange, name: "state", id: "state", required: true },
-                                                            React.createElement("option", { value: "GB" }, "United Kingdom"),
-                                                            React.createElement("option", { value: "AL" }, "Albania"),
-                                                            React.createElement("option", { value: "AD" }, "Andorra"),
-                                                            React.createElement("option", { value: "AT" }, "Austria"),
-                                                            React.createElement("option", { value: "BY" }, "Belarus"),
-                                                            React.createElement("option", { value: "BE" }, "Belgium"),
-                                                            React.createElement("option", { value: "BA" }, "Bosnia and Herzegovina"),
-                                                            React.createElement("option", { value: "BG" }, "Bulgaria"),
-                                                            React.createElement("option", { value: "HR" }, "Croatia (Hrvatska)"),
-                                                            React.createElement("option", { value: "CY" }, "Cyprus"),
-                                                            React.createElement("option", { value: "CZ" }, "Czech Republic"),
-                                                            React.createElement("option", { value: "FR" }, "France"),
-                                                            React.createElement("option", { value: "GI" }, "Gibraltar"),
-                                                            React.createElement("option", { value: "DE" }, "Germany"),
-                                                            React.createElement("option", { value: "GR" }, "Greece"),
-                                                            React.createElement("option", { value: "VA" }, "Holy See (Vatican City State)"),
-                                                            React.createElement("option", { value: "HU" }, "Hungary"),
-                                                            React.createElement("option", { value: "IT" }, "Italy"),
-                                                            React.createElement("option", { value: "LI" }, "Liechtenstein"),
-                                                            React.createElement("option", { value: "LU" }, "Luxembourg"),
-                                                            React.createElement("option", { value: "MK" }, "Macedonia"),
-                                                            React.createElement("option", { value: "MT" }, "Malta"),
-                                                            React.createElement("option", { value: "MD" }, "Moldova"),
-                                                            React.createElement("option", { value: "MC" }, "Monaco"),
-                                                            React.createElement("option", { value: "ME" }, "Montenegro"),
-                                                            React.createElement("option", { value: "NL" }, "Netherlands"),
-                                                            React.createElement("option", { value: "PL" }, "Poland"),
-                                                            React.createElement("option", { value: "PT" }, "Portugal"),
-                                                            React.createElement("option", { value: "RO" }, "Romania"),
-                                                            React.createElement("option", { value: "SM" }, "San Marino"),
-                                                            React.createElement("option", { value: "RS" }, "Serbia"),
-                                                            React.createElement("option", { value: "SK" }, "Slovakia"),
-                                                            React.createElement("option", { value: "SI" }, "Slovenia"),
-                                                            React.createElement("option", { value: "ES" }, "Spain"),
-                                                            React.createElement("option", { value: "UA" }, "Ukraine"),
-                                                            React.createElement("option", { value: "DK" }, "Denmark"),
-                                                            React.createElement("option", { value: "EE" }, "Estonia"),
-                                                            React.createElement("option", { value: "FO" }, "Faroe Islands"),
-                                                            React.createElement("option", { value: "FI" }, "Finland"),
-                                                            React.createElement("option", { value: "GL" }, "Greenland"),
-                                                            React.createElement("option", { value: "IS" }, "Iceland"),
-                                                            React.createElement("option", { value: "IE" }, "Ireland"),
-                                                            React.createElement("option", { value: "LV" }, "Latvia"),
-                                                            React.createElement("option", { value: "LT" }, "Lithuania"),
-                                                            React.createElement("option", { value: "NO" }, "Norway"),
-                                                            React.createElement("option", { value: "SJ" }, "Svalbard and Jan Mayen Islands"),
-                                                            React.createElement("option", { value: "SE" }, "Sweden"),
-                                                            React.createElement("option", { value: "CH" }, "Switzerland"),
-                                                            React.createElement("option", { value: "TR" }, "Turkey"))))),
-                                            React.createElement("div", { className: "w-100" }),
-                                            React.createElement("div", { className: "col-md-6" },
-                                                React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "streetaddress" },
-                                                        React.createElement(Translate, { content: 'checkout.StreetAddress' })),
-                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.streetAddress, onChange: this.handleChange, name: "streetAddress", id: "streetAddress", maxLength: 50, required: true }))),
-                                            React.createElement("div", { className: "w-100" }),
-                                            React.createElement("div", { className: "col-md-6" },
-                                                React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "towncity" },
-                                                        React.createElement(Translate, { content: 'checkout.Town' })),
-                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.city, onChange: this.handleChange, name: "city", id: "city", maxLength: 32, required: true }))),
-                                            React.createElement("div", { className: "col-md-6" },
-                                                React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "postcodezip" },
-                                                        React.createElement(Translate, { content: 'checkout.Postcode' })),
-                                                    React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.zipCode, onChange: this.handleChange, name: "zipCode", id: "zipCode", maxLength: 10, required: true }))),
-                                            React.createElement("div", { className: "w-100" }),
-                                            React.createElement("div", { className: "col-md-6" },
-                                                React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "phone" },
-                                                        React.createElement(Translate, { content: 'checkout.Phone' })),
-                                                    React.createElement("input", { type: "tel", className: "form-control", placeholder: "", value: this.state.phone, onChange: this.handleChange, name: "phone", id: "phone", maxLength: 32, required: true }))),
-                                            React.createElement("div", { className: "col-md-6" },
-                                                React.createElement("div", { className: "form-group" },
-                                                    React.createElement("label", { htmlFor: "emailaddress" },
-                                                        React.createElement(Translate, { content: 'checkout.Email' })),
-                                                    React.createElement("input", { type: "email", className: "form-control", placeholder: "", value: this.state.email, onChange: this.handleChange, name: "email", id: "email", maxLength: 32, disabled: true })))),
-                                        React.createElement("div", { className: "row mt-5 pt-3 d-flex" },
-                                            React.createElement("div", { className: "col-md-6 d-flex" },
-                                                React.createElement("div", { className: "cart-detail cart-total bg-light p-3 p-md-4" },
-                                                    React.createElement("h3", { className: "billing-heading mb-4" }, "Cart Total"),
-                                                    React.createElement("p", { className: "d-flex" },
-                                                        React.createElement("span", null,
-                                                            React.createElement(Translate, { content: 'checkout.Subtotal' })),
-                                                        React.createElement("span", null, currencyBeforeSign + " " + this.state.subtotal + " " + currencyAfterSign)),
-                                                    React.createElement("p", { className: "d-flex" },
-                                                        React.createElement("span", null,
-                                                            React.createElement(Translate, { content: 'checkout.Delivery' })),
-                                                        React.createElement("span", null, currencyBeforeSign + " " + this.state.delivery + " " + currencyAfterSign)),
-                                                    React.createElement("hr", null),
-                                                    React.createElement("p", { className: "d-flex total-price" },
-                                                        React.createElement("span", null,
-                                                            React.createElement(Translate, { content: 'checkout.Total' })),
-                                                        React.createElement("span", null, currencyBeforeSign + " " + this.state.total + " " + currencyAfterSign)))),
-                                            React.createElement("div", { className: "col-md-6" },
-                                                React.createElement("div", { className: "cart-detail bg-light p-3 p-md-4" },
-                                                    React.createElement("h3", { className: "billing-heading mb-4" },
-                                                        React.createElement(Translate, { content: 'checkout.PaymentMethod' })),
-                                                    React.createElement("div", { className: "form-group" },
-                                                        React.createElement("div", { className: "col-md-12" },
-                                                            React.createElement("div", { className: "radio" },
-                                                                React.createElement("label", null,
-                                                                    React.createElement("input", { type: "radio", name: "paymentMethod", value: "Paypal", checked: this.state.paymentMethod === "Paypal", onChange: this.handleChange, id: "Paypal", className: "mr-2" }),
-                                                                    React.createElement(Translate, { content: 'checkout.Paypal' }))))),
-                                                    React.createElement("div", { className: "form-group" },
-                                                        React.createElement("div", { className: "col-md-12" },
-                                                            React.createElement("div", { className: "radio" },
-                                                                React.createElement("label", null,
-                                                                    React.createElement("input", { type: "radio", name: "paymentMethod", value: "Cash", checked: this.state.paymentMethod === "Cash", onChange: this.handleChange, id: "Cash", className: "mr-2", defaultChecked: true }),
-                                                                    React.createElement(Translate, { content: 'checkout.CashOnDelivery' }))))),
-                                                    React.createElement("div", { className: "form-group" },
-                                                        React.createElement(Translate, { component: "input", attributes: { value: 'checkout.PlaceOrder' }, type: "submit", className: "btn btn-primary py-3 px-4" })))))))))))));
+                            React.createElement("div", { className: "justify-content-center" }, items.map(function (item, i) { return (React.createElement("div", { key: i },
+                                React.createElement("div", { className: "card" },
+                                    React.createElement("div", { className: "card-header" },
+                                        React.createElement(Translate, { content: 'order.OrderNo' }),
+                                        " ",
+                                        item.OrderId),
+                                    React.createElement("div", { className: "card-body" },
+                                        React.createElement("p", { className: "card-text" },
+                                            React.createElement(Translate, { content: 'order.PlacedOn' }),
+                                            ":  ",
+                                            item.Date,
+                                            " | ",
+                                            React.createElement(Translate, { content: 'order.Total' }),
+                                            ": ",
+                                            item.Total),
+                                        React.createElement("div", { className: "btn-group btn-group-justified" },
+                                            React.createElement("div", { className: "btn btn-default", title: "View" },
+                                                React.createElement(react_router_hash_link_1.HashLink, { to: "/order/" + item.OrderId },
+                                                    React.createElement(Translate, { content: 'order.OrderDetails' })))))))); })))))));
         }
     };
     return OrderHistory;
 }(React.Component));
 exports.OrderHistory = OrderHistory;
 //# sourceMappingURL=PageOrderHistory.js.map
-
-/***/ }),
-
-/***/ "./Components/PagePayPalPayment.js":
-/*!*****************************************!*\
-  !*** ./Components/PagePayPalPayment.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var sfcookies_1 = __webpack_require__(/*! sfcookies */ "./node_modules/sfcookies/index.js");
-var react_notifications_1 = __webpack_require__(/*! react-notifications */ "./node_modules/react-notifications/lib/index.js");
-__webpack_require__(/*! react-notifications/lib/notifications.css */ "./node_modules/react-notifications/lib/notifications.css");
-var en_1 = __webpack_require__(/*! ./languages/en */ "./Components/languages/en.js");
-var it_1 = __webpack_require__(/*! ./languages/it */ "./Components/languages/it.js");
-var ro_1 = __webpack_require__(/*! ./languages/ro */ "./Components/languages/ro.js");
-var react_paypal_express_checkout_1 = __webpack_require__(/*! react-paypal-express-checkout */ "./node_modules/react-paypal-express-checkout/index.js");
-var config = __webpack_require__(/*! config */ "config");
-var API_Path = config.API_Path;
-var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-var counterpart = __webpack_require__(/*! counterpart */ "./node_modules/counterpart/index.js");
-counterpart.registerTranslations('en', en_1.default);
-counterpart.registerTranslations('ro', ro_1.default);
-counterpart.registerTranslations('it', it_1.default);
-var PayPalPayment = /** @class */ (function (_super) {
-    __extends(PayPalPayment, _super);
-    function PayPalPayment(props) {
-        var _this = _super.call(this, props) || this;
-        counterpart.setLocale(sfcookies_1.read_cookie('lang'));
-        _this.state = {
-            error: null,
-            waitingResponse: false,
-            isChanged: false,
-            language: sfcookies_1.read_cookie('lang'),
-            currency: sfcookies_1.read_cookie('currency'),
-            cvc: '',
-            expiry: '',
-            focused: '',
-            name: '',
-            number: ''
-        };
-        _this.handleChange = _this.handleChange.bind(_this);
-        _this.handleSubmit = _this.handleSubmit.bind(_this);
-        _this.reloadPage = _this.reloadPage.bind(_this);
-        return _this;
-    }
-    PayPalPayment.prototype.componentWillMount = function () {
-    };
-    PayPalPayment.prototype.handleChange = function (event) {
-        var _a;
-        this.setState((_a = {}, _a[event.target.name] = event.target.value, _a));
-        this.setState({ isChanged: true });
-    };
-    PayPalPayment.prototype.handleSubmit = function (event) {
-        var _this = this;
-        event.preventDefault();
-        if (this.state.waitingResponse == false) {
-            this.setState({ waitingResponse: true });
-        }
-        axios.post(API_Path + '/Orders', {
-            userDetails: {
-                firstName: this.state.firstName,
-                lastName: this.state.lastName,
-                state: this.state.state,
-                city: this.state.city,
-                streetAddress: this.state.streetAddress,
-                zipCode: this.state.zipCode,
-                phone: this.state.phone
-            },
-            cartProducts: this.state.cartProducts,
-            paymentMethod: this.state.paymentMethod,
-        }, {
-            headers: {
-                token: sfcookies_1.read_cookie('token') //the token is a variable which holds the token
-            }
-        })
-            .then(function (response) {
-            react_notifications_1.NotificationManager.success(response.data.message);
-        })
-            .catch(function (error) {
-            react_notifications_1.NotificationManager.error("Request failed. Please, try again later.");
-        })
-            .then(function () {
-            _this.setState({ waitingResponse: false });
-        });
-    };
-    PayPalPayment.prototype.reloadPage = function () {
-        //do nothing
-    };
-    PayPalPayment.prototype.render = function () {
-        var onSuccess = function (payment) {
-            // Congratulation, it came here means everything's fine!
-            console.log("The payment was succeeded!", payment);
-            // You can bind the "payment" object's value to your state or props or whatever here, please see below for sample returned data
-        };
-        var onCancel = function (data) {
-            // User pressed "cancel" or close Paypal's popup!
-            console.log('The payment was cancelled!', data);
-            // You can bind the "data" object's value to your state or props or whatever here, please see below for sample returned data
-        };
-        var onError = function (err) {
-            // The main Paypal's script cannot be loaded or somethings block the loading of that script!
-            console.log("Error!", err);
-            // Because the Paypal's main script is loaded asynchronously from "https://www.paypalobjects.com/api/checkout.js"
-            // => sometimes it may take about 0.5 second for everything to get set, or for the button to appear
-        };
-        var env = 'sandbox'; // you can set here to 'production' for production
-        var currency = 'USD'; // or you can set this value from your props or state
-        var total = 1; // same as above, this is the total amount (based on currency) to be paid by using Paypal express checkout
-        // Document on Paypal's currency code: https://developer.paypal.com/docs/classic/api/currency_codes/
-        var client = {
-            sandbox: 'YOUR-SANDBOX-APP-ID',
-            production: 'YOUR-PRODUCTION-APP-ID',
-        };
-        // In order to get production's app-ID, you will have to send your app to Paypal for approval first
-        // For sandbox app-ID (after logging into your developer account, please locate the "REST API apps" section, click "Create App"):
-        //   => https://developer.paypal.com/docs/classic/lifecycle/sb_credentials/
-        // For production app-ID:
-        //   => https://developer.paypal.com/docs/classic/lifecycle/goingLive/
-        // NB. You can also have many Paypal express checkout buttons on page, just pass in the correct amount and they will work!
-        return (React.createElement(react_paypal_express_checkout_1.default, { env: env, client: client, currency: currency, total: total, onError: onError, onSuccess: onSuccess, onCancel: onCancel }));
-    };
-    return PayPalPayment;
-}(React.Component));
-exports.PayPalPayment = PayPalPayment;
-//# sourceMappingURL=PagePayPalPayment.js.map
 
 /***/ }),
 
@@ -4401,7 +4093,8 @@ __webpack_require__.r(__webpack_exports__);
         OurNewsletter: 'Our Newsletter',
         Subscribe: 'Subscribe',
         FooterResume: 'Butterfly Gabriel Habet is a fashion brand mainly known for its bag and belt designs for both women and men.',
-        NewsletterResume: 'I would like to receive emails from GabrielHabet with updates and special offers of GabrielHabet. I can unsubscribe any time by clicking the unsubscribe link in the email.'
+        NewsletterResume: 'I would like to receive emails from GabrielHabet with updates and special offers of GabrielHabet. I can unsubscribe any time by clicking the unsubscribe link in the email.',
+        Orders: 'Orders'
     },
 
     products: {
@@ -4457,7 +4150,7 @@ __webpack_require__.r(__webpack_exports__);
         Total: 'Total',
         PaymentMethod: 'Payment Method',
         Paypal: 'Paypal',
-        CashOnDelivery: 'Cash on delivery',
+        CreditCard: 'Credit card',
         PlaceOrder: 'Place order',
         MyCart: 'My cart',
         Product: 'Product',
@@ -4515,7 +4208,15 @@ __webpack_require__.r(__webpack_exports__);
         P1: 'Many years ago, Gabriel’s career started working as a leather cutter for Italian companies. From design to assembly and product finishing, he went through all the steps required to make leather articles, mastering his abilities in this field over time. Later on, being experienced and passionate, he started working with some of the famous in the field, creating new models for both men and women, contributing through his work to the evolution of leather processing and metal accessories. Then, it came a time when he decided to use this experience in order to create new designs of his own idea under his own new born brand: Butterfly Gabriel Habet.',
         P2: 'His creations are exclusively handmade, designed and produced with an exigency from raw materials which are directly imported from Italy. This highlights the quality and Italian excellence in tanning and leather processing. The following collection aims to satisfy the requirements of enthusiasts of leather articles, delighting them with minimal style elements inspired by modern geometrism but with the ample freedom of defined classicism.',
         P3: 'Thank you for stopping-by and enjoy shopping!'
-    }
+    },
+
+    order: {
+        Total: 'Total',
+        OrderNo: 'Order no.',
+        PlacedOn: 'Placed on',
+        OrderDetails: 'Order details',
+        OrderHistory: 'Orders history'
+    },
 });
 
 /***/ }),
@@ -4551,7 +4252,8 @@ __webpack_require__.r(__webpack_exports__);
         OurNewsletter: 'La nostra newsletter',
         Subscribe: 'Iscriviti',
         FooterResume: 'Butterfly Gabriel Habet è un marchio di moda noto principalmente per i suoi design di borse e cinture sia per donna che per uomo.',
-        NewsletterResume: 'I would like to receive emails from GabrielHabet with updates and special offers of GabrielHabet. I can unsubscribe any time by clicking the unsubscribe link in the email.'
+        NewsletterResume: 'I would like to receive emails from GabrielHabet with updates and special offers of GabrielHabet. I can unsubscribe any time by clicking the unsubscribe link in the email.',
+        Orders: 'Ordini'
     },
 
     products: {
@@ -4607,7 +4309,7 @@ __webpack_require__.r(__webpack_exports__);
         Total: 'Totale',
         PaymentMethod: 'Metodo di pagamento',
         Paypal: 'Paypal',
-        CashOnDelivery: 'Pagamento alla consegna',
+        CreditCard: 'Carta di credito',
         PlaceOrder: 'Invia ordine',
         MyCart: 'La mia carta',
         Product: 'Prodotto',
@@ -4665,7 +4367,15 @@ __webpack_require__.r(__webpack_exports__);
         P1: 'Many years ago, Gabriel’s career started working as a leather cutter for Italian companies. From design to assembly and product finishing, he went through all the steps required to make leather articles, mastering his abilities in this field over time. Later on, being experienced and passionate, he started working with some of the famous in the field, creating new models for both men and women, contributing through his work to the evolution of leather processing and metal accessories. Then, it came a time when he decided to use this experience in order to create new designs of his own idea under his own new born brand: Butterfly Gabriel Habet.',
         P2: 'His creations are exclusively handmade, designed and produced with an exigency from raw materials which are directly imported from Italy. This highlights the quality and Italian excellence in tanning and leather processing. The following collection aims to satisfy the requirements of enthusiasts of leather articles, delighting them with minimal style elements inspired by modern geometrism but with the ample freedom of defined classicism.',
         P3: 'Thank you for stopping-by and enjoy shopping!'
-    }
+    }, 
+
+    order: {
+        Total: 'Totale',
+        OrderNo: 'Ordine n.',
+        PlacedOn: 'Effettuato il',
+        OrderDetails: 'Dettagli dell\'ordine',
+        OrderHistory: 'Cronologia degli ordini'
+    },
 });
 
 /***/ }),
@@ -4701,7 +4411,8 @@ __webpack_require__.r(__webpack_exports__);
         OurNewsletter: 'Newsletter-ul nostru',
         Subscribe: 'Abonează-te',
         FooterResume: 'Butterfly Gabriel Habet este un brand de modă cunoscut în principal pentru design-ul geanților și curelelor atât pentru femei, cât și pentru bărbați.',
-        NewsletterResume: 'Aș dori să primesc e-mailuri de la GabrielHabet cu actualizări și oferte speciale. Ma pot dezabona oricand dand click pe linkul de dezabonare din e-mail.'
+        NewsletterResume: 'Aș dori să primesc e-mailuri de la GabrielHabet cu actualizări și oferte speciale. Ma pot dezabona oricand dand click pe linkul de dezabonare din e-mail.',
+        Orders: 'Comenzi'
     },
 
     products: {
@@ -4757,7 +4468,7 @@ __webpack_require__.r(__webpack_exports__);
         Total: 'Total',
         PaymentMethod: 'Modalitate de plată',
         Paypal: 'Paypal',
-        CashOnDelivery: 'Ramburs',
+        CreditCard: 'Card de credit',
         PlaceOrder: 'Plasați comanda',
         MyCart: 'Coșul meu',
         Product: 'Produs',
@@ -4815,7 +4526,15 @@ __webpack_require__.r(__webpack_exports__);
         P1: 'Acum mulți ani, Gabriel și-a început cariera lucrând ca și croitor de piele pentru companii italiene. De la design, la asamblare și până la finalizare a trecut prin toți pașii necesari pentru a face articole din piele, excelând în domeniu de-a lungul timpului. Mai târziu, dată fiindu-i experiența și pasiunea, a început să lucreze cu firme celebre în domeniu, creând modele pentru ambele genuri, contribuind prin munca sa la evoluția procesării pielii și a diversificării accesoriilor din metal. Apoi, a venit un timp când a decis să-și folosească experiența pentru a crea modele noi, definind cu talent și meticulozitate un nou brand, „Butterfly Gabriel Habet”.',
         P2: 'Creațiile lui sunt făcute exclusiv manual, concepute și produse cu exigență din material brut, importat direct din Italia. Acest lucru evidențiază calitatea și excelența italiană în procesarea pielii. Colecția ce urmează are intenția de a satisface cerințele amatorilor de articole din piele, încântându-i cu elemente ale stilului minimalist, inspirate din geometrismul modern, dar cu ampla libertate a clasicismului definit.',
         P3: 'Vă mulțumim pentru atenția acordată și vă dorim spor la cumpărături!'
-    }
+    },
+
+    order: {
+        Total: 'Total',
+        OrderNo: 'Comanda nr.',
+        PlacedOn: 'Plasată pe',
+        OrderDetails: 'Detalii comandă',
+        OrderHistory: 'Istoric comenzi'
+    },
 });
 
 /***/ }),
@@ -4866,7 +4585,6 @@ var PageCookiePolicy_1 = __webpack_require__(/*! ./Components/PageCookiePolicy *
 var PageOrderHistory_1 = __webpack_require__(/*! ./Components/PageOrderHistory */ "./Components/PageOrderHistory.js");
 var PageOrder_1 = __webpack_require__(/*! ./Components/PageOrder */ "./Components/PageOrder.js");
 var PageCreditCardPayment_1 = __webpack_require__(/*! ./Components/PageCreditCardPayment */ "./Components/PageCreditCardPayment.js");
-var PagePayPalPayment_1 = __webpack_require__(/*! ./Components/PagePayPalPayment */ "./Components/PagePayPalPayment.js");
 var App = /** @class */ (function (_super) {
     __extends(App, _super);
     function App() {
@@ -4894,7 +4612,6 @@ var App = /** @class */ (function (_super) {
                     React.createElement(react_router_1.Route, { exact: true, path: "/orders", component: PageOrderHistory_1.OrderHistory }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/order/:id", component: PageOrder_1.Order }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/card_payment", component: PageCreditCardPayment_1.CreditCardPayment }),
-                    React.createElement(react_router_1.Route, { exact: true, path: "/paypal_payment", component: PagePayPalPayment_1.PayPalPayment }),
                     React.createElement(react_router_1.Route, { component: PageNotFound_1.NotFound })),
                 React.createElement(Footer_1.Footer, null))));
     };

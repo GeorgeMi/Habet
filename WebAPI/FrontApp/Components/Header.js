@@ -204,7 +204,8 @@ var Header = /** @class */ (function (_super) {
                                             React.createElement(Translate, { content: "nav.EditDetails" })),
                                         React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/change_password" },
                                             React.createElement(Translate, { content: "nav.ChangePassword" })),
-                                        React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/orders" }, "Orders"),
+                                        React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/orders" },
+                                            React.createElement(Translate, { content: "nav.Orders" })),
                                         api_response.role == 'admin' ?
                                             React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/add_product" },
                                                 React.createElement(Translate, { content: "nav.AddProduct" }))

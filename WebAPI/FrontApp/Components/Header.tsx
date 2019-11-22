@@ -201,7 +201,7 @@ export class Header extends React.Component<any, any> {
                                             <div className="dropdown-content" aria-labelledby="dropdown04">
                                                 <Link className="dropdown-item" to="/user_details"><Translate content="nav.EditDetails" /></Link>
                                                 <Link className="dropdown-item" to="/change_password"><Translate content="nav.ChangePassword" /></Link>
-                                                <Link className="dropdown-item" to="/orders">Orders</Link>
+                                                <Link className="dropdown-item" to="/orders"><Translate content="nav.Orders" /></Link>
                                                 {
                                                     api_response.role == 'admin' ?
                                                         <Link className="dropdown-item" to="/add_product"><Translate content="nav.AddProduct" /></Link>
