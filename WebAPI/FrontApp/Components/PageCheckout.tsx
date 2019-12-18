@@ -21,6 +21,12 @@ counterpart.registerTranslations('en', en);
 counterpart.registerTranslations('ro', ro);
 counterpart.registerTranslations('it', it);
 
+declare global {
+    interface Window {
+        pay(currency, amount, callback): boolean;
+    }
+}
+
 export class Checkout extends React.Component<any, any> {
     constructor(props) {
         super(props);
@@ -42,10 +48,11 @@ export class Checkout extends React.Component<any, any> {
             zipCode: '',
             phone: '',
             email: '',
+            paymentResponse: '',
             waitingResponse: false,
             isChanged: false,
             language: read_cookie('lang'),
-            currency: read_cookie('currency')
+            currency: this.props.location.currency
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -94,33 +101,42 @@ export class Checkout extends React.Component<any, any> {
             this.setState({ waitingResponse: true });
         }
 
-        axios.post(API_Path + '/Orders', {
-            userDetails: {
-                firstName: this.state.firstName,
-                lastName: this.state.lastName,
-                state: this.state.state,
-                city: this.state.city,
-                streetAddress: this.state.streetAddress,
-                zipCode: this.state.zipCode,
-                phone: this.state.phone
-            },
-            cartProducts: this.state.cartProducts,
-            paymentMethod: this.state.paymentMethod,
-        }, {
-                headers: {
-                    token: read_cookie('token') //the token is a variable which holds the token
-                }
-            })
-            .then((response) => {
-                NotificationManager.success(response.data.message);
-            })
-            .catch((error) => {
-                NotificationManager.error("Request failed. Please, try again later.");
-            })
-            .then(() => {
-                this.setState({ waitingResponse: false });
+        var state = this.state;
+
+        this.cardPay(function (returnValue) {
+            console.log(state);
+            if (returnValue == true)
+            {
+                axios.post(API_Path + '/Orders', {
+                    userDetails: {
+                        firstName: state.firstName,
+                        lastName: state.lastName,
+                        state: state.state,
+                        city: state.city,
+                        streetAddress: state.streetAddress,
+                        zipCode: state.zipCode,
+                        phone: state.phone
+                    },
+                    cartProducts: state.cartProducts,
+                    paymentMethod: state.paymentMethod,
+                }, {
+                    headers: {
+                        token: read_cookie('token') //the token is a variable which holds the token
+                    }
+                })
+                    .then((response) => {
+                        NotificationManager.success(response.data.message);
+                    })
+                    .catch((error) => {
+                        NotificationManager.error("Request failed. Please, try again later.");
+                    })
+                    .then(() => {
+                        this.setState({ waitingResponse: false });
+                    }
+                    );
             }
-            );
+           
+        });         
     }
 
 
@@ -128,12 +144,18 @@ export class Checkout extends React.Component<any, any> {
         //do nothing
     }
 
+    public cardPay(callback) {
+        window.pay(this.state.currency, this.state.total * 100, function (returnValue) {
+            callback(returnValue);
+        });    
+    }
+
     render() {
         const { error, isLoaded, waitingResponse, currency } = this.state;
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
-        if (currency == 'lei') { currencyBeforeSign = ''; currencyAfterSign = 'lei' }
-        else if (currency == 'pounds') { currencyBeforeSign = '₤'; currencyAfterSign = '' }
+        if (currency == 'RON') { currencyBeforeSign = ''; currencyAfterSign = 'RON' }
+        else if (currency == 'GBP') { currencyBeforeSign = '₤'; currencyAfterSign = '' }
 
         //-------------- PayPal ---------------------
 
@@ -354,6 +376,17 @@ export class Checkout extends React.Component<any, any> {
                                                 <div className="col-md-6">
                                                     <div className="cart-detail bg-light p-3 p-md-4">
                                                         <h3 className="billing-heading mb-4"><Translate content='checkout.PaymentMethod' /></h3>
+
+                                                        <div className="row col-md-8">
+                                                            <div className="column">
+                                                                <img src="images/visa.svg" alt="Visa" style={{ width: '100%'}}/>
+                                                             </div>
+                                                             <div className="column">
+                                                                <img src="images/mastercard.svg" alt="Mastercard" style={{ width: '100%' }}/>
+                                                              </div>
+                                                         </div>
+                                                       
+                                                        {  /* 
                                                         <div className="form-group">
                                                             <div className="col-md-12">
                                                                 <div className="radio">
@@ -361,6 +394,7 @@ export class Checkout extends React.Component<any, any> {
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        
                                                         <div className="form-group">
                                                             <div className="col-md-12">
                                                                 <div className="radio">
@@ -368,12 +402,15 @@ export class Checkout extends React.Component<any, any> {
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        */ }
+
                                                         <div className="form-group">
-                                                            {this.state.paymentMethod === "Card" ?
+                                                            <Translate component="input" attributes={{ value: 'checkout.PlaceOrder' }} type="submit" className="btn btn-primary py-3 px-4" />
+                                                            {  /*   {this.state.paymentMethod === "Card" ?
                                                                 <Translate component="input" attributes={{ value: 'checkout.PlaceOrder' }} type="submit" className="btn btn-primary py-3 px-4" />
                                                                 :
                                                                 <PaypalExpressBtn env={env} client={client} currency={currency} total={total} onError={onError} onSuccess={onSuccess} onCancel={onCancel} />
-                                                            }
+                                                            }*/ }
                                                            
                                                         </div>
                                                     </div>

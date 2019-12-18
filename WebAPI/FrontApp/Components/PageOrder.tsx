@@ -78,8 +78,8 @@ export class Order extends React.Component<any, any> {
         const { error, isLoaded, waitingResponse, currency, userDetails, products } = this.state;
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
-        if (currency == 'lei') { currencyBeforeSign = ''; currencyAfterSign = 'lei' }
-        else if (currency == 'pounds') { currencyBeforeSign = '₤'; currencyAfterSign = '' }
+        if (currency == 'RON') { currencyBeforeSign = ''; currencyAfterSign = 'RON' }
+        else if (currency == 'GBP') { currencyBeforeSign = '₤'; currencyAfterSign = '' }
 
         if (error) {
             console.log(error);

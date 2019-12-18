@@ -23,7 +23,6 @@ var Translate = require("react-translate-component");
 var en_1 = require("./languages/en");
 var it_1 = require("./languages/it");
 var ro_1 = require("./languages/ro");
-var react_paypal_express_checkout_1 = require("react-paypal-express-checkout");
 var config = require('config');
 var API_Path = config.API_Path;
 var axios = require('axios');
@@ -52,10 +51,11 @@ var Checkout = /** @class */ (function (_super) {
             zipCode: '',
             phone: '',
             email: '',
+            paymentResponse: '',
             waitingResponse: false,
             isChanged: false,
             language: sfcookies_1.read_cookie('lang'),
-            currency: sfcookies_1.read_cookie('currency')
+            currency: _this.props.location.currency
         };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
@@ -96,50 +96,61 @@ var Checkout = /** @class */ (function (_super) {
         this.setState({ isChanged: true });
     };
     Checkout.prototype.handleSubmit = function (event) {
-        var _this = this;
         event.preventDefault();
         if (this.state.waitingResponse == false) {
             this.setState({ waitingResponse: true });
         }
-        axios.post(API_Path + '/Orders', {
-            userDetails: {
-                firstName: this.state.firstName,
-                lastName: this.state.lastName,
-                state: this.state.state,
-                city: this.state.city,
-                streetAddress: this.state.streetAddress,
-                zipCode: this.state.zipCode,
-                phone: this.state.phone
-            },
-            cartProducts: this.state.cartProducts,
-            paymentMethod: this.state.paymentMethod,
-        }, {
-            headers: {
-                token: sfcookies_1.read_cookie('token') //the token is a variable which holds the token
+        var state = this.state;
+        this.cardPay(function (returnValue) {
+            var _this = this;
+            console.log(state);
+            if (returnValue == true) {
+                axios.post(API_Path + '/Orders', {
+                    userDetails: {
+                        firstName: state.firstName,
+                        lastName: state.lastName,
+                        state: state.state,
+                        city: state.city,
+                        streetAddress: state.streetAddress,
+                        zipCode: state.zipCode,
+                        phone: state.phone
+                    },
+                    cartProducts: state.cartProducts,
+                    paymentMethod: state.paymentMethod,
+                }, {
+                    headers: {
+                        token: sfcookies_1.read_cookie('token') //the token is a variable which holds the token
+                    }
+                })
+                    .then(function (response) {
+                    react_notifications_1.NotificationManager.success(response.data.message);
+                })
+                    .catch(function (error) {
+                    react_notifications_1.NotificationManager.error("Request failed. Please, try again later.");
+                })
+                    .then(function () {
+                    _this.setState({ waitingResponse: false });
+                });
             }
-        })
-            .then(function (response) {
-            react_notifications_1.NotificationManager.success(response.data.message);
-        })
-            .catch(function (error) {
-            react_notifications_1.NotificationManager.error("Request failed. Please, try again later.");
-        })
-            .then(function () {
-            _this.setState({ waitingResponse: false });
         });
     };
     Checkout.prototype.reloadPage = function () {
         //do nothing
     };
+    Checkout.prototype.cardPay = function (callback) {
+        window.pay(this.state.currency, this.state.total * 100, function (returnValue) {
+            callback(returnValue);
+        });
+    };
     Checkout.prototype.render = function () {
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, waitingResponse = _a.waitingResponse, currency = _a.currency;
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
-        if (currency == 'lei') {
+        if (currency == 'RON') {
             currencyBeforeSign = '';
-            currencyAfterSign = 'lei';
+            currencyAfterSign = 'RON';
         }
-        else if (currency == 'pounds') {
+        else if (currency == 'GBP') {
             currencyBeforeSign = '₤';
             currencyAfterSign = '';
         }
@@ -332,22 +343,13 @@ var Checkout = /** @class */ (function (_super) {
                                                 React.createElement("div", { className: "cart-detail bg-light p-3 p-md-4" },
                                                     React.createElement("h3", { className: "billing-heading mb-4" },
                                                         React.createElement(Translate, { content: 'checkout.PaymentMethod' })),
+                                                    React.createElement("div", { className: "row col-md-8" },
+                                                        React.createElement("div", { className: "column" },
+                                                            React.createElement("img", { src: "images/visa.svg", alt: "Visa", style: { width: '100%' } })),
+                                                        React.createElement("div", { className: "column" },
+                                                            React.createElement("img", { src: "images/mastercard.svg", alt: "Mastercard", style: { width: '100%' } }))),
                                                     React.createElement("div", { className: "form-group" },
-                                                        React.createElement("div", { className: "col-md-12" },
-                                                            React.createElement("div", { className: "radio" },
-                                                                React.createElement("label", null,
-                                                                    React.createElement("input", { type: "radio", name: "paymentMethod", value: "Paypal", checked: this.state.paymentMethod === "Paypal", onChange: this.handleChange, id: "Paypal", className: "mr-2" }),
-                                                                    React.createElement(Translate, { content: 'checkout.Paypal' }))))),
-                                                    React.createElement("div", { className: "form-group" },
-                                                        React.createElement("div", { className: "col-md-12" },
-                                                            React.createElement("div", { className: "radio" },
-                                                                React.createElement("label", null,
-                                                                    React.createElement("input", { type: "radio", name: "paymentMethod", value: "Card", checked: this.state.paymentMethod === "Card", onChange: this.handleChange, id: "Card", className: "mr-2", defaultChecked: true }),
-                                                                    React.createElement(Translate, { content: 'checkout.CreditCard' }))))),
-                                                    React.createElement("div", { className: "form-group" }, this.state.paymentMethod === "Card" ?
-                                                        React.createElement(Translate, { component: "input", attributes: { value: 'checkout.PlaceOrder' }, type: "submit", className: "btn btn-primary py-3 px-4" })
-                                                        :
-                                                            React.createElement(react_paypal_express_checkout_1.default, { env: env, client: client, currency: currency, total: total, onError: onError, onSuccess: onSuccess, onCancel: onCancel })))))))))))));
+                                                        React.createElement(Translate, { component: "input", attributes: { value: 'checkout.PlaceOrder' }, type: "submit", className: "btn btn-primary py-3 px-4" })))))))))))));
         }
     };
     return Checkout;

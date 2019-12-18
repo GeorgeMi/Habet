@@ -86,11 +86,11 @@ var Order = /** @class */ (function (_super) {
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, waitingResponse = _a.waitingResponse, currency = _a.currency, userDetails = _a.userDetails, products = _a.products;
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
-        if (currency == 'lei') {
+        if (currency == 'RON') {
             currencyBeforeSign = '';
-            currencyAfterSign = 'lei';
+            currencyAfterSign = 'RON';
         }
-        else if (currency == 'pounds') {
+        else if (currency == 'GBP') {
             currencyBeforeSign = '₤';
             currencyAfterSign = '';
         }
@@ -176,7 +176,7 @@ var Order = /** @class */ (function (_super) {
                                                         React.createElement(Translate, { content: 'checkout.State' })),
                                                     React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: userDetails.State, name: "state", id: "state", maxLength: 50, disabled: true }))),
                                             React.createElement("div", { className: "w-100" }),
-                                            React.createElement("div", { className: "col-md-6" },
+                                            React.createElement("div", { className: "col-md-12" },
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "streetaddress" },
                                                         React.createElement(Translate, { content: 'checkout.StreetAddress' })),

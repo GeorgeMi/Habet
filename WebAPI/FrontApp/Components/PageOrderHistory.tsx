@@ -61,8 +61,8 @@ export class OrderHistory extends React.Component<any, any> {
         const { error, isLoaded, waitingResponse, items, currency } = this.state;
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
-        if (currency == 'lei') { currencyBeforeSign = ''; currencyAfterSign = 'lei' }
-        else if (currency == 'pounds') { currencyBeforeSign = '₤'; currencyAfterSign = '' }
+        if (currency == 'RON') { currencyBeforeSign = ''; currencyAfterSign = 'RON' }
+        else if (currency == 'GBP') { currencyBeforeSign = '₤'; currencyAfterSign = '' }
 
         if (error) {
             console.log(error);

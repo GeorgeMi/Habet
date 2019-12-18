@@ -10861,3 +10861,9 @@ textarea.form-control {
 li {
     list-style-type: none;
 }
+
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 5px;
+}

@@ -121,11 +121,11 @@ var Cart = /** @class */ (function (_super) {
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, currency = _a.currency;
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
-        if (currency == 'lei') {
+        if (currency == 'RON') {
             currencyBeforeSign = '';
-            currencyAfterSign = 'lei';
+            currencyAfterSign = 'RON';
         }
-        else if (currency == 'pounds') {
+        else if (currency == 'GBP') {
             currencyBeforeSign = '₤';
             currencyAfterSign = '';
         }
@@ -210,7 +210,8 @@ var Cart = /** @class */ (function (_super) {
                                             subtotal: this.state.subtotal,
                                             delivery: this.state.delivery,
                                             total: this.state.total,
-                                            cartProducts: this.state.cartProducts
+                                            cartProducts: this.state.cartProducts,
+                                            currency: this.state.currency
                                         }, className: "btn btn-primary py-3 px-4" },
                                         React.createElement(Translate, { content: 'checkout.ProceedToCheckout' })))))))));
         }

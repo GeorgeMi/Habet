@@ -129,8 +129,8 @@ export class Cart extends React.Component<any, any>{
         const { error, isLoaded, items, currency } = this.state;
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
-        if (currency == 'lei') { currencyBeforeSign = ''; currencyAfterSign = 'lei' }
-        else if (currency == 'pounds') { currencyBeforeSign = '₤'; currencyAfterSign = '' }
+        if (currency == 'RON') { currencyBeforeSign = ''; currencyAfterSign = 'RON' }
+        else if (currency == 'GBP') { currencyBeforeSign = '₤'; currencyAfterSign = '' }
 
         if (error) {
             console.log(error);
@@ -233,7 +233,8 @@ export class Cart extends React.Component<any, any>{
                                                 subtotal:  this.state.subtotal,
                                                 delivery:  this.state.delivery,
                                                 total: this.state.total,
-                                                cartProducts: this.state.cartProducts
+                                                cartProducts: this.state.cartProducts,
+                                                currency: this.state.currency
                                             }
                                         } className="btn btn-primary py-3 px-4" ><Translate content='checkout.ProceedToCheckout' /></Link>
                                     </p>

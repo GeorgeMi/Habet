@@ -37,7 +37,7 @@ namespace Api.Controllers
                     Shipping = i,
                     Date = DateTime.Now.AddMonths(-i),
                     OrderId = rnd.Next(1, 4),
-                    Currency = "lei"
+                    Currency = "RON"
                 });
             }
 
@@ -78,7 +78,7 @@ namespace Api.Controllers
                     Phone = "Phone",
                     Email = "Email",            
                     PaymentMethod = "Cash",
-                    Currency = "lei",
+                    Currency = "RON",
                     ProductsOrders = new List<ProductsOrders>(),
                     Subtotal = 123,
                     Shipping=20
@@ -310,17 +310,17 @@ namespace Api.Controllers
 
         private double ExchangePrice(double value, string toCurrency)
         {
-            double euros_lei_rate = 4.75;
-            double euros_pounds_rate = 0.90;
+            double EUR_RON_rate = 4.75;
+            double EUR_GBP_rate = 0.90;
             double result = 0;
 
             switch (toCurrency)
             {
-                case "lei":
-                    result = value * euros_lei_rate;
+                case "RON":
+                    result = value * EUR_RON_rate;
                     break;
-                case "pounds":
-                    result = value * euros_pounds_rate;
+                case "GBP":
+                    result = value * EUR_GBP_rate;
                     break;
                 default:
                     result = value;

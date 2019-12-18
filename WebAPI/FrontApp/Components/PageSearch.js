@@ -182,11 +182,11 @@ var Search = /** @class */ (function (_super) {
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, currency = _a.currency;
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
-        if (currency == 'lei') {
+        if (currency == 'RON') {
             currencyBeforeSign = '';
-            currencyAfterSign = 'lei';
+            currencyAfterSign = 'RON';
         }
-        else if (currency == 'pounds') {
+        else if (currency == 'GBP') {
             currencyBeforeSign = '₤';
             currencyAfterSign = '';
         }

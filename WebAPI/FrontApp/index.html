@@ -53,6 +53,29 @@
     <script src="js/bootstrap-datepicker.js"></script>
     <script src="js/scrollax.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="https://sdk.paylike.io/3.js"></script>
+
+    <script>
+        var paylike = Paylike('87042a34-b6ec-4209-9e5e-c2b8829e2b97');
+
+        function pay(currency, amount, callback) {           
+                paylike.popup({
+                    currency: currency,
+                    amount: amount,
+                }, function (err, r) {
+                    if (err) {
+                        //      console.warn(err);
+                        callback(false) ;
+
+                    }
+
+                    // console.log(r);	// { transaction: { id: ... } }
+                    //           location.href = '/thank-you';
+
+                    callback(true);
+                });         
+        }
+    </script>
 
 </body>
 </html>

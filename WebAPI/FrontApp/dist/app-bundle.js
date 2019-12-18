@@ -330,7 +330,7 @@ var Header = /** @class */ (function (_super) {
             sfcookies_1.bake_cookie('lang', lang);
         }
         counterpart.setLocale(lang);
-        var currency = 'pounds';
+        var currency = 'GBP';
         if (sfcookies_1.read_cookie('currency') != null && sfcookies_1.read_cookie('currency').length !== 0) {
             currency = sfcookies_1.read_cookie('currency');
         }
@@ -508,9 +508,9 @@ var Header = /** @class */ (function (_super) {
                                     React.createElement("option", { value: "ro" }, "Ro"))),
                             React.createElement("li", { className: "nav-item dropdown" },
                                 React.createElement("select", { style: { backgroundColor: 'transparent', transform: 'translateY(22 %)' }, value: this.state.currency, onChange: this.onCurrencyChange, name: "currency", id: "currency" },
-                                    React.createElement("option", { value: "pounds" }, "\u20A4"),
-                                    React.createElement("option", { value: "euros" }, "\u20AC"),
-                                    React.createElement("option", { value: "lei" }, "Lei")))))))));
+                                    React.createElement("option", { value: "GBP" }, "\u20A4"),
+                                    React.createElement("option", { value: "EUR" }, "\u20AC"),
+                                    React.createElement("option", { value: "RON" }, "RON")))))))));
     };
     return Header;
 }(React.Component));
@@ -863,11 +863,11 @@ var Cart = /** @class */ (function (_super) {
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, currency = _a.currency;
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
-        if (currency == 'lei') {
+        if (currency == 'RON') {
             currencyBeforeSign = '';
-            currencyAfterSign = 'lei';
+            currencyAfterSign = 'RON';
         }
-        else if (currency == 'pounds') {
+        else if (currency == 'GBP') {
             currencyBeforeSign = '₤';
             currencyAfterSign = '';
         }
@@ -952,7 +952,8 @@ var Cart = /** @class */ (function (_super) {
                                             subtotal: this.state.subtotal,
                                             delivery: this.state.delivery,
                                             total: this.state.total,
-                                            cartProducts: this.state.cartProducts
+                                            cartProducts: this.state.cartProducts,
+                                            currency: this.state.currency
                                         }, className: "btn btn-primary py-3 px-4" },
                                         React.createElement(Translate, { content: 'checkout.ProceedToCheckout' })))))))));
         }
@@ -1128,7 +1129,6 @@ var Translate = __webpack_require__(/*! react-translate-component */ "./node_mod
 var en_1 = __webpack_require__(/*! ./languages/en */ "./Components/languages/en.js");
 var it_1 = __webpack_require__(/*! ./languages/it */ "./Components/languages/it.js");
 var ro_1 = __webpack_require__(/*! ./languages/ro */ "./Components/languages/ro.js");
-var react_paypal_express_checkout_1 = __webpack_require__(/*! react-paypal-express-checkout */ "./node_modules/react-paypal-express-checkout/index.js");
 var config = __webpack_require__(/*! config */ "config");
 var API_Path = config.API_Path;
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -1157,10 +1157,11 @@ var Checkout = /** @class */ (function (_super) {
             zipCode: '',
             phone: '',
             email: '',
+            paymentResponse: '',
             waitingResponse: false,
             isChanged: false,
             language: sfcookies_1.read_cookie('lang'),
-            currency: sfcookies_1.read_cookie('currency')
+            currency: _this.props.location.currency
         };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
@@ -1201,50 +1202,61 @@ var Checkout = /** @class */ (function (_super) {
         this.setState({ isChanged: true });
     };
     Checkout.prototype.handleSubmit = function (event) {
-        var _this = this;
         event.preventDefault();
         if (this.state.waitingResponse == false) {
             this.setState({ waitingResponse: true });
         }
-        axios.post(API_Path + '/Orders', {
-            userDetails: {
-                firstName: this.state.firstName,
-                lastName: this.state.lastName,
-                state: this.state.state,
-                city: this.state.city,
-                streetAddress: this.state.streetAddress,
-                zipCode: this.state.zipCode,
-                phone: this.state.phone
-            },
-            cartProducts: this.state.cartProducts,
-            paymentMethod: this.state.paymentMethod,
-        }, {
-            headers: {
-                token: sfcookies_1.read_cookie('token') //the token is a variable which holds the token
+        var state = this.state;
+        this.cardPay(function (returnValue) {
+            var _this = this;
+            console.log(state);
+            if (returnValue == true) {
+                axios.post(API_Path + '/Orders', {
+                    userDetails: {
+                        firstName: state.firstName,
+                        lastName: state.lastName,
+                        state: state.state,
+                        city: state.city,
+                        streetAddress: state.streetAddress,
+                        zipCode: state.zipCode,
+                        phone: state.phone
+                    },
+                    cartProducts: state.cartProducts,
+                    paymentMethod: state.paymentMethod,
+                }, {
+                    headers: {
+                        token: sfcookies_1.read_cookie('token') //the token is a variable which holds the token
+                    }
+                })
+                    .then(function (response) {
+                    react_notifications_1.NotificationManager.success(response.data.message);
+                })
+                    .catch(function (error) {
+                    react_notifications_1.NotificationManager.error("Request failed. Please, try again later.");
+                })
+                    .then(function () {
+                    _this.setState({ waitingResponse: false });
+                });
             }
-        })
-            .then(function (response) {
-            react_notifications_1.NotificationManager.success(response.data.message);
-        })
-            .catch(function (error) {
-            react_notifications_1.NotificationManager.error("Request failed. Please, try again later.");
-        })
-            .then(function () {
-            _this.setState({ waitingResponse: false });
         });
     };
     Checkout.prototype.reloadPage = function () {
         //do nothing
     };
+    Checkout.prototype.cardPay = function (callback) {
+        window.pay(this.state.currency, this.state.total * 100, function (returnValue) {
+            callback(returnValue);
+        });
+    };
     Checkout.prototype.render = function () {
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, waitingResponse = _a.waitingResponse, currency = _a.currency;
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
-        if (currency == 'lei') {
+        if (currency == 'RON') {
             currencyBeforeSign = '';
-            currencyAfterSign = 'lei';
+            currencyAfterSign = 'RON';
         }
-        else if (currency == 'pounds') {
+        else if (currency == 'GBP') {
             currencyBeforeSign = '₤';
             currencyAfterSign = '';
         }
@@ -1437,22 +1449,13 @@ var Checkout = /** @class */ (function (_super) {
                                                 React.createElement("div", { className: "cart-detail bg-light p-3 p-md-4" },
                                                     React.createElement("h3", { className: "billing-heading mb-4" },
                                                         React.createElement(Translate, { content: 'checkout.PaymentMethod' })),
+                                                    React.createElement("div", { className: "row col-md-8" },
+                                                        React.createElement("div", { className: "column" },
+                                                            React.createElement("img", { src: "images/visa.svg", alt: "Visa", style: { width: '100%' } })),
+                                                        React.createElement("div", { className: "column" },
+                                                            React.createElement("img", { src: "images/mastercard.svg", alt: "Mastercard", style: { width: '100%' } }))),
                                                     React.createElement("div", { className: "form-group" },
-                                                        React.createElement("div", { className: "col-md-12" },
-                                                            React.createElement("div", { className: "radio" },
-                                                                React.createElement("label", null,
-                                                                    React.createElement("input", { type: "radio", name: "paymentMethod", value: "Paypal", checked: this.state.paymentMethod === "Paypal", onChange: this.handleChange, id: "Paypal", className: "mr-2" }),
-                                                                    React.createElement(Translate, { content: 'checkout.Paypal' }))))),
-                                                    React.createElement("div", { className: "form-group" },
-                                                        React.createElement("div", { className: "col-md-12" },
-                                                            React.createElement("div", { className: "radio" },
-                                                                React.createElement("label", null,
-                                                                    React.createElement("input", { type: "radio", name: "paymentMethod", value: "Card", checked: this.state.paymentMethod === "Card", onChange: this.handleChange, id: "Card", className: "mr-2", defaultChecked: true }),
-                                                                    React.createElement(Translate, { content: 'checkout.CreditCard' }))))),
-                                                    React.createElement("div", { className: "form-group" }, this.state.paymentMethod === "Card" ?
-                                                        React.createElement(Translate, { component: "input", attributes: { value: 'checkout.PlaceOrder' }, type: "submit", className: "btn btn-primary py-3 px-4" })
-                                                        :
-                                                            React.createElement(react_paypal_express_checkout_1.default, { env: env, client: client, currency: currency, total: total, onError: onError, onSuccess: onSuccess, onCancel: onCancel })))))))))))));
+                                                        React.createElement(Translate, { component: "input", attributes: { value: 'checkout.PlaceOrder' }, type: "submit", className: "btn btn-primary py-3 px-4" })))))))))))));
         }
     };
     return Checkout;
@@ -2117,11 +2120,11 @@ var Order = /** @class */ (function (_super) {
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, waitingResponse = _a.waitingResponse, currency = _a.currency, userDetails = _a.userDetails, products = _a.products;
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
-        if (currency == 'lei') {
+        if (currency == 'RON') {
             currencyBeforeSign = '';
-            currencyAfterSign = 'lei';
+            currencyAfterSign = 'RON';
         }
-        else if (currency == 'pounds') {
+        else if (currency == 'GBP') {
             currencyBeforeSign = '₤';
             currencyAfterSign = '';
         }
@@ -2207,7 +2210,7 @@ var Order = /** @class */ (function (_super) {
                                                         React.createElement(Translate, { content: 'checkout.State' })),
                                                     React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: userDetails.State, name: "state", id: "state", maxLength: 50, disabled: true }))),
                                             React.createElement("div", { className: "w-100" }),
-                                            React.createElement("div", { className: "col-md-6" },
+                                            React.createElement("div", { className: "col-md-12" },
                                                 React.createElement("div", { className: "form-group" },
                                                     React.createElement("label", { htmlFor: "streetaddress" },
                                                         React.createElement(Translate, { content: 'checkout.StreetAddress' })),
@@ -2347,11 +2350,11 @@ var OrderHistory = /** @class */ (function (_super) {
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, waitingResponse = _a.waitingResponse, items = _a.items, currency = _a.currency;
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
-        if (currency == 'lei') {
+        if (currency == 'RON') {
             currencyBeforeSign = '';
-            currencyAfterSign = 'lei';
+            currencyAfterSign = 'RON';
         }
-        else if (currency == 'pounds') {
+        else if (currency == 'GBP') {
             currencyBeforeSign = '₤';
             currencyAfterSign = '';
         }
@@ -2564,11 +2567,11 @@ var Product = /** @class */ (function (_super) {
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, item = _a.item, quantity = _a.quantity, currency = _a.currency;
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
-        if (currency == 'lei') {
+        if (currency == 'RON') {
             currencyBeforeSign = '';
-            currencyAfterSign = 'lei';
+            currencyAfterSign = 'RON';
         }
-        else if (currency == 'pounds') {
+        else if (currency == 'GBP') {
             currencyBeforeSign = '₤';
             currencyAfterSign = '';
         }
@@ -3288,11 +3291,11 @@ var Search = /** @class */ (function (_super) {
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, currency = _a.currency;
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
-        if (currency == 'lei') {
+        if (currency == 'RON') {
             currencyBeforeSign = '';
-            currencyAfterSign = 'lei';
+            currencyAfterSign = 'RON';
         }
-        else if (currency == 'pounds') {
+        else if (currency == 'GBP') {
             currencyBeforeSign = '₤';
             currencyAfterSign = '';
         }
@@ -3845,11 +3848,11 @@ var SectionIntro = /** @class */ (function (_super) {
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, currency = _a.currency;
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
-        if (currency == 'lei') {
+        if (currency == 'RON') {
             currencyBeforeSign = '';
-            currencyAfterSign = 'lei';
+            currencyAfterSign = 'RON';
         }
-        else if (currency == 'pounds') {
+        else if (currency == 'GBP') {
             currencyBeforeSign = '₤';
             currencyAfterSign = '';
         }
@@ -4006,11 +4009,11 @@ var SectionProducts = /** @class */ (function (_super) {
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, gender = _a.gender, type = _a.type, currency = _a.currency;
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
-        if (currency == 'lei') {
+        if (currency == 'RON') {
             currencyBeforeSign = '';
-            currencyAfterSign = 'lei';
+            currencyAfterSign = 'RON';
         }
-        else if (currency == 'pounds') {
+        else if (currency == 'GBP') {
             currencyBeforeSign = '₤';
             currencyAfterSign = '';
         }
@@ -14522,393 +14525,6 @@ module.exports = ReactPropTypesSecret;
   module.exports = QJ;
 
 }).call(this);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-async-script-loader/lib/index.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/react-async-script-loader/lib/index.js ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-exports.startLoadingScripts = startLoadingScripts;
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _hoistNonReactStatics = __webpack_require__(/*! hoist-non-react-statics */ "./node_modules/react-async-script-loader/node_modules/hoist-non-react-statics/index.js");
-
-var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
-
-var _utils = __webpack_require__(/*! ./utils */ "./node_modules/react-async-script-loader/lib/utils.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-var loadedScript = [];
-var pendingScripts = {};
-var failedScript = [];
-
-function startLoadingScripts(scripts) {
-  var onComplete = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _utils.noop;
-
-  // sequence load
-  var loadNewScript = function loadNewScript(src) {
-    if (loadedScript.indexOf(src) < 0) {
-      return function (taskComplete) {
-        var callbacks = pendingScripts[src] || [];
-        callbacks.push(taskComplete);
-        pendingScripts[src] = callbacks;
-        if (callbacks.length === 1) {
-          return (0, _utils.newScript)(src)(function (err) {
-            pendingScripts[src].forEach(function (cb) {
-              return cb(err, src);
-            });
-            delete pendingScripts[src];
-          });
-        }
-      };
-    }
-  };
-  var tasks = scripts.map(function (src) {
-    if (Array.isArray(src)) {
-      return src.map(loadNewScript);
-    } else return loadNewScript(src);
-  });
-
-  _utils.series.apply(undefined, _toConsumableArray(tasks))(function (err, src) {
-    if (err) {
-      failedScript.push(src);
-    } else {
-      if (Array.isArray(src)) {
-        src.forEach(addCache);
-      } else addCache(src);
-    }
-  })(function (err) {
-    removeFailedScript();
-    onComplete(err);
-  });
-}
-
-var addCache = function addCache(entry) {
-  if (loadedScript.indexOf(entry) < 0) {
-    loadedScript.push(entry);
-  }
-};
-
-var removeFailedScript = function removeFailedScript() {
-  if (failedScript.length > 0) {
-    failedScript.forEach(function (script) {
-      var node = document.querySelector('script[src=\'' + script + '\']');
-      if (node != null) {
-        node.parentNode.removeChild(node);
-      }
-    });
-
-    failedScript = [];
-  }
-};
-
-var scriptLoader = function scriptLoader() {
-  for (var _len = arguments.length, scripts = Array(_len), _key = 0; _key < _len; _key++) {
-    scripts[_key] = arguments[_key];
-  }
-
-  return function (WrappedComponent) {
-    var ScriptLoader = function (_Component) {
-      _inherits(ScriptLoader, _Component);
-
-      function ScriptLoader(props, context) {
-        _classCallCheck(this, ScriptLoader);
-
-        var _this = _possibleConstructorReturn(this, (ScriptLoader.__proto__ || Object.getPrototypeOf(ScriptLoader)).call(this, props, context));
-
-        _this.state = {
-          isScriptLoaded: false,
-          isScriptLoadSucceed: false
-        };
-
-        _this._isMounted = false;
-        return _this;
-      }
-
-      _createClass(ScriptLoader, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-          var _this2 = this;
-
-          this._isMounted = true;
-          startLoadingScripts(scripts, function (err) {
-            if (_this2._isMounted) {
-              _this2.setState({
-                isScriptLoaded: true,
-                isScriptLoadSucceed: !err
-              }, function () {
-                if (!err) {
-                  _this2.props.onScriptLoaded();
-                }
-              });
-            }
-          });
-        }
-      }, {
-        key: 'componentWillUnmount',
-        value: function componentWillUnmount() {
-          this._isMounted = false;
-        }
-      }, {
-        key: 'render',
-        value: function render() {
-          var props = _extends({}, this.props, this.state);
-
-          return _react2.default.createElement(WrappedComponent, props);
-        }
-      }]);
-
-      return ScriptLoader;
-    }(_react.Component);
-
-    ScriptLoader.propTypes = {
-      onScriptLoaded: _propTypes2.default.func
-    };
-    ScriptLoader.defaultProps = {
-      onScriptLoaded: _utils.noop
-    };
-
-
-    return (0, _hoistNonReactStatics2.default)(ScriptLoader, WrappedComponent);
-  };
-};
-
-exports.default = scriptLoader;
-
-/***/ }),
-
-/***/ "./node_modules/react-async-script-loader/lib/utils.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/react-async-script-loader/lib/utils.js ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var isDefined = exports.isDefined = function isDefined(val) {
-  return val != null;
-};
-var isFunction = exports.isFunction = function isFunction(val) {
-  return typeof val === 'function';
-};
-var noop = exports.noop = function noop(_) {};
-
-var newScript = exports.newScript = function newScript(src) {
-  return function (cb) {
-    var script = document.createElement('script');
-    script.src = src;
-    script.addEventListener('load', function () {
-      return cb(null, src);
-    });
-    script.addEventListener('error', function () {
-      return cb(true, src);
-    });
-    document.body.appendChild(script);
-    return script;
-  };
-};
-
-var keyIterator = function keyIterator(cols) {
-  var keys = Object.keys(cols);
-  var i = -1;
-  return {
-    next: function next() {
-      i++; // inc
-      if (i >= keys.length) return null;else return keys[i];
-    }
-  };
-};
-
-// tasks should be a collection of thunk
-var parallel = exports.parallel = function parallel() {
-  for (var _len = arguments.length, tasks = Array(_len), _key = 0; _key < _len; _key++) {
-    tasks[_key] = arguments[_key];
-  }
-
-  return function (each) {
-    return function (cb) {
-      var hasError = false;
-      var successed = 0;
-      var ret = [];
-      tasks = tasks.filter(isFunction);
-
-      if (tasks.length <= 0) cb(null);else {
-        tasks.forEach(function (task, i) {
-          var thunk = task;
-          thunk(function (err) {
-            for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-              args[_key2 - 1] = arguments[_key2];
-            }
-
-            if (err) hasError = true;else {
-              // collect result
-              if (args.length <= 1) args = args[0];
-
-              ret[i] = args;
-              successed++;
-            }
-
-            if (isFunction(each)) each.call(null, err, args, i);
-
-            if (hasError) cb(true);else if (tasks.length === successed) {
-              cb(null, ret);
-            }
-          });
-        });
-      }
-    };
-  };
-};
-
-// tasks should be a collection of thunk
-var series = exports.series = function series() {
-  for (var _len3 = arguments.length, tasks = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-    tasks[_key3] = arguments[_key3];
-  }
-
-  return function (each) {
-    return function (cb) {
-      tasks = tasks.filter(function (val) {
-        return val != null;
-      });
-      var nextKey = keyIterator(tasks);
-      var nextThunk = function nextThunk() {
-        var key = nextKey.next();
-        var thunk = tasks[key];
-        if (Array.isArray(thunk)) thunk = parallel.apply(null, thunk).call(null, each);
-        return [+key, thunk]; // convert `key` to number
-      };
-      var key = void 0,
-          thunk = void 0;
-      var next = nextThunk();
-      key = next[0];
-      thunk = next[1];
-      if (thunk == null) return cb(null);
-
-      var ret = [];
-      var iterator = function iterator() {
-        thunk(function (err) {
-          for (var _len4 = arguments.length, args = Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
-            args[_key4 - 1] = arguments[_key4];
-          }
-
-          if (args.length <= 1) args = args[0];
-          if (isFunction(each)) each.call(null, err, args, key);
-
-          if (err) cb(err);else {
-            // collect result
-            ret.push(args);
-
-            next = nextThunk();
-            key = next[0];
-            thunk = next[1];
-            if (thunk == null) return cb(null, ret); // finished
-            else iterator();
-          }
-        });
-      };
-      iterator();
-    };
-  };
-};
-
-/***/ }),
-
-/***/ "./node_modules/react-async-script-loader/node_modules/hoist-non-react-statics/index.js":
-/*!**********************************************************************************************!*\
-  !*** ./node_modules/react-async-script-loader/node_modules/hoist-non-react-statics/index.js ***!
-  \**********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright 2015, Yahoo! Inc.
- * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
- */
-
-
-var REACT_STATICS = {
-    childContextTypes: true,
-    contextTypes: true,
-    defaultProps: true,
-    displayName: true,
-    getDefaultProps: true,
-    mixins: true,
-    propTypes: true,
-    type: true
-};
-
-var KNOWN_STATICS = {
-    name: true,
-    length: true,
-    prototype: true,
-    caller: true,
-    arguments: true,
-    arity: true
-};
-
-var isGetOwnPropertySymbolsAvailable = typeof Object.getOwnPropertySymbols === 'function';
-
-module.exports = function hoistNonReactStatics(targetComponent, sourceComponent, customStatics) {
-    if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
-        var keys = Object.getOwnPropertyNames(sourceComponent);
-
-        /* istanbul ignore else */
-        if (isGetOwnPropertySymbolsAvailable) {
-            keys = keys.concat(Object.getOwnPropertySymbols(sourceComponent));
-        }
-
-        for (var i = 0; i < keys.length; ++i) {
-            if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]] && (!customStatics || !customStatics[keys[i]])) {
-                try {
-                    targetComponent[keys[i]] = sourceComponent[keys[i]];
-                } catch (error) {
-
-                }
-            }
-        }
-    }
-
-    return targetComponent;
-};
 
 
 /***/ }),
@@ -38932,231 +38548,6 @@ var update = __webpack_require__(/*! ../../style-loader/lib/addStyles.js */ "./n
 if(content.locals) module.exports = content.locals;
 
 if(false) {}
-
-/***/ }),
-
-/***/ "./node_modules/react-paypal-express-checkout/dist/index.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/react-paypal-express-checkout/dist/index.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
-    if (true) {
-        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(/*! react */ "./node_modules/react/index.js"), __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js"), __webpack_require__(/*! react-async-script-loader */ "./node_modules/react-async-script-loader/lib/index.js"), __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-    } else { var mod; }
-})(this, function (exports, _react, _reactDom, _reactAsyncScriptLoader, _propTypes) {
-    'use strict';
-
-    Object.defineProperty(exports, "__esModule", {
-        value: true
-    });
-
-    var _react2 = _interopRequireDefault(_react);
-
-    var _reactDom2 = _interopRequireDefault(_reactDom);
-
-    var _reactAsyncScriptLoader2 = _interopRequireDefault(_reactAsyncScriptLoader);
-
-    var _propTypes2 = _interopRequireDefault(_propTypes);
-
-    function _interopRequireDefault(obj) {
-        return obj && obj.__esModule ? obj : {
-            default: obj
-        };
-    }
-
-    function _classCallCheck(instance, Constructor) {
-        if (!(instance instanceof Constructor)) {
-            throw new TypeError("Cannot call a class as a function");
-        }
-    }
-
-    var _createClass = function () {
-        function defineProperties(target, props) {
-            for (var i = 0; i < props.length; i++) {
-                var descriptor = props[i];
-                descriptor.enumerable = descriptor.enumerable || false;
-                descriptor.configurable = true;
-                if ("value" in descriptor) descriptor.writable = true;
-                Object.defineProperty(target, descriptor.key, descriptor);
-            }
-        }
-
-        return function (Constructor, protoProps, staticProps) {
-            if (protoProps) defineProperties(Constructor.prototype, protoProps);
-            if (staticProps) defineProperties(Constructor, staticProps);
-            return Constructor;
-        };
-    }();
-
-    function _possibleConstructorReturn(self, call) {
-        if (!self) {
-            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-        }
-
-        return call && (typeof call === "object" || typeof call === "function") ? call : self;
-    }
-
-    function _inherits(subClass, superClass) {
-        if (typeof superClass !== "function" && superClass !== null) {
-            throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-        }
-
-        subClass.prototype = Object.create(superClass && superClass.prototype, {
-            constructor: {
-                value: subClass,
-                enumerable: false,
-                writable: true,
-                configurable: true
-            }
-        });
-        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-    }
-
-    var PaypalButton = function (_React$Component) {
-        _inherits(PaypalButton, _React$Component);
-
-        function PaypalButton(props) {
-            _classCallCheck(this, PaypalButton);
-
-            var _this = _possibleConstructorReturn(this, (PaypalButton.__proto__ || Object.getPrototypeOf(PaypalButton)).call(this, props));
-
-            window.React = _react2.default;
-            window.ReactDOM = _reactDom2.default;
-            _this.state = {
-                showButton: false
-            };
-            return _this;
-        }
-
-        _createClass(PaypalButton, [{
-            key: 'componentWillReceiveProps',
-            value: function componentWillReceiveProps(_ref) {
-                var isScriptLoaded = _ref.isScriptLoaded,
-                    isScriptLoadSucceed = _ref.isScriptLoadSucceed;
-
-                if (!this.state.show) {
-                    if (isScriptLoaded && !this.props.isScriptLoaded) {
-                        if (isScriptLoadSucceed) {
-                            this.setState({ showButton: true });
-                        } else {
-                            console.log('Cannot load Paypal script!');
-                            this.props.onError();
-                        }
-                    }
-                }
-            }
-        }, {
-            key: 'componentDidMount',
-            value: function componentDidMount() {
-                var _props = this.props,
-                    isScriptLoaded = _props.isScriptLoaded,
-                    isScriptLoadSucceed = _props.isScriptLoadSucceed;
-
-                if (isScriptLoaded && isScriptLoadSucceed) {
-                    this.setState({ showButton: true });
-                }
-            }
-        }, {
-            key: 'render',
-            value: function render() {
-                var _this2 = this;
-
-                var payment = function payment() {
-                    return paypal.rest.payment.create(_this2.props.env, _this2.props.client, Object.assign({
-                        transactions: [{ amount: { total: _this2.props.total, currency: _this2.props.currency } }]
-                    }, _this2.props.paymentOptions), {
-                        input_fields: {
-                            // any values other than null, and the address is not returned after payment execution.
-                            no_shipping: _this2.props.shipping
-                        }
-                    });
-                };
-
-                var onAuthorize = function onAuthorize(data, actions) {
-                    return actions.payment.execute().then(function (payment_data) {
-                        // console.log(`payment_data: ${JSON.stringify(payment_data, null, 1)}`)
-                        var payment = Object.assign({}, _this2.props.payment);
-                        payment.paid = true;
-                        payment.cancelled = false;
-                        payment.payerID = data.payerID;
-                        payment.paymentID = data.paymentID;
-                        payment.paymentToken = data.paymentToken;
-                        payment.returnUrl = data.returnUrl;
-                        // getting buyer's shipping address and email
-                        payment.address = payment_data.payer.payer_info.shipping_address;
-                        payment.email = payment_data.payer.payer_info.email;
-                        _this2.props.onSuccess(payment);
-                    });
-                };
-
-                var ppbtn = '';
-                if (this.state.showButton) {
-                    ppbtn = _react2.default.createElement(paypal.Button.react, {
-                        env: this.props.env,
-                        client: this.props.client,
-                        style: this.props.style,
-                        payment: payment,
-                        commit: true,
-                        onAuthorize: onAuthorize,
-                        onCancel: this.props.onCancel
-
-                        // "Error: Unrecognized prop: shipping" was caused by the next line
-                        // shipping={this.props.shipping}
-                    });
-                }
-                return _react2.default.createElement(
-                    'div',
-                    null,
-                    ppbtn
-                );
-            }
-        }]);
-
-        return PaypalButton;
-    }(_react2.default.Component);
-
-    PaypalButton.propTypes = {
-        currency: _propTypes2.default.string.isRequired,
-        total: _propTypes2.default.number.isRequired,
-        client: _propTypes2.default.object.isRequired,
-        style: _propTypes2.default.object
-    };
-
-    PaypalButton.defaultProps = {
-        paymentOptions: {},
-        env: 'sandbox',
-        // null means buyer address is returned in the payment execution response
-        shipping: null,
-        onSuccess: function onSuccess(payment) {
-            console.log('The payment was succeeded!', payment);
-        },
-        onCancel: function onCancel(data) {
-            console.log('The payment was cancelled!', data);
-        },
-        onError: function onError(err) {
-            console.log('Error loading Paypal script!', err);
-        }
-    };
-
-    exports.default = (0, _reactAsyncScriptLoader2.default)('https://www.paypalobjects.com/api/checkout.js')(PaypalButton);
-});
-
-/***/ }),
-
-/***/ "./node_modules/react-paypal-express-checkout/index.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/react-paypal-express-checkout/index.js ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(/*! ./dist/index */ "./node_modules/react-paypal-express-checkout/dist/index.js");
 
 /***/ }),
 

@@ -44,7 +44,7 @@ var Header = /** @class */ (function (_super) {
             sfcookies_1.bake_cookie('lang', lang);
         }
         counterpart.setLocale(lang);
-        var currency = 'pounds';
+        var currency = 'GBP';
         if (sfcookies_1.read_cookie('currency') != null && sfcookies_1.read_cookie('currency').length !== 0) {
             currency = sfcookies_1.read_cookie('currency');
         }
@@ -222,9 +222,9 @@ var Header = /** @class */ (function (_super) {
                                     React.createElement("option", { value: "ro" }, "Ro"))),
                             React.createElement("li", { className: "nav-item dropdown" },
                                 React.createElement("select", { style: { backgroundColor: 'transparent', transform: 'translateY(22 %)' }, value: this.state.currency, onChange: this.onCurrencyChange, name: "currency", id: "currency" },
-                                    React.createElement("option", { value: "pounds" }, "\u20A4"),
-                                    React.createElement("option", { value: "euros" }, "\u20AC"),
-                                    React.createElement("option", { value: "lei" }, "Lei")))))))));
+                                    React.createElement("option", { value: "GBP" }, "\u20A4"),
+                                    React.createElement("option", { value: "EUR" }, "\u20AC"),
+                                    React.createElement("option", { value: "RON" }, "RON")))))))));
     };
     return Header;
 }(React.Component));

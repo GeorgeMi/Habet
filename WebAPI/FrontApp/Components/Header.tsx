@@ -35,7 +35,7 @@ export class Header extends React.Component<any, any> {
         }
         counterpart.setLocale(lang);
 
-        var currency = 'pounds'
+        var currency = 'GBP'
         if (read_cookie('currency') != null && read_cookie('currency').length !== 0) {
             currency = read_cookie('currency');
         }
@@ -225,9 +225,9 @@ export class Header extends React.Component<any, any> {
 
                                 <li className="nav-item dropdown">
                                     <select style={{ backgroundColor: 'transparent', transform: 'translateY(22 %)' }} value={this.state.currency} onChange={this.onCurrencyChange} name="currency" id="currency">
-                                        <option value="pounds">₤</option>
-                                        <option value="euros">€</option>
-                                        <option value="lei">Lei</option>
+                                        <option value="GBP">₤</option>
+                                        <option value="EUR">€</option>
+                                        <option value="RON">RON</option>
                                     </select>
                                 </li>
                             </ul>
