@@ -166,7 +166,8 @@ namespace Api.Controllers
 
             try
             {
-                var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
+                //var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
+                int? userId = 1;
                 if (userId > 0)
                 {
                     var order = new Orders
@@ -189,7 +190,7 @@ namespace Api.Controllers
                     var productList = new List<Products>();
                     foreach (var requestProduct in request.CartProducts)
                     {
-                        //var product = db.Products.Find(requestProduct.Key);
+                       // var product = db.Products.Find(requestProduct.Key);
                        var product = new Products
                        {
                            Name_RO = "Name_RO" + 1,
@@ -221,12 +222,15 @@ namespace Api.Controllers
                     order.Subtotal = subtotal;
                     order.Shipping = 0;
                     order.PaymentMethod = request.PaymentMethod;
-                     
+
                     // db.Orders.Add(order);
                     // db.SaveChanges();
 
+                    var InvoiceLogic = new InvoiceLogic(db);
+                    var pdfInvoice = InvoiceLogic.CreateInvoice(order);
+
                     var OrderLogic = new OrderLogic(db);
-                    OrderLogic.SendOrderEmail(order, productList);
+                    OrderLogic.SendOrderEmail(order, productList, pdfInvoice);
                 }
             }
             catch (DbUpdateException)

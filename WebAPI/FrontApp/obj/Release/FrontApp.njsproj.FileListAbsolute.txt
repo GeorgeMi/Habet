@@ -1,2 +1,4 @@
 F:\workspace\Habet\WebAPI\FrontApp\obj\Release\FrontApp.njsproj.CoreCompileInputs.cache
 F:\workspace\Habet\WebAPI\FrontApp\bin\Microsoft.NodejsTools.WebRole.dll
+D:\project\Habet\WebAPI\FrontApp\obj\Release\FrontApp.njsprojAssemblyReference.cache
+D:\project\Habet\WebAPI\FrontApp\bin\Microsoft.NodejsTools.WebRole.dll

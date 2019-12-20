@@ -1,7 +1,9 @@
 ﻿using Api.DTOs;
 using Api.Models;
+using iText.Kernel.Pdf;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 
@@ -26,7 +28,7 @@ namespace Api.BusinessLogic
         /// <param name="token"></param>
         /// <param name="username"></param>
         /// <param name="email"></param>
-        public void SendOrderEmail(Orders order, List<Products> products)
+        public void SendOrderEmail(Orders order, List<Products> products, Stream invoice)
         {
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient();
@@ -57,12 +59,13 @@ namespace Api.BusinessLogic
             mail.Body += "The package should normally take 10 business days to arrive (approximately). However, please understand this is an estimate. The shipping speed is outside our control and is dependent on the courier company.";
             mail.Body += "<h5>The GabrielHabet team</h5>";
             mail.IsBodyHtml = true;
+            mail.Attachments.Add(new Attachment(invoice, "invoice_" + order.OrderId + ".pdf"));
 
            // SmtpServer.Credentials = new System.Net.NetworkCredential("habetgabriel@gmail.com", "habetpassword");
-            //SmtpServer.EnableSsl = false;
-            //SmtpServer.UseDefaultCredentials = false;
-            //SmtpServer.Port = 25;
-            //SmtpServer.Host = "relay-hosting.secureserver.net";
+           //SmtpServer.EnableSsl = false;
+           //SmtpServer.UseDefaultCredentials = false;
+           //SmtpServer.Port = 25;
+           //SmtpServer.Host = "relay-hosting.secureserver.net";
 
 
             SmtpServer.Host = "smtp.gmail.com";
