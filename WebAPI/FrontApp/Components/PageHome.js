@@ -14,7 +14,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var SectionProducts_1 = require("./SectionProducts");
+var react_1 = require("react");
+var SectionProducts = React.lazy(function () { return Promise.resolve().then(function () { return require("./SectionProducts"); }).then(function (m) { return ({ default: m.SectionProducts }); }); });
 var SectionIntro_1 = require("./SectionIntro");
 var Header_1 = require("./Header");
 var Dictionary_1 = require("./Dictionary");
@@ -48,7 +49,7 @@ var Home = /** @class */ (function (_super) {
     };
     Home.prototype.render = function () {
         var hideLoader = false;
-        if (this.state.loadedComponentsDictionary != null && this.state.loadedComponentsDictionary.Count() == 4) {
+        if (this.state.loadedComponentsDictionary != null && this.state.loadedComponentsDictionary.Count() == 1) {
             hideLoader = true;
         }
         return (React.createElement("main", { id: "main" },
@@ -65,10 +66,11 @@ var Home = /** @class */ (function (_super) {
                                     React.createElement(Translate, { component: "h5", content: 'intro.P2' }),
                                     React.createElement(Translate, { component: "h5", content: 'intro.P3' })))))),
                 React.createElement("section", { className: "ftco-section bg-light" },
-                    React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Bags', setLoadedComponentsArray: this.setLoadedComponentsArray }),
-                    React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Belts', setLoadedComponentsArray: this.setLoadedComponentsArray }),
-                    React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Men', Type: 'Bags', setLoadedComponentsArray: this.setLoadedComponentsArray }),
-                    React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Men', Type: 'Belts', setLoadedComponentsArray: this.setLoadedComponentsArray })))));
+                    React.createElement(react_1.Suspense, { fallback: React.createElement("div", null, "Loading...") },
+                        React.createElement(SectionProducts, { Gender: 'Women', Type: 'Bags', setLoadedComponentsArray: this.setLoadedComponentsArray }),
+                        React.createElement(SectionProducts, { Gender: 'Women', Type: 'Belts' }),
+                        React.createElement(SectionProducts, { Gender: 'Men', Type: 'Bags' }),
+                        React.createElement(SectionProducts, { Gender: 'Men', Type: 'Belts' }))))));
     };
     return Home;
 }(React.Component));

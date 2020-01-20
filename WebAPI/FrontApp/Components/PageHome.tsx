@@ -1,5 +1,7 @@
 ﻿import * as React from 'react';
-import { SectionProducts } from "./SectionProducts";
+import { Suspense } from 'react';
+const SectionProducts = React.lazy(() => import("./SectionProducts").then(m => ({ default: m.SectionProducts })));
+
 import { SectionIntro } from "./SectionIntro";
 import { Header } from './Header';
 import { KeyedCollection } from './Dictionary';
@@ -39,21 +41,21 @@ export class Home extends React.Component<any, any> {
    
     render() {
         var hideLoader = false;
-        if (this.state.loadedComponentsDictionary != null && this.state.loadedComponentsDictionary.Count() == 4) {
+        if (this.state.loadedComponentsDictionary != null && this.state.loadedComponentsDictionary.Count() == 1) {
             hideLoader = true;
         }
-        
+
         return (
             <main id="main">
-                {   hideLoader ? <div></div> : <div className="loading">Loading&#8230;</div> }
+                {hideLoader ? <div></div> : <div className="loading">Loading&#8230;</div>}
 
                 <div>
-                    <Header Active={'Home'} reloadPage={this.reloadPage}  />
+                    <Header Active={'Home'} reloadPage={this.reloadPage} />
 
                     <SectionIntro />
 
-                    <section className="ftco-section-2 bg-light">  
-                        <div className="container">           
+                    <section className="ftco-section-2 bg-light">
+                        <div className="container">
                             <div className="row">
                                 <div className="offset-1 col-md-10">
                                     <div className="text-deal" style={{ opacity: 1, fontStyle: 'italic', textAlign: 'justify' }}>
@@ -66,16 +68,22 @@ export class Home extends React.Component<any, any> {
                         </div>
                     </section>
 
-                    <section className="ftco-section bg-light">                     
-                        <SectionProducts Gender={'Women'} Type={'Bags'} setLoadedComponentsArray={this.setLoadedComponentsArray} />
+                    <section className="ftco-section bg-light">
+                        <Suspense fallback={<div>Loading...</div>}>
 
-                        <SectionProducts Gender={'Women'} Type={'Belts'} setLoadedComponentsArray={this.setLoadedComponentsArray} />
 
-                        <SectionProducts Gender={'Men'} Type={'Bags'} setLoadedComponentsArray={this.setLoadedComponentsArray} />
+                            <SectionProducts Gender={'Women'} Type={'Bags'} setLoadedComponentsArray={this.setLoadedComponentsArray}/>
 
-                        <SectionProducts Gender={'Men'} Type={'Belts'} setLoadedComponentsArray={this.setLoadedComponentsArray} />
+                            <SectionProducts Gender={'Women'} Type={'Belts'}  />
+
+
+                            <SectionProducts Gender={'Men'} Type={'Bags'} />
+
+
+                            <SectionProducts Gender={'Men'} Type={'Belts'} />
+                              </Suspense>
                     </section>
                 </div>
-            </main>);       
+            </main>);
     }
 }

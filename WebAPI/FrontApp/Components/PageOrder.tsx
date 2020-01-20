@@ -1,7 +1,6 @@
 ﻿import * as React from 'react';
 import { Header } from './Header';
 import { read_cookie } from 'sfcookies'
-import { NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import { Redirect } from 'react-router-dom'
 import * as Translate from 'react-translate-component';

@@ -1910,7 +1910,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var SectionProducts_1 = __webpack_require__(/*! ./SectionProducts */ "./Components/SectionProducts.js");
+var react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var SectionProducts = React.lazy(function () { return Promise.resolve().then(function () { return __webpack_require__(/*! ./SectionProducts */ "./Components/SectionProducts.js"); }).then(function (m) { return ({ default: m.SectionProducts }); }); });
 var SectionIntro_1 = __webpack_require__(/*! ./SectionIntro */ "./Components/SectionIntro.js");
 var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
 var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
@@ -1944,7 +1945,7 @@ var Home = /** @class */ (function (_super) {
     };
     Home.prototype.render = function () {
         var hideLoader = false;
-        if (this.state.loadedComponentsDictionary != null && this.state.loadedComponentsDictionary.Count() == 4) {
+        if (this.state.loadedComponentsDictionary != null && this.state.loadedComponentsDictionary.Count() == 1) {
             hideLoader = true;
         }
         return (React.createElement("main", { id: "main" },
@@ -1961,10 +1962,11 @@ var Home = /** @class */ (function (_super) {
                                     React.createElement(Translate, { component: "h5", content: 'intro.P2' }),
                                     React.createElement(Translate, { component: "h5", content: 'intro.P3' })))))),
                 React.createElement("section", { className: "ftco-section bg-light" },
-                    React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Bags', setLoadedComponentsArray: this.setLoadedComponentsArray }),
-                    React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Women', Type: 'Belts', setLoadedComponentsArray: this.setLoadedComponentsArray }),
-                    React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Men', Type: 'Bags', setLoadedComponentsArray: this.setLoadedComponentsArray }),
-                    React.createElement(SectionProducts_1.SectionProducts, { Gender: 'Men', Type: 'Belts', setLoadedComponentsArray: this.setLoadedComponentsArray })))));
+                    React.createElement(react_1.Suspense, { fallback: React.createElement("div", null, "Loading...") },
+                        React.createElement(SectionProducts, { Gender: 'Women', Type: 'Bags', setLoadedComponentsArray: this.setLoadedComponentsArray }),
+                        React.createElement(SectionProducts, { Gender: 'Women', Type: 'Belts' }),
+                        React.createElement(SectionProducts, { Gender: 'Men', Type: 'Bags' }),
+                        React.createElement(SectionProducts, { Gender: 'Men', Type: 'Belts' }))))));
     };
     return Home;
 }(React.Component));
@@ -3959,7 +3961,9 @@ var SectionProducts = /** @class */ (function (_super) {
         })
             .then(function (response) {
             _this.setState({ isLoaded: true, items: response.data.data });
-            _this.props.setLoadedComponentsArray("SectionProducts" + _this.state.gender + _this.state.type, "true");
+            if (null != _this.props.setLoadedComponentsArray) {
+                _this.props.setLoadedComponentsArray("SectionProducts" + _this.state.gender + _this.state.type, "true");
+            }
         })
             .catch(function (error) {
             _this.setState({ isLoaded: true, error: error });
@@ -38555,7 +38559,7 @@ if(false) {}
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

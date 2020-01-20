@@ -42,7 +42,9 @@ export class SectionProducts extends React.Component<any, any>
             })
             .then((response) => {
                 this.setState({ isLoaded: true, items: response.data.data });
-                this.props.setLoadedComponentsArray("SectionProducts" + this.state.gender + this.state.type, "true");
+                if (null != this.props.setLoadedComponentsArray) {
+                    this.props.setLoadedComponentsArray("SectionProducts" + this.state.gender + this.state.type, "true");
+                    }
             })
             .catch((error) => {
                 this.setState({ isLoaded: true, error });
