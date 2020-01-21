@@ -347,6 +347,7 @@ var Header = /** @class */ (function (_super) {
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.checkIfTokenIsValid = _this.checkIfTokenIsValid.bind(_this);
         _this.signOut = _this.signOut.bind(_this);
+        _this.minimizeMenu = _this.minimizeMenu.bind(_this);
         return _this;
     }
     Header.prototype.onLangChange = function (event) {
@@ -365,6 +366,9 @@ var Header = /** @class */ (function (_super) {
     Header.prototype.handleChange = function (event) {
         var _a;
         this.setState((_a = {}, _a[event.target.name] = event.target.value, _a));
+    };
+    Header.prototype.minimizeMenu = function () {
+        document.getElementById('ftco-nav').className = "collapse navbar-collapse";
     };
     Header.prototype.handleSubmit = function (event) {
         var _this = this;
@@ -407,6 +411,7 @@ var Header = /** @class */ (function (_super) {
     Header.prototype.signOut = function () {
         sfcookies_1.delete_cookie('token');
         window.location.reload();
+        this.minimizeMenu();
     };
     Header.prototype.render = function () {
         var _a = this.state, headerDictionary = _a.headerDictionary, loggedIn = _a.loggedIn, api_response = _a.api_response;
@@ -434,17 +439,17 @@ var Header = /** @class */ (function (_super) {
                                 React.createElement(react_router_hash_link_1.HashLink, { className: "nav-link dropdown-toggle", to: "/#Women-section", id: "dropdown04", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
                                     React.createElement(Translate, { content: "nav.Women" })),
                                 React.createElement("div", { className: "dropdown-content", "aria-labelledby": "dropdown04" },
-                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Women-Bags-section" },
+                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Women-Bags-section", onClick: this.minimizeMenu },
                                         React.createElement(Translate, { content: "nav.Bags" })),
-                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Women-Belts-section" },
+                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Women-Belts-section", onClick: this.minimizeMenu },
                                         React.createElement(Translate, { content: "nav.Belts" })))),
                             React.createElement("li", { className: "nav-item dropdown " + headerDictionary.Item('Men') },
                                 React.createElement(react_router_hash_link_1.HashLink, { className: "nav-link dropdown-toggle", to: "/#Men-section", id: "dropdown04", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
                                     React.createElement(Translate, { content: "nav.Men" })),
                                 React.createElement("div", { className: "dropdown-content", "aria-labelledby": "dropdown04" },
-                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Men-Bags-section" },
+                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Men-Bags-section", onClick: this.minimizeMenu },
                                         React.createElement(Translate, { content: "nav.Bags" })),
-                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Men-Belts-section" },
+                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Men-Belts-section", onClick: this.minimizeMenu },
                                         React.createElement(Translate, { content: "nav.Belts" })))),
                             React.createElement("li", { className: "nav-item " + headerDictionary.Item('Search') },
                                 React.createElement("a", { href: "/#/search", className: "nav-link" },
@@ -471,7 +476,7 @@ var Header = /** @class */ (function (_super) {
                                                     React.createElement("div", { className: "form-group" },
                                                         React.createElement("input", { id: "passwordInput", placeholder: "Password", value: this.state.password, onChange: this.handleChange, className: "form-control form-control-sm", type: "password", name: "password", required: true })),
                                                     React.createElement("div", { className: "form-group" },
-                                                        React.createElement("button", { type: "submit", className: "btn btn-primary btn-block" },
+                                                        React.createElement("button", { type: "submit", className: "btn btn-primary btn-block", onClick: this.minimizeMenu },
                                                             React.createElement(Translate, { content: "nav.Login" }))),
                                                     React.createElement("div", { className: "form-group text-center" },
                                                         React.createElement("small", null,
@@ -501,12 +506,12 @@ var Header = /** @class */ (function (_super) {
                                             React.createElement(Translate, { content: "nav.SignOut" }))))
                                 :
                                     React.createElement("div", null),
-                            React.createElement("li", { className: "nav-item dropdown" },
+                            React.createElement("li", { className: "nav-item dropdown header-selector" },
                                 React.createElement("select", { style: { backgroundColor: 'transparent', transform: 'translateY(22 %)' }, value: this.state.language, onChange: this.onLangChange, name: "language", id: "language" },
                                     React.createElement("option", { value: "en" }, "En"),
                                     React.createElement("option", { value: "it" }, "It"),
                                     React.createElement("option", { value: "ro" }, "Ro"))),
-                            React.createElement("li", { className: "nav-item dropdown" },
+                            React.createElement("li", { className: "nav-item dropdown header-selector" },
                                 React.createElement("select", { style: { backgroundColor: 'transparent', transform: 'translateY(22 %)' }, value: this.state.currency, onChange: this.onCurrencyChange, name: "currency", id: "currency" },
                                     React.createElement("option", { value: "GBP" }, "\u20A4"),
                                     React.createElement("option", { value: "EUR" }, "\u20AC"),
@@ -908,7 +913,7 @@ var Cart = /** @class */ (function (_super) {
                                         React.createElement("thead", { className: "thead-primary" },
                                             React.createElement("tr", { className: "text-center" },
                                                 React.createElement("th", null, "\u00A0"),
-                                                React.createElement("th", null, "\u00A0"),
+                                                React.createElement("th", { className: "hide-column" }, "\u00A0"),
                                                 React.createElement("th", null,
                                                     React.createElement(Translate, { content: 'checkout.Product' })),
                                                 React.createElement("th", null,
@@ -920,7 +925,7 @@ var Cart = /** @class */ (function (_super) {
                                         React.createElement("tbody", null, items.map(function (item, i) { return (React.createElement("tr", { key: i, className: "text-center" },
                                             React.createElement("td", { className: "product-remove" },
                                                 React.createElement("span", { onClick: function () { return _this.removeProductFromCart(item.ProductId); }, className: "ion-ios-close" })),
-                                            React.createElement("td", { className: "image-prod" },
+                                            React.createElement("td", { className: "image-prod hide-column" },
                                                 React.createElement("img", { src: item.Image, className: "img-fluid", alt: "..." })),
                                             React.createElement("td", { className: "product-name" },
                                                 React.createElement("h3", null, item.Name)),
@@ -3322,33 +3327,6 @@ var Search = /** @class */ (function (_super) {
                     React.createElement("section", { className: "ftco-section bg-light" },
                         React.createElement("div", { className: "container" },
                             React.createElement("div", { className: "row" },
-                                React.createElement("div", { className: "col-md-8 col-lg-10 order-md-last" },
-                                    React.createElement("div", { className: "row" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 product-item filter-app wow fadeInUp" },
-                                        React.createElement("div", { className: "product d-flex flex-column" },
-                                            React.createElement("a", { href: "/#/item/" + item.ProductId, className: "img-prod" },
-                                                React.createElement("img", { className: "img-fluid", src: item.Image, alt: "" }),
-                                                React.createElement("div", { className: "overlay" })),
-                                            React.createElement("div", { className: "text py-3 pb-4 px-3" },
-                                                React.createElement("h3", null,
-                                                    React.createElement("a", { href: "/#/item/" + item.ProductId }, item.Name)),
-                                                React.createElement("div", { className: "pricing" },
-                                                    React.createElement("p", { className: "price" },
-                                                        React.createElement("span", null, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign))),
-                                                React.createElement("p", { className: "bottom-area d-flex px-3" },
-                                                    React.createElement("a", { href: "javascript:void(0)", className: "add-to-cart text-center py-2 mr-1", onClick: function () { return _this.addProductToCart(item.ProductId, 1); } },
-                                                        React.createElement("span", null,
-                                                            React.createElement(Translate, { content: 'search.AddToCart' }),
-                                                            " ",
-                                                            React.createElement("i", { className: "ion-ios-add ml-1" }))),
-                                                    React.createElement("a", { href: "javascript:void(0)", onClick: function () { return _this.buyProduct(item.ProductId); }, className: "buy-now text-center py-2" },
-                                                        React.createElement(Translate, { content: 'search.BuyNow' }),
-                                                        React.createElement("span", null,
-                                                            React.createElement("i", { className: "ion-ios-cart ml-1" })))))))); })),
-                                    React.createElement("div", { className: "offset-3 col-md-6" },
-                                        React.createElement("div", { className: "row mt-5" },
-                                            React.createElement("div", { className: "col text-center" },
-                                                React.createElement("div", { className: "block-27" },
-                                                    React.createElement(react_js_pagination_1.default, { hideDisabled: true, activePage: this.state.activePage, itemsCountPerPage: this.state.itemsPerPage, totalItemsCount: this.state.totalItemsCount, pageRangeDisplayed: 5, onChange: this.handlePageChange })))))),
                                 React.createElement("div", { className: "col-md-4 col-lg-2" },
                                     React.createElement("div", { className: "sidebar" },
                                         React.createElement("div", { className: "sidebar-box-2" },
@@ -3414,7 +3392,34 @@ var Search = /** @class */ (function (_super) {
                                                                             React.createElement("label", { className: "form-check-label", htmlFor: "range5" }, "$500 & Above")))))),
                                                         React.createElement("div", { className: "col-md-4" },
                                                             React.createElement("div", { className: "form-group" },
-                                                                React.createElement(Translate, { component: "input", attributes: { value: 'search.Filter', }, type: "submit", className: "btn btn-primary py-3 px-5" })))))))))))))));
+                                                                React.createElement(Translate, { component: "input", attributes: { value: 'search.Filter', }, type: "submit", className: "btn btn-primary py-3 px-5" }))))))))),
+                                React.createElement("div", { className: "col-md-8 col-lg-10 order-md-last" },
+                                    React.createElement("div", { className: "row" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 product-item filter-app wow fadeInUp" },
+                                        React.createElement("div", { className: "product d-flex flex-column" },
+                                            React.createElement("a", { href: "/#/item/" + item.ProductId, className: "img-prod" },
+                                                React.createElement("img", { className: "img-fluid", src: item.Image, alt: "" }),
+                                                React.createElement("div", { className: "overlay" })),
+                                            React.createElement("div", { className: "text py-3 pb-4 px-3" },
+                                                React.createElement("h3", null,
+                                                    React.createElement("a", { href: "/#/item/" + item.ProductId }, item.Name)),
+                                                React.createElement("div", { className: "pricing" },
+                                                    React.createElement("p", { className: "price" },
+                                                        React.createElement("span", null, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign))),
+                                                React.createElement("p", { className: "bottom-area d-flex px-3" },
+                                                    React.createElement("a", { href: "javascript:void(0)", className: "add-to-cart text-center py-2 mr-1", onClick: function () { return _this.addProductToCart(item.ProductId, 1); } },
+                                                        React.createElement("span", null,
+                                                            React.createElement(Translate, { content: 'search.AddToCart' }),
+                                                            " ",
+                                                            React.createElement("i", { className: "ion-ios-add ml-1" }))),
+                                                    React.createElement("a", { href: "javascript:void(0)", onClick: function () { return _this.buyProduct(item.ProductId); }, className: "buy-now text-center py-2" },
+                                                        React.createElement(Translate, { content: 'search.BuyNow' }),
+                                                        React.createElement("span", null,
+                                                            React.createElement("i", { className: "ion-ios-cart ml-1" })))))))); })),
+                                    React.createElement("div", { className: "offset-3 col-md-6" },
+                                        React.createElement("div", { className: "row mt-5" },
+                                            React.createElement("div", { className: "col text-center" },
+                                                React.createElement("div", { className: "block-27" },
+                                                    React.createElement(react_js_pagination_1.default, { hideDisabled: true, activePage: this.state.activePage, itemsCountPerPage: this.state.itemsPerPage, totalItemsCount: this.state.totalItemsCount, pageRangeDisplayed: 5, onChange: this.handlePageChange }))))))))))));
         }
     };
     return Search;
@@ -38559,7 +38564,7 @@ if(false) {}
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

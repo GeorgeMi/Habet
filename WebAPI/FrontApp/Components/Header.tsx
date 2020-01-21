@@ -55,6 +55,7 @@ export class Header extends React.Component<any, any> {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.checkIfTokenIsValid = this.checkIfTokenIsValid.bind(this);
         this.signOut = this.signOut.bind(this);
+        this.minimizeMenu = this.minimizeMenu.bind(this);
     }
 
     onLangChange(event) {
@@ -78,6 +79,10 @@ export class Header extends React.Component<any, any> {
 
     handleChange(event) {
         this.setState({ [event.target.name]: event.target.value });
+    }
+
+    minimizeMenu() {
+        document.getElementById('ftco-nav').className = "collapse navbar-collapse";
     }
 
     handleSubmit(event) {
@@ -124,6 +129,7 @@ export class Header extends React.Component<any, any> {
     signOut() {
         delete_cookie('token');
         window.location.reload();
+        this.minimizeMenu();
     }
 
     render() {
@@ -152,15 +158,15 @@ export class Header extends React.Component<any, any> {
                                 <li className={"nav-item dropdown " + headerDictionary.Item('Women')}>
                                     <Link className="nav-link dropdown-toggle" to="/#Women-section" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><Translate content="nav.Women" /></Link>
                                     <div className="dropdown-content" aria-labelledby="dropdown04">
-                                        <Link className="dropdown-item" to="/#Women-Bags-section"><Translate content="nav.Bags" /></Link>
-                                        <Link className="dropdown-item" to="/#Women-Belts-section"><Translate content="nav.Belts" /></Link>
+                                        <Link className="dropdown-item" to="/#Women-Bags-section" onClick={this.minimizeMenu}><Translate content="nav.Bags" /></Link>
+                                        <Link className="dropdown-item" to="/#Women-Belts-section" onClick={this.minimizeMenu}><Translate content="nav.Belts" /></Link>
                                     </div>
                                 </li>
                                 <li className={"nav-item dropdown " + headerDictionary.Item('Men')}>
                                     <Link className="nav-link dropdown-toggle" to="/#Men-section" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><Translate content="nav.Men" /></Link>
                                     <div className="dropdown-content" aria-labelledby="dropdown04">
-                                        <Link className="dropdown-item" to="/#Men-Bags-section"><Translate content="nav.Bags" /></Link>
-                                        <Link className="dropdown-item" to="/#Men-Belts-section"><Translate content="nav.Belts" /></Link>
+                                        <Link className="dropdown-item" to="/#Men-Bags-section" onClick={this.minimizeMenu}><Translate content="nav.Bags" /></Link>
+                                        <Link className="dropdown-item" to="/#Men-Belts-section" onClick={this.minimizeMenu}><Translate content="nav.Belts" /></Link>
                                     </div>
                                 </li>
                                 <li className={"nav-item " + headerDictionary.Item('Search')}><a href="/#/search" className="nav-link"><Translate content="nav.Search" /></a></li>
@@ -183,7 +189,7 @@ export class Header extends React.Component<any, any> {
                                                         </div>
 
                                                         <div className="form-group">
-                                                            <button type="submit" className="btn btn-primary btn-block"><Translate content="nav.Login" /></button>
+                                                            <button type="submit" className="btn btn-primary btn-block" onClick={this.minimizeMenu}><Translate content="nav.Login" /></button>
                                                         </div>
                                                         <div className="form-group text-center">
                                                             <small><a href="/#/recover_password"><Translate content="nav.ForgotPassword" /></a></small>
@@ -215,7 +221,7 @@ export class Header extends React.Component<any, any> {
                                         <div></div>
                                 }
 
-                                <li className="nav-item dropdown">
+                                <li className="nav-item dropdown header-selector">
                                     <select style={{ backgroundColor: 'transparent', transform: 'translateY(22 %)' }} value={this.state.language} onChange={this.onLangChange} name="language" id="language">
                                         <option value="en">En</option>
                                         <option value="it">It</option>
@@ -223,7 +229,7 @@ export class Header extends React.Component<any, any> {
                                     </select>
                                 </li>
 
-                                <li className="nav-item dropdown">
+                                <li className="nav-item dropdown header-selector">
                                     <select style={{ backgroundColor: 'transparent', transform: 'translateY(22 %)' }} value={this.state.currency} onChange={this.onCurrencyChange} name="currency" id="currency">
                                         <option value="GBP">₤</option>
                                         <option value="EUR">€</option>

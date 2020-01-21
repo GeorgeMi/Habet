@@ -61,6 +61,7 @@ var Header = /** @class */ (function (_super) {
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.checkIfTokenIsValid = _this.checkIfTokenIsValid.bind(_this);
         _this.signOut = _this.signOut.bind(_this);
+        _this.minimizeMenu = _this.minimizeMenu.bind(_this);
         return _this;
     }
     Header.prototype.onLangChange = function (event) {
@@ -79,6 +80,9 @@ var Header = /** @class */ (function (_super) {
     Header.prototype.handleChange = function (event) {
         var _a;
         this.setState((_a = {}, _a[event.target.name] = event.target.value, _a));
+    };
+    Header.prototype.minimizeMenu = function () {
+        document.getElementById('ftco-nav').className = "collapse navbar-collapse";
     };
     Header.prototype.handleSubmit = function (event) {
         var _this = this;
@@ -121,6 +125,7 @@ var Header = /** @class */ (function (_super) {
     Header.prototype.signOut = function () {
         sfcookies_1.delete_cookie('token');
         window.location.reload();
+        this.minimizeMenu();
     };
     Header.prototype.render = function () {
         var _a = this.state, headerDictionary = _a.headerDictionary, loggedIn = _a.loggedIn, api_response = _a.api_response;
@@ -148,17 +153,17 @@ var Header = /** @class */ (function (_super) {
                                 React.createElement(react_router_hash_link_1.HashLink, { className: "nav-link dropdown-toggle", to: "/#Women-section", id: "dropdown04", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
                                     React.createElement(Translate, { content: "nav.Women" })),
                                 React.createElement("div", { className: "dropdown-content", "aria-labelledby": "dropdown04" },
-                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Women-Bags-section" },
+                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Women-Bags-section", onClick: this.minimizeMenu },
                                         React.createElement(Translate, { content: "nav.Bags" })),
-                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Women-Belts-section" },
+                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Women-Belts-section", onClick: this.minimizeMenu },
                                         React.createElement(Translate, { content: "nav.Belts" })))),
                             React.createElement("li", { className: "nav-item dropdown " + headerDictionary.Item('Men') },
                                 React.createElement(react_router_hash_link_1.HashLink, { className: "nav-link dropdown-toggle", to: "/#Men-section", id: "dropdown04", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
                                     React.createElement(Translate, { content: "nav.Men" })),
                                 React.createElement("div", { className: "dropdown-content", "aria-labelledby": "dropdown04" },
-                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Men-Bags-section" },
+                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Men-Bags-section", onClick: this.minimizeMenu },
                                         React.createElement(Translate, { content: "nav.Bags" })),
-                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Men-Belts-section" },
+                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Men-Belts-section", onClick: this.minimizeMenu },
                                         React.createElement(Translate, { content: "nav.Belts" })))),
                             React.createElement("li", { className: "nav-item " + headerDictionary.Item('Search') },
                                 React.createElement("a", { href: "/#/search", className: "nav-link" },
@@ -185,7 +190,7 @@ var Header = /** @class */ (function (_super) {
                                                     React.createElement("div", { className: "form-group" },
                                                         React.createElement("input", { id: "passwordInput", placeholder: "Password", value: this.state.password, onChange: this.handleChange, className: "form-control form-control-sm", type: "password", name: "password", required: true })),
                                                     React.createElement("div", { className: "form-group" },
-                                                        React.createElement("button", { type: "submit", className: "btn btn-primary btn-block" },
+                                                        React.createElement("button", { type: "submit", className: "btn btn-primary btn-block", onClick: this.minimizeMenu },
                                                             React.createElement(Translate, { content: "nav.Login" }))),
                                                     React.createElement("div", { className: "form-group text-center" },
                                                         React.createElement("small", null,
@@ -215,12 +220,12 @@ var Header = /** @class */ (function (_super) {
                                             React.createElement(Translate, { content: "nav.SignOut" }))))
                                 :
                                     React.createElement("div", null),
-                            React.createElement("li", { className: "nav-item dropdown" },
+                            React.createElement("li", { className: "nav-item dropdown header-selector" },
                                 React.createElement("select", { style: { backgroundColor: 'transparent', transform: 'translateY(22 %)' }, value: this.state.language, onChange: this.onLangChange, name: "language", id: "language" },
                                     React.createElement("option", { value: "en" }, "En"),
                                     React.createElement("option", { value: "it" }, "It"),
                                     React.createElement("option", { value: "ro" }, "Ro"))),
-                            React.createElement("li", { className: "nav-item dropdown" },
+                            React.createElement("li", { className: "nav-item dropdown header-selector" },
                                 React.createElement("select", { style: { backgroundColor: 'transparent', transform: 'translateY(22 %)' }, value: this.state.currency, onChange: this.onCurrencyChange, name: "currency", id: "currency" },
                                     React.createElement("option", { value: "GBP" }, "\u20A4"),
                                     React.createElement("option", { value: "EUR" }, "\u20AC"),

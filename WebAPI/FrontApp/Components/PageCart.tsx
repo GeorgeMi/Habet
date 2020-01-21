@@ -175,7 +175,7 @@ export class Cart extends React.Component<any, any>{
                                             <thead className="thead-primary">
                                                 <tr className="text-center">
                                                     <th>&nbsp;</th>
-                                                    <th>&nbsp;</th>
+                                                    <th className="hide-column">&nbsp;</th>
                                                     <th><Translate content='checkout.Product' /></th>
                                                     <th><Translate content='checkout.Price' /></th>
                                                     <th><Translate content='checkout.Quantity' /></th>
@@ -188,7 +188,7 @@ export class Cart extends React.Component<any, any>{
                                                         <tr key={i} className="text-center">
                                                             <td className="product-remove"><span onClick={() => this.removeProductFromCart(item.ProductId)} className="ion-ios-close"></span></td>
 
-                                                            <td className="image-prod"><img src={item.Image} className="img-fluid" alt="..." /></td>
+                                                            <td className="image-prod hide-column"><img src={item.Image} className="img-fluid" alt="..." /></td>
 
                                                             <td className="product-name"><h3>{item.Name}</h3></td>
 
