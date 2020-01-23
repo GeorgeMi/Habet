@@ -3163,8 +3163,8 @@ var Search = /** @class */ (function (_super) {
             isChanged: false,
             language: sfcookies_1.read_cookie('lang'),
             activePage: 1,
-            totalItemsCount: 50,
-            itemsPerPage: 1,
+            totalItemsCount: 0,
+            itemsPerPage: 9,
             currency: sfcookies_1.read_cookie('currency')
         };
         _this.handleChange = _this.handleChange.bind(_this);
@@ -3189,7 +3189,7 @@ var Search = /** @class */ (function (_super) {
             }
         })
             .then(function (response) {
-            _this.setState({ isLoaded: true, items: response.data.data });
+            _this.setState({ isLoaded: true, items: response.data.data, totalItemsCount: response.data.count });
         })
             .catch(function (error) {
             _this.setState({ isLoaded: true, error: error });
@@ -3415,11 +3415,9 @@ var Search = /** @class */ (function (_super) {
                                                         React.createElement(Translate, { content: 'search.BuyNow' }),
                                                         React.createElement("span", null,
                                                             React.createElement("i", { className: "ion-ios-cart ml-1" })))))))); })),
-                                    React.createElement("div", { className: "offset-3 col-md-6" },
-                                        React.createElement("div", { className: "row mt-5" },
-                                            React.createElement("div", { className: "col text-center" },
-                                                React.createElement("div", { className: "block-27" },
-                                                    React.createElement(react_js_pagination_1.default, { hideDisabled: true, activePage: this.state.activePage, itemsCountPerPage: this.state.itemsPerPage, totalItemsCount: this.state.totalItemsCount, pageRangeDisplayed: 5, onChange: this.handlePageChange }))))))))))));
+                                    React.createElement("div", { className: "col-sm-3" },
+                                        React.createElement("div", { className: "block-27" },
+                                            React.createElement(react_js_pagination_1.default, { hideNavigation: true, activePage: this.state.activePage, itemsCountPerPage: this.state.itemsPerPage, totalItemsCount: this.state.totalItemsCount, pageRangeDisplayed: 3, onChange: this.handlePageChange }))))))))));
         }
     };
     return Search;
@@ -38564,7 +38562,7 @@ if(false) {}
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

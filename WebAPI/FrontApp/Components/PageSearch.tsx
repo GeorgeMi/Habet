@@ -36,8 +36,8 @@ export class Search extends React.Component<any, any>
             isChanged: false,
             language: read_cookie('lang'),
             activePage: 1,
-            totalItemsCount: 50,
-            itemsPerPage: 1,
+            totalItemsCount: 0,
+            itemsPerPage: 9,
             currency: read_cookie('currency')
         };
 
@@ -63,7 +63,7 @@ export class Search extends React.Component<any, any>
                 }
             })
             .then((response) => {
-                this.setState({ isLoaded: true, items: response.data.data });
+                this.setState({ isLoaded: true, items: response.data.data, totalItemsCount: response.data.count });
             })
             .catch((error) => {
                 this.setState({ isLoaded: true, error });
@@ -332,20 +332,16 @@ export class Search extends React.Component<any, any>
                                                 ))}
                                         </div>
 
-                                        <div className="offset-3 col-md-6">
-                                            <div className="row mt-5">
-                                                <div className="col text-center">
-                                                    <div className="block-27">
+                                        <div className="col-sm-3">
+                                            <div className="block-27">
                                                         <Pagination
-                                                            hideDisabled
+                                                            hideNavigation
                                                             activePage={this.state.activePage}
                                                             itemsCountPerPage={this.state.itemsPerPage}
                                                             totalItemsCount={this.state.totalItemsCount}
-                                                            pageRangeDisplayed={5}
+                                                            pageRangeDisplayed={3}
                                                             onChange={this.handlePageChange}
                                                         />
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
