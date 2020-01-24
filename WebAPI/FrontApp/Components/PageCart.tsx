@@ -135,6 +135,8 @@ export class Cart extends React.Component<any, any>{
         if (error) {
             console.log(error);
             return <div>Error: {error.message}</div>;
+        } else if (read_cookie('cartProducts').length == 0) {
+                return <Redirect to='/#/' />;
         } else if (!isLoaded) {
             return (
                 <div>

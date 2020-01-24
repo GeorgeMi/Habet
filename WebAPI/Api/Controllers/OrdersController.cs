@@ -23,23 +23,23 @@ namespace Api.Controllers
         {
             HttpResponseMessage responseMessage;
             var token = Request.Headers.SingleOrDefault(x => x.Key == "token").Value.First();
-            //  var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
+            var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
 
-            // var orderList = db.Orders.Where(o => o.UserId == userId).OrderByDescending(o => o.Date).ToList();
-            var orderList = new List<Orders>();
+            var orderList = db.Orders.Where(o => o.UserId == userId).OrderByDescending(o => o.Date).ToList();
+           // var orderList = new List<Orders>();
 
-            Random rnd = new Random();
-            for (int i = 0; i < 3; i++)
-            {
-                orderList.Add(new Orders
-                {
-                    Subtotal = i^3,
-                    Shipping = i,
-                    Date = DateTime.Now.AddMonths(-i),
-                    OrderId = rnd.Next(1, 4),
-                    Currency = "RON"
-                });
-            }
+            //Random rnd = new Random();
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    orderList.Add(new Orders
+            //    {
+            //        Subtotal = i^3,
+            //        Shipping = i,
+            //        Date = DateTime.Now.AddMonths(-i),
+            //        OrderId = rnd.Next(1, 4),
+            //        Currency = "RON"
+            //    });
+            //}
 
             var responseOrderList = new List<ListOrdersDTO>();
 
@@ -65,54 +65,54 @@ namespace Api.Controllers
             HttpResponseMessage responseMessage;
             JSend json;
             var token = Request.Headers.SingleOrDefault(x => x.Key == "token").Value.First();
-           //       var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
+            var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
 
-           // var order = db.Orders.FirstOrDefault(o=> o.OrderId == orderId && o.UserId == userId);
-            var order = new Orders {
-                    FirstName = "FirstName",
-                    LastName = "LastName",
-                    State = "State",
-                    Address = "Address",
-                    City = "City",
-                    ZipCode = "ZipCode",
-                    Phone = "Phone",
-                    Email = "Email",            
-                    PaymentMethod = "Cash",
-                    Currency = "RON",
-                    ProductsOrders = new List<ProductsOrders>(),
-                    Subtotal = 123,
-                    Shipping=20
-            };
+            var order = db.Orders.FirstOrDefault(o => o.OrderId == orderId && o.UserId == userId);
+            //var order = new Orders {
+            //        FirstName = "FirstName",
+            //        LastName = "LastName",
+            //        State = "State",
+            //        Address = "Address",
+            //        City = "City",
+            //        ZipCode = "ZipCode",
+            //        Phone = "Phone",
+            //        Email = "Email",            
+            //        PaymentMethod = "Cash",
+            //        Currency = "RON",
+            //        ProductsOrders = new List<ProductsOrders>(),
+            //        Subtotal = 123,
+            //        Shipping=20
+            //};
 
-            for (int i = 0; i < 3; i++)
-            {
-                order.ProductsOrders.Add(new ProductsOrders
-                {
-                    OrderId = orderId,
-                    ProductId = i,
-                    ProductPrice = i + 1,
-                    Amount =  i + 1,
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    order.ProductsOrders.Add(new ProductsOrders
+            //    {
+            //        OrderId = orderId,
+            //        ProductId = i,
+            //        ProductPrice = i + 1,
+            //        Amount =  i + 1,
 
-                });
-            }
+            //    });
+            //}
 
             if (order != null)
-            {             
-                var productsOrdersList = order.ProductsOrders;
-                //  var productList = (order.ProductsOrders.Select(product => db.Products.FirstOrDefault(p => p.ProductId == product.ProductId))).ToList();
+            {
+                var productsOrdersList = db.ProductsOrders.Where(o => o.OrderId == order.OrderId);
+                var productList = productsOrdersList.Select(product => db.Products.FirstOrDefault(p => p.ProductId == product.ProductId && product.OrderId == order.OrderId)).ToList();
 
-                var productList = new List<Products>();
-                for (int i = 0; i < 3; i++)
-                {
-                    productList.Add(new Products
-                    {
-                        Name_RO = "Name_RO" + i,
-                        Name_EN = "Name_EN" + i,
-                        Name_IT = "Name_IT" + i,
-                        Price = i + 1,
-                        ProductId = i
-                    });
-                }
+                //var productList = new List<Products>();
+                //for (int i = 0; i < 3; i++)
+                //{
+                //    productList.Add(new Products
+                //    {
+                //        Name_RO = "Name_RO" + i,
+                //        Name_EN = "Name_EN" + i,
+                //        Name_IT = "Name_IT" + i,
+                //        Price = i + 1,
+                //        ProductId = i
+                //    });
+                //}
 
                 var result = new GetOrderDTO()
                 {
@@ -140,7 +140,7 @@ namespace Api.Controllers
                     result.Products.Add(new OrderProductInfo
                     {
                         Name = ComputeName(product, lang),
-                        Price = ExchangePrice(productsOrder.ProductPrice, order.Currency),
+                        Price = productsOrder.ProductPrice,
                         ProductId = product.ProductId,
                         Amount = productsOrder.Amount,
                         Image = new ProductsImagesController().GetProductsImage(product.ProductId)
@@ -166,8 +166,8 @@ namespace Api.Controllers
 
             try
             {
-                //var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
-                int? userId = 1;
+                var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
+                //int? userId = 1;
                 if (userId > 0)
                 {
                     var order = new Orders
@@ -186,33 +186,40 @@ namespace Api.Controllers
                         ProductsOrders = new List<ProductsOrders>()
                     };
 
+                    db.Orders.Add(order);
+                    db.SaveChanges();
+
+                    var x = order.OrderId;
+
                     double subtotal = 0;
                     var productList = new List<Products>();
                     foreach (var requestProduct in request.CartProducts)
                     {
-                       // var product = db.Products.Find(requestProduct.Key);
-                       var product = new Products
-                       {
-                           Name_RO = "Name_RO" + 1,
-                           Name_EN = "Name_EN" + 1,
-                           Name_IT = "Name_IT" + 1,
-                           Price = 1,
-                           Description_RO = "Description_RO",
-                           Description_EN = "Description_EN",
-                           Description_IT = "Description_IT",
-                           ProductId = requestProduct.Key
-                       };
+                       var product = db.Products.Find(requestProduct.Key);
+                       //var product = new Products
+                       //{
+                       //    Name_RO = "Name_RO" + 1,
+                       //    Name_EN = "Name_EN" + 1,
+                       //    Name_IT = "Name_IT" + 1,
+                       //    Price = 1,
+                       //    Description_RO = "Description_RO",
+                       //    Description_EN = "Description_EN",
+                       //    Description_IT = "Description_IT",
+                       //    ProductId = requestProduct.Key
+                       //};
 
                         if (product?.ProductId > 0)
                         {
                             var productsOrders = new ProductsOrders
                             {
                                 ProductId = product.ProductId,
-                                ProductPrice = product.Price,
-                                Amount = requestProduct.Value
+                                ProductPrice = ExchangePrice(product.Price, order.Currency),
+                                Amount = requestProduct.Value,
+                                OrderId = order.OrderId,
+                                Currency = order.Currency
                             };
 
-                            subtotal += requestProduct.Value;
+                            subtotal += productsOrders.ProductPrice * productsOrders.Amount;
 
                             order.ProductsOrders.Add(productsOrders);
                             productList.Add(product);
@@ -223,8 +230,8 @@ namespace Api.Controllers
                     order.Shipping = 0;
                     order.PaymentMethod = request.PaymentMethod;
 
-                    // db.Orders.Add(order);
-                    // db.SaveChanges();
+                    db.Orders.Update(order);
+                    db.SaveChanges();
 
                     var InvoiceLogic = new InvoiceLogic(db);
                     var pdfInvoice = InvoiceLogic.CreateInvoice(order);

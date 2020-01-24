@@ -6,6 +6,7 @@
         public int OrderId { get; set; }
         public double ProductPrice { get; set; }
         public int Amount { get; set; }
+        public string Currency { get; set; }
         public int? ProductProductId { get; set; }
 
         public virtual Orders Order { get; set; }

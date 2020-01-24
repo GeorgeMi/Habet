@@ -26,8 +26,8 @@ export class OrderHistory extends React.Component<any, any> {
         this.state = {
             isLoaded: false,
             items: null,
-            error: null,            
-            waitingResponse: false,
+            error: null,  
+            waitingResponse: false,          
             language: read_cookie('lang'),
             currency: read_cookie('currency')
         };
@@ -67,6 +67,9 @@ export class OrderHistory extends React.Component<any, any> {
         if (error) {
             console.log(error);
             return <div>Error: {error.message}</div>;
+        }
+        else if (read_cookie('token') == null || read_cookie('token').length == 0) {
+            return <Redirect to='/#/' />;
         } else if (!isLoaded) {
             return (
                 <main id="main">

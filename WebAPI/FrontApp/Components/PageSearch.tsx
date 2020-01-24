@@ -107,15 +107,18 @@ export class Search extends React.Component<any, any>
         axios.post(API_Path + '/SearchProducts',
             {
                 top: this.state.itemsPerPage,
-                from: (activePage - 1) * this.state.itemsPerPage + 1,
+                from: (activePage - 1) * this.state.itemsPerPage,
                 gender: this.state.gender,
                 type: this.state.type,
                 priceFrom: priceFrom,
                 priceTo: priceTo,
-                lang: this.state.language
+                lang: this.state.language,
+                currency: this.state.currency
             })
             .then((response) => {
+                console.log(response);
                 this.setState({ isLoaded: true, items: response.data.Products, totalItemsCount: response.data.TotalItemsCount });
+
             }).catch((error) => {
                 NotificationManager.error("Request failed. Please, try again later.");
             })
@@ -270,27 +273,27 @@ export class Search extends React.Component<any, any>
                                                                         <li>
                                                                             <input type="radio" className="form-check-input" name="priceInterval" value="1"
                                                                                 checked={this.state.priceInterval === "1"} id="range1" onChange={this.handleChange} />
-                                                                            <label className="form-check-label" htmlFor="range1">Under $50</label>
+                                                                                <label className="form-check-label" htmlFor="range1">Under {currencyBeforeSign}50 {currencyAfterSign}</label>
                                                                         </li>
                                                                         <li>
                                                                             <input type="radio" className="form-check-input" name="priceInterval" value="2"
                                                                                 checked={this.state.priceInterval === "2"} id="range2" onChange={this.handleChange} />
-                                                                            <label className="form-check-label" htmlFor="range2"> $50 to $100</label>
+                                                                                <label className="form-check-label" htmlFor="range2"> {currencyBeforeSign}50 {currencyAfterSign} to {currencyBeforeSign}100 {currencyAfterSign}</label>
                                                                         </li>
                                                                         <li>
                                                                             <input type="radio" className="form-check-input" name="priceInterval" value="3"
                                                                                 checked={this.state.priceInterval === "3"} id="range3" onChange={this.handleChange} />
-                                                                            <label className="form-check-label" htmlFor="range3">$100 to $200</label>
+                                                                                <label className="form-check-label" htmlFor="range3">{currencyBeforeSign}100 {currencyAfterSign} to {currencyBeforeSign}200 {currencyAfterSign}</label>
                                                                         </li>
                                                                         <li>
                                                                             <input type="radio" className="form-check-input" name="priceInterval" value="4"
                                                                                 checked={this.state.priceInterval === "4"} id="range4" onChange={this.handleChange} />
-                                                                            <label className="form-check-label" htmlFor="range4">$200 to $500</label>
+                                                                                <label className="form-check-label" htmlFor="range4">{currencyBeforeSign}200 {currencyAfterSign} to {currencyBeforeSign}500 {currencyAfterSign}</label>
                                                                         </li>
                                                                         <li>
                                                                             <input type="radio" className="form-check-input" name="priceInterval" value="5"
                                                                                 checked={this.state.priceInterval === "5"} id="range5" onChange={this.handleChange} />
-                                                                            <label className="form-check-label" htmlFor="range5">$500 & Above</label>
+                                                                                <label className="form-check-label" htmlFor="range5">{currencyBeforeSign}500 {currencyAfterSign} & Above</label>
                                                                         </li>
                                                                     </ul>
                                                                 </div>

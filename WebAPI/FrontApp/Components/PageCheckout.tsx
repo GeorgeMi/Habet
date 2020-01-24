@@ -39,7 +39,7 @@ export class Checkout extends React.Component<any, any> {
             total: this.props.location.total,
             delivery: this.props.location.delivery,
             cartProducts: this.props.location.cartProducts.items,
-            paymentMethod: '',
+            paymentMethod: 'Card',
             firstName: '',
             lastName: '',
             state: '',
@@ -115,16 +115,19 @@ export class Checkout extends React.Component<any, any> {
                         city: state.city,
                         streetAddress: state.streetAddress,
                         zipCode: state.zipCode,
-                        phone: state.phone
+                        phone: state.phone,
+                        email: state.email
                     },
                     cartProducts: state.cartProducts,
                     paymentMethod: state.paymentMethod,
+                    currency: state.currency,
                 }, {
                     headers: {
                         token: read_cookie('token') //the token is a variable which holds the token
                     }
                 })
                     .then((response) => {
+                        delete_cookie('cartProducts');
                         NotificationManager.success(response.data.message);
                     })
                     .catch((error) => {
@@ -218,7 +221,7 @@ export class Checkout extends React.Component<any, any> {
                         <div className="loading">Loading&#8230;</div>;
                 </div>
                 </main>
-            );
+            );      
         } else {
             if (read_cookie('token') == null || read_cookie('token').length == 0) {
                 return <Redirect to='/#/' />;

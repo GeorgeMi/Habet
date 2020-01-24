@@ -81,8 +81,23 @@ export class Order extends React.Component<any, any> {
         else if (currency == 'GBP') { currencyBeforeSign = '₤'; currencyAfterSign = '' }
 
         if (error) {
-            console.log(error);
-            return <div>Error: {error.message}</div>;
+            return (
+                <div>
+                    <Header reloadPage={this.reloadPage} />
+                    <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
+                        <div className="row no-gutters slider-text align-items-center justify-content-center">
+                            <div className="col-md-9 text-center">
+                                <h1 className="mb-0 bread">ARE YOU HAPPY NOW?</h1>
+                                <h5>Just kidding! Our bad. 404 NOT FOUND</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+
+        }
+        else if (read_cookie('token') == null || read_cookie('token').length == 0) {
+            return <Redirect to='/#/' />;
         } else if (!isLoaded) {
             return (
                 <main id="main">
@@ -94,7 +109,7 @@ export class Order extends React.Component<any, any> {
                         <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
                             <div className="row justify-content-center mb-3 pb-3">
                                 <div className="col-md-12 heading-section text-center">
-                                    <h1 className="mb-4"><Translate content='checkout.Checkout' /></h1>
+                                    <h1 className="mb-4"><Translate content='order.OrderNo' /></h1>
                                 </div>
                             </div>
                         </div>
@@ -116,7 +131,7 @@ export class Order extends React.Component<any, any> {
                             <div className="container">
                                 <div className="row no-gutters slider-text align-items-center justify-content-center">
                                     <div className="col-md-9 text-center">
-                                        <h1 className="mb-0 bread"><Translate content='checkout.Checkout' /></h1>
+                                        <h1 className="mb-0 bread"><Translate content='order.OrderDetails' /></h1>
                                     </div>
                                 </div>
                             </div>

@@ -42,7 +42,7 @@ var Checkout = /** @class */ (function (_super) {
             total: _this.props.location.total,
             delivery: _this.props.location.delivery,
             cartProducts: _this.props.location.cartProducts.items,
-            paymentMethod: '',
+            paymentMethod: 'Card',
             firstName: '',
             lastName: '',
             state: '',
@@ -113,16 +113,19 @@ var Checkout = /** @class */ (function (_super) {
                         city: state.city,
                         streetAddress: state.streetAddress,
                         zipCode: state.zipCode,
-                        phone: state.phone
+                        phone: state.phone,
+                        email: state.email
                     },
                     cartProducts: state.cartProducts,
                     paymentMethod: state.paymentMethod,
+                    currency: state.currency,
                 }, {
                     headers: {
                         token: sfcookies_1.read_cookie('token') //the token is a variable which holds the token
                     }
                 })
                     .then(function (response) {
+                    sfcookies_1.delete_cookie('cartProducts');
                     react_notifications_1.NotificationManager.success(response.data.message);
                 })
                     .catch(function (error) {

@@ -302,6 +302,11 @@
     <Compile Include="Messages\JSendMessage.cs" />
     <Compile Include="Messages\RoleMessage.cs" />
     <Compile Include="Messages\TokenMessage.cs" />
+    <Compile Include="Migrations\20200124091200_test.cs" />
+    <Compile Include="Migrations\20200124091200_test.Designer.cs">
+      <DependentUpon>20200124091200_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\GHContextModelSnapshot.cs" />
     <Compile Include="Models\GHContext.cs" />
     <Compile Include="Models\MigrationHistory.cs" />
     <Compile Include="Models\Orders.cs" />

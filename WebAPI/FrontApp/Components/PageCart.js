@@ -135,6 +135,9 @@ var Cart = /** @class */ (function (_super) {
                 "Error: ",
                 error.message);
         }
+        else if (sfcookies_1.read_cookie('cartProducts').length == 0) {
+            return React.createElement(react_router_dom_1.Redirect, { to: '/#/' });
+        }
         else if (!isLoaded) {
             return (React.createElement("div", null,
                 React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),

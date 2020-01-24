@@ -95,10 +95,16 @@ var Order = /** @class */ (function (_super) {
             currencyAfterSign = '';
         }
         if (error) {
-            console.log(error);
-            return React.createElement("div", null,
-                "Error: ",
-                error.message);
+            return (React.createElement("div", null,
+                React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
+                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                    React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
+                        React.createElement("div", { className: "col-md-9 text-center" },
+                            React.createElement("h1", { className: "mb-0 bread" }, "ARE YOU HAPPY NOW?"),
+                            React.createElement("h5", null, "Just kidding! Our bad. 404 NOT FOUND"))))));
+        }
+        else if (sfcookies_1.read_cookie('token') == null || sfcookies_1.read_cookie('token').length == 0) {
+            return React.createElement(react_router_dom_1.Redirect, { to: '/#/' });
         }
         else if (!isLoaded) {
             return (React.createElement("main", { id: "main" },
@@ -109,7 +115,7 @@ var Order = /** @class */ (function (_super) {
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },
                                 React.createElement("h1", { className: "mb-4" },
-                                    React.createElement(Translate, { content: 'checkout.Checkout' }))))),
+                                    React.createElement(Translate, { content: 'order.OrderNo' }))))),
                     React.createElement("div", { className: "loading" }, "Loading\u2026"),
                     ";")));
         }
@@ -125,7 +131,7 @@ var Order = /** @class */ (function (_super) {
                             React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                                 React.createElement("div", { className: "col-md-9 text-center" },
                                     React.createElement("h1", { className: "mb-0 bread" },
-                                        React.createElement(Translate, { content: 'checkout.Checkout' })))))),
+                                        React.createElement(Translate, { content: 'order.OrderDetails' })))))),
                     React.createElement("section", { className: "ftco-section" },
                         React.createElement("div", { className: "container" },
                             React.createElement("div", { className: "row" },

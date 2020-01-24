@@ -36,8 +36,8 @@ namespace Api.BusinessLogic
             mail.To.Add(order.Email);
             mail.Subject = "Information for your Order ";
             mail.Body = "<h3>Hello " + order.FirstName + ", </h3>";
-            string orderId = DateTime.Now.Year + "" + DateTime.Now.Month + "" + DateTime.Now.Day + "" + order.OrderId;
-            mail.Body += "<p>Thank you so much for your recent purchase on <a href=\"http://gabrielhabet.co.uk/\">gabrielhabet.co.uk</a>. Your order number is <a href=\"http://gabrielhabet.co.uk/#/order/" + orderId + "\">" + orderId + "</a>.</p>";
+            //string orderId = DateTime.Now.Year + "" + DateTime.Now.Month + "" + DateTime.Now.Day + "" + order.OrderId;
+            mail.Body += "<p>Thank you so much for your recent purchase on <a href=\"http://gabrielhabet.co.uk/\">gabrielhabet.co.uk</a>. Your order number is <a href=\"http://gabrielhabet.co.uk/#/order/" + order.OrderId + "\">" + order.OrderId + "</a>.</p>";
             mail.Body += "<p>Your order information is:</ p>";
             mail.Body += "<p><table class=\"table\"><tr><th>Shipping Information:</th><th>Payment Method:</th></tr><tr><td>"
                                    + "Name: " + order.FirstName + " "

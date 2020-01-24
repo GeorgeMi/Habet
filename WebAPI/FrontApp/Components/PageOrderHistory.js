@@ -84,6 +84,9 @@ var OrderHistory = /** @class */ (function (_super) {
                 "Error: ",
                 error.message);
         }
+        else if (sfcookies_1.read_cookie('token') == null || sfcookies_1.read_cookie('token').length == 0) {
+            return React.createElement(react_router_dom_1.Redirect, { to: '/#/' });
+        }
         else if (!isLoaded) {
             return (React.createElement("main", { id: "main" },
                 waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
