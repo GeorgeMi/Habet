@@ -61,19 +61,19 @@ namespace Api.BusinessLogic
             mail.IsBodyHtml = true;
             mail.Attachments.Add(new Attachment(invoice, "invoice_" + order.OrderId + ".pdf"));
 
-           // SmtpServer.Credentials = new System.Net.NetworkCredential("habetgabriel@gmail.com", "habetpassword");
-           //SmtpServer.EnableSsl = false;
-           //SmtpServer.UseDefaultCredentials = false;
-           //SmtpServer.Port = 25;
-           //SmtpServer.Host = "relay-hosting.secureserver.net";
-
-
-            SmtpServer.Host = "smtp.gmail.com";
-            SmtpServer.Port = 587;
-            SmtpServer.EnableSsl = true;
-            SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
-            SmtpServer.UseDefaultCredentials = false;
             SmtpServer.Credentials = new System.Net.NetworkCredential("habetgabriel@gmail.com", "habetpassword");
+            SmtpServer.EnableSsl = false;
+            SmtpServer.UseDefaultCredentials = false;
+            SmtpServer.Port = 25;
+            SmtpServer.Host = "relay-hosting.secureserver.net";
+
+
+            //SmtpServer.Host = "smtp.gmail.com";
+            //SmtpServer.Port = 587;
+            //SmtpServer.EnableSsl = true;
+            //SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
+            //SmtpServer.UseDefaultCredentials = false;
+            //SmtpServer.Credentials = new System.Net.NetworkCredential("habetgabriel@gmail.com", "habetpassword");
 
             SmtpServer.Send(mail);
         }
