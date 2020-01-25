@@ -183,6 +183,7 @@ namespace Api.Controllers
                         Phone = request.UserDetails.Phone,
                         Email = request.UserDetails.Email,
                         Currency = request.Currency,
+                        TransactionId = request.TransactionId,
                         ProductsOrders = new List<ProductsOrders>()
                     };
 

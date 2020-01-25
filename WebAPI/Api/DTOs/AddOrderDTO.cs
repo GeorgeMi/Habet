@@ -8,5 +8,6 @@ namespace Api.DTOs
         public Dictionary<int,int> CartProducts { get; set; }
         public string PaymentMethod { get; set; }
         public string Currency { get; set; }
+        public string TransactionId { get; set; }
     }
 }

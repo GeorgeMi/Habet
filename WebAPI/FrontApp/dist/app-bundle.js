@@ -1974,10 +1974,10 @@ var Home = /** @class */ (function (_super) {
                                     React.createElement(Translate, { component: "h5", content: 'intro.P3' })))))),
                 React.createElement("section", { className: "ftco-section bg-light" },
                     React.createElement(react_1.Suspense, { fallback: React.createElement("div", null, "Loading...") },
-                        React.createElement(SectionProducts, { Gender: 'Women', Type: 'Bags', setLoadedComponentsArray: this.setLoadedComponentsArray }),
-                        React.createElement(SectionProducts, { Gender: 'Women', Type: 'Belts' }),
-                        React.createElement(SectionProducts, { Gender: 'Men', Type: 'Bags' }),
-                        React.createElement(SectionProducts, { Gender: 'Men', Type: 'Belts' }))))));
+                        React.createElement(SectionProducts, { Gender: 'Women', Type: 'Bags', reloadPage: this.reloadPage, setLoadedComponentsArray: this.setLoadedComponentsArray }),
+                        React.createElement(SectionProducts, { Gender: 'Women', Type: 'Belts', reloadPage: this.reloadPage }),
+                        React.createElement(SectionProducts, { Gender: 'Men', Type: 'Bags', reloadPage: this.reloadPage }),
+                        React.createElement(SectionProducts, { Gender: 'Men', Type: 'Belts', reloadPage: this.reloadPage }))))));
     };
     return Home;
 }(React.Component));
@@ -2570,6 +2570,7 @@ var Product = /** @class */ (function (_super) {
             sfcookies_1.delete_cookie('cartProducts');
             sfcookies_1.bake_cookie('cartProducts', cartProducts);
             this.setState({ state: this.state });
+            window.location.reload(false);
         }
     };
     Product.prototype.buyProduct = function (productId) {
@@ -4047,6 +4048,7 @@ var SectionProducts = /** @class */ (function (_super) {
             sfcookies_1.delete_cookie('cartProducts');
             sfcookies_1.bake_cookie('cartProducts', cartProducts);
             this.setState({ state: this.state });
+            this.props.reloadPage();
         }
     };
     SectionProducts.prototype.buyProduct = function (productId) {
@@ -46764,13 +46766,13 @@ module.exports = g;
 /***/ }),
 
 /***/ "config":
-/*!***********************************************************************!*\
-  !*** external "{\"API_Path\":\"http://api.gabrielhabet.co.uk/api\"}" ***!
-  \***********************************************************************/
+/*!****************************************************************!*\
+  !*** external "{\"API_Path\":\"http://localhost:65315/api\"}" ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = {"API_Path":"http://api.gabrielhabet.co.uk/api"};
+module.exports = {"API_Path":"http://localhost:65315/api"};
 
 /***/ })
 

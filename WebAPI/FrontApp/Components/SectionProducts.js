@@ -88,6 +88,7 @@ var SectionProducts = /** @class */ (function (_super) {
             sfcookies_1.delete_cookie('cartProducts');
             sfcookies_1.bake_cookie('cartProducts', cartProducts);
             this.setState({ state: this.state });
+            this.props.reloadPage();
         }
     };
     SectionProducts.prototype.buyProduct = function (productId) {

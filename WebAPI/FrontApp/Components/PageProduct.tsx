@@ -106,6 +106,7 @@ export class Product extends React.Component<any, any>
             bake_cookie('cartProducts', cartProducts);
 
             this.setState({ state: this.state });
+            window.location.reload(false);
         }
     }
 

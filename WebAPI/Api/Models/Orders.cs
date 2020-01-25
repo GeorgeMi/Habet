@@ -17,7 +17,7 @@ namespace Api.Models
         public string Currency { get; set; }
         public string PaymentMethod { get; set; }
         public DateTime Date { get; set; }
-
+        public string TransactionId { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public string Phone { get; set; }

@@ -83,8 +83,9 @@ export class SectionProducts extends React.Component<any, any>
             delete_cookie('cartProducts');
             bake_cookie('cartProducts', cartProducts);
 
-
             this.setState({ state: this.state });
+
+            this.props.reloadPage();
         }
     }
 

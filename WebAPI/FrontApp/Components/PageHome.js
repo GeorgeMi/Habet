@@ -67,10 +67,10 @@ var Home = /** @class */ (function (_super) {
                                     React.createElement(Translate, { component: "h5", content: 'intro.P3' })))))),
                 React.createElement("section", { className: "ftco-section bg-light" },
                     React.createElement(react_1.Suspense, { fallback: React.createElement("div", null, "Loading...") },
-                        React.createElement(SectionProducts, { Gender: 'Women', Type: 'Bags', setLoadedComponentsArray: this.setLoadedComponentsArray }),
-                        React.createElement(SectionProducts, { Gender: 'Women', Type: 'Belts' }),
-                        React.createElement(SectionProducts, { Gender: 'Men', Type: 'Bags' }),
-                        React.createElement(SectionProducts, { Gender: 'Men', Type: 'Belts' }))))));
+                        React.createElement(SectionProducts, { Gender: 'Women', Type: 'Bags', reloadPage: this.reloadPage, setLoadedComponentsArray: this.setLoadedComponentsArray }),
+                        React.createElement(SectionProducts, { Gender: 'Women', Type: 'Belts', reloadPage: this.reloadPage }),
+                        React.createElement(SectionProducts, { Gender: 'Men', Type: 'Bags', reloadPage: this.reloadPage }),
+                        React.createElement(SectionProducts, { Gender: 'Men', Type: 'Belts', reloadPage: this.reloadPage }))))));
     };
     return Home;
 }(React.Component));

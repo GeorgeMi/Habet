@@ -344,7 +344,6 @@ F:\workspace\Habet\WebAPI\Api\bin\System.Net.Http.Formatting.xml
 F:\workspace\Habet\WebAPI\Api\bin\System.Web.Http.xml
 F:\workspace\Habet\WebAPI\Api\bin\System.Web.Http.WebHost.xml
 F:\workspace\Habet\WebAPI\Api\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-F:\workspace\Habet\WebAPI\Api\obj\Debug\Api.csprojAssemblyReference.cache
 F:\workspace\Habet\WebAPI\Api\obj\Debug\Api.csproj.CoreCompileInputs.cache
 F:\workspace\Habet\WebAPI\Api\obj\Debug\Api.csproj.CopyComplete
 F:\workspace\Habet\WebAPI\Api\obj\Debug\Api.dll

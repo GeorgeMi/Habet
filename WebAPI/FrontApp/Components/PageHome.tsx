@@ -72,15 +72,15 @@ export class Home extends React.Component<any, any> {
                         <Suspense fallback={<div>Loading...</div>}>
 
 
-                            <SectionProducts Gender={'Women'} Type={'Bags'} setLoadedComponentsArray={this.setLoadedComponentsArray}/>
+                            <SectionProducts Gender={'Women'} Type={'Bags'} reloadPage={this.reloadPage} setLoadedComponentsArray={this.setLoadedComponentsArray}/>
 
-                            <SectionProducts Gender={'Women'} Type={'Belts'}  />
-
-
-                            <SectionProducts Gender={'Men'} Type={'Bags'} />
+                            <SectionProducts Gender={'Women'} Type={'Belts'} reloadPage={this.reloadPage}  />
 
 
-                            <SectionProducts Gender={'Men'} Type={'Belts'} />
+                            <SectionProducts Gender={'Men'} Type={'Bags'} reloadPage={this.reloadPage} />
+
+
+                            <SectionProducts Gender={'Men'} Type={'Belts'} reloadPage={this.reloadPage} />
                               </Suspense>
                     </section>
                 </div>
