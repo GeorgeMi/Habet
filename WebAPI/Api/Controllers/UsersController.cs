@@ -34,7 +34,7 @@ namespace Api.Controllers
             //    City = "City",
             //    ZipCode = "ZipCode",
             //    Phone = "Phone",
-            //    Email = "Email"
+            //    Email = "george.miron2003@gmail.com"
             //};
 
             //JSend json1 = new JSendData<UserUpdateDetails>("success", new List<UserUpdateDetails> { result1 });

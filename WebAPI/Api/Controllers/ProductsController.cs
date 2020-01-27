@@ -35,7 +35,7 @@ namespace Api.Controllers
             }
             else
             {
-               productList = db.Products.Where(p => p.Gender == gender && p.Type == type).OrderBy(p => p.ProductId).Skip(from).Take(top).ToList();
+                productList = db.Products.Where(p => p.Gender == gender && p.Type == type).OrderBy(p => p.ProductId).Skip(from).Take(top).ToList();
             }
 
             //Random rnd = new Random();

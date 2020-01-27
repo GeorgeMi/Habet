@@ -46,16 +46,16 @@ namespace Api.BusinessLogic
                 // Invoice Date
                 document.Add(new Paragraph(order.Date.ToString()).SetFixedPosition(115, 678, 150).SetFontSize(10).SetFont(font));
                 // Due Date
-                // document.Add(new Paragraph("Due Date").SetFixedPosition(115, 665, 150).SetFontSize(10).SetFont(font));
+                document.Add(new Paragraph(order.Date.AddDays(4).ToString()).SetFixedPosition(115, 665, 150).SetFontSize(10).SetFont(font));
 
                 // Buyer 
                 document.Add(new Paragraph(order.FirstName + " " + order.LastName).SetFixedPosition(372, 600, 150).SetFontSize(12).SetFont(font));
                 // Address 
-                document.Add(new Paragraph(order.Address).SetFixedPosition(415, 542, 150).SetFontSize(8).SetFont(font));
+                document.Add(new Paragraph(order.Address).SetFixedPosition(405, 550, 150).SetFontSize(8).SetFont(font));
                 // Phone
-                document.Add(new Paragraph(order.Phone).SetFixedPosition(405, 501, 100).SetFontSize(10).SetFont(font));
+                document.Add(new Paragraph(order.Phone).SetFixedPosition(405, 501, 150).SetFontSize(9).SetFont(font));
                 // Email:
-                document.Add(new Paragraph(order.Email).SetFixedPosition(405, 489, 100).SetFontSize(10).SetFont(font));
+                document.Add(new Paragraph(order.Email).SetFixedPosition(405, 489, 150).SetFontSize(9).SetFont(font));
 
                 var index = 1;
                 foreach (var product in order.ProductsOrders)
@@ -65,13 +65,13 @@ namespace Api.BusinessLogic
                     // Pos
                     document.Add(new Paragraph(index.ToString()).SetFixedPosition(25, productX, 50).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
                     // Description
-           //         document.Add(new Paragraph(product.ProductProduct.Name_EN).SetFixedPosition(77, productX, 215).SetPaddingLeft(5).SetTextAlignment(TextAlignment.LEFT).SetFontSize(10).SetFont(font));
+                    document.Add(new Paragraph(product.ProductProduct.Name_EN).SetFixedPosition(77, productX, 215).SetPaddingLeft(5).SetTextAlignment(TextAlignment.LEFT).SetFontSize(10).SetFont(font));
                     // Quantity
                     document.Add(new Paragraph(product.Amount.ToString()).SetFixedPosition(336, productX, 90).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
                     // Price
-                    document.Add(new Paragraph((product.ProductPrice * product.Amount).ToString()).SetFixedPosition(426, productX, 79).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
+                    document.Add(new Paragraph(product.ProductPrice.ToString()).SetFixedPosition(426, productX, 79).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
                     // Total
-                    document.Add(new Paragraph("200 RON").SetFixedPosition(504, productX, 88).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
+                    document.Add(new Paragraph((product.ProductPrice * product.Amount).ToString()).SetFixedPosition(504, productX, 88).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
 
                     index++;                 
                 }
@@ -81,7 +81,7 @@ namespace Api.BusinessLogic
                 // Sales tax
                 document.Add(new Paragraph("19%").SetFixedPosition(448, 90, 88).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
                 // Sales
-                document.Add(new Paragraph(order.Shipping.ToString()).SetFixedPosition(504, 90, 88).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
+                document.Add(new Paragraph((19/100*(order.Subtotal + order.Shipping)).ToString()).SetFixedPosition(504, 90, 88).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
                 // Shipping
                 document.Add(new Paragraph(order.Shipping.ToString()).SetFixedPosition(504, 67, 88).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
                 // Total

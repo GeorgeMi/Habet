@@ -68,7 +68,7 @@ var SectionProducts = /** @class */ (function (_super) {
         }
         return cartProducts;
     };
-    SectionProducts.prototype.addProductToCart = function (productId, no) {
+    SectionProducts.prototype.addProductToCart = function (productId, no, reloadPage) {
         if (sfcookies_1.read_cookie('token') == null || sfcookies_1.read_cookie('token').length == 0) {
             react_notifications_1.NotificationManager.info("Please login in order to add products to cart.");
         }
@@ -88,7 +88,9 @@ var SectionProducts = /** @class */ (function (_super) {
             sfcookies_1.delete_cookie('cartProducts');
             sfcookies_1.bake_cookie('cartProducts', cartProducts);
             this.setState({ state: this.state });
-            this.props.reloadPage();
+            if (reloadPage) {
+                this.props.reloadPage();
+            }
         }
     };
     SectionProducts.prototype.buyProduct = function (productId) {
@@ -96,7 +98,7 @@ var SectionProducts = /** @class */ (function (_super) {
             react_notifications_1.NotificationManager.info("Please login in order to add products to cart.");
         }
         else {
-            this.addProductToCart(productId, 1);
+            this.addProductToCart(productId, 1, false);
             document.location.href = "/#/cart";
         }
     };
@@ -144,7 +146,7 @@ var SectionProducts = /** @class */ (function (_super) {
                                     React.createElement("p", { className: "price" },
                                         React.createElement("span", null, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign))),
                                 React.createElement("p", { className: "bottom-area d-flex px-3" },
-                                    React.createElement("a", { href: "javascript:void(0)", className: "add-to-cart text-center py-2 mr-1", onClick: function () { return _this.addProductToCart(item.ProductId, 1); } },
+                                    React.createElement("a", { href: "javascript:void(0)", className: "add-to-cart text-center py-2 mr-1", onClick: function () { return _this.addProductToCart(item.ProductId, 1, true); } },
                                         React.createElement("span", null,
                                             React.createElement(Translate, { content: "products.AddToCart" }),
                                             React.createElement("i", { className: "ion-ios-add ml-1" }))),

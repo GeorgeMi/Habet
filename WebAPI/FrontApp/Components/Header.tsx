@@ -56,6 +56,7 @@ export class Header extends React.Component<any, any> {
         this.checkIfTokenIsValid = this.checkIfTokenIsValid.bind(this);
         this.signOut = this.signOut.bind(this);
         this.minimizeMenu = this.minimizeMenu.bind(this);
+        this.logInScroll = this.logInScroll.bind(this);
     }
 
     onLangChange(event) {
@@ -83,6 +84,10 @@ export class Header extends React.Component<any, any> {
 
     minimizeMenu() {
         document.getElementById('ftco-nav').className = "collapse navbar-collapse";
+    }
+
+    logInScroll() {
+        window.scrollTo(0, document.body.scrollHeight)
     }
 
     handleSubmit(event) {
@@ -154,6 +159,32 @@ export class Header extends React.Component<any, any> {
 	                    </button>
                         <div className="collapse navbar-collapse" id="ftco-nav">
                             <ul className="navbar-nav ml-auto">
+                                {
+                                    loggedIn == false &&                                     
+                                    <li className="dropdown nav-item logInMobileNavbar">
+                                            <div id="dropdownMenu" data-toggle="dropdown" className="nav-link dropdown"><Translate content="nav.Login" /> <span className="caret"></span></div>
+                                            <ul className="dropdown-content dropdown-menu-right">
+                                                <li className="login-dropdown-content px-3 py-2">
+                                                    <form action="" className="form" role="form" onSubmit={this.handleSubmit}>
+                                                        <div className="form-group">
+                                                            <input type="text" className="form-control form-control-sm" placeholder="Email" value={this.state.email} onChange={this.handleChange} name="email" id="emailInput" required />
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <input id="passwordInput" placeholder="Password" value={this.state.password} onChange={this.handleChange} className="form-control form-control-sm" type="password" name="password" required />
+                                                        </div>
+
+                                                        <div className="form-group">
+                                                            <button type="submit" className="btn btn-primary btn-block" onClick={this.minimizeMenu}><Translate content="nav.Login" /></button>
+                                                        </div>
+                                                        <div className="form-group text-center">
+                                                            <small><a href="/#/recover_password"><Translate content="nav.ForgotPassword" /></a></small>
+                                                            <small><a href="/#/register"><Translate content="nav.CreateAccount" /></a></small>
+                                                        </div>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                }
                                 <li className={"nav-item " + headerDictionary.Item('Home')}><a href="/" className="nav-link"><Translate content="nav.Home" /></a></li>
                                 <li className={"nav-item dropdown " + headerDictionary.Item('Women')}>
                                     <Link className="nav-link dropdown-toggle" to="/#Women-section" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><Translate content="nav.Women" /></Link>
@@ -176,7 +207,7 @@ export class Header extends React.Component<any, any> {
                                     loggedIn ?
                                         <li className={"nav-item " + headerDictionary.Item('Cart')}><a href="/#/cart" className="nav-link"><span className="icon-shopping_cart"></span>{cartItemNumber}</a></li>
                                         :
-                                        <li className="dropdown nav-item">
+                                        <li className="dropdown nav-item logInNavbar">
                                             <div id="dropdownMenu" data-toggle="dropdown" className="nav-link dropdown"><Translate content="nav.Login" /> <span className="caret"></span></div>
                                             <ul className="dropdown-content dropdown-menu-right">
                                                 <li className="login-dropdown-content px-3 py-2">

@@ -167,7 +167,7 @@ namespace Api.Controllers
             try
             {
                 var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
-                //int? userId = 1;
+               // int? userId = 1;
                 if (userId > 0)
                 {
                     var order = new Orders
@@ -196,18 +196,18 @@ namespace Api.Controllers
                     var productList = new List<Products>();
                     foreach (var requestProduct in request.CartProducts)
                     {
-                       var product = db.Products.Find(requestProduct.Key);
-                       //var product = new Products
-                       //{
-                       //    Name_RO = "Name_RO" + 1,
-                       //    Name_EN = "Name_EN" + 1,
-                       //    Name_IT = "Name_IT" + 1,
-                       //    Price = 1,
-                       //    Description_RO = "Description_RO",
-                       //    Description_EN = "Description_EN",
-                       //    Description_IT = "Description_IT",
-                       //    ProductId = requestProduct.Key
-                       //};
+                        var product = db.Products.Find(requestProduct.Key);
+                        //var product = new Products
+                        //{
+                        //    Name_RO = "Name_RO" + 1,
+                        //    Name_EN = "Name_EN" + 1,
+                        //    Name_IT = "Name_IT" + 1,
+                        //    Price = 1,
+                        //    Description_RO = "Description_RO",
+                        //    Description_EN = "Description_EN",
+                        //    Description_IT = "Description_IT",
+                        //    ProductId = requestProduct.Key
+                        //};
 
                         if (product?.ProductId > 0)
                         {
@@ -217,7 +217,8 @@ namespace Api.Controllers
                                 ProductPrice = ExchangePrice(product.Price, order.Currency),
                                 Amount = requestProduct.Value,
                                 OrderId = order.OrderId,
-                                Currency = order.Currency
+                                Currency = order.Currency,
+                                ProductProduct = product
                             };
 
                             subtotal += productsOrders.ProductPrice * productsOrders.Amount;

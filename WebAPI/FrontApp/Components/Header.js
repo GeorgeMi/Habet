@@ -62,6 +62,7 @@ var Header = /** @class */ (function (_super) {
         _this.checkIfTokenIsValid = _this.checkIfTokenIsValid.bind(_this);
         _this.signOut = _this.signOut.bind(_this);
         _this.minimizeMenu = _this.minimizeMenu.bind(_this);
+        _this.logInScroll = _this.logInScroll.bind(_this);
         return _this;
     }
     Header.prototype.onLangChange = function (event) {
@@ -83,6 +84,9 @@ var Header = /** @class */ (function (_super) {
     };
     Header.prototype.minimizeMenu = function () {
         document.getElementById('ftco-nav').className = "collapse navbar-collapse";
+    };
+    Header.prototype.logInScroll = function () {
+        window.scrollTo(0, document.body.scrollHeight);
     };
     Header.prototype.handleSubmit = function (event) {
         var _this = this;
@@ -146,6 +150,29 @@ var Header = /** @class */ (function (_super) {
                         " Menu"),
                     React.createElement("div", { className: "collapse navbar-collapse", id: "ftco-nav" },
                         React.createElement("ul", { className: "navbar-nav ml-auto" },
+                            loggedIn == false &&
+                                React.createElement("li", { className: "dropdown nav-item logInMobileNavbar" },
+                                    React.createElement("div", { id: "dropdownMenu", "data-toggle": "dropdown", className: "nav-link dropdown" },
+                                        React.createElement(Translate, { content: "nav.Login" }),
+                                        " ",
+                                        React.createElement("span", { className: "caret" })),
+                                    React.createElement("ul", { className: "dropdown-content dropdown-menu-right" },
+                                        React.createElement("li", { className: "login-dropdown-content px-3 py-2" },
+                                            React.createElement("form", { action: "", className: "form", role: "form", onSubmit: this.handleSubmit },
+                                                React.createElement("div", { className: "form-group" },
+                                                    React.createElement("input", { type: "text", className: "form-control form-control-sm", placeholder: "Email", value: this.state.email, onChange: this.handleChange, name: "email", id: "emailInput", required: true })),
+                                                React.createElement("div", { className: "form-group" },
+                                                    React.createElement("input", { id: "passwordInput", placeholder: "Password", value: this.state.password, onChange: this.handleChange, className: "form-control form-control-sm", type: "password", name: "password", required: true })),
+                                                React.createElement("div", { className: "form-group" },
+                                                    React.createElement("button", { type: "submit", className: "btn btn-primary btn-block", onClick: this.minimizeMenu },
+                                                        React.createElement(Translate, { content: "nav.Login" }))),
+                                                React.createElement("div", { className: "form-group text-center" },
+                                                    React.createElement("small", null,
+                                                        React.createElement("a", { href: "/#/recover_password" },
+                                                            React.createElement(Translate, { content: "nav.ForgotPassword" }))),
+                                                    React.createElement("small", null,
+                                                        React.createElement("a", { href: "/#/register" },
+                                                            React.createElement(Translate, { content: "nav.CreateAccount" })))))))),
                             React.createElement("li", { className: "nav-item " + headerDictionary.Item('Home') },
                                 React.createElement("a", { href: "/", className: "nav-link" },
                                     React.createElement(Translate, { content: "nav.Home" }))),
@@ -177,7 +204,7 @@ var Header = /** @class */ (function (_super) {
                                         React.createElement("span", { className: "icon-shopping_cart" }),
                                         cartItemNumber))
                                 :
-                                    React.createElement("li", { className: "dropdown nav-item" },
+                                    React.createElement("li", { className: "dropdown nav-item logInNavbar" },
                                         React.createElement("div", { id: "dropdownMenu", "data-toggle": "dropdown", className: "nav-link dropdown" },
                                             React.createElement(Translate, { content: "nav.Login" }),
                                             " ",

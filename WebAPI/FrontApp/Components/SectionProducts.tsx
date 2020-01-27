@@ -61,7 +61,7 @@ export class SectionProducts extends React.Component<any, any>
         return cartProducts;
     }
 
-    addProductToCart(productId: number, no: number) {
+    addProductToCart(productId: number, no: number, reloadPage: boolean) {
         if (read_cookie('token') == null || read_cookie('token').length == 0) {
             NotificationManager.info("Please login in order to add products to cart.");
         }
@@ -85,7 +85,10 @@ export class SectionProducts extends React.Component<any, any>
 
             this.setState({ state: this.state });
 
-            this.props.reloadPage();
+            if (reloadPage)
+            {
+                this.props.reloadPage();
+            }
         }
     }
 
@@ -94,7 +97,7 @@ export class SectionProducts extends React.Component<any, any>
             NotificationManager.info("Please login in order to add products to cart.");
         }
         else {
-            this.addProductToCart(productId, 1);
+            this.addProductToCart(productId, 1, false);
 
             document.location.href = "/#/cart";
         }
@@ -137,7 +140,7 @@ export class SectionProducts extends React.Component<any, any>
                                                     <p className="price"><span>{currencyBeforeSign + " " + item.Price + " " + currencyAfterSign}</span></p>
                                                 </div>
                                                 <p className="bottom-area d-flex px-3">
-                                                    <a href="javascript:void(0)" className="add-to-cart text-center py-2 mr-1" onClick={() => this.addProductToCart(item.ProductId, 1)}><span><Translate content="products.AddToCart" /><i className="ion-ios-add ml-1"></i></span></a>
+                                                    <a href="javascript:void(0)" className="add-to-cart text-center py-2 mr-1" onClick={() => this.addProductToCart(item.ProductId, 1, true)}><span><Translate content="products.AddToCart" /><i className="ion-ios-add ml-1"></i></span></a>
                                                     <a href="javascript:void(0)" onClick={() => this.buyProduct(item.ProductId)} className="buy-now text-center py-2"><Translate content="products.BuyNow" /><span><i className="ion-ios-cart ml-1"></i></span></a>
                                                 </p>
                                             </div>
