@@ -209,7 +209,6 @@ namespace Api.Controllers
             }
 
             result.TotalItemsCount = productList.Count();
-           // result.TotalItemsCount = 10;
 
             responseMessage = Request.CreateResponse(HttpStatusCode.OK, result);
 

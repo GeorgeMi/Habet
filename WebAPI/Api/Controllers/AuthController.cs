@@ -24,7 +24,7 @@ namespace Api.Controllers
         {
             HttpResponseMessage responseMessage;
             string response = auth.Authenticate(user.Email, user.Password);
-       //     string response = "123";
+     //       string response = "123";
 
             if (response != null)
             {
@@ -58,7 +58,7 @@ namespace Api.Controllers
             else
             {
                 valid = auth.VerifyTokenDate(token.Token);
-             //   valid = true;
+            //    valid = true;
             }
 
             if (!valid)
@@ -70,7 +70,7 @@ namespace Api.Controllers
             else
             {
                 string role = tokens.GetRoleByToken(token.Token);
-             //   string role = "admin";
+            //    string role = "admin";
                 var json = new RoleMessage(role);
                 responseMessage = Request.CreateResponse(HttpStatusCode.OK, json);
             }

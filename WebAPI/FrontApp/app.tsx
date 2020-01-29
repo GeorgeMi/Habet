@@ -20,6 +20,7 @@ import { AddProduct } from "./Components/PageAddProduct";
 import { UpdateUserDetails } from "./Components/PageUpdateUserDetails";
 import { CookiePolicy } from "./Components/PageCookiePolicy";
 import { OrderHistory } from "./Components/PageOrderHistory";
+import { OrderAdminHistory } from "./Components/PageOrderAdminHistory";
 import { Order } from "./Components/PageOrder";
 import { CreditCardPayment } from "./Components/PageCreditCardPayment";
 
@@ -46,6 +47,7 @@ class App extends React.Component {
                         <Route exact path="/add_product" component={AddProduct} />   
                         <Route exact path="/add_product" component={AddProduct} />   
                         <Route exact path="/orders" component={OrderHistory} />     
+                        <Route exact path="/admin_orders" component={OrderAdminHistory} />     
                         <Route exact path="/order/:id" component={Order} />   
                         <Route exact path="/card_payment" component={CreditCardPayment} />   
                         <Route component={NotFound} />  

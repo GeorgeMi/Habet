@@ -209,7 +209,10 @@ export class Product extends React.Component<any, any>
                                         </div>
                                         <div className="w-100"></div>
                                         <div className="col-md-12">
-                                            <p onClick={() => this.addProductToCart(item.ProductId, quantity)}><a className="btn btn-black py-3 px-5 mr-2"><Translate content='product.AddToCart' /></a><a href="javascript:void(0)" onClick={() => this.buyProduct(item.ProductId)} className="btn btn-primary py-3 px-5"><Translate content='product.BuyNow' /></a></p>
+                                            <p onClick={() => this.addProductToCart(item.ProductId, quantity)}>
+                                                <a className="btn btn-black py-3 px-5 mr-2"><Translate content='product.AddToCart' /></a>
+                                                <a href="javascript:void(0)" onClick={() => this.buyProduct(item.ProductId)} className="btn btn-primary py-3 px-5"><Translate content='product.BuyNow' /></a>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>

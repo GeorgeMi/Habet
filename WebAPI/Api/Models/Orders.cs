@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Api.Models
 {
@@ -26,6 +27,9 @@ namespace Api.Models
         public string City { get; set; }
         public string ZipCode { get; set; }
         public string State { get; set; }
+        public Stream Invoice { get; set; }
+        public bool? MailSent { get; set; }
+        public bool? Sent { get; set; }
 
         public virtual Users User { get; set; }
         public virtual ICollection<ProductsOrders> ProductsOrders { get; set; }

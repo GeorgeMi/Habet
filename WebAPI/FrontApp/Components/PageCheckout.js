@@ -103,8 +103,7 @@ var Checkout = /** @class */ (function (_super) {
         var state = this.state;
         this.cardPay(function (returnValue) {
             var _this = this;
-            console.log(state);
-            if (returnValue == true) {
+            if (returnValue != false) {
                 axios.post(API_Path + '/Orders', {
                     userDetails: {
                         firstName: state.firstName,
@@ -118,6 +117,7 @@ var Checkout = /** @class */ (function (_super) {
                     },
                     cartProducts: state.cartProducts,
                     paymentMethod: state.paymentMethod,
+                    transactionId: returnValue,
                     currency: state.currency,
                 }, {
                     headers: {
@@ -127,6 +127,7 @@ var Checkout = /** @class */ (function (_super) {
                     .then(function (response) {
                     sfcookies_1.delete_cookie('cartProducts');
                     react_notifications_1.NotificationManager.success(response.data.message);
+                    document.location.href = "/#/";
                 })
                     .catch(function (error) {
                     react_notifications_1.NotificationManager.error("Request failed. Please, try again later.");

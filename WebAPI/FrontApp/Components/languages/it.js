@@ -142,6 +142,9 @@
         OrderNo: 'Ordine n.',
         PlacedOn: 'Effettuato il',
         OrderDetails: 'Dettagli dell\'ordine',
-        OrderHistory: 'Cronologia degli ordini'
+        OrderHistory: 'Cronologia degli ordini',
+        Delivered: 'Consegnato',
+        NotDelivered: 'Non consegnato',
+        UsersOrders: 'Ordini degli utenti'
     },
 }

@@ -11,6 +11,7 @@ using Api.BusinessLogic;
 using Api.DTOs;
 using Api.Messages;
 using Api.Models;
+using WebAPI.ActionFilters;
 
 namespace Api.Controllers
 {
@@ -38,6 +39,46 @@ namespace Api.Controllers
             //        Date = DateTime.Now.AddMonths(-i),
             //        OrderId = rnd.Next(1, 4),
             //        Currency = "RON"
+            //    });
+            //}
+
+            var responseOrderList = new List<ListOrdersDTO>();
+
+            foreach (var order in orderList)
+            {
+                responseOrderList.Add(new ListOrdersDTO
+                {
+                    OrderId = order.OrderId,
+                    Total = (order.Subtotal + order.Shipping) + " " + order.Currency,
+                    Date = string.Format("{0:f}", order.Date)
+                });
+            }
+
+            JSend json = new JSendData<ListOrdersDTO>("success", responseOrderList);
+            responseMessage = Request.CreateResponse(HttpStatusCode.OK, json);
+
+            return responseMessage;
+        }
+
+        [RequireAdminToken]
+        public HttpResponseMessage GetOrders(bool deliveredFilter)
+        {
+            HttpResponseMessage responseMessage;
+            var orderList = db.Orders.Where(o => o.Sent == deliveredFilter).OrderByDescending(o => o.Date).ToList();
+
+            //var orderList = new List<Orders>();
+
+            //Random rnd = new Random();
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    orderList.Add(new Orders
+            //    {
+            //        Subtotal = i ^ 3,
+            //        Shipping = i,
+            //        Date = DateTime.Now.AddMonths(-i),
+            //        OrderId = rnd.Next(1, 4),
+            //        Currency = "RON",
+            //        Email = "test@mail.com"
             //    });
             //}
 
@@ -132,6 +173,8 @@ namespace Api.Controllers
                     Subtotal = order.Subtotal,
                     Shipping = order.Shipping,
                     Products = new List<OrderProductInfo>(),
+                    Invoice = order.Invoice,
+                    Sent = order.Sent
                 };
 
                 foreach (var product in productList)
@@ -236,10 +279,18 @@ namespace Api.Controllers
                     db.SaveChanges();
 
                     var InvoiceLogic = new InvoiceLogic(db);
-                    var pdfInvoice = InvoiceLogic.CreateInvoice(order);
+                    order.Invoice = InvoiceLogic.CreateInvoice(order);
+
+                    db.Orders.Update(order);
+                    db.SaveChanges();
 
                     var OrderLogic = new OrderLogic(db);
-                    OrderLogic.SendOrderEmail(order, productList, pdfInvoice);
+                    OrderLogic.SendOrderEmail(order, productList, order.Invoice);
+
+                    order.MailSent = true;
+
+                    db.Orders.Update(order);
+                    db.SaveChanges();
                 }
             }
             catch (DbUpdateException)
@@ -250,6 +301,33 @@ namespace Api.Controllers
 
             var json = new JSendMessage("success", "Order successfully added");
             responseMessage = Request.CreateResponse(HttpStatusCode.OK, json);
+            return responseMessage;
+        }
+
+        // POST: api/Orders
+        [RequireAdminToken]
+        public HttpResponseMessage PutOrders(UpdateOrderDTO request)
+        {
+            HttpResponseMessage responseMessage;
+            JSendMessage json;
+
+            var order = db.Orders.FirstOrDefault(o => o.OrderId == request.OrderId);
+            if (null != order)
+            {
+                order.Sent = request.Sent;
+
+                db.Orders.Update(order);
+                db.SaveChanges();
+
+                json = new JSendMessage("success", "Order successfully updated");
+                responseMessage = Request.CreateResponse(HttpStatusCode.OK, json);
+            }
+            else
+            {
+                json = new JSendMessage("success", "Order not found");
+                responseMessage = Request.CreateResponse(HttpStatusCode.NotFound, json);
+            }
+           
             return responseMessage;
         }
 

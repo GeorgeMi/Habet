@@ -142,6 +142,9 @@
         OrderNo: 'Comanda nr.',
         PlacedOn: 'Plasată pe',
         OrderDetails: 'Detalii comandă',
-        OrderHistory: 'Istoric comenzi'
+        OrderHistory: 'Istoric comenzi',
+        Delivered: 'Livrate',
+        NotDelivered: 'Nelivrate',
+        UsersOrders: 'Comenzile utilizatorilor'
     },
 }

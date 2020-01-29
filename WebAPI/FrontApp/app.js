@@ -34,6 +34,7 @@ var PageAddProduct_1 = require("./Components/PageAddProduct");
 var PageUpdateUserDetails_1 = require("./Components/PageUpdateUserDetails");
 var PageCookiePolicy_1 = require("./Components/PageCookiePolicy");
 var PageOrderHistory_1 = require("./Components/PageOrderHistory");
+var PageOrderAdminHistory_1 = require("./Components/PageOrderAdminHistory");
 var PageOrder_1 = require("./Components/PageOrder");
 var PageCreditCardPayment_1 = require("./Components/PageCreditCardPayment");
 var App = /** @class */ (function (_super) {
@@ -61,6 +62,7 @@ var App = /** @class */ (function (_super) {
                     React.createElement(react_router_1.Route, { exact: true, path: "/add_product", component: PageAddProduct_1.AddProduct }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/add_product", component: PageAddProduct_1.AddProduct }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/orders", component: PageOrderHistory_1.OrderHistory }),
+                    React.createElement(react_router_1.Route, { exact: true, path: "/admin_orders", component: PageOrderAdminHistory_1.OrderAdminHistory }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/order/:id", component: PageOrder_1.Order }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/card_payment", component: PageCreditCardPayment_1.CreditCardPayment }),
                     React.createElement(react_router_1.Route, { component: PageNotFound_1.NotFound })),

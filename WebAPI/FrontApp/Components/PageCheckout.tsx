@@ -104,8 +104,8 @@ export class Checkout extends React.Component<any, any> {
         var state = this.state;
 
         this.cardPay(function (returnValue) {
-            console.log(state);
-            if (returnValue == true)
+
+            if (returnValue != false)
             {
                 axios.post(API_Path + '/Orders', {
                     userDetails: {
@@ -120,6 +120,7 @@ export class Checkout extends React.Component<any, any> {
                     },
                     cartProducts: state.cartProducts,
                     paymentMethod: state.paymentMethod,
+                    transactionId: returnValue,
                     currency: state.currency,
                 }, {
                     headers: {
@@ -129,6 +130,7 @@ export class Checkout extends React.Component<any, any> {
                     .then((response) => {
                         delete_cookie('cartProducts');
                         NotificationManager.success(response.data.message);
+                        document.location.href = "/#/";
                     })
                     .catch((error) => {
                         NotificationManager.error("Request failed. Please, try again later.");

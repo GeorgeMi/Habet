@@ -142,6 +142,9 @@
         OrderNo: 'Order no.',
         PlacedOn: 'Placed on',
         OrderDetails: 'Order details',
-        OrderHistory: 'Orders history'
+        OrderHistory: 'Orders history',
+        Delivered: 'Delivered',
+        NotDelivered: 'Not delivered',
+        UsersOrders: 'Users orders'
     },
 }

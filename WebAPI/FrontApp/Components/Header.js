@@ -243,6 +243,11 @@ var Header = /** @class */ (function (_super) {
                                                 React.createElement(Translate, { content: "nav.AddProduct" }))
                                             :
                                                 React.createElement("div", null),
+                                        api_response.role == 'admin' ?
+                                            React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/admin_orders" },
+                                                React.createElement(Translate, { content: "order.UsersOrders" }))
+                                            :
+                                                React.createElement("div", null),
                                         React.createElement("a", { href: "/#/", onClick: this.signOut },
                                             React.createElement(Translate, { content: "nav.SignOut" }))))
                                 :

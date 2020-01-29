@@ -245,6 +245,12 @@ export class Header extends React.Component<any, any> {
                                                         :
                                                         <div></div>
                                                 }
+                                                {
+                                                    api_response.role == 'admin' ?
+                                                        <Link className="dropdown-item" to="/admin_orders"><Translate content="order.UsersOrders" /></Link>
+                                                        :
+                                                        <div></div>
+                                                }
                                                 <a href="/#/" onClick={this.signOut}><Translate content="nav.SignOut" /></a>
                                             </div>
                                         </li>
