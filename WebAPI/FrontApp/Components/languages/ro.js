@@ -132,6 +132,7 @@
     },
 
     intro: {
+        MP1: 'Acum mulți ani, Gabriel și-a început cariera lucrând ca și croitor de piele pentru companii italiene. De la design, la asamblare și până la finalizare a trecut prin toți pașii necesari pentru a face articole din piele, excelând în domeniu de-a lungul timpului...',
         P1: 'Acum mulți ani, Gabriel și-a început cariera lucrând ca și croitor de piele pentru companii italiene. De la design, la asamblare și până la finalizare a trecut prin toți pașii necesari pentru a face articole din piele, excelând în domeniu de-a lungul timpului. Mai târziu, dată fiindu-i experiența și pasiunea, a început să lucreze cu firme celebre în domeniu, creând modele pentru ambele genuri, contribuind prin munca sa la evoluția procesării pielii și a diversificării accesoriilor din metal. Apoi, a venit un timp când a decis să-și folosească experiența pentru a crea modele noi, definind cu talent și meticulozitate un nou brand, „Butterfly Gabriel Habet”.',
         P2: 'Creațiile lui sunt făcute exclusiv manual, concepute și produse cu exigență din material brut, importat direct din Italia. Acest lucru evidențiază calitatea și excelența italiană în procesarea pielii. Colecția ce urmează are intenția de a satisface cerințele amatorilor de articole din piele, încântându-i cu elemente ale stilului minimalist, inspirate din geometrismul modern, dar cu ampla libertate a clasicismului definit.',
         P3: 'Vă mulțumim pentru atenția acordată și vă dorim spor la cumpărături!'

@@ -527,6 +527,11 @@ mark,
   max-width: 100%;
   height: auto; }
 
+.img-fluid-cart {
+    max-width: 60%;
+    height: auto;
+}
+
 .img-thumbnail {
   padding: 0.25rem;
   background-color: #fff;
@@ -13450,7 +13455,7 @@ pre {
 
     @media (max-width: 767.98px) {
         .ftco-section {
-            padding: 6em 0;
+            padding: 0;
         }
     }
 
@@ -15107,10 +15112,16 @@ pre {
     .logInNavbar{
         display:none;
     }
+    .hide-description {
+        display: none;
+    }
 }
 
 @media (min-width: 768px) {
     .logInMobileNavbar {
+        display: none;
+    }
+    .short-description {
         display: none;
     }
 }

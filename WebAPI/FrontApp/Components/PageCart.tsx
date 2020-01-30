@@ -190,15 +190,15 @@ export class Cart extends React.Component<any, any>{
                                                         <tr key={i} className="text-center">
                                                             <td className="product-remove"><span onClick={() => this.removeProductFromCart(item.ProductId)} className="ion-ios-close"></span></td>
 
-                                                            <td className="image-prod hide-column"><img src={item.Image} className="img-fluid" alt="..." /></td>
+                                                            <td className="image-prod hide-column"><a href={"/#/item/" + item.ProductId}><img src={item.Image} className="img-fluid-cart" alt="..." /></a></td>
 
-                                                            <td className="product-name"><h3>{item.Name}</h3></td>
+                                                            <td className="product-name"><a href={"/#/item/" + item.ProductId}><h3>{item.Name}</h3></a></td>
 
                                                             <td className="price">{currencyBeforeSign + " " + item.Price + " " + currencyAfterSign}</td>
 
                                                             <td className="quantity">
                                                                 <div className="input-group mb-3">
-                                                                    <input type="text" name={item.ProductId} className="quantity form-control input-number" value={this.getQuantity(item.ProductId)} min="1" max="100" onChange={this.handleChange} />
+                                                                    <input type="text" name={item.ProductId} className="quantity form-control input-number" value={this.getQuantity(item.ProductId)} min="1" max="100" onChange={this.handleChange} disabled/>
                                                                 </div>
                                                             </td>
 

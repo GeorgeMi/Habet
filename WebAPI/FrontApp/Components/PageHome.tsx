@@ -23,6 +23,8 @@ export class Home extends React.Component<any, any> {
         this.state = { loadedComponentsDictionary: null };
         this.setLoadedComponentsArray = this.setLoadedComponentsArray.bind(this);
         this.reloadPage = this.reloadPage.bind(this);
+        this.minimizeDescription = this.minimizeDescription.bind(this);
+        this.maximizeDescription = this.maximizeDescription.bind(this);
     }
 
    public setLoadedComponentsArray(component: string, loaded: string) {
@@ -37,6 +39,16 @@ export class Home extends React.Component<any, any> {
 
     public reloadPage() {
         window.location.reload(false);
+    }
+
+    minimizeDescription() {
+        document.getElementById('intro-short-description').className = "text-deal short-description";
+        document.getElementById('intro-full-description').className = "text-deal hide-description";
+    }
+
+    maximizeDescription() {
+        document.getElementById('intro-short-description').className = "text-deal short-description hide-description";
+        document.getElementById('intro-full-description').className = "text-deal";
     }
    
     render() {
@@ -58,7 +70,10 @@ export class Home extends React.Component<any, any> {
                         <div className="container">
                             <div className="row">
                                 <div className="offset-1 col-md-10">
-                                    <div className="text-deal" style={{ opacity: 1, fontStyle: 'italic', textAlign: 'justify' }}>
+                                    <div className="text-deal short-description" id="intro-short-description" style={{ opacity: 1, fontStyle: 'italic', textAlign: 'justify' }}>
+                                        <Translate onClick={this.maximizeDescription} component="h5" content='intro.MP1' />
+                                    </div>
+                                    <div className="text-deal hide-description" id="intro-full-description" style={{ opacity: 1, fontStyle: 'italic', textAlign: 'justify' }} onClick={this.minimizeDescription}>                                     
                                         <Translate component="h5" content='intro.P1' />
                                         <Translate component="h5" content='intro.P2' />
                                         <Translate component="h5" content='intro.P3' />

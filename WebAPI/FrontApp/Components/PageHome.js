@@ -34,6 +34,8 @@ var Home = /** @class */ (function (_super) {
         _this.state = { loadedComponentsDictionary: null };
         _this.setLoadedComponentsArray = _this.setLoadedComponentsArray.bind(_this);
         _this.reloadPage = _this.reloadPage.bind(_this);
+        _this.minimizeDescription = _this.minimizeDescription.bind(_this);
+        _this.maximizeDescription = _this.maximizeDescription.bind(_this);
         return _this;
     }
     Home.prototype.setLoadedComponentsArray = function (component, loaded) {
@@ -46,6 +48,14 @@ var Home = /** @class */ (function (_super) {
     };
     Home.prototype.reloadPage = function () {
         window.location.reload(false);
+    };
+    Home.prototype.minimizeDescription = function () {
+        document.getElementById('intro-short-description').className = "text-deal short-description";
+        document.getElementById('intro-full-description').className = "text-deal hide-description";
+    };
+    Home.prototype.maximizeDescription = function () {
+        document.getElementById('intro-short-description').className = "text-deal short-description hide-description";
+        document.getElementById('intro-full-description').className = "text-deal";
     };
     Home.prototype.render = function () {
         var hideLoader = false;
@@ -61,7 +71,9 @@ var Home = /** @class */ (function (_super) {
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row" },
                             React.createElement("div", { className: "offset-1 col-md-10" },
-                                React.createElement("div", { className: "text-deal", style: { opacity: 1, fontStyle: 'italic', textAlign: 'justify' } },
+                                React.createElement("div", { className: "text-deal short-description", id: "intro-short-description", style: { opacity: 1, fontStyle: 'italic', textAlign: 'justify' } },
+                                    React.createElement(Translate, { onClick: this.maximizeDescription, component: "h5", content: 'intro.MP1' })),
+                                React.createElement("div", { className: "text-deal hide-description", id: "intro-full-description", style: { opacity: 1, fontStyle: 'italic', textAlign: 'justify' }, onClick: this.minimizeDescription },
                                     React.createElement(Translate, { component: "h5", content: 'intro.P1' }),
                                     React.createElement(Translate, { component: "h5", content: 'intro.P2' }),
                                     React.createElement(Translate, { component: "h5", content: 'intro.P3' })))))),

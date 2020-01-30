@@ -76,6 +76,7 @@ namespace Api.Controllers
             HttpResponseMessage responseMessage;
             JSend json;
             var product = db.Products.Find(productId);
+           
             //Random rnd = new Random();
             //var product = new Products
             //{
@@ -88,7 +89,6 @@ namespace Api.Controllers
             //    Description_IT = "Description_IT",
             //    ProductId = rnd.Next(1, 4)
             //};
-
 
             if (product != null)
             {

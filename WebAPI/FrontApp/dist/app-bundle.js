@@ -961,13 +961,15 @@ var Cart = /** @class */ (function (_super) {
                                             React.createElement("td", { className: "product-remove" },
                                                 React.createElement("span", { onClick: function () { return _this.removeProductFromCart(item.ProductId); }, className: "ion-ios-close" })),
                                             React.createElement("td", { className: "image-prod hide-column" },
-                                                React.createElement("img", { src: item.Image, className: "img-fluid", alt: "..." })),
+                                                React.createElement("a", { href: "/#/item/" + item.ProductId },
+                                                    React.createElement("img", { src: item.Image, className: "img-fluid-cart", alt: "..." }))),
                                             React.createElement("td", { className: "product-name" },
-                                                React.createElement("h3", null, item.Name)),
+                                                React.createElement("a", { href: "/#/item/" + item.ProductId },
+                                                    React.createElement("h3", null, item.Name))),
                                             React.createElement("td", { className: "price" }, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign),
                                             React.createElement("td", { className: "quantity" },
                                                 React.createElement("div", { className: "input-group mb-3" },
-                                                    React.createElement("input", { type: "text", name: item.ProductId, className: "quantity form-control input-number", value: _this.getQuantity(item.ProductId), min: "1", max: "100", onChange: _this.handleChange }))),
+                                                    React.createElement("input", { type: "text", name: item.ProductId, className: "quantity form-control input-number", value: _this.getQuantity(item.ProductId), min: "1", max: "100", onChange: _this.handleChange, disabled: true }))),
                                             React.createElement("td", { className: "total" }, currencyBeforeSign + " " + item.Price * _this.getQuantity(item.ProductId) + " " + currencyAfterSign))); })))))),
                         React.createElement("div", { className: "row justify-content-start" },
                             React.createElement("div", { className: "col col-lg-5 col-md-6 mt-5 cart-wrap" },
@@ -1974,6 +1976,8 @@ var Home = /** @class */ (function (_super) {
         _this.state = { loadedComponentsDictionary: null };
         _this.setLoadedComponentsArray = _this.setLoadedComponentsArray.bind(_this);
         _this.reloadPage = _this.reloadPage.bind(_this);
+        _this.minimizeDescription = _this.minimizeDescription.bind(_this);
+        _this.maximizeDescription = _this.maximizeDescription.bind(_this);
         return _this;
     }
     Home.prototype.setLoadedComponentsArray = function (component, loaded) {
@@ -1986,6 +1990,14 @@ var Home = /** @class */ (function (_super) {
     };
     Home.prototype.reloadPage = function () {
         window.location.reload(false);
+    };
+    Home.prototype.minimizeDescription = function () {
+        document.getElementById('intro-short-description').className = "text-deal short-description";
+        document.getElementById('intro-full-description').className = "text-deal hide-description";
+    };
+    Home.prototype.maximizeDescription = function () {
+        document.getElementById('intro-short-description').className = "text-deal short-description hide-description";
+        document.getElementById('intro-full-description').className = "text-deal";
     };
     Home.prototype.render = function () {
         var hideLoader = false;
@@ -2001,7 +2013,9 @@ var Home = /** @class */ (function (_super) {
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row" },
                             React.createElement("div", { className: "offset-1 col-md-10" },
-                                React.createElement("div", { className: "text-deal", style: { opacity: 1, fontStyle: 'italic', textAlign: 'justify' } },
+                                React.createElement("div", { className: "text-deal short-description", id: "intro-short-description", style: { opacity: 1, fontStyle: 'italic', textAlign: 'justify' } },
+                                    React.createElement(Translate, { onClick: this.maximizeDescription, component: "h5", content: 'intro.MP1' })),
+                                React.createElement("div", { className: "text-deal hide-description", id: "intro-full-description", style: { opacity: 1, fontStyle: 'italic', textAlign: 'justify' }, onClick: this.minimizeDescription },
                                     React.createElement(Translate, { component: "h5", content: 'intro.P1' }),
                                     React.createElement(Translate, { component: "h5", content: 'intro.P2' }),
                                     React.createElement(Translate, { component: "h5", content: 'intro.P3' })))))),
@@ -2231,9 +2245,11 @@ var Order = /** @class */ (function (_super) {
                                                         React.createElement(Translate, { content: 'checkout.Total' })))),
                                             React.createElement("tbody", null, products.map(function (item, i) { return (React.createElement("tr", { key: i, className: "text-center" },
                                                 React.createElement("td", { className: "image-prod" },
-                                                    React.createElement("img", { src: item.Image, className: "img-fluid", alt: "..." })),
+                                                    React.createElement("a", { href: "/#/item/" + item.ProductId },
+                                                        React.createElement("img", { src: item.Image, className: "img-fluid-cart", alt: "..." }))),
                                                 React.createElement("td", { className: "product-name" },
-                                                    React.createElement("h3", null, item.Name)),
+                                                    React.createElement("a", { href: "/#/item/" + item.ProductId },
+                                                        React.createElement("h3", null, item.Name))),
                                                 React.createElement("td", { className: "price" }, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign),
                                                 React.createElement("td", { className: "quantity" },
                                                     React.createElement("div", { className: "input-group mb-3" },
@@ -2884,7 +2900,7 @@ var Product = /** @class */ (function (_super) {
                                     React.createElement("div", { className: "input-group col-md-6 d-flex mb-3" },
                                         React.createElement("span", { className: "input-group-btn mr-2" },
                                             React.createElement("button", { type: "button", className: "quantity-left-minus btn", "data-type": "minus", "data-field": "", onClick: this.decreaseQuantity }, "-")),
-                                        React.createElement("input", { type: "text", id: "quantity", name: "quantity", className: "quantity form-control input-number", min: "1", max: "100", value: quantity, onChange: this.handleChange }),
+                                        React.createElement("input", { type: "text", id: "quantity", name: "quantity", className: "quantity form-control input-number", min: "1", max: "100", value: quantity, onChange: this.handleChange, disabled: true }),
                                         React.createElement("span", { className: "input-group-btn ml-2" },
                                             React.createElement("button", { type: "button", className: "quantity-right-plus btn", "data-type": "plus", "data-field": "", onClick: this.increaseQuantity }, "+"))),
                                     React.createElement("div", { className: "w-100" }),
@@ -4515,6 +4531,7 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     intro: {
+        MP1: 'Many years ago, Gabriel’s career started working as a leather cutter for Italian companies. From design to assembly and product finishing, he went through all the steps required to make leather articles, mastering his abilities in this field over time...',
         P1: 'Many years ago, Gabriel’s career started working as a leather cutter for Italian companies. From design to assembly and product finishing, he went through all the steps required to make leather articles, mastering his abilities in this field over time. Later on, being experienced and passionate, he started working with some of the famous in the field, creating new models for both men and women, contributing through his work to the evolution of leather processing and metal accessories. Then, it came a time when he decided to use this experience in order to create new designs of his own idea under his own new born brand: Butterfly Gabriel Habet.',
         P2: 'His creations are exclusively handmade, designed and produced with an exigency from raw materials which are directly imported from Italy. This highlights the quality and Italian excellence in tanning and leather processing. The following collection aims to satisfy the requirements of enthusiasts of leather articles, delighting them with minimal style elements inspired by modern geometrism but with the ample freedom of defined classicism.',
         P3: 'Thank you for stopping-by and enjoy shopping!'
@@ -4677,6 +4694,7 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     intro: {
+        MP1: 'Many years ago, Gabriel’s career started working as a leather cutter for Italian companies. From design to assembly and product finishing, he went through all the steps required to make leather articles, mastering his abilities in this field over time...',
         P1: 'Many years ago, Gabriel’s career started working as a leather cutter for Italian companies. From design to assembly and product finishing, he went through all the steps required to make leather articles, mastering his abilities in this field over time. Later on, being experienced and passionate, he started working with some of the famous in the field, creating new models for both men and women, contributing through his work to the evolution of leather processing and metal accessories. Then, it came a time when he decided to use this experience in order to create new designs of his own idea under his own new born brand: Butterfly Gabriel Habet.',
         P2: 'His creations are exclusively handmade, designed and produced with an exigency from raw materials which are directly imported from Italy. This highlights the quality and Italian excellence in tanning and leather processing. The following collection aims to satisfy the requirements of enthusiasts of leather articles, delighting them with minimal style elements inspired by modern geometrism but with the ample freedom of defined classicism.',
         P3: 'Thank you for stopping-by and enjoy shopping!'
@@ -4839,6 +4857,7 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     intro: {
+        MP1: 'Acum mulți ani, Gabriel și-a început cariera lucrând ca și croitor de piele pentru companii italiene. De la design, la asamblare și până la finalizare a trecut prin toți pașii necesari pentru a face articole din piele, excelând în domeniu de-a lungul timpului...',
         P1: 'Acum mulți ani, Gabriel și-a început cariera lucrând ca și croitor de piele pentru companii italiene. De la design, la asamblare și până la finalizare a trecut prin toți pașii necesari pentru a face articole din piele, excelând în domeniu de-a lungul timpului. Mai târziu, dată fiindu-i experiența și pasiunea, a început să lucreze cu firme celebre în domeniu, creând modele pentru ambele genuri, contribuind prin munca sa la evoluția procesării pielii și a diversificării accesoriilor din metal. Apoi, a venit un timp când a decis să-și folosească experiența pentru a crea modele noi, definind cu talent și meticulozitate un nou brand, „Butterfly Gabriel Habet”.',
         P2: 'Creațiile lui sunt făcute exclusiv manual, concepute și produse cu exigență din material brut, importat direct din Italia. Acest lucru evidențiază calitatea și excelența italiană în procesarea pielii. Colecția ce urmează are intenția de a satisface cerințele amatorilor de articole din piele, încântându-i cu elemente ale stilului minimalist, inspirate din geometrismul modern, dar cu ampla libertate a clasicismului definit.',
         P3: 'Vă mulțumim pentru atenția acordată și vă dorim spor la cumpărături!'

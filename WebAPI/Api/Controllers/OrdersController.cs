@@ -291,6 +291,8 @@ namespace Api.Controllers
 
                     db.Orders.Update(order);
                     db.SaveChanges();
+
+                    OrderLogic.SendOrderEmailToAdmin(order, productList, order.Invoice);
                 }
             }
             catch (DbUpdateException)

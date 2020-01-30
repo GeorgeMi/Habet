@@ -156,9 +156,9 @@ export class Order extends React.Component<any, any> {
                                                     {
                                                         products.map((item, i) => (
                                                             <tr key={i} className="text-center">
-                                                                <td className="image-prod"><img src={item.Image} className="img-fluid" alt="..." /></td>
+                                                                <td className="image-prod"><a href={"/#/item/" + item.ProductId}><img src={item.Image} className="img-fluid-cart" alt="..." /></a></td>
 
-                                                                <td className="product-name"><h3>{item.Name}</h3></td>
+                                                                <td className="product-name"><a href={"/#/item/" + item.ProductId}><h3>{item.Name}</h3></a></td>
 
                                                                 <td className="price">{currencyBeforeSign + " " + item.Price + " " + currencyAfterSign}</td>
 

@@ -183,7 +183,7 @@ var Product = /** @class */ (function (_super) {
                                     React.createElement("div", { className: "input-group col-md-6 d-flex mb-3" },
                                         React.createElement("span", { className: "input-group-btn mr-2" },
                                             React.createElement("button", { type: "button", className: "quantity-left-minus btn", "data-type": "minus", "data-field": "", onClick: this.decreaseQuantity }, "-")),
-                                        React.createElement("input", { type: "text", id: "quantity", name: "quantity", className: "quantity form-control input-number", min: "1", max: "100", value: quantity, onChange: this.handleChange }),
+                                        React.createElement("input", { type: "text", id: "quantity", name: "quantity", className: "quantity form-control input-number", min: "1", max: "100", value: quantity, onChange: this.handleChange, disabled: true }),
                                         React.createElement("span", { className: "input-group-btn ml-2" },
                                             React.createElement("button", { type: "button", className: "quantity-right-plus btn", "data-type": "plus", "data-field": "", onClick: this.increaseQuantity }, "+"))),
                                     React.createElement("div", { className: "w-100" }),

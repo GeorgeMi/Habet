@@ -200,7 +200,7 @@ export class Product extends React.Component<any, any>
                                                    -
                                                 </button>
                                             </span>
-                                            <input type="text" id="quantity" name="quantity" className="quantity form-control input-number" min="1" max="100" value={quantity} onChange={this.handleChange} />
+                                            <input type="text" id="quantity" name="quantity" className="quantity form-control input-number" min="1" max="100" value={quantity} onChange={this.handleChange} disabled/>
                                             <span className="input-group-btn ml-2">
                                                 <button type="button" className="quantity-right-plus btn" data-type="plus" data-field="" onClick={this.increaseQuantity}>
                                                    +
