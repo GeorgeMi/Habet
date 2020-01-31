@@ -30,7 +30,7 @@ namespace Api.BusinessLogic
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public Stream CreateInvoice(Orders order)
+        public MemoryStream CreateInvoice(Orders order)
         {
             try
             {
@@ -69,23 +69,24 @@ namespace Api.BusinessLogic
                     // Quantity
                     document.Add(new Paragraph(product.Amount.ToString()).SetFixedPosition(336, productX, 90).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
                     // Price
-                    document.Add(new Paragraph(product.ProductPrice.ToString()).SetFixedPosition(426, productX, 79).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
+                    document.Add(new Paragraph(product.ProductPrice.ToString() + " " + order.Currency).SetFixedPosition(426, productX, 79).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
                     // Total
-                    document.Add(new Paragraph((product.ProductPrice * product.Amount).ToString()).SetFixedPosition(504, productX, 88).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
+                    document.Add(new Paragraph((product.ProductPrice * product.Amount).ToString() + " " + order.Currency).SetFixedPosition(504, productX, 88).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
 
                     index++;                 
                 }
 
                 // Subtotal
-                document.Add(new Paragraph(order.Subtotal.ToString()).SetFixedPosition(504, 113, 88).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
+                document.Add(new Paragraph(order.Subtotal.ToString() + " " + order.Currency).SetFixedPosition(504, 113, 88).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
                 // Sales tax
                 document.Add(new Paragraph("19%").SetFixedPosition(448, 90, 88).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
                 // Sales
-                document.Add(new Paragraph((19/100*(order.Subtotal + order.Shipping)).ToString()).SetFixedPosition(504, 90, 88).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
+                var procent = 0.19 * order.Subtotal;
+                document.Add(new Paragraph(procent.ToString() + " " + order.Currency).SetFixedPosition(504, 90, 88).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
                 // Shipping
-                document.Add(new Paragraph(order.Shipping.ToString()).SetFixedPosition(504, 67, 88).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
+                document.Add(new Paragraph(order.Shipping.ToString() + " " + order.Currency).SetFixedPosition(504, 67, 88).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
                 // Total
-                document.Add(new Paragraph((order.Subtotal + order.Shipping).ToString()).SetFixedPosition(504, 44, 88).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
+                document.Add(new Paragraph((order.Subtotal + order.Shipping).ToString() + " " + order.Currency).SetFixedPosition(504, 44, 88).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
 
                 document.Close();
 

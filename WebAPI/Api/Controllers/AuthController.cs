@@ -24,13 +24,13 @@ namespace Api.Controllers
         {
             HttpResponseMessage responseMessage;
             string response = auth.Authenticate(user.Email, user.Password);
-         //   string response = "123";
+            //string response = "123";
 
             if (response != null)
             {
                 // Username si parola valide
-               string role = users.GetUserRole(user.Email);
-             //  string role = "admin";
+                string role = users.GetUserRole(user.Email);
+                //string role = "admin";
                 TokenMessage msg = new TokenMessage(response, role);
                 responseMessage = Request.CreateResponse(HttpStatusCode.OK, msg);
             }
@@ -57,8 +57,8 @@ namespace Api.Controllers
             }
             else
             {
-                valid = auth.VerifyTokenDate(token.Token);
-           //     valid = true;
+               valid = auth.VerifyTokenDate(token.Token);
+             //  valid = true;
             }
 
             if (!valid)
@@ -70,7 +70,7 @@ namespace Api.Controllers
             else
             {
                 string role = tokens.GetRoleByToken(token.Token);
-          //      string role = "admin";
+               // string role = "admin";
                 var json = new RoleMessage(role);
                 responseMessage = Request.CreateResponse(HttpStatusCode.OK, json);
             }

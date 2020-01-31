@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Web.Mvc;
 
 namespace Api.DTOs
 {
@@ -11,7 +12,7 @@ namespace Api.DTOs
         public string Currency { get; set; }
         public double Subtotal { get; set; }
         public double Shipping { get; set; }
-        public Stream Invoice { get; set; }
+        public byte[] Invoice { get; set; }
         public bool? Sent { get; set; }
     }
 }

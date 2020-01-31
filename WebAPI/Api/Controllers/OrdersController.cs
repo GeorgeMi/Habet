@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Mvc;
 using Api.BusinessLogic;
 using Api.DTOs;
 using Api.Messages;
@@ -27,14 +31,14 @@ namespace Api.Controllers
             var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
 
             var orderList = db.Orders.Where(o => o.UserId == userId).OrderByDescending(o => o.Date).ToList();
-           // var orderList = new List<Orders>();
+            //var orderList = new List<Orders>();
 
             //Random rnd = new Random();
             //for (int i = 0; i < 3; i++)
             //{
             //    orderList.Add(new Orders
             //    {
-            //        Subtotal = i^3,
+            //        Subtotal = i ^ 3,
             //        Shipping = i,
             //        Date = DateTime.Now.AddMonths(-i),
             //        OrderId = rnd.Next(1, 4),
@@ -109,20 +113,21 @@ namespace Api.Controllers
             var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
 
             var order = db.Orders.FirstOrDefault(o => o.OrderId == orderId && o.UserId == userId);
-            //var order = new Orders {
-            //        FirstName = "FirstName",
-            //        LastName = "LastName",
-            //        State = "State",
-            //        Address = "Address",
-            //        City = "City",
-            //        ZipCode = "ZipCode",
-            //        Phone = "Phone",
-            //        Email = "Email",            
-            //        PaymentMethod = "Cash",
-            //        Currency = "RON",
-            //        ProductsOrders = new List<ProductsOrders>(),
-            //        Subtotal = 123,
-            //        Shipping=20
+            //var order = new Orders
+            //{
+            //    FirstName = "FirstName",
+            //    LastName = "LastName",
+            //    State = "State",
+            //    Address = "Address",
+            //    City = "City",
+            //    ZipCode = "ZipCode",
+            //    Phone = "Phone",
+            //    Email = "Email",
+            //    PaymentMethod = "Cash",
+            //    Currency = "RON",
+            //    ProductsOrders = new List<ProductsOrders>(),
+            //    Subtotal = 123,
+            //    Shipping = 20
             //};
 
             //for (int i = 0; i < 3; i++)
@@ -132,15 +137,15 @@ namespace Api.Controllers
             //        OrderId = orderId,
             //        ProductId = i,
             //        ProductPrice = i + 1,
-            //        Amount =  i + 1,
+            //        Amount = i + 1,
 
             //    });
             //}
 
             if (order != null)
             {
-                var productsOrdersList = db.ProductsOrders.Where(o => o.OrderId == order.OrderId);
-                var productList = productsOrdersList.Select(product => db.Products.FirstOrDefault(p => p.ProductId == product.ProductId && product.OrderId == order.OrderId)).ToList();
+                 var productsOrdersList = db.ProductsOrders.Where(o => o.OrderId == order.OrderId);
+                 var productList = productsOrdersList.Select(product => db.Products.FirstOrDefault(p => p.ProductId == product.ProductId && product.OrderId == order.OrderId)).ToList();
 
                 //var productList = new List<Products>();
                 //for (int i = 0; i < 3; i++)
@@ -210,7 +215,7 @@ namespace Api.Controllers
             try
             {
                 var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
-               // int? userId = 1;
+                //int? userId = 1;
                 if (userId > 0)
                 {
                     var order = new Orders
@@ -245,7 +250,7 @@ namespace Api.Controllers
                         //    Name_RO = "Name_RO" + 1,
                         //    Name_EN = "Name_EN" + 1,
                         //    Name_IT = "Name_IT" + 1,
-                        //    Price = 1,
+                        //    Price = 100,
                         //    Description_RO = "Description_RO",
                         //    Description_EN = "Description_EN",
                         //    Description_IT = "Description_IT",
@@ -279,20 +284,21 @@ namespace Api.Controllers
                     db.SaveChanges();
 
                     var InvoiceLogic = new InvoiceLogic(db);
-                    order.Invoice = InvoiceLogic.CreateInvoice(order);
+                    var invoice = InvoiceLogic.CreateInvoice(order);
+                    order.Invoice = invoice.ToArray();
 
                     db.Orders.Update(order);
                     db.SaveChanges();
 
                     var OrderLogic = new OrderLogic(db);
-                    OrderLogic.SendOrderEmail(order, productList, order.Invoice);
+                    OrderLogic.SendOrderEmail(order, productList, invoice);
 
                     order.MailSent = true;
 
                     db.Orders.Update(order);
                     db.SaveChanges();
 
-                    OrderLogic.SendOrderEmailToAdmin(order, productList, order.Invoice);
+                    OrderLogic.SendOrderEmailToAdmin(order, productList, invoice);
                 }
             }
             catch (DbUpdateException)

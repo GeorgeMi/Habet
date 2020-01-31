@@ -28,6 +28,7 @@ export class Order extends React.Component<any, any> {
             subtotal: '',
             shipping: '',
             paymentMethod: '',
+            invoice: null,
             waitingResponse: false,
             orderId: props.match.params.id,
             isChanged: false,
@@ -36,6 +37,9 @@ export class Order extends React.Component<any, any> {
         };
 
         this.reloadPage = this.reloadPage.bind(this);
+        this.download = this.download.bind(this);
+        this.base64ToArrayBuffer = this.base64ToArrayBuffer.bind(this);
+        this.saveByteArray = this.saveByteArray.bind(this);
     }
 
     componentWillMount() {
@@ -60,7 +64,8 @@ export class Order extends React.Component<any, any> {
                         subtotal: order.Subtotal,
                         shipping: order.Shipping,
                         paymentMethod: order.PaymentMethod,
-                    });
+                        invoice: order.Invoice
+                    });               
                 })
                 .catch((error) => {
                     this.setState({ isLoaded: true, error });
@@ -72,6 +77,31 @@ export class Order extends React.Component<any, any> {
     public reloadPage() {
         //do nothing
     }
+
+    public download() {
+        var pdf = this.base64ToArrayBuffer(this.state.invoice);
+        this.saveByteArray("invoice_" + this.state.orderId, pdf);
+    }
+
+    public base64ToArrayBuffer(base64) {
+    var binaryString = window.atob(base64);
+    var binaryLen = binaryString.length;
+    var bytes = new Uint8Array(binaryLen);
+    for (var i = 0; i < binaryLen; i++) {
+        var ascii = binaryString.charCodeAt(i);
+        bytes[i] = ascii;
+    }
+    return bytes;
+    }
+
+    public saveByteArray(reportName, byte) {
+    var blob = new Blob([byte], { type: "application/pdf" });
+    var link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    var fileName = reportName;
+    link.download = fileName;
+    link.click();
+};
 
     render() {
         const { error, isLoaded, waitingResponse, currency, userDetails, products } = this.state;
@@ -254,6 +284,11 @@ export class Order extends React.Component<any, any> {
                                                             <span><Translate content='checkout.Total' /></span>
                                                             <span>{currencyBeforeSign + " " + eval(this.state.subtotal + this.state.shipping) + " " + currencyAfterSign}</span>
                                                         </p>
+                                                        <div className="btn-group btn-group-justified">
+                                                            <button type="button" className="btn btn-primary py-3 px-4" onClick={this.download}>
+                                                                Download invoice
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
@@ -266,7 +301,7 @@ export class Order extends React.Component<any, any> {
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>                                          
                                         </form>
                                     </div>
                                 </div>

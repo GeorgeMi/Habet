@@ -27,7 +27,7 @@ namespace Api.Models
         public string City { get; set; }
         public string ZipCode { get; set; }
         public string State { get; set; }
-        public Stream Invoice { get; set; }
+        public byte[] Invoice { get; set; }
         public bool? MailSent { get; set; }
         public bool? Sent { get; set; }
 

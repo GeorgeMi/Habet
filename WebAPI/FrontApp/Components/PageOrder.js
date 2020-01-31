@@ -40,6 +40,7 @@ var Order = /** @class */ (function (_super) {
             subtotal: '',
             shipping: '',
             paymentMethod: '',
+            invoice: null,
             waitingResponse: false,
             orderId: props.match.params.id,
             isChanged: false,
@@ -47,6 +48,9 @@ var Order = /** @class */ (function (_super) {
             currency: sfcookies_1.read_cookie('currency')
         };
         _this.reloadPage = _this.reloadPage.bind(_this);
+        _this.download = _this.download.bind(_this);
+        _this.base64ToArrayBuffer = _this.base64ToArrayBuffer.bind(_this);
+        _this.saveByteArray = _this.saveByteArray.bind(_this);
         return _this;
     }
     Order.prototype.componentWillMount = function () {
@@ -71,6 +75,7 @@ var Order = /** @class */ (function (_super) {
                     subtotal: order.Subtotal,
                     shipping: order.Shipping,
                     paymentMethod: order.PaymentMethod,
+                    invoice: order.Invoice
                 });
             })
                 .catch(function (error) {
@@ -82,6 +87,29 @@ var Order = /** @class */ (function (_super) {
     Order.prototype.reloadPage = function () {
         //do nothing
     };
+    Order.prototype.download = function () {
+        var pdf = this.base64ToArrayBuffer(this.state.invoice);
+        this.saveByteArray("invoice_" + this.state.orderId, pdf);
+    };
+    Order.prototype.base64ToArrayBuffer = function (base64) {
+        var binaryString = window.atob(base64);
+        var binaryLen = binaryString.length;
+        var bytes = new Uint8Array(binaryLen);
+        for (var i = 0; i < binaryLen; i++) {
+            var ascii = binaryString.charCodeAt(i);
+            bytes[i] = ascii;
+        }
+        return bytes;
+    };
+    Order.prototype.saveByteArray = function (reportName, byte) {
+        var blob = new Blob([byte], { type: "application/pdf" });
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        var fileName = reportName;
+        link.download = fileName;
+        link.click();
+    };
+    ;
     Order.prototype.render = function () {
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, waitingResponse = _a.waitingResponse, currency = _a.currency, userDetails = _a.userDetails, products = _a.products;
         var currencyBeforeSign = '€';
@@ -227,7 +255,9 @@ var Order = /** @class */ (function (_super) {
                                                     React.createElement("p", { className: "d-flex total-price" },
                                                         React.createElement("span", null,
                                                             React.createElement(Translate, { content: 'checkout.Total' })),
-                                                        React.createElement("span", null, currencyBeforeSign + " " + eval(this.state.subtotal + this.state.shipping) + " " + currencyAfterSign)))),
+                                                        React.createElement("span", null, currencyBeforeSign + " " + eval(this.state.subtotal + this.state.shipping) + " " + currencyAfterSign)),
+                                                    React.createElement("div", { className: "btn-group btn-group-justified" },
+                                                        React.createElement("button", { type: "button", className: "btn btn-primary py-3 px-4", onClick: this.download }, "Download invoice")))),
                                             React.createElement("div", { className: "col-md-6" },
                                                 React.createElement("div", { className: "cart-detail bg-light p-3 p-md-4" },
                                                     React.createElement("h3", { className: "billing-heading mb-4" },
