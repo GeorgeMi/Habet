@@ -109,7 +109,7 @@ export class OrderAdminHistory extends React.Component<any, any> {
     }
 
     render() {
-        const { error, isLoaded, waitingResponse, items, currency } = this.state;
+        const { error, isLoaded, waitingResponse, items, currency, deliveredFilter } = this.state;
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
         if (currency == 'RON') { currencyBeforeSign = ''; currencyAfterSign = 'RON' }
@@ -168,8 +168,8 @@ export class OrderAdminHistory extends React.Component<any, any> {
                                             <label htmlFor="deliveredFilter">Show orders</label>
                                             <div className="select-wrap">
                                                 <select className="form-control" value={this.state.deliveredFilter} onChange={this.handleChange} name="deliveredFilter" id="deliveredFilter" required>
-                                                    <option value="true">Not delivered</option>
                                                     <option value="false">Delivered</option>
+                                                    <option value="true">Not delivered</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -190,11 +190,13 @@ export class OrderAdminHistory extends React.Component<any, any> {
                                                                 <Link to={"/order/" + item.OrderId}><Translate content='order.OrderDetails' /></Link>
                                                             </div>
                                                         </div>
-                                                        <div className="btn-group btn-group-justified">
-                                                            <div className="btn btn-default" title="View">
-                                                                <a href="javascript:void(0)" className="add-to-cart text-center py-2 mr-1" onClick={() => this.updateOrder(item.OrderId)}><span>Order is delivered</span></a>
+
+                                                            <div className="btn-group btn-group-justified">
+                                                                <div className="btn btn-default" title="View">
+                                                                    <a href="javascript:void(0)" className="add-to-cart text-center py-2 mr-1" onClick={() => this.updateOrder(item.OrderId)}><span>Order is delivered</span></a>
+                                                                </div>
                                                             </div>
-                                                        </div>
+                                                        
                                                     </div>
                                                 </div>
 

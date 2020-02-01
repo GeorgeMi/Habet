@@ -98,7 +98,7 @@ export class Header extends React.Component<any, any> {
             password: this.state.password
         })
             .then((response) => {
-                this.setState({ email: '', password: '', api_response: response.data, loggedIn: true });
+                this.setState({ email: '', password: '', api_response: response.data, loggedIn: true });             
                 delete_cookie('token');
                 bake_cookie('token', response.data.token);
             })
@@ -213,10 +213,10 @@ export class Header extends React.Component<any, any> {
                                                 <li className="login-dropdown-content px-3 py-2">
                                                     <form action="" className="form" role="form" onSubmit={this.handleSubmit}>
                                                         <div className="form-group">
-                                                            <input type="text" className="form-control form-control-sm" placeholder="Email" value={this.state.email} onChange={this.handleChange} name="email" id="emailInput" required />
+                                                            <input type="text" className="form-control form-control-sm" placeholder="Email" value={this.state.email} onChange={this.handleChange} name="email" id="emailInput2" required />
                                                         </div>
                                                         <div className="form-group">
-                                                            <input id="passwordInput" placeholder="Password" value={this.state.password} onChange={this.handleChange} className="form-control form-control-sm" type="password" name="password" required />
+                                                            <input id="passwordInput2" placeholder="Password" value={this.state.password} onChange={this.handleChange} className="form-control form-control-sm" type="password" name="password" required />
                                                         </div>
 
                                                         <div className="form-group">
@@ -240,13 +240,13 @@ export class Header extends React.Component<any, any> {
                                                 <Link className="dropdown-item" to="/change_password"><Translate content="nav.ChangePassword" /></Link>
                                                 <Link className="dropdown-item" to="/orders"><Translate content="nav.Orders" /></Link>
                                                 {
-                                                    api_response.role == 'admin' ?
+                                                    api_response.role.toUpperCase() === 'ADMIN' ?
                                                         <Link className="dropdown-item" to="/add_product"><Translate content="nav.AddProduct" /></Link>
                                                         :
                                                         <div></div>
                                                 }
                                                 {
-                                                    api_response.role == 'admin' ?
+                                                    api_response.role.toUpperCase() === 'ADMIN' ?
                                                         <Link className="dropdown-item" to="/admin_orders"><Translate content="order.UsersOrders" /></Link>
                                                         :
                                                         <div></div>

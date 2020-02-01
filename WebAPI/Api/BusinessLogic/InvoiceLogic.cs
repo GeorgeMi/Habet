@@ -82,6 +82,7 @@ namespace Api.BusinessLogic
                 document.Add(new Paragraph("19%").SetFixedPosition(448, 90, 88).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
                 // Sales
                 var procent = 0.19 * order.Subtotal;
+                procent = (double)System.Math.Round(procent, 2);
                 document.Add(new Paragraph(procent.ToString() + " " + order.Currency).SetFixedPosition(504, 90, 88).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
                 // Shipping
                 document.Add(new Paragraph(order.Shipping.ToString() + " " + order.Currency).SetFixedPosition(504, 67, 88).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));

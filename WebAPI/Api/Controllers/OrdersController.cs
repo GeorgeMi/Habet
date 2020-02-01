@@ -68,7 +68,15 @@ namespace Api.Controllers
         public HttpResponseMessage GetOrders(bool deliveredFilter)
         {
             HttpResponseMessage responseMessage;
-            var orderList = db.Orders.Where(o => o.Sent == deliveredFilter).OrderByDescending(o => o.Date).ToList();
+            List<Orders> orderList;
+            if (deliveredFilter)
+            {
+                orderList = db.Orders.Where(o => o.Sent == true).OrderByDescending(o => o.Date).ToList();
+            }
+            else
+            {
+                orderList = db.Orders.Where(o => o.Sent != true).OrderByDescending(o => o.Date).ToList();
+            }
 
             //var orderList = new List<Orders>();
 

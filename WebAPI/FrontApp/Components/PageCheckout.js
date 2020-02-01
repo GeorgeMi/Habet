@@ -60,6 +60,7 @@ var Checkout = /** @class */ (function (_super) {
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.reloadPage = _this.reloadPage.bind(_this);
+        _this.cardPay = _this.cardPay.bind(_this);
         return _this;
     }
     Checkout.prototype.componentWillMount = function () {
@@ -97,9 +98,7 @@ var Checkout = /** @class */ (function (_super) {
     };
     Checkout.prototype.handleSubmit = function (event) {
         event.preventDefault();
-        if (this.state.waitingResponse == false) {
-            this.setState({ waitingResponse: true });
-        }
+        this.setState({ waitingResponse: true });
         var state = this.state;
         this.cardPay(function (returnValue) {
             var _this = this;

@@ -58,6 +58,7 @@ export class Checkout extends React.Component<any, any> {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.reloadPage = this.reloadPage.bind(this);
+        this.cardPay = this.cardPay.bind(this);
     }
 
     componentWillMount() {
@@ -96,15 +97,12 @@ export class Checkout extends React.Component<any, any> {
 
     handleSubmit(event) {
         event.preventDefault();
-
-        if (this.state.waitingResponse == false) {
-            this.setState({ waitingResponse: true });
-        }
+        this.setState({ waitingResponse: true });
 
         var state = this.state;
 
         this.cardPay(function (returnValue) {
-
+            
             if (returnValue != false)
             {
                 axios.post(API_Path + '/Orders', {

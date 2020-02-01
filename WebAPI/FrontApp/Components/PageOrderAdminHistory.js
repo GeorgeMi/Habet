@@ -118,7 +118,7 @@ var OrderAdminHistory = /** @class */ (function (_super) {
     };
     OrderAdminHistory.prototype.render = function () {
         var _this = this;
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, waitingResponse = _a.waitingResponse, items = _a.items, currency = _a.currency;
+        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, waitingResponse = _a.waitingResponse, items = _a.items, currency = _a.currency, deliveredFilter = _a.deliveredFilter;
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
         if (currency == 'RON') {
@@ -172,8 +172,8 @@ var OrderAdminHistory = /** @class */ (function (_super) {
                                         React.createElement("label", { htmlFor: "deliveredFilter" }, "Show orders"),
                                         React.createElement("div", { className: "select-wrap" },
                                             React.createElement("select", { className: "form-control", value: this.state.deliveredFilter, onChange: this.handleChange, name: "deliveredFilter", id: "deliveredFilter", required: true },
-                                                React.createElement("option", { value: "true" }, "Not delivered"),
-                                                React.createElement("option", { value: "false" }, "Delivered"))))),
+                                                React.createElement("option", { value: "false" }, "Delivered"),
+                                                React.createElement("option", { value: "true" }, "Not delivered"))))),
                                 items.map(function (item, i) { return (React.createElement("div", { key: i },
                                     React.createElement("div", { className: "card" },
                                         React.createElement("div", { className: "card-header" },

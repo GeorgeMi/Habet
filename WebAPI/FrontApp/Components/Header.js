@@ -213,9 +213,9 @@ var Header = /** @class */ (function (_super) {
                                             React.createElement("li", { className: "login-dropdown-content px-3 py-2" },
                                                 React.createElement("form", { action: "", className: "form", role: "form", onSubmit: this.handleSubmit },
                                                     React.createElement("div", { className: "form-group" },
-                                                        React.createElement("input", { type: "text", className: "form-control form-control-sm", placeholder: "Email", value: this.state.email, onChange: this.handleChange, name: "email", id: "emailInput", required: true })),
+                                                        React.createElement("input", { type: "text", className: "form-control form-control-sm", placeholder: "Email", value: this.state.email, onChange: this.handleChange, name: "email", id: "emailInput2", required: true })),
                                                     React.createElement("div", { className: "form-group" },
-                                                        React.createElement("input", { id: "passwordInput", placeholder: "Password", value: this.state.password, onChange: this.handleChange, className: "form-control form-control-sm", type: "password", name: "password", required: true })),
+                                                        React.createElement("input", { id: "passwordInput2", placeholder: "Password", value: this.state.password, onChange: this.handleChange, className: "form-control form-control-sm", type: "password", name: "password", required: true })),
                                                     React.createElement("div", { className: "form-group" },
                                                         React.createElement("button", { type: "submit", className: "btn btn-primary btn-block", onClick: this.minimizeMenu },
                                                             React.createElement(Translate, { content: "nav.Login" }))),
@@ -238,12 +238,12 @@ var Header = /** @class */ (function (_super) {
                                             React.createElement(Translate, { content: "nav.ChangePassword" })),
                                         React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/orders" },
                                             React.createElement(Translate, { content: "nav.Orders" })),
-                                        api_response.role == 'admin' ?
+                                        api_response.role.toUpperCase() === 'ADMIN' ?
                                             React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/add_product" },
                                                 React.createElement(Translate, { content: "nav.AddProduct" }))
                                             :
                                                 React.createElement("div", null),
-                                        api_response.role == 'admin' ?
+                                        api_response.role.toUpperCase() === 'ADMIN' ?
                                             React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/admin_orders" },
                                                 React.createElement(Translate, { content: "order.UsersOrders" }))
                                             :
