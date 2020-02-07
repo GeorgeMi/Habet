@@ -146,6 +146,8 @@
         OrderHistory: 'Cronologia degli ordini',
         Delivered: 'Consegnato',
         NotDelivered: 'Non consegnato',
-        UsersOrders: 'Ordini degli utenti'
+        UsersOrders: 'Ordini degli utenti',
+        ShowOrders: 'Mostra ordini',
+        OrderIsDelivered: 'L\'ordine è stato consegnato'
     },
 }

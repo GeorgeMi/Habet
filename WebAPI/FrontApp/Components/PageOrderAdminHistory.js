@@ -79,7 +79,7 @@ var OrderAdminHistory = /** @class */ (function (_super) {
                     token: sfcookies_1.read_cookie('token') //the token is a variable which holds the token
                 },
                 params: {
-                    deliveredFilter: this.state.deliveredFilter
+                    deliveredFilter: event.target.value
                 }
             })
                 .then(function (response) {
@@ -169,11 +169,12 @@ var OrderAdminHistory = /** @class */ (function (_super) {
                             React.createElement("div", { className: "justify-content-center" },
                                 React.createElement("div", { className: "col-md-6" },
                                     React.createElement("div", { className: "form-group" },
-                                        React.createElement("label", { htmlFor: "deliveredFilter" }, "Show orders"),
+                                        React.createElement("label", { htmlFor: "deliveredFilter" },
+                                            React.createElement(Translate, { content: 'order.ShowOrders' })),
                                         React.createElement("div", { className: "select-wrap" },
                                             React.createElement("select", { className: "form-control", value: this.state.deliveredFilter, onChange: this.handleChange, name: "deliveredFilter", id: "deliveredFilter", required: true },
-                                                React.createElement("option", { value: "false" }, "Delivered"),
-                                                React.createElement("option", { value: "true" }, "Not delivered"))))),
+                                                React.createElement(Translate, { component: "option", value: "true", content: 'order.Delivered' }),
+                                                React.createElement(Translate, { component: "option", value: "false", content: 'order.NotDelivered' }))))),
                                 items.map(function (item, i) { return (React.createElement("div", { key: i },
                                     React.createElement("div", { className: "card" },
                                         React.createElement("div", { className: "card-header" },
@@ -193,10 +194,12 @@ var OrderAdminHistory = /** @class */ (function (_super) {
                                                 React.createElement("div", { className: "btn btn-default", title: "View" },
                                                     React.createElement(react_router_hash_link_1.HashLink, { to: "/order/" + item.OrderId },
                                                         React.createElement(Translate, { content: 'order.OrderDetails' })))),
-                                            React.createElement("div", { className: "btn-group btn-group-justified" },
-                                                React.createElement("div", { className: "btn btn-default", title: "View" },
-                                                    React.createElement("a", { href: "javascript:void(0)", className: "add-to-cart text-center py-2 mr-1", onClick: function () { return _this.updateOrder(item.OrderId); } },
-                                                        React.createElement("span", null, "Order is delivered")))))))); })))))));
+                                            (deliveredFilter == false || deliveredFilter == 'false') &&
+                                                React.createElement("div", { className: "btn-group btn-group-justified" },
+                                                    React.createElement("div", { className: "btn btn-default", title: "View" },
+                                                        React.createElement("a", { href: "javascript:void(0)", className: "add-to-cart text-center py-2 mr-1", onClick: function () { return _this.updateOrder(item.OrderId); } },
+                                                            React.createElement("span", null,
+                                                                React.createElement(Translate, { content: 'order.OrderIsDelivered' }))))))))); })))))));
         }
     };
     return OrderAdminHistory;

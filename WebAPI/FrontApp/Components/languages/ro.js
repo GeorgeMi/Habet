@@ -146,6 +146,8 @@
         OrderHistory: 'Istoric comenzi',
         Delivered: 'Livrate',
         NotDelivered: 'Nelivrate',
-        UsersOrders: 'Comenzile utilizatorilor'
+        UsersOrders: 'Comenzile utilizatorilor',
+        ShowOrders: 'Afișează comenzile',
+        OrderIsDelivered: 'Comanda este livrată'
     },
 }

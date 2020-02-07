@@ -69,7 +69,7 @@ export class OrderAdminHistory extends React.Component<any, any> {
                         token: read_cookie('token') //the token is a variable which holds the token
                     },
                     params: {
-                        deliveredFilter: this.state.deliveredFilter
+                        deliveredFilter: event.target.value
                     }
                 })
                 .then((response) => {
@@ -165,11 +165,11 @@ export class OrderAdminHistory extends React.Component<any, any> {
                                 <div className="justify-content-center">
                                     <div className="col-md-6">
                                         <div className="form-group">
-                                            <label htmlFor="deliveredFilter">Show orders</label>
+                                            <label htmlFor="deliveredFilter"><Translate content='order.ShowOrders' /></label>
                                             <div className="select-wrap">
                                                 <select className="form-control" value={this.state.deliveredFilter} onChange={this.handleChange} name="deliveredFilter" id="deliveredFilter" required>
-                                                    <option value="false">Delivered</option>
-                                                    <option value="true">Not delivered</option>
+                                                    <Translate component="option" value="true" content='order.Delivered' />
+                                                    <Translate component="option" value="false" content='order.NotDelivered' />
                                                 </select>
                                             </div>
                                         </div>
@@ -191,11 +191,14 @@ export class OrderAdminHistory extends React.Component<any, any> {
                                                             </div>
                                                         </div>
 
+                                                        {
+                                                            (deliveredFilter == false || deliveredFilter == 'false') &&
                                                             <div className="btn-group btn-group-justified">
                                                                 <div className="btn btn-default" title="View">
-                                                                    <a href="javascript:void(0)" className="add-to-cart text-center py-2 mr-1" onClick={() => this.updateOrder(item.OrderId)}><span>Order is delivered</span></a>
+                                                                    <a href="javascript:void(0)" className="add-to-cart text-center py-2 mr-1" onClick={() => this.updateOrder(item.OrderId)}><span><Translate content='order.OrderIsDelivered' /></span></a>
                                                                 </div>
                                                             </div>
+                                                        }
                                                         
                                                     </div>
                                                 </div>

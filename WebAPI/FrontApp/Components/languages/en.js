@@ -146,6 +146,8 @@
         OrderHistory: 'Orders history',
         Delivered: 'Delivered',
         NotDelivered: 'Not delivered',
-        UsersOrders: 'Users orders'
+        UsersOrders: 'Users orders',
+        ShowOrders: 'Show orders',
+        OrderIsDelivered: 'Order is delivered'
     },
 }
