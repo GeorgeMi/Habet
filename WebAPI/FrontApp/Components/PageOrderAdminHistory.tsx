@@ -91,20 +91,23 @@ export class OrderAdminHistory extends React.Component<any, any> {
             axios.post(API_Path + '/EditOrders', {
                 orderId: orderId,
                 sent: true,
-                }, {
+            }, {
                 headers: {
                     token: read_cookie('token') //the token is a variable which holds the token
                 }
-                })
+            })
                 .then((response) => {
-                    this.setState({ isLoaded: true, items: response.data.data });
                     NotificationManager.success(response.data.message);
+
+                    window.location.reload();
                 })
                 .catch((error) => {
                     this.setState({ isLoaded: true, error });
                     NotificationManager.error("Request failed. Please, try again later.");
                 })
-                .then();
+                .then(() => {
+                    this.setState({ waitingResponse: false });
+                });
         }
     }
 

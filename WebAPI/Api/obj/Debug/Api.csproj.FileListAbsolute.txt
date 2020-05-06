@@ -348,3 +348,4 @@ F:\workspace\Habet\WebAPI\Api\obj\Debug\Api.csproj.CopyComplete
 F:\workspace\Habet\WebAPI\Api\obj\Debug\Api.dll
 F:\workspace\Habet\WebAPI\Api\obj\Debug\Api.pdb
 D:\project\Habet\WebAPI\Api\obj\Debug\Api.csproj.CoreCompileInputs.cache
+D:\project\Habet\WebAPI\Api\obj\Debug\Api.csprojAssemblyReference.cache

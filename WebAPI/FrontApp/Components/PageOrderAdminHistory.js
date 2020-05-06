@@ -106,14 +106,16 @@ var OrderAdminHistory = /** @class */ (function (_super) {
                 }
             })
                 .then(function (response) {
-                _this.setState({ isLoaded: true, items: response.data.data });
                 react_notifications_1.NotificationManager.success(response.data.message);
+                window.location.reload();
             })
                 .catch(function (error) {
                 _this.setState({ isLoaded: true, error: error });
                 react_notifications_1.NotificationManager.error("Request failed. Please, try again later.");
             })
-                .then();
+                .then(function () {
+                _this.setState({ waitingResponse: false });
+            });
         }
     };
     OrderAdminHistory.prototype.render = function () {
