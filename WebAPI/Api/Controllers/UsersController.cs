@@ -67,6 +67,13 @@ namespace Api.Controllers
             return responseMessage;
         }
 
+        public HttpResponseMessage Options()
+        {
+            var response = new HttpResponseMessage();
+            response.StatusCode = HttpStatusCode.OK;
+            return response;
+        }
+
         // PUT: api/Users
         [RequireToken]
         [ResponseType(typeof(void))]

@@ -348,3 +348,5 @@ F:\workspace\Habet\WebAPI\Api\bin\itext.pdfa.xml
 F:\workspace\Habet\WebAPI\Api\bin\itext.sign.xml
 F:\workspace\Habet\WebAPI\Api\bin\itext.styledxmlparser.xml
 F:\workspace\Habet\WebAPI\Api\bin\itext.svg.xml
+D:\project\Habet\WebAPI\Api\obj\Release\Api.csprojAssemblyReference.cache
+D:\project\Habet\WebAPI\Api\obj\Release\Api.csproj.CoreCompileInputs.cache

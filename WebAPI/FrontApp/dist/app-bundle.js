@@ -3872,7 +3872,7 @@ var UpdateUserDetails = /** @class */ (function (_super) {
         if (this.state.waitingResponse == false) {
             this.setState({ waitingResponse: true });
         }
-        axios.put(API_Path + '/Users', {
+        axios.post(API_Path + '/Users', {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             state: this.state.state,
@@ -38930,7 +38930,7 @@ if(false) {}
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
