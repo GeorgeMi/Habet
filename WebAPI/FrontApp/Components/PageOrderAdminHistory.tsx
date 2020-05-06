@@ -88,7 +88,7 @@ export class OrderAdminHistory extends React.Component<any, any> {
 
     updateOrder(orderId: number) {
         if (read_cookie('token') != null && read_cookie('token').length !== 0) {
-            axios.put(API_Path + '/Orders', {
+            axios.post(API_Path + '/EditOrders', {
                 orderId: orderId,
                 sent: true,
                 }, {

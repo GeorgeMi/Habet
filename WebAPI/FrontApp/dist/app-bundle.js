@@ -2474,7 +2474,7 @@ var OrderAdminHistory = /** @class */ (function (_super) {
     OrderAdminHistory.prototype.updateOrder = function (orderId) {
         var _this = this;
         if (sfcookies_1.read_cookie('token') != null && sfcookies_1.read_cookie('token').length !== 0) {
-            axios.put(API_Path + '/Orders', {
+            axios.post(API_Path + '/EditOrders', {
                 orderId: orderId,
                 sent: true,
             }, {
@@ -3872,7 +3872,7 @@ var UpdateUserDetails = /** @class */ (function (_super) {
         if (this.state.waitingResponse == false) {
             this.setState({ waitingResponse: true });
         }
-        axios.post(API_Path + '/Users', {
+        axios.post(API_Path + '/EditUsers', {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             state: this.state.state,

@@ -82,7 +82,7 @@ export class UpdateUserDetails extends React.Component<any, any> {
             this.setState({ waitingResponse: true });
         }
 
-        axios.put(API_Path + '/Users', {
+        axios.post(API_Path + '/EditUsers', {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             state: this.state.state,

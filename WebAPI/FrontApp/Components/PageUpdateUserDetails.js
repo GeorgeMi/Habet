@@ -90,7 +90,7 @@ var UpdateUserDetails = /** @class */ (function (_super) {
         if (this.state.waitingResponse == false) {
             this.setState({ waitingResponse: true });
         }
-        axios.put(API_Path + '/Users', {
+        axios.post(API_Path + '/EditUsers', {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             state: this.state.state,

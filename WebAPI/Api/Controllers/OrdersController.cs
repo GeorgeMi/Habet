@@ -322,7 +322,9 @@ namespace Api.Controllers
 
         // POST: api/Orders
         [RequireAdminToken]
-        public HttpResponseMessage PutOrders(UpdateOrderDTO request)
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/EditOrders")]
+        public HttpResponseMessage EditOrders(UpdateOrderDTO request)
         {
             HttpResponseMessage responseMessage;
             JSendMessage json;

@@ -70,7 +70,9 @@ namespace Api.Controllers
         // PUT: api/Users
         [RequireToken]
         [ResponseType(typeof(void))]
-        public HttpResponseMessage PutUsers(UserUpdateDetails request)
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/EditUsers")]
+        public HttpResponseMessage EditUsers(UserUpdateDetails request)
         {
             HttpResponseMessage responseMessage = null;
             var token = Request.Headers.SingleOrDefault(x => x.Key == "token").Value.First();

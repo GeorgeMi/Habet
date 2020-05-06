@@ -97,7 +97,7 @@ var OrderAdminHistory = /** @class */ (function (_super) {
     OrderAdminHistory.prototype.updateOrder = function (orderId) {
         var _this = this;
         if (sfcookies_1.read_cookie('token') != null && sfcookies_1.read_cookie('token').length !== 0) {
-            axios.put(API_Path + '/Orders', {
+            axios.post(API_Path + '/EditOrders', {
                 orderId: orderId,
                 sent: true,
             }, {
