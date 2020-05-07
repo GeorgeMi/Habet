@@ -3,7 +3,7 @@
         Account: 'Account',
         AddProduct: 'Aggiungi prodotto',
         Bags: 'Borse',
-        Belts: 'Cinture',
+        Accessories: 'Accessori',
         ChangePassword: 'Cambia la password',
         Contact: 'Contatto',
         CreateAccount: 'Creare un profilo',
@@ -27,7 +27,7 @@
     products: {
         AddToCart: 'Aggiungi al carrello',
         Bags: 'Borse',
-        Belts: 'Cinture',
+        Accessories: 'Accessori',
         BuyNow: 'Acquista ora',
         Men: 'Uomini',
         Women: 'Donne'
@@ -56,7 +56,7 @@
         Women: 'Donne',
         Products: 'Prodotti',
         Bags: 'Borse',
-        Belts: 'Cinture',
+        Accessories: 'Accessori',
         PriceRange: 'Fascia di prezzo',
         Filter: 'Filtra'
     },
@@ -117,9 +117,9 @@
         Gender: 'Genere',
         Select: 'Seleziona',
         Bags: 'Borse',
-        Belts: 'Cinture',
+        Accessories: 'Accessori',
         Bag: 'Borsa',
-        Belt: 'Cintura',
+        Accessory: 'Accessorio',
         Men: 'Uomini',
         Women: 'Donne',
         Type: 'Tipo',

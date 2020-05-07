@@ -3,7 +3,7 @@
         Account: 'Cont',
         AddProduct: 'Adaugă produs',
         Bags: 'Poşete',
-        Belts: 'Curele',
+        Accessories: 'Accesorii',
         ChangePassword: 'Schimbă parola',
         Contact: 'Contact',
         CreateAccount: 'Creează cont',
@@ -27,7 +27,7 @@
     products: {
         AddToCart: 'Adaugă în coș',
         Bags: 'Poşete',
-        Belts: 'Curele',
+        Accessories: 'Accesorii',
         BuyNow: 'Cumpară acum',
         Men: 'Bărbați',
         Women: 'Femei'
@@ -56,7 +56,7 @@
         Women: 'Femei',
         Products: 'Produse',
         Bags: 'Poşete',
-        Belts: 'Curele',
+        Accessories: 'Accesorii',
         PriceRange: 'Gama de prețuri',
         Filter: 'Filtrează'
     },
@@ -117,9 +117,9 @@
         Gender: 'Sex',
         Select: 'Selectați',
         Bags: 'Genți',
-        Belts: 'Curele',
+        Accessories: 'Accesorii',
         Bag: 'Geantă',
-        Belt: 'Curea',
+        Accessory: 'Accesoriu',
         Men: 'Bărbați',
         Women: 'Femei',
         Type: 'Tip',

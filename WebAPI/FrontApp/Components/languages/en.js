@@ -3,7 +3,7 @@
         Account: 'Account',
         AddProduct: 'Add product',
         Bags: 'Bags',
-        Belts: 'Belts',
+        Accessories: 'Accessories',
         ChangePassword: 'Change password',
         Contact: 'Contact',
         CreateAccount: 'Create account',
@@ -19,7 +19,7 @@
         ContactUs: 'Contact Us',
         OurNewsletter: 'Our Newsletter',
         Subscribe: 'Subscribe',
-        FooterResume: 'Butterfly Gabriel Habet is a fashion brand mainly known for its bag and belt designs for both women and men.',
+        FooterResume: 'Butterfly Gabriel Habet is a fashion brand mainly known for its bag and accessory designs for both women and men.',
         NewsletterResume: 'I would like to receive emails from GabrielHabet with updates and special offers of GabrielHabet. I can unsubscribe any time by clicking the unsubscribe link in the email.',
         Orders: 'Orders'
     },
@@ -27,7 +27,7 @@
     products: {
         AddToCart: 'Add to cart',
         Bags: 'Bags',
-        Belts: 'Belts',
+        Accessories: 'Accessories',
         BuyNow: 'Buy now',
         Men: 'Men',
         Women: 'Women'
@@ -56,7 +56,7 @@
         Women: 'Women',
         Products: 'Products',
         Bags: 'Bags',
-        Belts: 'Belts',
+        Accessories: 'Accessories',
         PriceRange: 'Price Range',
         Filter: 'Filter'
     },
@@ -117,9 +117,9 @@
         Gender: 'Gender',
         Select: 'Select',
         Bags: 'Bags',
-        Belts: 'Belts',
+        Accessories: 'Accessories',
         Bag: 'Bag',
-        Belt: 'Belt',
+        Accessory: 'Accessory',
         Men: 'Men',
         Women: 'Women',
         Type: 'Type',

@@ -189,7 +189,7 @@ var AddProduct = /** @class */ (function (_super) {
                                                         React.createElement("span", { className: "ion-ios-arrow-down" })),
                                                     React.createElement("select", { className: "form-control", value: this.state.type, onChange: this.handleChange, name: "type", id: "type", required: true },
                                                         React.createElement("option", { value: "" }, "Select"),
-                                                        React.createElement("option", { value: "Belts" }, "Belt"),
+                                                        React.createElement("option", { value: "Accessories" }, "Accessories"),
                                                         React.createElement("option", { value: "Bags" }, "Bag"))))),
                                         React.createElement("div", { className: "w-100" }),
                                         React.createElement("div", { className: "col-md-8" },

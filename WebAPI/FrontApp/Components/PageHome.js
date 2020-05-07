@@ -80,9 +80,9 @@ var Home = /** @class */ (function (_super) {
                 React.createElement("section", { className: "ftco-section bg-light" },
                     React.createElement(react_1.Suspense, { fallback: React.createElement("div", null, "Loading...") },
                         React.createElement(SectionProducts, { Gender: 'Women', Type: 'Bags', reloadPage: this.reloadPage, setLoadedComponentsArray: this.setLoadedComponentsArray }),
-                        React.createElement(SectionProducts, { Gender: 'Women', Type: 'Belts', reloadPage: this.reloadPage }),
+                        React.createElement(SectionProducts, { Gender: 'Women', Type: 'Accessories', reloadPage: this.reloadPage }),
                         React.createElement(SectionProducts, { Gender: 'Men', Type: 'Bags', reloadPage: this.reloadPage }),
-                        React.createElement(SectionProducts, { Gender: 'Men', Type: 'Belts', reloadPage: this.reloadPage }))))));
+                        React.createElement(SectionProducts, { Gender: 'Men', Type: 'Accessories', reloadPage: this.reloadPage }))))));
     };
     return Home;
 }(React.Component));

@@ -89,13 +89,13 @@ export class Home extends React.Component<any, any> {
 
                             <SectionProducts Gender={'Women'} Type={'Bags'} reloadPage={this.reloadPage} setLoadedComponentsArray={this.setLoadedComponentsArray}/>
 
-                            <SectionProducts Gender={'Women'} Type={'Belts'} reloadPage={this.reloadPage}  />
+                            <SectionProducts Gender={'Women'} Type={'Accessories'} reloadPage={this.reloadPage}  />
 
 
                             <SectionProducts Gender={'Men'} Type={'Bags'} reloadPage={this.reloadPage} />
 
 
-                            <SectionProducts Gender={'Men'} Type={'Belts'} reloadPage={this.reloadPage} />
+                            <SectionProducts Gender={'Men'} Type={'Accessories'} reloadPage={this.reloadPage} />
                               </Suspense>
                     </section>
                 </div>

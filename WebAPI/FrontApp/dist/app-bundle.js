@@ -468,16 +468,16 @@ var Header = /** @class */ (function (_super) {
                                 React.createElement("div", { className: "dropdown-content", "aria-labelledby": "dropdown04" },
                                     React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Women-Bags-section", onClick: this.minimizeMenu },
                                         React.createElement(Translate, { content: "nav.Bags" })),
-                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Women-Belts-section", onClick: this.minimizeMenu },
-                                        React.createElement(Translate, { content: "nav.Belts" })))),
+                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Women-Accessories-section", onClick: this.minimizeMenu },
+                                        React.createElement(Translate, { content: "nav.Accessories" })))),
                             React.createElement("li", { className: "nav-item dropdown " + headerDictionary.Item('Men') },
                                 React.createElement(react_router_hash_link_1.HashLink, { className: "nav-link dropdown-toggle", to: "/#Men-section", id: "dropdown04", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
                                     React.createElement(Translate, { content: "nav.Men" })),
                                 React.createElement("div", { className: "dropdown-content", "aria-labelledby": "dropdown04" },
                                     React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Men-Bags-section", onClick: this.minimizeMenu },
                                         React.createElement(Translate, { content: "nav.Bags" })),
-                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Men-Belts-section", onClick: this.minimizeMenu },
-                                        React.createElement(Translate, { content: "nav.Belts" })))),
+                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Men-Accessories-section", onClick: this.minimizeMenu },
+                                        React.createElement(Translate, { content: "nav.Accessories" })))),
                             React.createElement("li", { className: "nav-item " + headerDictionary.Item('Search') },
                                 React.createElement("a", { href: "/#/search", className: "nav-link" },
                                     React.createElement(Translate, { content: "nav.Search" }))),
@@ -755,7 +755,7 @@ var AddProduct = /** @class */ (function (_super) {
                                                         React.createElement("span", { className: "ion-ios-arrow-down" })),
                                                     React.createElement("select", { className: "form-control", value: this.state.type, onChange: this.handleChange, name: "type", id: "type", required: true },
                                                         React.createElement("option", { value: "" }, "Select"),
-                                                        React.createElement("option", { value: "Belts" }, "Belt"),
+                                                        React.createElement("option", { value: "Accessories" }, "Accessories"),
                                                         React.createElement("option", { value: "Bags" }, "Bag"))))),
                                         React.createElement("div", { className: "w-100" }),
                                         React.createElement("div", { className: "col-md-8" },
@@ -2021,9 +2021,9 @@ var Home = /** @class */ (function (_super) {
                 React.createElement("section", { className: "ftco-section bg-light" },
                     React.createElement(react_1.Suspense, { fallback: React.createElement("div", null, "Loading...") },
                         React.createElement(SectionProducts, { Gender: 'Women', Type: 'Bags', reloadPage: this.reloadPage, setLoadedComponentsArray: this.setLoadedComponentsArray }),
-                        React.createElement(SectionProducts, { Gender: 'Women', Type: 'Belts', reloadPage: this.reloadPage }),
+                        React.createElement(SectionProducts, { Gender: 'Women', Type: 'Accessories', reloadPage: this.reloadPage }),
                         React.createElement(SectionProducts, { Gender: 'Men', Type: 'Bags', reloadPage: this.reloadPage }),
-                        React.createElement(SectionProducts, { Gender: 'Men', Type: 'Belts', reloadPage: this.reloadPage }))))));
+                        React.createElement(SectionProducts, { Gender: 'Men', Type: 'Accessories', reloadPage: this.reloadPage }))))));
     };
     return Home;
 }(React.Component));
@@ -3681,9 +3681,9 @@ var Search = /** @class */ (function (_super) {
                                                                             React.createElement("label", { className: "form-check-label", htmlFor: "type-bags" },
                                                                                 React.createElement(Translate, { content: 'search.Bags' }))),
                                                                         React.createElement("li", null,
-                                                                            React.createElement("input", { type: "radio", className: "form-check-input", name: "type", value: "Belts", checked: this.state.type === "Belts", id: "type-belts", onChange: this.handleChange }),
-                                                                            React.createElement("label", { className: "form-check-label", htmlFor: "type-belts" },
-                                                                                React.createElement(Translate, { content: 'search.Belts' }))))))),
+                                                                            React.createElement("input", { type: "radio", className: "form-check-input", name: "type", value: "Accessories", checked: this.state.type === "Accessories", id: "type-accessories", onChange: this.handleChange }),
+                                                                            React.createElement("label", { className: "form-check-label", htmlFor: "type-accessories" },
+                                                                                React.createElement(Translate, { content: 'search.Accessories' }))))))),
                                                         React.createElement("div", { className: "panel panel-default" },
                                                             React.createElement("div", { className: "panel-heading", role: "tab", id: "headingThree" },
                                                                 React.createElement("h4", { className: "panel-title" },
@@ -4436,7 +4436,7 @@ __webpack_require__.r(__webpack_exports__);
         Account: 'Account',
         AddProduct: 'Add product',
         Bags: 'Bags',
-        Belts: 'Belts',
+        Accessories: 'Accessories',
         ChangePassword: 'Change password',
         Contact: 'Contact',
         CreateAccount: 'Create account',
@@ -4452,7 +4452,7 @@ __webpack_require__.r(__webpack_exports__);
         ContactUs: 'Contact Us',
         OurNewsletter: 'Our Newsletter',
         Subscribe: 'Subscribe',
-        FooterResume: 'Butterfly Gabriel Habet is a fashion brand mainly known for its bag and belt designs for both women and men.',
+        FooterResume: 'Butterfly Gabriel Habet is a fashion brand mainly known for its bag and accessory designs for both women and men.',
         NewsletterResume: 'I would like to receive emails from GabrielHabet with updates and special offers of GabrielHabet. I can unsubscribe any time by clicking the unsubscribe link in the email.',
         Orders: 'Orders'
     },
@@ -4460,7 +4460,7 @@ __webpack_require__.r(__webpack_exports__);
     products: {
         AddToCart: 'Add to cart',
         Bags: 'Bags',
-        Belts: 'Belts',
+        Accessories: 'Accessories',
         BuyNow: 'Buy now',
         Men: 'Men',
         Women: 'Women'
@@ -4489,7 +4489,7 @@ __webpack_require__.r(__webpack_exports__);
         Women: 'Women',
         Products: 'Products',
         Bags: 'Bags',
-        Belts: 'Belts',
+        Accessories: 'Accessories',
         PriceRange: 'Price Range',
         Filter: 'Filter'
     },
@@ -4550,9 +4550,9 @@ __webpack_require__.r(__webpack_exports__);
         Gender: 'Gender',
         Select: 'Select',
         Bags: 'Bags',
-        Belts: 'Belts',
+        Accessories: 'Accessories',
         Bag: 'Bag',
-        Belt: 'Belt',
+        Accessory: 'Accessory',
         Men: 'Men',
         Women: 'Women',
         Type: 'Type',
@@ -4601,7 +4601,7 @@ __webpack_require__.r(__webpack_exports__);
         Account: 'Account',
         AddProduct: 'Aggiungi prodotto',
         Bags: 'Borse',
-        Belts: 'Cinture',
+        Accessories: 'Accessori',
         ChangePassword: 'Cambia la password',
         Contact: 'Contatto',
         CreateAccount: 'Creare un profilo',
@@ -4625,7 +4625,7 @@ __webpack_require__.r(__webpack_exports__);
     products: {
         AddToCart: 'Aggiungi al carrello',
         Bags: 'Borse',
-        Belts: 'Cinture',
+        Accessories: 'Accessori',
         BuyNow: 'Acquista ora',
         Men: 'Uomini',
         Women: 'Donne'
@@ -4654,7 +4654,7 @@ __webpack_require__.r(__webpack_exports__);
         Women: 'Donne',
         Products: 'Prodotti',
         Bags: 'Borse',
-        Belts: 'Cinture',
+        Accessories: 'Accessori',
         PriceRange: 'Fascia di prezzo',
         Filter: 'Filtra'
     },
@@ -4715,9 +4715,9 @@ __webpack_require__.r(__webpack_exports__);
         Gender: 'Genere',
         Select: 'Seleziona',
         Bags: 'Borse',
-        Belts: 'Cinture',
+        Accessories: 'Accessori',
         Bag: 'Borsa',
-        Belt: 'Cintura',
+        Accessory: 'Accessorio',
         Men: 'Uomini',
         Women: 'Donne',
         Type: 'Tipo',
@@ -4766,7 +4766,7 @@ __webpack_require__.r(__webpack_exports__);
         Account: 'Cont',
         AddProduct: 'Adaugă produs',
         Bags: 'Poşete',
-        Belts: 'Curele',
+        Accessories: 'Accesorii',
         ChangePassword: 'Schimbă parola',
         Contact: 'Contact',
         CreateAccount: 'Creează cont',
@@ -4790,7 +4790,7 @@ __webpack_require__.r(__webpack_exports__);
     products: {
         AddToCart: 'Adaugă în coș',
         Bags: 'Poşete',
-        Belts: 'Curele',
+        Accessories: 'Accesorii',
         BuyNow: 'Cumpară acum',
         Men: 'Bărbați',
         Women: 'Femei'
@@ -4819,7 +4819,7 @@ __webpack_require__.r(__webpack_exports__);
         Women: 'Femei',
         Products: 'Produse',
         Bags: 'Poşete',
-        Belts: 'Curele',
+        Accessories: 'Accesorii',
         PriceRange: 'Gama de prețuri',
         Filter: 'Filtrează'
     },
@@ -4880,9 +4880,9 @@ __webpack_require__.r(__webpack_exports__);
         Gender: 'Sex',
         Select: 'Selectați',
         Bags: 'Genți',
-        Belts: 'Curele',
+        Accessories: 'Accesorii',
         Bag: 'Geantă',
-        Belt: 'Curea',
+        Accessory: 'Accesoriu',
         Men: 'Bărbați',
         Women: 'Femei',
         Type: 'Tip',
@@ -38932,7 +38932,7 @@ if(false) {}
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -47087,13 +47087,13 @@ module.exports = g;
 /***/ }),
 
 /***/ "config":
-/*!***********************************************************************!*\
-  !*** external "{\"API_Path\":\"http://api.gabrielhabet.co.uk/api\"}" ***!
-  \***********************************************************************/
+/*!****************************************************************!*\
+  !*** external "{\"API_Path\":\"http://localhost:65315/api\"}" ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = {"API_Path":"http://api.gabrielhabet.co.uk/api"};
+module.exports = {"API_Path":"http://localhost:65315/api"};
 
 /***/ })
 

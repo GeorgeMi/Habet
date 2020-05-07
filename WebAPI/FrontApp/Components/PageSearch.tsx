@@ -251,9 +251,9 @@ export class Search extends React.Component<any, any>
                                                                             <label className="form-check-label" htmlFor="type-bags"><Translate content={'search.Bags'} /></label>
                                                                         </li>
                                                                         <li>
-                                                                            <input type="radio" className="form-check-input" name="type" value="Belts"
-                                                                                checked={this.state.type === "Belts"} id="type-belts" onChange={this.handleChange} />
-                                                                            <label className="form-check-label" htmlFor="type-belts"><Translate content={'search.Belts'} /></label>
+                                                                                <input type="radio" className="form-check-input" name="type" value="Accessories"
+                                                                                    checked={this.state.type === "Accessories"} id="type-accessories" onChange={this.handleChange} />
+                                                                                <label className="form-check-label" htmlFor="type-accessories"><Translate content={'search.Accessories'} /></label>
                                                                         </li>
                                                                     </ul>
                                                                 </div>
