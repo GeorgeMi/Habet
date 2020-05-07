@@ -30,7 +30,11 @@
         Accessories: 'Accesorii',
         BuyNow: 'Cumpară acum',
         Men: 'Bărbați',
-        Women: 'Femei'
+        Women: 'Femei',
+        WomenAccessories: 'Accesorii pentru femei',
+        WomenBags: 'Poşete pentru femei',
+        MenAccessories: 'Accesorii pentru bărbați',
+        MenBags: 'Genți pentru bărbați'
     },
 
     contact: {

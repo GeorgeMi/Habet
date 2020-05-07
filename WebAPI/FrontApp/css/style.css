@@ -587,7 +587,9 @@ pre {
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
-  margin-left: auto; }
+  margin-left: auto; 
+  padding-top: 15px;
+}
   @media (min-width: 576px) {
     .container {
       max-width: 540px; } }
@@ -13449,7 +13451,6 @@ pre {
     }
 
     .ftco-section {
-        padding: 7em 0;
         position: relative;
     }
 
@@ -15124,5 +15125,12 @@ pre {
     .short-description {
         display: none;
     }
+}
+
+.carrousel-description{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
 }
 

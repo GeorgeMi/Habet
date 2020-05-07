@@ -19,7 +19,6 @@ var SectionProducts = React.lazy(function () { return Promise.resolve().then(fun
 var SectionIntro_1 = require("./SectionIntro");
 var Header_1 = require("./Header");
 var Dictionary_1 = require("./Dictionary");
-var Translate = require("react-translate-component");
 var en_1 = require("./languages/en");
 var it_1 = require("./languages/it");
 var ro_1 = require("./languages/ro");
@@ -67,16 +66,6 @@ var Home = /** @class */ (function (_super) {
             React.createElement("div", null,
                 React.createElement(Header_1.Header, { Active: 'Home', reloadPage: this.reloadPage }),
                 React.createElement(SectionIntro_1.SectionIntro, null),
-                React.createElement("section", { className: "ftco-section-2 bg-light" },
-                    React.createElement("div", { className: "container" },
-                        React.createElement("div", { className: "row" },
-                            React.createElement("div", { className: "offset-1 col-md-10" },
-                                React.createElement("div", { className: "text-deal short-description", id: "intro-short-description", style: { opacity: 1, fontStyle: 'italic', textAlign: 'justify' } },
-                                    React.createElement(Translate, { onClick: this.maximizeDescription, component: "h5", content: 'intro.MP1' })),
-                                React.createElement("div", { className: "text-deal hide-description", id: "intro-full-description", style: { opacity: 1, fontStyle: 'italic', textAlign: 'justify' }, onClick: this.minimizeDescription },
-                                    React.createElement(Translate, { component: "h5", content: 'intro.P1' }),
-                                    React.createElement(Translate, { component: "h5", content: 'intro.P2' }),
-                                    React.createElement(Translate, { component: "h5", content: 'intro.P3' })))))),
                 React.createElement("section", { className: "ftco-section bg-light" },
                     React.createElement(react_1.Suspense, { fallback: React.createElement("div", null, "Loading...") },
                         React.createElement(SectionProducts, { Gender: 'Women', Type: 'Bags', reloadPage: this.reloadPage, setLoadedComponentsArray: this.setLoadedComponentsArray }),

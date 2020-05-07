@@ -30,7 +30,11 @@
         Accessories: 'Accessori',
         BuyNow: 'Acquista ora',
         Men: 'Uomini',
-        Women: 'Donne'
+        Women: 'Donne',
+        WomenAccessories: 'Accessori donna',
+        WomenBags: 'Borse da donna',
+        MenAccessories: 'Accessori uomo',
+        MenBags: 'Borse uomo'
     },
 
     contact: {
@@ -132,10 +136,10 @@
     },
 
     intro: {
-        MP1: 'Many years ago, Gabriel’s career started working as a leather cutter for Italian companies. From design to assembly and product finishing, he went through all the steps required to make leather articles, mastering his abilities in this field over time...',
-        P1: 'Many years ago, Gabriel’s career started working as a leather cutter for Italian companies. From design to assembly and product finishing, he went through all the steps required to make leather articles, mastering his abilities in this field over time. Later on, being experienced and passionate, he started working with some of the famous in the field, creating new models for both men and women, contributing through his work to the evolution of leather processing and metal accessories. Then, it came a time when he decided to use this experience in order to create new designs of his own idea under his own new born brand: Butterfly Gabriel Habet.',
-        P2: 'His creations are exclusively handmade, designed and produced with an exigency from raw materials which are directly imported from Italy. This highlights the quality and Italian excellence in tanning and leather processing. The following collection aims to satisfy the requirements of enthusiasts of leather articles, delighting them with minimal style elements inspired by modern geometrism but with the ample freedom of defined classicism.',
-        P3: 'Thank you for stopping-by and enjoy shopping!'
+        MP1: 'Molti anni fa, la carriera di Gabriel ha iniziato a lavorare come taglierina di pelle per aziende italiane. Dalla progettazione all\'assemblaggio e alla finitura del prodotto, ha attraversato tutti i passaggi necessari per realizzare articoli in pelle, padroneggiando le sue capacità in questo campo nel tempo...',
+        P1: 'Molti anni fa, la carriera di Gabriel ha iniziato a lavorare come taglierina di pelle per aziende italiane. Dalla progettazione all\'assemblaggio e alla finitura del prodotto, ha seguito tutti i passaggi necessari per realizzare articoli in pelle, padroneggiando le sue capacità in questo campo nel tempo.In seguito, essendo esperto e appassionato, ha iniziato a lavorare con alcuni dei più famosi del settore, creando nuovi modelli per uomini e donne, contribuendo con il suo lavoro all\'evoluzione della lavorazione della pelle e degli accessori in metallo. Poi, è arrivato il momento in cui ha deciso di utilizzare questa esperienza al fine di creare nuovi disegni della propria idea con il suo marchio appena nato: Butterfly Gabriel Habet.',
+        P2: 'Le sue creazioni sono esclusivamente fatte a mano, progettate e prodotte con un\'esigenza di materie prime che vengono importate direttamente dall\'Italia. Ciò evidenzia la qualità e l\'eccellenza italiana nella concia e nella lavorazione della pelle.La seguente collezione mira a soddisfare le esigenze degli appassionati di articoli in pelle, deliziandoli con elementi di stile minimal ispirati al moderno geometrismo ma con l\'ampia libertà del classicismo definito.',
+        P3: 'Grazie per esserti fermato e goditi lo shopping!'
     }, 
 
     order: {

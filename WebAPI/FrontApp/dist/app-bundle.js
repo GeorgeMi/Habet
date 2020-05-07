@@ -466,17 +466,17 @@ var Header = /** @class */ (function (_super) {
                                 React.createElement(react_router_hash_link_1.HashLink, { className: "nav-link dropdown-toggle", to: "/#Women-section", id: "dropdown04", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
                                     React.createElement(Translate, { content: "nav.Women" })),
                                 React.createElement("div", { className: "dropdown-content", "aria-labelledby": "dropdown04" },
-                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Women-Bags-section", onClick: this.minimizeMenu },
+                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/home/#Women-Bags-section", onClick: this.minimizeMenu },
                                         React.createElement(Translate, { content: "nav.Bags" })),
-                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Women-Accessories-section", onClick: this.minimizeMenu },
+                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/home/#Women-Accessories-section", onClick: this.minimizeMenu },
                                         React.createElement(Translate, { content: "nav.Accessories" })))),
                             React.createElement("li", { className: "nav-item dropdown " + headerDictionary.Item('Men') },
                                 React.createElement(react_router_hash_link_1.HashLink, { className: "nav-link dropdown-toggle", to: "/#Men-section", id: "dropdown04", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
                                     React.createElement(Translate, { content: "nav.Men" })),
                                 React.createElement("div", { className: "dropdown-content", "aria-labelledby": "dropdown04" },
-                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Men-Bags-section", onClick: this.minimizeMenu },
+                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/home/#Men-Bags-section", onClick: this.minimizeMenu },
                                         React.createElement(Translate, { content: "nav.Bags" })),
-                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/#Men-Accessories-section", onClick: this.minimizeMenu },
+                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/home/#Men-Accessories-section", onClick: this.minimizeMenu },
                                         React.createElement(Translate, { content: "nav.Accessories" })))),
                             React.createElement("li", { className: "nav-item " + headerDictionary.Item('Search') },
                                 React.createElement("a", { href: "/#/search", className: "nav-link" },
@@ -1960,7 +1960,6 @@ var SectionProducts = React.lazy(function () { return Promise.resolve().then(fun
 var SectionIntro_1 = __webpack_require__(/*! ./SectionIntro */ "./Components/SectionIntro.js");
 var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
 var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
-var Translate = __webpack_require__(/*! react-translate-component */ "./node_modules/react-translate-component/index.js");
 var en_1 = __webpack_require__(/*! ./languages/en */ "./Components/languages/en.js");
 var it_1 = __webpack_require__(/*! ./languages/it */ "./Components/languages/it.js");
 var ro_1 = __webpack_require__(/*! ./languages/ro */ "./Components/languages/ro.js");
@@ -2008,16 +2007,6 @@ var Home = /** @class */ (function (_super) {
             React.createElement("div", null,
                 React.createElement(Header_1.Header, { Active: 'Home', reloadPage: this.reloadPage }),
                 React.createElement(SectionIntro_1.SectionIntro, null),
-                React.createElement("section", { className: "ftco-section-2 bg-light" },
-                    React.createElement("div", { className: "container" },
-                        React.createElement("div", { className: "row" },
-                            React.createElement("div", { className: "offset-1 col-md-10" },
-                                React.createElement("div", { className: "text-deal short-description", id: "intro-short-description", style: { opacity: 1, fontStyle: 'italic', textAlign: 'justify' } },
-                                    React.createElement(Translate, { onClick: this.maximizeDescription, component: "h5", content: 'intro.MP1' })),
-                                React.createElement("div", { className: "text-deal hide-description", id: "intro-full-description", style: { opacity: 1, fontStyle: 'italic', textAlign: 'justify' }, onClick: this.minimizeDescription },
-                                    React.createElement(Translate, { component: "h5", content: 'intro.P1' }),
-                                    React.createElement(Translate, { component: "h5", content: 'intro.P2' }),
-                                    React.createElement(Translate, { component: "h5", content: 'intro.P3' })))))),
                 React.createElement("section", { className: "ftco-section bg-light" },
                     React.createElement(react_1.Suspense, { fallback: React.createElement("div", null, "Loading...") },
                         React.createElement(SectionProducts, { Gender: 'Women', Type: 'Bags', reloadPage: this.reloadPage, setLoadedComponentsArray: this.setLoadedComponentsArray }),
@@ -2029,6 +2018,143 @@ var Home = /** @class */ (function (_super) {
 }(React.Component));
 exports.Home = Home;
 //# sourceMappingURL=PageHome.js.map
+
+/***/ }),
+
+/***/ "./Components/PageLanding.js":
+/*!***********************************!*\
+  !*** ./Components/PageLanding.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var SectionProducts = React.lazy(function () { return Promise.resolve().then(function () { return __webpack_require__(/*! ./SectionProducts */ "./Components/SectionProducts.js"); }).then(function (m) { return ({ default: m.SectionProducts }); }); });
+var SectionIntro_1 = __webpack_require__(/*! ./SectionIntro */ "./Components/SectionIntro.js");
+var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
+var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
+var Translate = __webpack_require__(/*! react-translate-component */ "./node_modules/react-translate-component/index.js");
+var react_router_hash_link_1 = __webpack_require__(/*! react-router-hash-link */ "./node_modules/react-router-hash-link/lib/index.js");
+var en_1 = __webpack_require__(/*! ./languages/en */ "./Components/languages/en.js");
+var it_1 = __webpack_require__(/*! ./languages/it */ "./Components/languages/it.js");
+var ro_1 = __webpack_require__(/*! ./languages/ro */ "./Components/languages/ro.js");
+var counterpart = __webpack_require__(/*! counterpart */ "./node_modules/counterpart/index.js");
+counterpart.registerTranslations('en', en_1.default);
+counterpart.registerTranslations('ro', ro_1.default);
+counterpart.registerTranslations('it', it_1.default);
+var Landing = /** @class */ (function (_super) {
+    __extends(Landing, _super);
+    function Landing(props) {
+        var _this = _super.call(this, props) || this;
+        _this.state = { loadedComponentsDictionary: null };
+        _this.setLoadedComponentsArray = _this.setLoadedComponentsArray.bind(_this);
+        _this.reloadPage = _this.reloadPage.bind(_this);
+        _this.minimizeDescription = _this.minimizeDescription.bind(_this);
+        _this.maximizeDescription = _this.maximizeDescription.bind(_this);
+        return _this;
+    }
+    Landing.prototype.setLoadedComponentsArray = function (component, loaded) {
+        var dictionary = this.state.loadedComponentsDictionary;
+        if (null == dictionary) {
+            dictionary = new Dictionary_1.KeyedCollection();
+        }
+        dictionary.Add(component, loaded);
+        this.setState({ loadedComponentsDictionary: dictionary });
+    };
+    Landing.prototype.reloadPage = function () {
+        window.location.reload(false);
+    };
+    Landing.prototype.minimizeDescription = function () {
+        document.getElementById('intro-short-description').className = "text-deal short-description";
+        document.getElementById('intro-full-description').className = "text-deal hide-description";
+    };
+    Landing.prototype.maximizeDescription = function () {
+        document.getElementById('intro-short-description').className = "text-deal short-description hide-description";
+        document.getElementById('intro-full-description').className = "text-deal";
+    };
+    Landing.prototype.render = function () {
+        var hideLoader = false;
+        if (this.state.loadedComponentsDictionary != null && this.state.loadedComponentsDictionary.Count() == 1) {
+            hideLoader = true;
+        }
+        return (React.createElement("main", { id: "main" },
+            hideLoader ? React.createElement("div", null) : React.createElement("div", { className: "loading" }, "Loading\u2026"),
+            React.createElement("div", null,
+                React.createElement(Header_1.Header, { Active: 'Home', reloadPage: this.reloadPage }),
+                React.createElement(SectionIntro_1.SectionIntro, { setLoadedComponentsArray: this.setLoadedComponentsArray }),
+                React.createElement("div", { className: "container" },
+                    React.createElement("div", { className: "row" },
+                        React.createElement("div", { className: "col-lg-6 col-md-10 product-item filter-app wow fadeInUp" },
+                            React.createElement(react_router_hash_link_1.HashLink, { to: "/home/#Women-Accessories-section" },
+                                React.createElement("div", { className: "product d-flex flex-column" },
+                                    React.createElement("a", { href: "/home/#Women-Bags-section", className: "img-prod" },
+                                        React.createElement("img", { className: "img-fluid", src: "images/home2_women_accesories.jpg", alt: "" }),
+                                        React.createElement("div", { className: "overlay" })),
+                                    React.createElement("div", { className: "text py-3 pb-4 px-3" },
+                                        React.createElement("p", { className: "bottom-area d-flex px-3" },
+                                            React.createElement("a", { href: "javascript:void(0)", onClick: function () { return 1; }, className: "buy-now text-center py-2" },
+                                                React.createElement(Translate, { content: "products.WomenAccessories" }))))))),
+                        React.createElement("div", { className: "col-lg-6 col-md-10 product-item filter-app wow fadeInUp" },
+                            React.createElement(react_router_hash_link_1.HashLink, { to: "/home/#Women-Bags-section" },
+                                React.createElement("div", { className: "product d-flex flex-column" },
+                                    React.createElement("a", { href: "/home/#Women-Bags-section", className: "img-prod" },
+                                        React.createElement("img", { className: "img-fluid", src: "images/home2_women_bags.jpg", alt: "" }),
+                                        React.createElement("div", { className: "overlay" })),
+                                    React.createElement("div", { className: "text py-3 pb-4 px-3" },
+                                        React.createElement("p", { className: "bottom-area d-flex px-3" },
+                                            React.createElement("a", { href: "javascript:void(0)", onClick: function () { return 1; }, className: "buy-now text-center py-2" },
+                                                React.createElement(Translate, { content: "products.WomenBags" }))))))),
+                        React.createElement("div", { className: "col-lg-6 col-md-10 product-item filter-app wow fadeInUp" },
+                            React.createElement(react_router_hash_link_1.HashLink, { to: "/home/#Men-Bags-section" },
+                                React.createElement("div", { className: "product d-flex flex-column" },
+                                    React.createElement("a", { href: "/home/#Men-Bags-section", className: "img-prod" },
+                                        React.createElement("img", { className: "img-fluid", src: "images/home2_men_bags.jpg", alt: "" }),
+                                        React.createElement("div", { className: "overlay" })),
+                                    React.createElement("div", { className: "text py-3 pb-4 px-3" },
+                                        React.createElement("p", { className: "bottom-area d-flex px-3" },
+                                            React.createElement("a", { href: "javascript:void(0)", onClick: function () { return 1; }, className: "buy-now text-center py-2" },
+                                                React.createElement(Translate, { content: "products.MenBags" }))))))),
+                        React.createElement("div", { className: "col-lg-6 col-md-10 product-item filter-app wow fadeInUp" },
+                            React.createElement(react_router_hash_link_1.HashLink, { to: "/home/#Men-Accessories-section" },
+                                React.createElement("div", { className: "product d-flex flex-column" },
+                                    React.createElement("a", { href: "/home/#Men-Accessories-section", className: "img-prod" },
+                                        React.createElement("img", { className: "img-fluid", src: "images/home2_men_accesories.jpg", alt: "" }),
+                                        React.createElement("div", { className: "overlay" })),
+                                    React.createElement("div", { className: "text py-3 pb-4 px-3" },
+                                        React.createElement("p", { className: "bottom-area d-flex px-3" },
+                                            React.createElement("a", { href: "javascript:void(0)", onClick: function () { return 1; }, className: "buy-now text-center py-2" },
+                                                React.createElement(Translate, { content: "products.MenAccessories" }))))))))),
+                React.createElement("section", { className: "ftco-section-2 bg-light" },
+                    React.createElement("div", { className: "container" },
+                        React.createElement("div", { className: "row" },
+                            React.createElement("div", { className: "offset-1 col-md-10" },
+                                React.createElement("div", { className: "text-deal short-description", id: "intro-short-description", style: { opacity: 1, fontStyle: 'italic', textAlign: 'justify' } },
+                                    React.createElement(Translate, { onClick: this.maximizeDescription, component: "h5", content: 'intro.MP1' })),
+                                React.createElement("div", { className: "text-deal hide-description", id: "intro-full-description", style: { opacity: 1, fontStyle: 'italic', textAlign: 'justify' }, onClick: this.minimizeDescription },
+                                    React.createElement(Translate, { component: "h5", content: 'intro.P1' }),
+                                    React.createElement(Translate, { component: "h5", content: 'intro.P2' }),
+                                    React.createElement(Translate, { component: "h5", content: 'intro.P3' })))))))));
+    };
+    return Landing;
+}(React.Component));
+exports.Landing = Landing;
+//# sourceMappingURL=PageLanding.js.map
 
 /***/ }),
 
@@ -4182,6 +4308,9 @@ var SectionIntro = /** @class */ (function (_super) {
         })
             .then(function (response) {
             _this.setState({ isLoaded: true, items: response.data.data });
+            if (null != _this.props.setLoadedComponentsArray) {
+                _this.props.setLoadedComponentsArray("Intro", "true");
+            }
         })
             .catch(function (error) {
             _this.setState({ isLoaded: true, error: error });
@@ -4226,7 +4355,7 @@ var SectionIntro = /** @class */ (function (_super) {
                                 React.createElement("div", { className: "row" },
                                     React.createElement("div", { className: "col-md-6" },
                                         React.createElement("img", { src: item.Image, className: "img-fluid", alt: "" })),
-                                    React.createElement("div", { className: "col-md-6" },
+                                    React.createElement("div", { className: "carrousel-description col-md-6" },
                                         React.createElement("div", { className: "text-deal" },
                                             React.createElement("h2", null,
                                                 React.createElement("a", { href: "#" }, item.Name)),
@@ -4463,7 +4592,11 @@ __webpack_require__.r(__webpack_exports__);
         Accessories: 'Accessories',
         BuyNow: 'Buy now',
         Men: 'Men',
-        Women: 'Women'
+        Women: 'Women',
+        WomenAccessories: 'Women accessories',
+        WomenBags: 'Women bags',
+        MenAccessories: 'Men accessories',
+        MenBags: 'Men bags'
     },
 
     contact: {
@@ -4628,7 +4761,11 @@ __webpack_require__.r(__webpack_exports__);
         Accessories: 'Accessori',
         BuyNow: 'Acquista ora',
         Men: 'Uomini',
-        Women: 'Donne'
+        Women: 'Donne',
+        WomenAccessories: 'Accessori donna',
+        WomenBags: 'Borse da donna',
+        MenAccessories: 'Accessori uomo',
+        MenBags: 'Borse uomo'
     },
 
     contact: {
@@ -4730,10 +4867,10 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     intro: {
-        MP1: 'Many years ago, Gabriel’s career started working as a leather cutter for Italian companies. From design to assembly and product finishing, he went through all the steps required to make leather articles, mastering his abilities in this field over time...',
-        P1: 'Many years ago, Gabriel’s career started working as a leather cutter for Italian companies. From design to assembly and product finishing, he went through all the steps required to make leather articles, mastering his abilities in this field over time. Later on, being experienced and passionate, he started working with some of the famous in the field, creating new models for both men and women, contributing through his work to the evolution of leather processing and metal accessories. Then, it came a time when he decided to use this experience in order to create new designs of his own idea under his own new born brand: Butterfly Gabriel Habet.',
-        P2: 'His creations are exclusively handmade, designed and produced with an exigency from raw materials which are directly imported from Italy. This highlights the quality and Italian excellence in tanning and leather processing. The following collection aims to satisfy the requirements of enthusiasts of leather articles, delighting them with minimal style elements inspired by modern geometrism but with the ample freedom of defined classicism.',
-        P3: 'Thank you for stopping-by and enjoy shopping!'
+        MP1: 'Molti anni fa, la carriera di Gabriel ha iniziato a lavorare come taglierina di pelle per aziende italiane. Dalla progettazione all\'assemblaggio e alla finitura del prodotto, ha attraversato tutti i passaggi necessari per realizzare articoli in pelle, padroneggiando le sue capacità in questo campo nel tempo...',
+        P1: 'Molti anni fa, la carriera di Gabriel ha iniziato a lavorare come taglierina di pelle per aziende italiane. Dalla progettazione all\'assemblaggio e alla finitura del prodotto, ha seguito tutti i passaggi necessari per realizzare articoli in pelle, padroneggiando le sue capacità in questo campo nel tempo.In seguito, essendo esperto e appassionato, ha iniziato a lavorare con alcuni dei più famosi del settore, creando nuovi modelli per uomini e donne, contribuendo con il suo lavoro all\'evoluzione della lavorazione della pelle e degli accessori in metallo. Poi, è arrivato il momento in cui ha deciso di utilizzare questa esperienza al fine di creare nuovi disegni della propria idea con il suo marchio appena nato: Butterfly Gabriel Habet.',
+        P2: 'Le sue creazioni sono esclusivamente fatte a mano, progettate e prodotte con un\'esigenza di materie prime che vengono importate direttamente dall\'Italia. Ciò evidenzia la qualità e l\'eccellenza italiana nella concia e nella lavorazione della pelle.La seguente collezione mira a soddisfare le esigenze degli appassionati di articoli in pelle, deliziandoli con elementi di stile minimal ispirati al moderno geometrismo ma con l\'ampia libertà del classicismo definito.',
+        P3: 'Grazie per esserti fermato e goditi lo shopping!'
     }, 
 
     order: {
@@ -4793,7 +4930,11 @@ __webpack_require__.r(__webpack_exports__);
         Accessories: 'Accesorii',
         BuyNow: 'Cumpară acum',
         Men: 'Bărbați',
-        Women: 'Femei'
+        Women: 'Femei',
+        WomenAccessories: 'Accesorii pentru femei',
+        WomenBags: 'Poşete pentru femei',
+        MenAccessories: 'Accesorii pentru bărbați',
+        MenBags: 'Genți pentru bărbați'
     },
 
     contact: {
@@ -4945,6 +5086,7 @@ var ReactDOM = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/in
 var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 var react_router_1 = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
 var PageHome_1 = __webpack_require__(/*! ./Components/PageHome */ "./Components/PageHome.js");
+var PageLanding_1 = __webpack_require__(/*! ./Components/PageLanding */ "./Components/PageLanding.js");
 var PageContact_1 = __webpack_require__(/*! ./Components/PageContact */ "./Components/PageContact.js");
 var Footer_1 = __webpack_require__(/*! ./Components/Footer */ "./Components/Footer.js");
 var PageNotFound_1 = __webpack_require__(/*! ./Components/PageNotFound */ "./Components/PageNotFound.js");
@@ -4973,7 +5115,8 @@ var App = /** @class */ (function (_super) {
         return (React.createElement(react_router_dom_1.HashRouter, null,
             React.createElement("div", null,
                 React.createElement(react_router_1.Switch, null,
-                    React.createElement(react_router_1.Route, { exact: true, path: "/", component: PageHome_1.Home }),
+                    React.createElement(react_router_1.Route, { exact: true, path: "/home", component: PageHome_1.Home }),
+                    React.createElement(react_router_1.Route, { exact: true, path: "/", component: PageLanding_1.Landing }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/item/:id", component: PageProduct_1.Product }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/contact", component: PageContact_1.Contact }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/checkout", component: PageCheckout_1.Checkout }),
@@ -47087,13 +47230,13 @@ module.exports = g;
 /***/ }),
 
 /***/ "config":
-/*!****************************************************************!*\
-  !*** external "{\"API_Path\":\"http://localhost:65315/api\"}" ***!
-  \****************************************************************/
+/*!***********************************************************************!*\
+  !*** external "{\"API_Path\":\"http://api.gabrielhabet.co.uk/api\"}" ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = {"API_Path":"http://localhost:65315/api"};
+module.exports = {"API_Path":"http://api.gabrielhabet.co.uk/api"};
 
 /***/ })
 

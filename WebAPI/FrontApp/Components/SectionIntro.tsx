@@ -36,6 +36,9 @@ export class SectionIntro extends React.Component<any, any> {
             })
             .then((response) => {
                 this.setState({ isLoaded: true, items: response.data.data });
+                if (null != this.props.setLoadedComponentsArray) {
+                    this.props.setLoadedComponentsArray("Intro", "true");
+                }
             })
             .catch((error) => {
                 this.setState({ isLoaded: true, error });
@@ -77,7 +80,7 @@ export class SectionIntro extends React.Component<any, any> {
                                                 <div className="col-md-6">
                                                     <img src={item.Image} className="img-fluid" alt="" />
                                                 </div>
-                                                <div className="col-md-6">
+                                                <div className="carrousel-description col-md-6">
                                                     <div className="text-deal">
                                                         <h2><a href="#">{item.Name}</a></h2>
                                                         <p className="price"><span>{currencyBeforeSign + " " + item.Price + " " + currencyAfterSign}</span></p>

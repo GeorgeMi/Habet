@@ -18,6 +18,7 @@ var ReactDOM = require("react-dom");
 var react_router_dom_1 = require("react-router-dom");
 var react_router_1 = require("react-router");
 var PageHome_1 = require("./Components/PageHome");
+var PageLanding_1 = require("./Components/PageLanding");
 var PageContact_1 = require("./Components/PageContact");
 var Footer_1 = require("./Components/Footer");
 var PageNotFound_1 = require("./Components/PageNotFound");
@@ -46,7 +47,8 @@ var App = /** @class */ (function (_super) {
         return (React.createElement(react_router_dom_1.HashRouter, null,
             React.createElement("div", null,
                 React.createElement(react_router_1.Switch, null,
-                    React.createElement(react_router_1.Route, { exact: true, path: "/", component: PageHome_1.Home }),
+                    React.createElement(react_router_1.Route, { exact: true, path: "/home", component: PageHome_1.Home }),
+                    React.createElement(react_router_1.Route, { exact: true, path: "/", component: PageLanding_1.Landing }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/item/:id", component: PageProduct_1.Product }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/contact", component: PageContact_1.Contact }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/checkout", component: PageCheckout_1.Checkout }),

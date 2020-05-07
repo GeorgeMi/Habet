@@ -47,6 +47,9 @@ var SectionIntro = /** @class */ (function (_super) {
         })
             .then(function (response) {
             _this.setState({ isLoaded: true, items: response.data.data });
+            if (null != _this.props.setLoadedComponentsArray) {
+                _this.props.setLoadedComponentsArray("Intro", "true");
+            }
         })
             .catch(function (error) {
             _this.setState({ isLoaded: true, error: error });
@@ -91,7 +94,7 @@ var SectionIntro = /** @class */ (function (_super) {
                                 React.createElement("div", { className: "row" },
                                     React.createElement("div", { className: "col-md-6" },
                                         React.createElement("img", { src: item.Image, className: "img-fluid", alt: "" })),
-                                    React.createElement("div", { className: "col-md-6" },
+                                    React.createElement("div", { className: "carrousel-description col-md-6" },
                                         React.createElement("div", { className: "text-deal" },
                                             React.createElement("h2", null,
                                                 React.createElement("a", { href: "#" }, item.Name)),

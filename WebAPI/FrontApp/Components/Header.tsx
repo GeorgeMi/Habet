@@ -189,15 +189,15 @@ export class Header extends React.Component<any, any> {
                                 <li className={"nav-item dropdown " + headerDictionary.Item('Women')}>
                                     <Link className="nav-link dropdown-toggle" to="/#Women-section" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><Translate content="nav.Women" /></Link>
                                     <div className="dropdown-content" aria-labelledby="dropdown04">
-                                        <Link className="dropdown-item" to="/#Women-Bags-section" onClick={this.minimizeMenu}><Translate content="nav.Bags" /></Link>
-                                        <Link className="dropdown-item" to="/#Women-Accessories-section" onClick={this.minimizeMenu}><Translate content="nav.Accessories" /></Link>
+                                        <Link className="dropdown-item" to="/home/#Women-Bags-section" onClick={this.minimizeMenu}><Translate content="nav.Bags" /></Link>
+                                        <Link className="dropdown-item" to="/home/#Women-Accessories-section" onClick={this.minimizeMenu}><Translate content="nav.Accessories" /></Link>
                                     </div>
                                 </li>
                                 <li className={"nav-item dropdown " + headerDictionary.Item('Men')}>
                                     <Link className="nav-link dropdown-toggle" to="/#Men-section" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><Translate content="nav.Men" /></Link>
                                     <div className="dropdown-content" aria-labelledby="dropdown04">
-                                        <Link className="dropdown-item" to="/#Men-Bags-section" onClick={this.minimizeMenu}><Translate content="nav.Bags" /></Link>
-                                        <Link className="dropdown-item" to="/#Men-Accessories-section" onClick={this.minimizeMenu}><Translate content="nav.Accessories" /></Link>
+                                        <Link className="dropdown-item" to="/home/#Men-Bags-section" onClick={this.minimizeMenu}><Translate content="nav.Bags" /></Link>
+                                        <Link className="dropdown-item" to="/home/#Men-Accessories-section" onClick={this.minimizeMenu}><Translate content="nav.Accessories" /></Link>
                                     </div>
                                 </li>
                                 <li className={"nav-item " + headerDictionary.Item('Search')}><a href="/#/search" className="nav-link"><Translate content="nav.Search" /></a></li>

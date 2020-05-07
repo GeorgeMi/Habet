@@ -4,6 +4,7 @@ import { HashRouter as Router } from 'react-router-dom'
 import { Switch, Route } from 'react-router'
 
 import { Home } from "./Components/PageHome";
+import { Landing } from "./Components/PageLanding";
 import { Contact } from './Components/PageContact';
 import { Footer } from "./Components/Footer";
 import { NotFound } from "./Components/PageNotFound";
@@ -31,7 +32,8 @@ class App extends React.Component {
             <Router>
                 <div>
                     <Switch>
-                        <Route exact path="/" component={Home} />
+                        <Route exact path="/home" component={Home} />
+                        <Route exact path="/" component={Landing} />
                         <Route exact path="/item/:id" component={Product} />
                         <Route exact path="/contact" component={Contact} />
                         <Route exact path="/checkout" component={Checkout} />

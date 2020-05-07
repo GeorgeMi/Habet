@@ -66,23 +66,6 @@ export class Home extends React.Component<any, any> {
 
                     <SectionIntro />
 
-                    <section className="ftco-section-2 bg-light">
-                        <div className="container">
-                            <div className="row">
-                                <div className="offset-1 col-md-10">
-                                    <div className="text-deal short-description" id="intro-short-description" style={{ opacity: 1, fontStyle: 'italic', textAlign: 'justify' }}>
-                                        <Translate onClick={this.maximizeDescription} component="h5" content='intro.MP1' />
-                                    </div>
-                                    <div className="text-deal hide-description" id="intro-full-description" style={{ opacity: 1, fontStyle: 'italic', textAlign: 'justify' }} onClick={this.minimizeDescription}>                                     
-                                        <Translate component="h5" content='intro.P1' />
-                                        <Translate component="h5" content='intro.P2' />
-                                        <Translate component="h5" content='intro.P3' />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
                     <section className="ftco-section bg-light">
                         <Suspense fallback={<div>Loading...</div>}>
 
@@ -96,7 +79,8 @@ export class Home extends React.Component<any, any> {
 
 
                             <SectionProducts Gender={'Men'} Type={'Accessories'} reloadPage={this.reloadPage} />
-                              </Suspense>
+
+                        </Suspense>
                     </section>
                 </div>
             </main>);

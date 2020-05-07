@@ -30,7 +30,11 @@
         Accessories: 'Accessories',
         BuyNow: 'Buy now',
         Men: 'Men',
-        Women: 'Women'
+        Women: 'Women',
+        WomenAccessories: 'Women accessories',
+        WomenBags: 'Women bags',
+        MenAccessories: 'Men accessories',
+        MenBags: 'Men bags'
     },
 
     contact: {

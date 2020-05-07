@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.IO.Compression;
@@ -22,6 +23,8 @@ namespace Api.Controllers
     public class OrdersController : ApiController
     {
         private GHContext db = new GHContext();
+        double EUR_RON_rate = double.Parse(ConfigurationManager.AppSettings["EUR_RON_rate"], System.Globalization.CultureInfo.InvariantCulture);
+        double EUR_GBP_rate = double.Parse(ConfigurationManager.AppSettings["EUR_GBP_rate"], System.Globalization.CultureInfo.InvariantCulture);
 
         // GET: api/Orders
         public HttpResponseMessage GetOrders()
@@ -419,8 +422,6 @@ namespace Api.Controllers
 
         private double ExchangePrice(double value, string toCurrency)
         {
-            double EUR_RON_rate = 4.75;
-            double EUR_GBP_rate = 0.90;
             double result = 0;
 
             switch (toCurrency)
