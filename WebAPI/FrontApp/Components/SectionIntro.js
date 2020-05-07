@@ -15,6 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var sfcookies_1 = require("sfcookies");
+var Translate = require("react-translate-component");
 var en_1 = require("./languages/en");
 var it_1 = require("./languages/it");
 var ro_1 = require("./languages/ro");
@@ -101,7 +102,8 @@ var SectionIntro = /** @class */ (function (_super) {
                                             React.createElement("p", { className: "price" },
                                                 React.createElement("span", null, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign)),
                                             React.createElement("p", null,
-                                                React.createElement("a", { href: "/#/item/" + item.ProductId, className: "btn btn-primary py-3 px-5" }, "Details"))))))); }),
+                                                React.createElement("a", { href: "/#/item/" + item.ProductId, className: "btn btn-primary py-3 px-5" },
+                                                    React.createElement(Translate, { content: 'product.Details' })))))))); }),
                             React.createElement("a", { className: "carousel-control-prev", href: "#carouselExampleControls", role: "button", "data-slide": "prev" },
                                 React.createElement("span", { className: "carousel-control-prev-icon", "aria-hidden": "true" }),
                                 React.createElement("span", { className: "sr-only" }, "Previous")),

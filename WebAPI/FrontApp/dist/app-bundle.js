@@ -4276,6 +4276,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var sfcookies_1 = __webpack_require__(/*! sfcookies */ "./node_modules/sfcookies/index.js");
+var Translate = __webpack_require__(/*! react-translate-component */ "./node_modules/react-translate-component/index.js");
 var en_1 = __webpack_require__(/*! ./languages/en */ "./Components/languages/en.js");
 var it_1 = __webpack_require__(/*! ./languages/it */ "./Components/languages/it.js");
 var ro_1 = __webpack_require__(/*! ./languages/ro */ "./Components/languages/ro.js");
@@ -4362,7 +4363,8 @@ var SectionIntro = /** @class */ (function (_super) {
                                             React.createElement("p", { className: "price" },
                                                 React.createElement("span", null, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign)),
                                             React.createElement("p", null,
-                                                React.createElement("a", { href: "/#/item/" + item.ProductId, className: "btn btn-primary py-3 px-5" }, "Details"))))))); }),
+                                                React.createElement("a", { href: "/#/item/" + item.ProductId, className: "btn btn-primary py-3 px-5" },
+                                                    React.createElement(Translate, { content: 'product.Details' })))))))); }),
                             React.createElement("a", { className: "carousel-control-prev", href: "#carouselExampleControls", role: "button", "data-slide": "prev" },
                                 React.createElement("span", { className: "carousel-control-prev-icon", "aria-hidden": "true" }),
                                 React.createElement("span", { className: "sr-only" }, "Previous")),
@@ -4674,6 +4676,7 @@ __webpack_require__.r(__webpack_exports__);
 
     product: {
         ProductDetails: 'Product Details',
+        Details: 'Details',
         AddToCart: 'Add to cart',
         BuyNow: 'Buy now',
         AddProduct: 'Add Product',
@@ -4843,6 +4846,7 @@ __webpack_require__.r(__webpack_exports__);
 
     product: {
         ProductDetails: 'Dettagli prodotto',
+        Details: 'Dettagli',
         AddToCart: 'Aggiungi al carrello',
         BuyNow: 'Acquista ora',
         AddProduct: 'Aggiungi prodotto',
@@ -5012,6 +5016,7 @@ __webpack_require__.r(__webpack_exports__);
 
     product: {
         ProductDetails: 'Detalii produs',
+        Details: 'Detalii',
         AddToCart: 'Adauga in cos',
         BuyNow: 'Cumpărați acum',
         AddProduct: 'Adăugați produs',
@@ -39075,7 +39080,7 @@ if(false) {}
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

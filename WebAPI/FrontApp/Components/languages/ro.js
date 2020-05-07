@@ -112,6 +112,7 @@
 
     product: {
         ProductDetails: 'Detalii produs',
+        Details: 'Detalii',
         AddToCart: 'Adauga in cos',
         BuyNow: 'Cumpărați acum',
         AddProduct: 'Adăugați produs',

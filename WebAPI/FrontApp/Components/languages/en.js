@@ -112,6 +112,7 @@
 
     product: {
         ProductDetails: 'Product Details',
+        Details: 'Details',
         AddToCart: 'Add to cart',
         BuyNow: 'Buy now',
         AddProduct: 'Add Product',
