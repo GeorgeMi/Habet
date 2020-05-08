@@ -75,9 +75,9 @@ export class Landing extends React.Component<any, any> {
                                 <Link to="/home/#Women-Accessories-section">
 
                                     <div className="product d-flex flex-column">
-                                        <a href={"/home/#Women-Bags-section"} className="img-prod"><img className="img-fluid" src="images/home2_women_accesories.jpg" alt="" />
+                                        <div  className="img-prod"><img className="img-fluid" src="images/home2_women_accesories.jpg" alt="" />
                                             <div className="overlay"></div>
-                                        </a>
+                                        </div>
                                         <div className="text py-3 pb-4 px-3">  
                                             <p className="bottom-area d-flex px-3">
                                                 <a href="javascript:void(0)" onClick={() => 1} className="buy-now text-center py-2"><Translate content="products.WomenAccessories" /></a>
@@ -94,9 +94,9 @@ export class Landing extends React.Component<any, any> {
 
                                 <Link to="/home/#Women-Bags-section">
                                     <div className="product d-flex flex-column">
-                                        <a href={"/home/#Women-Bags-section"} className="img-prod"><img className="img-fluid" src="images/home2_women_bags.jpg" alt="" />
+                                        <div className="img-prod"><img className="img-fluid" src="images/home2_women_bags.jpg" alt="" />
                                             <div className="overlay"></div>
-                                        </a>
+                                        </div>
                                         <div className="text py-3 pb-4 px-3">
                                             <p className="bottom-area d-flex px-3">
                                                 <a href="javascript:void(0)" onClick={() => 1} className="buy-now text-center py-2"><Translate content="products.WomenBags" /></a>
@@ -111,9 +111,9 @@ export class Landing extends React.Component<any, any> {
 
                                 <Link to="/home/#Men-Bags-section">
                                     <div className="product d-flex flex-column">
-                                        <a href={"/home/#Men-Bags-section"} className="img-prod"><img className="img-fluid" src="images/home2_men_bags.jpg" alt="" />
+                                        <div className="img-prod"><img className="img-fluid" src="images/home2_men_bags.jpg" alt="" />
                                             <div className="overlay"></div>
-                                        </a>
+                                        </div>
                                         <div className="text py-3 pb-4 px-3">
                                             <p className="bottom-area d-flex px-3">
                                                 <a href="javascript:void(0)" onClick={() => 1} className="buy-now text-center py-2"><Translate content="products.MenBags" /></a>
@@ -128,9 +128,9 @@ export class Landing extends React.Component<any, any> {
 
                                 <Link to="/home/#Men-Accessories-section">
                                 <div className="product d-flex flex-column">
-                                        <a href={"/home/#Men-Accessories-section"} className="img-prod"><img className="img-fluid" src="images/home2_men_accesories.jpg" alt="" />
+                                    <div className="img-prod"><img className="img-fluid" src="images/home2_men_accesories.jpg" alt="" />
                                         <div className="overlay"></div>
-                                    </a>
+                                    </div>
                                     <div className="text py-3 pb-4 px-3">
                                         <p className="bottom-area d-flex px-3">
                                             <a href="javascript:void(0)" onClick={() => 1} className="buy-now text-center py-2"><Translate content="products.MenAccessories" /></a>
@@ -138,9 +138,7 @@ export class Landing extends React.Component<any, any> {
                                     </div>
                                     </div>
                                 </Link>
-
                             </div>
-
                         </div>
                     </div>
 

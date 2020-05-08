@@ -45,6 +45,7 @@ var AddProduct = /** @class */ (function (_super) {
         _this.handleFileChange1 = _this.handleFileChange1.bind(_this);
         _this.handleFileChange2 = _this.handleFileChange2.bind(_this);
         _this.handleFileChange3 = _this.handleFileChange3.bind(_this);
+        _this.escapeHTML = _this.escapeHTML.bind(_this);
         _this.reloadPage = _this.reloadPage.bind(_this);
         return _this;
     }
@@ -76,9 +77,9 @@ var AddProduct = /** @class */ (function (_super) {
             name_it: this.state.name_it,
             name_en: this.state.name_en,
             price: this.state.price,
-            description_ro: this.state.description_ro,
-            description_it: this.state.description_it,
-            description_en: this.state.description_en,
+            description_ro: this.escapeHTML(this.state.description_ro),
+            description_it: this.escapeHTML(this.state.description_it),
+            description_en: this.escapeHTML(this.state.description_en),
             gender: this.state.gender,
             type: this.state.type
         }));
@@ -96,6 +97,21 @@ var AddProduct = /** @class */ (function (_super) {
         })
             .then(this.setState({ waitingResponse: false }));
     };
+    AddProduct.prototype.escapeHTML = function (unsafe) {
+        return unsafe.replace(/[&<"']/g, function (m) {
+            switch (m) {
+                case '&':
+                    return '&amp;';
+                case '<':
+                    return '&lt;';
+                case '"':
+                    return '&quot;';
+                default:
+                    return '&#039;';
+            }
+        });
+    };
+    ;
     AddProduct.prototype.reloadPage = function () {
         //do nothing
     };

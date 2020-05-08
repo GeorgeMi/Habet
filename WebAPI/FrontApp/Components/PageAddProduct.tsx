@@ -34,6 +34,7 @@ export class AddProduct extends React.Component<any, any> {
         this.handleFileChange1 = this.handleFileChange1.bind(this);
         this.handleFileChange2 = this.handleFileChange2.bind(this);
         this.handleFileChange3 = this.handleFileChange3.bind(this);
+        this.escapeHTML = this.escapeHTML.bind(this);
         this.reloadPage = this.reloadPage.bind(this);
     }
 
@@ -69,9 +70,9 @@ export class AddProduct extends React.Component<any, any> {
             name_it: this.state.name_it,
             name_en: this.state.name_en,
             price: this.state.price,
-            description_ro: this.state.description_ro,
-            description_it: this.state.description_it,
-            description_en: this.state.description_en,
+            description_ro: this.escapeHTML(this.state.description_ro),
+            description_it: this.escapeHTML(this.state.description_it),
+            description_en: this.escapeHTML(this.state.description_en),
             gender: this.state.gender,
             type: this.state.type
         }));
@@ -93,6 +94,21 @@ export class AddProduct extends React.Component<any, any> {
                 this.setState({ waitingResponse: false })
             );
     }
+
+    escapeHTML (unsafe) {
+    return unsafe.replace(/[&<"']/g, function (m) {
+        switch (m) {
+            case '&':
+                return '&amp;';
+            case '<':
+                return '&lt;';
+            case '"':
+                return '&quot;';
+            default:
+                return '&#039;';
+        }
+    });
+};
 
     public reloadPage() {
         //do nothing

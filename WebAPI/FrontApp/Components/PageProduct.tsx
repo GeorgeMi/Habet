@@ -2,6 +2,7 @@
 import { KeyedCollection } from './Dictionary';
 import { Header } from './Header';
 import { NotFound } from "./PageNotFound";
+import ReactHtmlParser from 'react-html-parser'; 
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
 import { NotificationManager } from 'react-notifications';
 import * as Translate from 'react-translate-component';
@@ -34,6 +35,7 @@ export class Product extends React.Component<any, any>
         this.reloadPage = this.reloadPage.bind(this);
         this.addProductToCart = this.addProductToCart.bind(this);
         this.buyProduct = this.buyProduct.bind(this); 
+        this.unescape = this.unescape.bind(this); 
     }
 
     componentWillMount() {
@@ -120,7 +122,7 @@ export class Product extends React.Component<any, any>
             document.location.href = "/#/cart";
         }
     }
-   
+  
     increaseQuantity = () => {
         this.setState({ quantity: this.state.quantity + 1 });
     }
@@ -138,6 +140,14 @@ export class Product extends React.Component<any, any>
 
     public reloadPage() {
         window.location.reload(false);
+    }
+
+    public unescape(str: string) {
+        var res = str.replace(/&lt;/g, '<');
+        var res = res.replace(/&amp;/g, '&');
+        res = res.replace(/&quot;/g, '"');
+
+        return res;
     }
 
     render() {
@@ -191,7 +201,7 @@ export class Product extends React.Component<any, any>
                                 <div className="col-lg-6 product-details pl-md-5">
                                     <h3>{item.Name}</h3>
                                     <p className="price"><span>{currencyBeforeSign + " " + item.Price + " " + currencyAfterSign}</span></p>
-                                    <p>{item.Description}</p>
+                                    <div> {ReactHtmlParser(this.unescape(item.Description))} </div>
                                     <div className="row mt-4">
                                         <div className="w-100"></div>
                                         <div className="input-group col-md-6 d-flex mb-3">

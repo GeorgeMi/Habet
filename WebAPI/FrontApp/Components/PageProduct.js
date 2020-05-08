@@ -16,6 +16,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var Dictionary_1 = require("./Dictionary");
 var Header_1 = require("./Header");
+var react_html_parser_1 = require("react-html-parser");
 var sfcookies_1 = require("sfcookies");
 var react_notifications_1 = require("react-notifications");
 var Translate = require("react-translate-component");
@@ -54,6 +55,7 @@ var Product = /** @class */ (function (_super) {
         _this.reloadPage = _this.reloadPage.bind(_this);
         _this.addProductToCart = _this.addProductToCart.bind(_this);
         _this.buyProduct = _this.buyProduct.bind(_this);
+        _this.unescape = _this.unescape.bind(_this);
         return _this;
     }
     Product.prototype.componentWillMount = function () {
@@ -133,6 +135,12 @@ var Product = /** @class */ (function (_super) {
     Product.prototype.reloadPage = function () {
         window.location.reload(false);
     };
+    Product.prototype.unescape = function (str) {
+        var res = str.replace(/&lt;/g, '<');
+        var res = res.replace(/&amp;/g, '&');
+        res = res.replace(/&quot;/g, '"');
+        return res;
+    };
     Product.prototype.render = function () {
         var _this = this;
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, item = _a.item, quantity = _a.quantity, currency = _a.currency;
@@ -177,7 +185,10 @@ var Product = /** @class */ (function (_super) {
                                 React.createElement("h3", null, item.Name),
                                 React.createElement("p", { className: "price" },
                                     React.createElement("span", null, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign)),
-                                React.createElement("p", null, item.Description),
+                                React.createElement("div", null,
+                                    " ",
+                                    react_html_parser_1.default(this.unescape(item.Description)),
+                                    " "),
                                 React.createElement("div", { className: "row mt-4" },
                                     React.createElement("div", { className: "w-100" }),
                                     React.createElement("div", { className: "input-group col-md-6 d-flex mb-3" },
