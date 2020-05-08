@@ -673,7 +673,7 @@ var AddProduct = /** @class */ (function (_super) {
                 case '"':
                     return '&quot;';
                 default:
-                    return '&#039;';
+                    return '&apos;';
             }
         });
     };
@@ -3030,8 +3030,9 @@ var Product = /** @class */ (function (_super) {
     };
     Product.prototype.unescape = function (str) {
         var res = str.replace(/&lt;/g, '<');
-        var res = res.replace(/&amp;/g, '&');
+        res = res.replace(/&amp;/g, '&');
         res = res.replace(/&quot;/g, '"');
+        res = res.replace(/&apos;/g, '\'');
         return res;
     };
     Product.prototype.render = function () {

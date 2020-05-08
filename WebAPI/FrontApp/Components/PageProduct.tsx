@@ -144,8 +144,9 @@ export class Product extends React.Component<any, any>
 
     public unescape(str: string) {
         var res = str.replace(/&lt;/g, '<');
-        var res = res.replace(/&amp;/g, '&');
+        res = res.replace(/&amp;/g, '&');
         res = res.replace(/&quot;/g, '"');
+        res = res.replace(/&apos;/g, '\'');
 
         return res;
     }

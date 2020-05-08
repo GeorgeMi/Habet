@@ -107,7 +107,7 @@ var AddProduct = /** @class */ (function (_super) {
                 case '"':
                     return '&quot;';
                 default:
-                    return '&#039;';
+                    return '&apos;';
             }
         });
     };

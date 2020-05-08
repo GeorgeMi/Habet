@@ -105,7 +105,7 @@ export class AddProduct extends React.Component<any, any> {
             case '"':
                 return '&quot;';
             default:
-                return '&#039;';
+                return '&apos;';
         }
     });
 };
