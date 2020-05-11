@@ -73,7 +73,7 @@ var Landing = /** @class */ (function (_super) {
                             React.createElement(react_router_hash_link_1.HashLink, { to: "/home/#Women-Accessories-section" },
                                 React.createElement("div", { className: "product d-flex flex-column" },
                                     React.createElement("div", { className: "img-prod" },
-                                        React.createElement("img", { className: "img-fluid", src: "images/home2_women_accesories.jpg", alt: "" }),
+                                        React.createElement("img", { className: "img-fluid", src: "images/home2_women_accesories_2.jpg", alt: "" }),
                                         React.createElement("div", { className: "overlay" })),
                                     React.createElement("div", { className: "text py-3 pb-4 px-3" },
                                         React.createElement("p", { className: "bottom-area d-flex px-3" },

@@ -125,7 +125,8 @@ var Order = /** @class */ (function (_super) {
         if (error) {
             return (React.createElement("div", null,
                 React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
-                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
+                    " }}>",
                     React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                         React.createElement("div", { className: "col-md-9 text-center" },
                             React.createElement("h1", { className: "mb-0 bread" }, "ARE YOU HAPPY NOW?"),

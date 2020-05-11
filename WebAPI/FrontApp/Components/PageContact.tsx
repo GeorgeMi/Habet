@@ -73,7 +73,7 @@ export class Contact extends React.Component<any, any>{
                 <div>
                     <Header Active={'Contact'} reloadPage={this.reloadPage} />
 
-                    <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
+                    <div className="hero-wrap hero-bread" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" }}> }}>
                         <div className="row justify-content-center mb-3 pb-3">
                             <div className="col-md-12 heading-section text-center">
                                 <h2 className="mb-4"><Translate content='contact.Title' /></h2>

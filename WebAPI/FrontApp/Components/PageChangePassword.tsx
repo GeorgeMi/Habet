@@ -82,7 +82,7 @@ export class ChangePassword extends React.Component<any, any> {
                 <div>
                     <Header reloadPage={this.reloadPage} />
 
-                    <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
+                    <div className="hero-wrap hero-bread" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" }}> }}>
                         <div className="container">
                             <div className="row no-gutters slider-text align-items-center justify-content-center">
                                 <div className="col-md-9 text-center">

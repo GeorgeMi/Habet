@@ -687,7 +687,8 @@ var AddProduct = /** @class */ (function (_super) {
             waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
             React.createElement("div", null,
                 React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
-                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
+                    " }}>",
                     React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                         React.createElement("div", { className: "col-md-12 heading-section text-center" },
                             React.createElement("h1", { className: "mb-4" },
@@ -936,7 +937,8 @@ var Cart = /** @class */ (function (_super) {
         else if (!isLoaded) {
             return (React.createElement("div", null,
                 React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
-                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
+                    "}}>",
                     React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                         React.createElement("div", { className: "col-md-12 heading-section text-center" },
                             React.createElement("h1", { className: "mb-4" },
@@ -1119,7 +1121,8 @@ var ChangePassword = /** @class */ (function (_super) {
             waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
             React.createElement("div", null,
                 React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
-                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
+                    " }}>",
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                             React.createElement("div", { className: "col-md-9 text-center" },
@@ -1364,7 +1367,8 @@ var Checkout = /** @class */ (function (_super) {
                 waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
                 React.createElement("div", null,
                     React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
-                    React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                    React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
+                        " }}>",
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },
                                 React.createElement("h1", { className: "mb-4" },
@@ -1610,7 +1614,8 @@ var Contact = /** @class */ (function (_super) {
             waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
             React.createElement("div", null,
                 React.createElement(Header_1.Header, { Active: 'Contact', reloadPage: this.reloadPage }),
-                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
+                    " }}>",
                     React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                         React.createElement("div", { className: "col-md-12 heading-section text-center" },
                             React.createElement("h2", { className: "mb-4" },
@@ -1915,7 +1920,8 @@ var CreditCardPayment = /** @class */ (function (_super) {
             React.createElement("div", { id: "PaymentForm" },
                 ">",
                 React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
-                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
+                    " }}>",
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                             React.createElement(react_credit_cards_1.default, { cvc: this.state.cvc, expiry: this.state.expiry, focused: this.state.focused, name: this.state.name, number: this.state.number })))),
@@ -2120,7 +2126,7 @@ var Landing = /** @class */ (function (_super) {
                             React.createElement(react_router_hash_link_1.HashLink, { to: "/home/#Women-Accessories-section" },
                                 React.createElement("div", { className: "product d-flex flex-column" },
                                     React.createElement("div", { className: "img-prod" },
-                                        React.createElement("img", { className: "img-fluid", src: "images/home2_women_accesories.jpg", alt: "" }),
+                                        React.createElement("img", { className: "img-fluid", src: "images/home2_women_accesories_2.jpg", alt: "" }),
                                         React.createElement("div", { className: "overlay" })),
                                     React.createElement("div", { className: "text py-3 pb-4 px-3" },
                                         React.createElement("p", { className: "bottom-area d-flex px-3" },
@@ -2212,7 +2218,8 @@ var NotFound = /** @class */ (function (_super) {
     NotFound.prototype.render = function () {
         return (React.createElement("div", null,
             React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
-            React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+            React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
+                " }}>",
                 React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                     React.createElement("div", { className: "col-md-9 text-center" },
                         React.createElement("h1", { className: "mb-0 bread" }, "ARE YOU HAPPY NOW?"),
@@ -2360,7 +2367,8 @@ var Order = /** @class */ (function (_super) {
         if (error) {
             return (React.createElement("div", null,
                 React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
-                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
+                    " }}>",
                     React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                         React.createElement("div", { className: "col-md-9 text-center" },
                             React.createElement("h1", { className: "mb-0 bread" }, "ARE YOU HAPPY NOW?"),
@@ -2664,7 +2672,8 @@ var OrderAdminHistory = /** @class */ (function (_super) {
                 waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
                 React.createElement("div", null,
                     React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
-                    React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                    React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
+                        " }}>",
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },
                                 React.createElement("h1", { className: "mb-4" },
@@ -2832,7 +2841,8 @@ var OrderHistory = /** @class */ (function (_super) {
                 waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
                 React.createElement("div", null,
                     React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
-                    React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                    React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
+                        " }}>",
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },
                                 React.createElement("h1", { className: "mb-4" },
@@ -3021,7 +3031,6 @@ var Product = /** @class */ (function (_super) {
             react_notifications_1.NotificationManager.info("Please login in order to add products to cart.");
         }
         else {
-            this.addProductToCart(productId, 1);
             document.location.href = "/#/cart";
         }
     };
@@ -3051,7 +3060,8 @@ var Product = /** @class */ (function (_super) {
         if (error) {
             return (React.createElement("div", null,
                 React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
-                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
+                    " }}>",
                     React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                         React.createElement("div", { className: "col-md-9 text-center" },
                             React.createElement("h1", { className: "mb-0 bread" }, "ARE YOU HAPPY NOW?"),
@@ -3192,7 +3202,8 @@ var RecoverPassword = /** @class */ (function (_super) {
             waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
             React.createElement("div", null,
                 React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
-                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
+                    " }}>",
                     React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                         React.createElement("div", { className: "col-md-12 heading-section text-center" },
                             React.createElement("h1", { className: "mb-4" },
@@ -3315,7 +3326,8 @@ var Register = /** @class */ (function (_super) {
             waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
             React.createElement("div", null,
                 React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
-                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
+                    " }}>",
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                             React.createElement("div", { className: "col-md-9 text-center" },
@@ -3540,7 +3552,8 @@ var ResetPassword = /** @class */ (function (_super) {
             waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
             React.createElement("div", null,
                 React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
-                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
+                    " }}>",
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                             React.createElement("div", { className: "col-md-9 text-center" },
@@ -3790,7 +3803,8 @@ var Search = /** @class */ (function (_super) {
             return (React.createElement("main", { id: "main" },
                 React.createElement("div", null,
                     React.createElement(Header_1.Header, { Active: 'Search', reloadPage: this.reloadPage }),
-                    React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                    React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
+                        " }}>",
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },
                                 React.createElement("h1", { className: "mb-4" },
@@ -4067,7 +4081,8 @@ var UpdateUserDetails = /** @class */ (function (_super) {
                 waitingResponse ? React.createElement("div", { className: "loading" }, "Loading\u2026") : React.createElement("div", null),
                 React.createElement("div", null,
                     React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
-                    React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                    React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
+                        " }}>",
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },
                                 React.createElement("h1", { className: "mb-4" },
@@ -4259,7 +4274,8 @@ var Verify = /** @class */ (function (_super) {
         if (error) {
             return (React.createElement("div", null,
                 React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
-                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
+                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
+                    " }}>",
                     React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
                         React.createElement("div", { className: "col-md-9 text-center" },
                             React.createElement("h1", { className: "mb-0 bread" }, "ARE YOU HAPPY NOW?"),
@@ -45311,7 +45327,7 @@ if(false) {}
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

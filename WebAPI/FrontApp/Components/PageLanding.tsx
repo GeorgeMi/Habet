@@ -75,7 +75,7 @@ export class Landing extends React.Component<any, any> {
                                 <Link to="/home/#Women-Accessories-section">
 
                                     <div className="product d-flex flex-column">
-                                        <div  className="img-prod"><img className="img-fluid" src="images/home2_women_accesories.jpg" alt="" />
+                                        <div  className="img-prod"><img className="img-fluid" src="images/home2_women_accesories_2.jpg" alt="" />
                                             <div className="overlay"></div>
                                         </div>
                                         <div className="text py-3 pb-4 px-3">  
