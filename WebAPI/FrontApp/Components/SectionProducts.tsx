@@ -122,16 +122,16 @@ export class SectionProducts extends React.Component<any, any>
                         <div className="jumbotron" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url('images/banner_" + gender + "_" + type+".jpg')" }}>
                             <div className="col-md-12 heading-section text-center" style={{ fontFamily: 'Brush Script St', opacity: 1 }}>
                                 {type == 'Bags' ? <h2 className="mb-4" id={gender + "-section"}><Translate content={'products.' + gender} /></h2> : <h2 className="mb-4" id={gender + "-section"} style={{ opacity: 0 }}><Translate content={'products.' + gender} /></h2>}
-                                <h2 id={gender + "-" + type + "-section"}><Translate content={'products.' + type} /></h2>
+                                <h2><Translate content={'products.' + type} /></h2>
                             </div>
                         </div>
-                        <div className="row">                      
+                        <div className="row" id={gender + "-" + type + "-section"}>                      
                             {
                                 items.map((item, i) => (
 
                                     <div key={i} className="col-lg-4 col-md-6 product-item filter-app wow fadeInUp">
                                         <div className="product d-flex flex-column">
-                                            <a href={"/#/item/" + item.ProductId} className="img-prod"><img className="img-fluid" src={item.Image} alt="" />
+                                            <a href={"/#/item/" + item.ProductId} className="img-prod"><img className="img-fluid" src={item.Image} alt="" style={{ width: '350px', height: '466px' }}/>
                                                 <div className="overlay"></div>
                                             </a>
                                             <div className="text py-3 pb-4 px-3">

@@ -12707,6 +12707,13 @@ pre {
         display: block;
     }
 
+    @media (min-width: 992px) {
+        .product-details {
+            padding-top: 100px;
+            padding-bottom: 100px;
+        }
+    }
+
     .product-details h3 {
         font-size: 30px;
         font-weight: 400;

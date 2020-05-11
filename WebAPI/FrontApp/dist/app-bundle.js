@@ -4550,12 +4550,12 @@ var SectionProducts = /** @class */ (function (_super) {
                             type == 'Bags' ? React.createElement("h2", { className: "mb-4", id: gender + "-section" },
                                 React.createElement(Translate, { content: 'products.' + gender })) : React.createElement("h2", { className: "mb-4", id: gender + "-section", style: { opacity: 0 } },
                                 React.createElement(Translate, { content: 'products.' + gender })),
-                            React.createElement("h2", { id: gender + "-" + type + "-section" },
+                            React.createElement("h2", null,
                                 React.createElement(Translate, { content: 'products.' + type })))),
-                    React.createElement("div", { className: "row" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 product-item filter-app wow fadeInUp" },
+                    React.createElement("div", { className: "row", id: gender + "-" + type + "-section" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 product-item filter-app wow fadeInUp" },
                         React.createElement("div", { className: "product d-flex flex-column" },
                             React.createElement("a", { href: "/#/item/" + item.ProductId, className: "img-prod" },
-                                React.createElement("img", { className: "img-fluid", src: item.Image, alt: "" }),
+                                React.createElement("img", { className: "img-fluid", src: item.Image, alt: "", style: { width: '350px', height: '466px' } }),
                                 React.createElement("div", { className: "overlay" })),
                             React.createElement("div", { className: "text py-3 pb-4 px-3" },
                                 React.createElement("h3", null,
@@ -45311,7 +45311,7 @@ if(false) {}
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
