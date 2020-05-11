@@ -87,7 +87,7 @@ var SectionIntro = /** @class */ (function (_super) {
             return React.createElement("div", null);
         }
         else {
-            return (React.createElement("section", { className: "ftco-section ftco-deal", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url('images/background.jpg')" } },
+            return (React.createElement("section", { className: "ftco-section ftco-deal", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
                 React.createElement("div", { className: "container" },
                     React.createElement("div", { id: "carouselExampleControls", className: "carousel slide", "data-ride": "carousel" },
                         React.createElement("div", { className: "carousel-inner" },

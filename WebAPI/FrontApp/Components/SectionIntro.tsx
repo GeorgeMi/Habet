@@ -69,7 +69,7 @@ export class SectionIntro extends React.Component<any, any> {
 
         } else {
             return (
-                <section className="ftco-section ftco-deal" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url('images/background.jpg')"}}>                
+                <section className="ftco-section ftco-deal" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')"}}>                
                     <div className="container">
                         <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
                             <div className="carousel-inner">
