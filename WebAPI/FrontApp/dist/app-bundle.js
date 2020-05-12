@@ -3596,6 +3596,7 @@ var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
 var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
 var sfcookies_1 = __webpack_require__(/*! sfcookies */ "./node_modules/sfcookies/index.js");
 var react_notifications_1 = __webpack_require__(/*! react-notifications */ "./node_modules/react-notifications/lib/index.js");
+var react_search_input_1 = __webpack_require__(/*! react-search-input */ "./node_modules/react-search-input/lib/index.js");
 __webpack_require__(/*! react-notifications/lib/notifications.css */ "./node_modules/react-notifications/lib/notifications.css");
 var react_js_pagination_1 = __webpack_require__(/*! react-js-pagination */ "./node_modules/react-js-pagination/dist/Pagination.js");
 var Translate = __webpack_require__(/*! react-translate-component */ "./node_modules/react-translate-component/index.js");
@@ -3609,6 +3610,7 @@ var counterpart = __webpack_require__(/*! counterpart */ "./node_modules/counter
 counterpart.registerTranslations('en', en_1.default);
 counterpart.registerTranslations('ro', ro_1.default);
 counterpart.registerTranslations('it', it_1.default);
+var KEYS_TO_FILTERS = ['Name', 'Price', 'ProductId'];
 var Search = /** @class */ (function (_super) {
     __extends(Search, _super);
     function Search(props) {
@@ -3617,7 +3619,7 @@ var Search = /** @class */ (function (_super) {
         _this.state = {
             gender: "Women",
             type: "Bags",
-            priceInterval: "3",
+            priceInterval: "0",
             items: null,
             isLoaded: false,
             error: null,
@@ -3626,8 +3628,9 @@ var Search = /** @class */ (function (_super) {
             language: sfcookies_1.read_cookie('lang'),
             activePage: 1,
             totalItemsCount: 0,
-            itemsPerPage: 9,
-            currency: sfcookies_1.read_cookie('currency')
+            itemsPerPage: 100,
+            currency: sfcookies_1.read_cookie('currency'),
+            searchTerm: ''
         };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
@@ -3636,27 +3639,30 @@ var Search = /** @class */ (function (_super) {
         _this.searchProducts = _this.searchProducts.bind(_this);
         _this.addProductToCart = _this.addProductToCart.bind(_this);
         _this.buyProduct = _this.buyProduct.bind(_this);
+        _this.searchUpdated = _this.searchUpdated.bind(_this);
         return _this;
     }
     Search.prototype.componentWillMount = function () {
         var _this = this;
-        axios.get(API_Path + '/Products', {
-            params: {
-                top: this.state.itemsPerPage,
-                from: 0,
-                gender: "none",
-                type: "intro",
-                lang: this.state.language,
-                currency: this.state.currency
-            }
+        axios.post(API_Path + '/SearchProducts', {
+            top: this.state.itemsPerPage,
+            from: 0,
+            gender: this.state.gender,
+            type: this.state.type,
+            priceFrom: 0,
+            priceTo: 5000,
+            lang: this.state.language,
+            currency: this.state.currency
         })
             .then(function (response) {
-            _this.setState({ isLoaded: true, items: response.data.data, totalItemsCount: response.data.count });
+            console.log(response);
+            _this.setState({ isLoaded: true, items: response.data.Products, totalItemsCount: response.data.TotalItemsCount });
+        }).catch(function (error) {
+            react_notifications_1.NotificationManager.error("Request failed. Please, try again later.");
         })
-            .catch(function (error) {
-            _this.setState({ isLoaded: true, error: error });
-        })
-            .then();
+            .then(function () {
+            _this.setState({ waitingResponse: false });
+        });
     };
     Search.prototype.readCartFromCookie = function (cookie) {
         var cartProducts = new Dictionary_1.KeyedCollection();
@@ -3681,7 +3687,10 @@ var Search = /** @class */ (function (_super) {
         if (this.state.waitingResponse == false) {
             this.setState({ waitingResponse: true });
         }
-        if (this.state.priceInterval == "1") {
+        if (this.state.priceInterval == "0") {
+            priceTo = 5000;
+        }
+        else if (this.state.priceInterval == "1") {
             priceTo = 49;
         }
         else if (this.state.priceInterval == "2") {
@@ -3757,9 +3766,16 @@ var Search = /** @class */ (function (_super) {
     Search.prototype.reloadPage = function () {
         window.location.reload(false);
     };
+    Search.prototype.searchUpdated = function (term) {
+        this.setState({ searchTerm: term });
+    };
     Search.prototype.render = function () {
         var _this = this;
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, currency = _a.currency;
+        var filteredItems = null;
+        if (items != null) {
+            filteredItems = items.filter(react_search_input_1.createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
+        }
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
         if (currency == 'RON') {
@@ -3783,12 +3799,13 @@ var Search = /** @class */ (function (_super) {
             return (React.createElement("main", { id: "main" },
                 React.createElement("div", null,
                     React.createElement(Header_1.Header, { Active: 'Search', reloadPage: this.reloadPage }),
-                    React.createElement("div", { className: "hero-wrap page-title" },
-                        React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
+                    React.createElement("div", { className: "hero-wrap page-title", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
+                        React.createElement("div", { className: "row justify-content-center" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },
                                 React.createElement("h1", { className: "mb-4" },
-                                    React.createElement(Translate, { content: 'search.SearchProducts' }))))),
-                    React.createElement("section", { className: "ftco-section bg-light" },
+                                    React.createElement(Translate, { content: 'search.SearchProducts' })),
+                                React.createElement(react_search_input_1.default, { className: "search-input", onChange: this.searchUpdated })))),
+                    React.createElement("section", { className: "ftco-section" },
                         React.createElement("div", { className: "container" },
                             React.createElement("div", { className: "row" },
                                 React.createElement("div", { className: "col-md-4 col-lg-2" },
@@ -3840,6 +3857,9 @@ var Search = /** @class */ (function (_super) {
                                                                 React.createElement("div", { className: "panel-body" },
                                                                     React.createElement("ul", null,
                                                                         React.createElement("li", null,
+                                                                            React.createElement("input", { type: "radio", className: "form-check-input", name: "priceInterval", value: "0", checked: this.state.priceInterval === "0", id: "range1", onChange: this.handleChange }),
+                                                                            React.createElement("label", { className: "form-check-label", htmlFor: "range1" }, "All")),
+                                                                        React.createElement("li", null,
                                                                             React.createElement("input", { type: "radio", className: "form-check-input", name: "priceInterval", value: "1", checked: this.state.priceInterval === "1", id: "range1", onChange: this.handleChange }),
                                                                             React.createElement("label", { className: "form-check-label", htmlFor: "range1" },
                                                                                 "Under ",
@@ -3888,13 +3908,13 @@ var Search = /** @class */ (function (_super) {
                                                             React.createElement("div", { className: "form-group" },
                                                                 React.createElement(Translate, { component: "input", attributes: { value: 'search.Filter', }, type: "submit", className: "btn btn-primary py-3 px-5" }))))))))),
                                 React.createElement("div", { className: "col-md-8 col-lg-10 order-md-last" },
-                                    React.createElement("div", { className: "row" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 product-item filter-app wow fadeInUp" },
+                                    React.createElement("div", { className: "row" }, filteredItems.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 product-item filter-app wow fadeInUp" },
                                         React.createElement("div", { className: "product d-flex flex-column" },
                                             React.createElement("a", { href: "/#/item/" + item.ProductId, className: "img-prod" },
                                                 React.createElement("img", { className: "img-fluid", src: item.Image, alt: "" }),
                                                 React.createElement("div", { className: "overlay" })),
                                             React.createElement("div", { className: "text py-3 pb-4 px-3" },
-                                                React.createElement("h3", null,
+                                                React.createElement("h3", { className: "itemName" },
                                                     React.createElement("a", { href: "/#/item/" + item.ProductId }, item.Name)),
                                                 React.createElement("div", { className: "pricing" },
                                                     React.createElement("p", { className: "price" },
@@ -13476,6 +13496,25 @@ if (true) {
 }
 
 module.exports = warning;
+
+/***/ }),
+
+/***/ "./node_modules/fuse.js/dist/fuse.js":
+/*!*******************************************!*\
+  !*** ./node_modules/fuse.js/dist/fuse.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*!
+ * Fuse.js v3.6.1 - Lightweight fuzzy-search (http://fusejs.io)
+ * 
+ * Copyright (c) 2012-2017 Kirollos Risk (http://kiro.me)
+ * All Rights Reserved. Apache Software License 2.0
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+!function(e,t){ true?module.exports=t():undefined}(this,function(){return function(e){var t={};function r(n){if(t[n])return t[n].exports;var o=t[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,r),o.l=!0,o.exports}return r.m=e,r.c=t,r.d=function(e,t,n){r.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:n})},r.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},r.t=function(e,t){if(1&t&&(e=r(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(r.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)r.d(n,o,function(t){return e[t]}.bind(null,o));return n},r.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return r.d(t,"a",t),t},r.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},r.p="",r(r.s=0)}([function(e,t,r){function n(e){return(n="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function o(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}var i=r(1),a=r(7),s=a.get,c=(a.deepValue,a.isArray),h=function(){function e(t,r){var n=r.location,o=void 0===n?0:n,i=r.distance,a=void 0===i?100:i,c=r.threshold,h=void 0===c?.6:c,l=r.maxPatternLength,u=void 0===l?32:l,f=r.caseSensitive,v=void 0!==f&&f,p=r.tokenSeparator,d=void 0===p?/ +/g:p,g=r.findAllMatches,y=void 0!==g&&g,m=r.minMatchCharLength,k=void 0===m?1:m,b=r.id,S=void 0===b?null:b,x=r.keys,M=void 0===x?[]:x,_=r.shouldSort,w=void 0===_||_,L=r.getFn,A=void 0===L?s:L,O=r.sortFn,C=void 0===O?function(e,t){return e.score-t.score}:O,j=r.tokenize,P=void 0!==j&&j,I=r.matchAllTokens,F=void 0!==I&&I,T=r.includeMatches,N=void 0!==T&&T,z=r.includeScore,E=void 0!==z&&z,W=r.verbose,K=void 0!==W&&W;!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),this.options={location:o,distance:a,threshold:h,maxPatternLength:u,isCaseSensitive:v,tokenSeparator:d,findAllMatches:y,minMatchCharLength:k,id:S,keys:M,includeMatches:N,includeScore:E,shouldSort:w,getFn:A,sortFn:C,verbose:K,tokenize:P,matchAllTokens:F},this.setCollection(t),this._processKeys(M)}var t,r,a;return t=e,(r=[{key:"setCollection",value:function(e){return this.list=e,e}},{key:"_processKeys",value:function(e){if(this._keyWeights={},this._keyNames=[],e.length&&"string"==typeof e[0])for(var t=0,r=e.length;t<r;t+=1){var n=e[t];this._keyWeights[n]=1,this._keyNames.push(n)}else{for(var o=null,i=null,a=0,s=0,c=e.length;s<c;s+=1){var h=e[s];if(!h.hasOwnProperty("name"))throw new Error('Missing "name" property in key object');var l=h.name;if(this._keyNames.push(l),!h.hasOwnProperty("weight"))throw new Error('Missing "weight" property in key object');var u=h.weight;if(u<0||u>1)throw new Error('"weight" property in key must bein the range of [0, 1)');i=null==i?u:Math.max(i,u),o=null==o?u:Math.min(o,u),this._keyWeights[l]=u,a+=u}if(a>1)throw new Error("Total of weights cannot exceed 1")}}},{key:"search",value:function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{limit:!1};this._log('---------\nSearch pattern: "'.concat(e,'"'));var r=this._prepareSearchers(e),n=r.tokenSearchers,o=r.fullSearcher,i=this._search(n,o);return this._computeScore(i),this.options.shouldSort&&this._sort(i),t.limit&&"number"==typeof t.limit&&(i=i.slice(0,t.limit)),this._format(i)}},{key:"_prepareSearchers",value:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"",t=[];if(this.options.tokenize)for(var r=e.split(this.options.tokenSeparator),n=0,o=r.length;n<o;n+=1)t.push(new i(r[n],this.options));return{tokenSearchers:t,fullSearcher:new i(e,this.options)}}},{key:"_search",value:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],t=arguments.length>1?arguments[1]:void 0,r=this.list,n={},o=[];if("string"==typeof r[0]){for(var i=0,a=r.length;i<a;i+=1)this._analyze({key:"",value:r[i],record:i,index:i},{resultMap:n,results:o,tokenSearchers:e,fullSearcher:t});return o}for(var s=0,c=r.length;s<c;s+=1)for(var h=r[s],l=0,u=this._keyNames.length;l<u;l+=1){var f=this._keyNames[l];this._analyze({key:f,value:this.options.getFn(h,f),record:h,index:s},{resultMap:n,results:o,tokenSearchers:e,fullSearcher:t})}return o}},{key:"_analyze",value:function(e,t){var r=this,n=e.key,o=e.arrayIndex,i=void 0===o?-1:o,a=e.value,s=e.record,h=e.index,l=t.tokenSearchers,u=void 0===l?[]:l,f=t.fullSearcher,v=t.resultMap,p=void 0===v?{}:v,d=t.results,g=void 0===d?[]:d;!function e(t,o,i,a){if(null!=o)if("string"==typeof o){var s=!1,h=-1,l=0;r._log("\nKey: ".concat(""===n?"--":n));var v=f.search(o);if(r._log('Full text: "'.concat(o,'", score: ').concat(v.score)),r.options.tokenize){for(var d=o.split(r.options.tokenSeparator),y=d.length,m=[],k=0,b=u.length;k<b;k+=1){var S=u[k];r._log('\nPattern: "'.concat(S.pattern,'"'));for(var x=!1,M=0;M<y;M+=1){var _=d[M],w=S.search(_),L={};w.isMatch?(L[_]=w.score,s=!0,x=!0,m.push(w.score)):(L[_]=1,r.options.matchAllTokens||m.push(1)),r._log('Token: "'.concat(_,'", score: ').concat(L[_]))}x&&(l+=1)}h=m[0];for(var A=m.length,O=1;O<A;O+=1)h+=m[O];h/=A,r._log("Token score average:",h)}var C=v.score;h>-1&&(C=(C+h)/2),r._log("Score average:",C);var j=!r.options.tokenize||!r.options.matchAllTokens||l>=u.length;if(r._log("\nCheck Matches: ".concat(j)),(s||v.isMatch)&&j){var P={key:n,arrayIndex:t,value:o,score:C};r.options.includeMatches&&(P.matchedIndices=v.matchedIndices);var I=p[a];I?I.output.push(P):(p[a]={item:i,output:[P]},g.push(p[a]))}}else if(c(o))for(var F=0,T=o.length;F<T;F+=1)e(F,o[F],i,a)}(i,a,s,h)}},{key:"_computeScore",value:function(e){this._log("\n\nComputing score:\n");for(var t=this._keyWeights,r=!!Object.keys(t).length,n=0,o=e.length;n<o;n+=1){for(var i=e[n],a=i.output,s=a.length,c=1,h=0;h<s;h+=1){var l=a[h],u=l.key,f=r?t[u]:1,v=0===l.score&&t&&t[u]>0?Number.EPSILON:l.score;c*=Math.pow(v,f)}i.score=c,this._log(i)}}},{key:"_sort",value:function(e){this._log("\n\nSorting...."),e.sort(this.options.sortFn)}},{key:"_format",value:function(e){var t=[];if(this.options.verbose){var r=[];this._log("\n\nOutput:\n\n",JSON.stringify(e,function(e,t){if("object"===n(t)&&null!==t){if(-1!==r.indexOf(t))return;r.push(t)}return t},2)),r=null}var o=[];this.options.includeMatches&&o.push(function(e,t){var r=e.output;t.matches=[];for(var n=0,o=r.length;n<o;n+=1){var i=r[n];if(0!==i.matchedIndices.length){var a={indices:i.matchedIndices,value:i.value};i.key&&(a.key=i.key),i.hasOwnProperty("arrayIndex")&&i.arrayIndex>-1&&(a.arrayIndex=i.arrayIndex),t.matches.push(a)}}}),this.options.includeScore&&o.push(function(e,t){t.score=e.score});for(var i=0,a=e.length;i<a;i+=1){var s=e[i];if(this.options.id&&(s.item=this.options.getFn(s.item,this.options.id)[0]),o.length){for(var c={item:s.item},h=0,l=o.length;h<l;h+=1)o[h](s,c);t.push(c)}else t.push(s.item)}return t}},{key:"_log",value:function(){var e;this.options.verbose&&(e=console).log.apply(e,arguments)}}])&&o(t.prototype,r),a&&o(t,a),e}();e.exports=h},function(e,t,r){function n(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}var o=r(2),i=r(3),a=r(6),s=function(){function e(t,r){var n=r.location,o=void 0===n?0:n,i=r.distance,s=void 0===i?100:i,c=r.threshold,h=void 0===c?.6:c,l=r.maxPatternLength,u=void 0===l?32:l,f=r.isCaseSensitive,v=void 0!==f&&f,p=r.tokenSeparator,d=void 0===p?/ +/g:p,g=r.findAllMatches,y=void 0!==g&&g,m=r.minMatchCharLength,k=void 0===m?1:m,b=r.includeMatches,S=void 0!==b&&b;!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),this.options={location:o,distance:s,threshold:h,maxPatternLength:u,isCaseSensitive:v,tokenSeparator:d,findAllMatches:y,includeMatches:S,minMatchCharLength:k},this.pattern=v?t:t.toLowerCase(),this.pattern.length<=u&&(this.patternAlphabet=a(this.pattern))}var t,r,s;return t=e,(r=[{key:"search",value:function(e){var t=this.options,r=t.isCaseSensitive,n=t.includeMatches;if(r||(e=e.toLowerCase()),this.pattern===e){var a={isMatch:!0,score:0};return n&&(a.matchedIndices=[[0,e.length-1]]),a}var s=this.options,c=s.maxPatternLength,h=s.tokenSeparator;if(this.pattern.length>c)return o(e,this.pattern,h);var l=this.options,u=l.location,f=l.distance,v=l.threshold,p=l.findAllMatches,d=l.minMatchCharLength;return i(e,this.pattern,this.patternAlphabet,{location:u,distance:f,threshold:v,findAllMatches:p,minMatchCharLength:d,includeMatches:n})}}])&&n(t.prototype,r),s&&n(t,s),e}();e.exports=s},function(e,t){var r=/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g;e.exports=function(e,t){var n=arguments.length>2&&void 0!==arguments[2]?arguments[2]:/ +/g,o=new RegExp(t.replace(r,"\\$&").replace(n,"|")),i=e.match(o),a=!!i,s=[];if(a)for(var c=0,h=i.length;c<h;c+=1){var l=i[c];s.push([e.indexOf(l),l.length-1])}return{score:a?.5:1,isMatch:a,matchedIndices:s}}},function(e,t,r){var n=r(4),o=r(5);e.exports=function(e,t,r,i){for(var a=i.location,s=void 0===a?0:a,c=i.distance,h=void 0===c?100:c,l=i.threshold,u=void 0===l?.6:l,f=i.findAllMatches,v=void 0!==f&&f,p=i.minMatchCharLength,d=void 0===p?1:p,g=i.includeMatches,y=void 0!==g&&g,m=s,k=e.length,b=u,S=e.indexOf(t,m),x=t.length,M=[],_=0;_<k;_+=1)M[_]=0;if(-1!==S){var w=n(t,{errors:0,currentLocation:S,expectedLocation:m,distance:h});if(b=Math.min(w,b),-1!==(S=e.lastIndexOf(t,m+x))){var L=n(t,{errors:0,currentLocation:S,expectedLocation:m,distance:h});b=Math.min(L,b)}}S=-1;for(var A=[],O=1,C=x+k,j=1<<(x<=31?x-1:30),P=0;P<x;P+=1){for(var I=0,F=C;I<F;){n(t,{errors:P,currentLocation:m+F,expectedLocation:m,distance:h})<=b?I=F:C=F,F=Math.floor((C-I)/2+I)}C=F;var T=Math.max(1,m-F+1),N=v?k:Math.min(m+F,k)+x,z=Array(N+2);z[N+1]=(1<<P)-1;for(var E=N;E>=T;E-=1){var W=E-1,K=r[e.charAt(W)];if(K&&(M[W]=1),z[E]=(z[E+1]<<1|1)&K,0!==P&&(z[E]|=(A[E+1]|A[E])<<1|1|A[E+1]),z[E]&j&&(O=n(t,{errors:P,currentLocation:W,expectedLocation:m,distance:h}))<=b){if(b=O,(S=W)<=m)break;T=Math.max(1,2*m-S)}}if(n(t,{errors:P+1,currentLocation:m,expectedLocation:m,distance:h})>b)break;A=z}var $={isMatch:S>=0,score:0===O?.001:O};return y&&($.matchedIndices=o(M,d)),$}},function(e,t){e.exports=function(e,t){var r=t.errors,n=void 0===r?0:r,o=t.currentLocation,i=void 0===o?0:o,a=t.expectedLocation,s=void 0===a?0:a,c=t.distance,h=void 0===c?100:c,l=n/e.length,u=Math.abs(s-i);return h?l+u/h:u?1:l}},function(e,t){e.exports=function(){for(var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:1,r=[],n=-1,o=-1,i=0,a=e.length;i<a;i+=1){var s=e[i];s&&-1===n?n=i:s||-1===n||((o=i-1)-n+1>=t&&r.push([n,o]),n=-1)}return e[i-1]&&i-n>=t&&r.push([n,i-1]),r}},function(e,t){e.exports=function(e){for(var t={},r=e.length,n=0;n<r;n+=1)t[e.charAt(n)]=0;for(var o=0;o<r;o+=1)t[e.charAt(o)]|=1<<r-o-1;return t}},function(e,t){var r=function(e){return Array.isArray?Array.isArray(e):"[object Array]"===Object.prototype.toString.call(e)},n=function(e){return null==e?"":function(e){if("string"==typeof e)return e;var t=e+"";return"0"==t&&1/e==-1/0?"-0":t}(e)},o=function(e){return"string"==typeof e},i=function(e){return"number"==typeof e};e.exports={get:function(e,t){var a=[];return function e(t,s){if(s){var c=s.indexOf("."),h=s,l=null;-1!==c&&(h=s.slice(0,c),l=s.slice(c+1));var u=t[h];if(null!=u)if(l||!o(u)&&!i(u))if(r(u))for(var f=0,v=u.length;f<v;f+=1)e(u[f],l);else l&&e(u,l);else a.push(n(u))}else a.push(t)}(e,t),a},isArray:r,isString:o,isNum:i,toString:n}}])});
 
 /***/ }),
 
@@ -45303,7 +45342,7 @@ if(false) {}
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46943,6 +46982,317 @@ function pathToRegexp (path, keys, options) {
   return stringToRegexp(/** @type {string} */ (path), /** @type {!Array} */ (keys), options)
 }
 
+
+/***/ }),
+
+/***/ "./node_modules/react-search-input/lib/index.js":
+/*!******************************************************!*\
+  !*** ./node_modules/react-search-input/lib/index.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createFilter = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _util = __webpack_require__(/*! ./util */ "./node_modules/react-search-input/lib/util.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Search = function (_Component) {
+  _inherits(Search, _Component);
+
+  function Search(props) {
+    _classCallCheck(this, Search);
+
+    var _this = _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, props));
+
+    _this.state = {
+      searchTerm: _this.props.value || ''
+    };
+    _this.updateSearch = _this.updateSearch.bind(_this);
+    _this.filter = _this.filter.bind(_this);
+    return _this;
+  }
+
+  _createClass(Search, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      if (typeof nextProps.value !== 'undefined' && nextProps.value !== this.props.value) {
+        var e = {
+          target: {
+            value: nextProps.value
+          }
+        };
+        this.updateSearch(e);
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          className = _props.className,
+          onChange = _props.onChange,
+          caseSensitive = _props.caseSensitive,
+          sortResults = _props.sortResults,
+          throttle = _props.throttle,
+          filterKeys = _props.filterKeys,
+          value = _props.value,
+          fuzzy = _props.fuzzy,
+          inputClassName = _props.inputClassName,
+          inputProps = _objectWithoutProperties(_props, ['className', 'onChange', 'caseSensitive', 'sortResults', 'throttle', 'filterKeys', 'value', 'fuzzy', 'inputClassName']); // eslint-disable-line no-unused-vars
+
+
+      inputProps.type = inputProps.type || 'search';
+      inputProps.value = this.state.searchTerm;
+      inputProps.onChange = this.updateSearch;
+      inputProps.className = inputClassName;
+      inputProps.placeholder = inputProps.placeholder || 'Search';
+      return _react2.default.createElement(
+        'div',
+        { className: className },
+        _react2.default.createElement('input', inputProps)
+      );
+    }
+  }, {
+    key: 'updateSearch',
+    value: function updateSearch(e) {
+      var _this2 = this;
+
+      var searchTerm = e.target.value;
+      this.setState({
+        searchTerm: searchTerm
+      }, function () {
+        if (_this2._throttleTimeout) {
+          clearTimeout(_this2._throttleTimeout);
+        }
+
+        _this2._throttleTimeout = setTimeout(function () {
+          return _this2.props.onChange(searchTerm);
+        }, _this2.props.throttle);
+      });
+    }
+  }, {
+    key: 'filter',
+    value: function filter(keys) {
+      var _props2 = this.props,
+          filterKeys = _props2.filterKeys,
+          caseSensitive = _props2.caseSensitive,
+          fuzzy = _props2.fuzzy,
+          sortResults = _props2.sortResults;
+
+      return (0, _util.createFilter)(this.state.searchTerm, keys || filterKeys, {
+        caseSensitive: caseSensitive,
+        fuzzy: fuzzy,
+        sortResults: sortResults
+      });
+    }
+  }]);
+
+  return Search;
+}(_react.Component);
+
+Search.defaultProps = {
+  className: '',
+  onChange: function onChange() {},
+
+  caseSensitive: false,
+  fuzzy: false,
+  throttle: 200
+};
+
+Search.propTypes = {
+  className: _propTypes2.default.string,
+  inputClassName: _propTypes2.default.string,
+  onChange: _propTypes2.default.func,
+  caseSensitive: _propTypes2.default.bool,
+  sortResults: _propTypes2.default.bool,
+  fuzzy: _propTypes2.default.bool,
+  throttle: _propTypes2.default.number,
+  filterKeys: _propTypes2.default.oneOf([_propTypes2.default.string, _propTypes2.default.arrayOf(_propTypes2.default.string)]),
+  value: _propTypes2.default.string
+};
+
+exports.default = Search;
+exports.createFilter = _util.createFilter;
+
+/***/ }),
+
+/***/ "./node_modules/react-search-input/lib/util.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/react-search-input/lib/util.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getValuesForKey = getValuesForKey;
+exports.searchStrings = searchStrings;
+exports.createFilter = createFilter;
+
+var _fuse = __webpack_require__(/*! fuse.js */ "./node_modules/fuse.js/dist/fuse.js");
+
+var _fuse2 = _interopRequireDefault(_fuse);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function flatten(array) {
+  return array.reduce(function (flat, toFlatten) {
+    return flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten);
+  }, []);
+}
+
+function getValuesForKey(key, item) {
+  var keys = key.split('.');
+  var results = [item];
+  keys.forEach(function (_key) {
+    var tmp = [];
+    results.forEach(function (result) {
+      if (result) {
+        if (result instanceof Array) {
+          var index = parseInt(_key, 10);
+          if (!isNaN(index)) {
+            return tmp.push(result[index]);
+          }
+          result.forEach(function (res) {
+            tmp.push(res[_key]);
+          });
+        } else if (result && typeof result.get === 'function') {
+          tmp.push(result.get(_key));
+        } else {
+          tmp.push(result[_key]);
+        }
+      }
+    });
+
+    results = tmp;
+  });
+
+  // Support arrays and Immutable lists.
+  results = results.map(function (r) {
+    return r && r.push && r.toArray ? r.toArray() : r;
+  });
+  results = flatten(results);
+
+  return results.filter(function (r) {
+    return typeof r === 'string' || typeof r === 'number';
+  });
+}
+
+function searchStrings(strings, term) {
+  var _ref = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {},
+      caseSensitive = _ref.caseSensitive,
+      fuzzy = _ref.fuzzy,
+      sortResults = _ref.sortResults,
+      exactMatch = _ref.exactMatch;
+
+  strings = strings.map(function (e) {
+    return e.toString();
+  });
+
+  try {
+    if (fuzzy) {
+      if (typeof strings.toJS === 'function') {
+        strings = strings.toJS();
+      }
+      var fuse = new _fuse2.default(strings.map(function (s) {
+        return { id: s };
+      }), { keys: ['id'], id: 'id', caseSensitive: caseSensitive, shouldSort: sortResults });
+      return fuse.search(term).length;
+    }
+    return strings.some(function (value) {
+      try {
+        if (!caseSensitive) {
+          value = value.toLowerCase();
+        }
+        if (exactMatch) {
+          term = new RegExp('^' + term + '$', 'i');
+        }
+        if (value && value.search(term) !== -1) {
+          return true;
+        }
+        return false;
+      } catch (e) {
+        return false;
+      }
+    });
+  } catch (e) {
+    return false;
+  }
+}
+
+function createFilter(term, keys) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+  return function (item) {
+    if (term === '') {
+      return true;
+    }
+
+    if (!options.caseSensitive) {
+      term = term.toLowerCase();
+    }
+
+    var terms = term.split(' ');
+
+    if (!keys) {
+      return terms.every(function (term) {
+        return searchStrings([item], term, options);
+      });
+    }
+
+    if (typeof keys === 'string') {
+      keys = [keys];
+    }
+
+    return terms.every(function (term) {
+      // allow search in specific fields with the syntax `field:search`
+      var currentKeys = void 0;
+      if (term.indexOf(':') !== -1) {
+        var searchedField = term.split(':')[0];
+        term = term.split(':')[1];
+        currentKeys = keys.filter(function (key) {
+          return key.toLowerCase().indexOf(searchedField) > -1;
+        });
+      } else {
+        currentKeys = keys;
+      }
+
+      return currentKeys.some(function (key) {
+        var values = getValuesForKey(key, item);
+        return searchStrings(values, term, options);
+      });
+    });
+  };
+}
 
 /***/ }),
 

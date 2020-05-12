@@ -3,6 +3,7 @@ import { Header } from './Header';
 import { KeyedCollection } from './Dictionary';
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
 import { NotificationManager } from 'react-notifications';
+import SearchInput, { createFilter } from 'react-search-input'
 import 'react-notifications/lib/notifications.css';
 import Pagination from 'react-js-pagination';
 import * as Translate from 'react-translate-component';
@@ -19,6 +20,8 @@ counterpart.registerTranslations('en', en);
 counterpart.registerTranslations('ro', ro);
 counterpart.registerTranslations('it', it);
 
+const KEYS_TO_FILTERS = ['Name', 'Price', 'ProductId'];
+
 export class Search extends React.Component<any, any>
 {
     constructor(props) {
@@ -28,7 +31,7 @@ export class Search extends React.Component<any, any>
         this.state = {
             gender: "Women",
             type: "Bags",
-            priceInterval: "3",
+            priceInterval: "0",
             items: null,
             isLoaded: false,
             error: null,
@@ -37,8 +40,9 @@ export class Search extends React.Component<any, any>
             language: read_cookie('lang'),
             activePage: 1,
             totalItemsCount: 0,
-            itemsPerPage: 9,
-            currency: read_cookie('currency')
+            itemsPerPage: 100,
+            currency: read_cookie('currency'),
+            searchTerm: ''
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -48,27 +52,32 @@ export class Search extends React.Component<any, any>
         this.searchProducts = this.searchProducts.bind(this);     
         this.addProductToCart = this.addProductToCart.bind(this);
         this.buyProduct = this.buyProduct.bind(this); 
+        this.searchUpdated = this.searchUpdated.bind(this); 
     }
 
     componentWillMount() {
-        axios.get(API_Path + '/Products',
+        axios.post(API_Path + '/SearchProducts',
             {
-                params: {
-                    top: this.state.itemsPerPage,
-                    from: 0,
-                    gender: "none",
-                    type: "intro",
-                    lang: this.state.language,
-                    currency: this.state.currency
-                }
+                top: this.state.itemsPerPage,
+                from: 0,
+                gender: this.state.gender,
+                type: this.state.type,
+                priceFrom: 0,
+                priceTo: 5000,
+                lang: this.state.language,
+                currency: this.state.currency
             })
             .then((response) => {
-                this.setState({ isLoaded: true, items: response.data.data, totalItemsCount: response.data.count });
+                console.log(response);
+                this.setState({ isLoaded: true, items: response.data.Products, totalItemsCount: response.data.TotalItemsCount });
+
+            }).catch((error) => {
+                NotificationManager.error("Request failed. Please, try again later.");
             })
-            .catch((error) => {
-                this.setState({ isLoaded: true, error });
-            })
-            .then();
+            .then(() => {
+                this.setState({ waitingResponse: false });
+            }
+            );
     }
 
     readCartFromCookie(cookie) {
@@ -98,7 +107,8 @@ export class Search extends React.Component<any, any>
             this.setState({ waitingResponse: true });
         }
 
-        if (this.state.priceInterval == "1") { priceTo = 49; }
+        if (this.state.priceInterval == "0") { priceTo = 5000; }
+        else if (this.state.priceInterval == "1") { priceTo = 49; }
         else if (this.state.priceInterval == "2") { priceFrom = 50; priceTo = 99; }
         else if (this.state.priceInterval == "3") { priceFrom = 100; priceTo = 199; }
         else if (this.state.priceInterval == "4") { priceFrom = 200; priceTo = 499; }
@@ -176,8 +186,18 @@ export class Search extends React.Component<any, any>
         window.location.reload(false);
     }
 
+    searchUpdated(term) {
+        this.setState({ searchTerm: term })
+    }
+
     render() {
         const { error, isLoaded, items, currency } = this.state;
+        var filteredItems = null;
+        if (items != null)
+        {
+            filteredItems = items.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
+        }
+
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
         if (currency == 'RON') { currencyBeforeSign = ''; currencyAfterSign = 'RON' }
@@ -194,15 +214,16 @@ export class Search extends React.Component<any, any>
                     <div>
                         <Header Active={'Search'} reloadPage={this.reloadPage} />
 
-                        <div className="hero-wrap page-title">
-                            <div className="row justify-content-center mb-3 pb-3">
+                        <div className="hero-wrap page-title" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" }}>
+                            <div className="row justify-content-center">
                                 <div className="col-md-12 heading-section text-center">
                                     <h1 className="mb-4"><Translate content={'search.SearchProducts'} /></h1>
+                                    <SearchInput className="search-input" onChange={this.searchUpdated} />
                                 </div>
                             </div>
                         </div>
 
-                        <section className="ftco-section bg-light">
+                        <section className="ftco-section">
                             <div className="container">
                                 <div className="row">
                                     <div className="col-md-4 col-lg-2">
@@ -271,6 +292,11 @@ export class Search extends React.Component<any, any>
                                                                 <div className="panel-body">
                                                                     <ul>
                                                                         <li>
+                                                                            <input type="radio" className="form-check-input" name="priceInterval" value="0"
+                                                                                checked={this.state.priceInterval === "0"} id="range1" onChange={this.handleChange} />
+                                                                                <label className="form-check-label" htmlFor="range1">All</label>
+                                                                        </li>
+                                                                        <li>
                                                                             <input type="radio" className="form-check-input" name="priceInterval" value="1"
                                                                                 checked={this.state.priceInterval === "1"} id="range1" onChange={this.handleChange} />
                                                                                 <label className="form-check-label" htmlFor="range1">Under {currencyBeforeSign}50 {currencyAfterSign}</label>
@@ -312,8 +338,8 @@ export class Search extends React.Component<any, any>
                                 </div>
                                     <div className="col-md-8 col-lg-10 order-md-last">
                                         <div className="row">
-                                            {
-                                                items.map((item, i) => (
+                                              {
+                                                filteredItems.map((item, i) => (
 
                                                     <div key={i} className="col-lg-4 col-md-6 product-item filter-app wow fadeInUp">
                                                         <div className="product d-flex flex-column">
@@ -321,7 +347,7 @@ export class Search extends React.Component<any, any>
                                                                 <div className="overlay"></div>
                                                             </a>
                                                             <div className="text py-3 pb-4 px-3">
-                                                                <h3><a href={"/#/item/" + item.ProductId}>{item.Name}</a></h3>
+                                                                <h3 className="itemName"><a href={"/#/item/" + item.ProductId}>{item.Name}</a></h3>
                                                                 <div className="pricing">
                                                                     <p className="price"><span>{currencyBeforeSign + " " + item.Price + " " + currencyAfterSign}</span></p>
                                                                 </div>

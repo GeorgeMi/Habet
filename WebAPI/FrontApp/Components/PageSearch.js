@@ -18,6 +18,7 @@ var Header_1 = require("./Header");
 var Dictionary_1 = require("./Dictionary");
 var sfcookies_1 = require("sfcookies");
 var react_notifications_1 = require("react-notifications");
+var react_search_input_1 = require("react-search-input");
 require("react-notifications/lib/notifications.css");
 var react_js_pagination_1 = require("react-js-pagination");
 var Translate = require("react-translate-component");
@@ -31,6 +32,7 @@ var counterpart = require('counterpart');
 counterpart.registerTranslations('en', en_1.default);
 counterpart.registerTranslations('ro', ro_1.default);
 counterpart.registerTranslations('it', it_1.default);
+var KEYS_TO_FILTERS = ['Name', 'Price', 'ProductId'];
 var Search = /** @class */ (function (_super) {
     __extends(Search, _super);
     function Search(props) {
@@ -39,7 +41,7 @@ var Search = /** @class */ (function (_super) {
         _this.state = {
             gender: "Women",
             type: "Bags",
-            priceInterval: "3",
+            priceInterval: "0",
             items: null,
             isLoaded: false,
             error: null,
@@ -48,8 +50,9 @@ var Search = /** @class */ (function (_super) {
             language: sfcookies_1.read_cookie('lang'),
             activePage: 1,
             totalItemsCount: 0,
-            itemsPerPage: 9,
-            currency: sfcookies_1.read_cookie('currency')
+            itemsPerPage: 100,
+            currency: sfcookies_1.read_cookie('currency'),
+            searchTerm: ''
         };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
@@ -58,27 +61,30 @@ var Search = /** @class */ (function (_super) {
         _this.searchProducts = _this.searchProducts.bind(_this);
         _this.addProductToCart = _this.addProductToCart.bind(_this);
         _this.buyProduct = _this.buyProduct.bind(_this);
+        _this.searchUpdated = _this.searchUpdated.bind(_this);
         return _this;
     }
     Search.prototype.componentWillMount = function () {
         var _this = this;
-        axios.get(API_Path + '/Products', {
-            params: {
-                top: this.state.itemsPerPage,
-                from: 0,
-                gender: "none",
-                type: "intro",
-                lang: this.state.language,
-                currency: this.state.currency
-            }
+        axios.post(API_Path + '/SearchProducts', {
+            top: this.state.itemsPerPage,
+            from: 0,
+            gender: this.state.gender,
+            type: this.state.type,
+            priceFrom: 0,
+            priceTo: 5000,
+            lang: this.state.language,
+            currency: this.state.currency
         })
             .then(function (response) {
-            _this.setState({ isLoaded: true, items: response.data.data, totalItemsCount: response.data.count });
+            console.log(response);
+            _this.setState({ isLoaded: true, items: response.data.Products, totalItemsCount: response.data.TotalItemsCount });
+        }).catch(function (error) {
+            react_notifications_1.NotificationManager.error("Request failed. Please, try again later.");
         })
-            .catch(function (error) {
-            _this.setState({ isLoaded: true, error: error });
-        })
-            .then();
+            .then(function () {
+            _this.setState({ waitingResponse: false });
+        });
     };
     Search.prototype.readCartFromCookie = function (cookie) {
         var cartProducts = new Dictionary_1.KeyedCollection();
@@ -103,7 +109,10 @@ var Search = /** @class */ (function (_super) {
         if (this.state.waitingResponse == false) {
             this.setState({ waitingResponse: true });
         }
-        if (this.state.priceInterval == "1") {
+        if (this.state.priceInterval == "0") {
+            priceTo = 5000;
+        }
+        else if (this.state.priceInterval == "1") {
             priceTo = 49;
         }
         else if (this.state.priceInterval == "2") {
@@ -179,9 +188,16 @@ var Search = /** @class */ (function (_super) {
     Search.prototype.reloadPage = function () {
         window.location.reload(false);
     };
+    Search.prototype.searchUpdated = function (term) {
+        this.setState({ searchTerm: term });
+    };
     Search.prototype.render = function () {
         var _this = this;
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, currency = _a.currency;
+        var filteredItems = null;
+        if (items != null) {
+            filteredItems = items.filter(react_search_input_1.createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
+        }
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
         if (currency == 'RON') {
@@ -205,12 +221,13 @@ var Search = /** @class */ (function (_super) {
             return (React.createElement("main", { id: "main" },
                 React.createElement("div", null,
                     React.createElement(Header_1.Header, { Active: 'Search', reloadPage: this.reloadPage }),
-                    React.createElement("div", { className: "hero-wrap page-title" },
-                        React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
+                    React.createElement("div", { className: "hero-wrap page-title", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
+                        React.createElement("div", { className: "row justify-content-center" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },
                                 React.createElement("h1", { className: "mb-4" },
-                                    React.createElement(Translate, { content: 'search.SearchProducts' }))))),
-                    React.createElement("section", { className: "ftco-section bg-light" },
+                                    React.createElement(Translate, { content: 'search.SearchProducts' })),
+                                React.createElement(react_search_input_1.default, { className: "search-input", onChange: this.searchUpdated })))),
+                    React.createElement("section", { className: "ftco-section" },
                         React.createElement("div", { className: "container" },
                             React.createElement("div", { className: "row" },
                                 React.createElement("div", { className: "col-md-4 col-lg-2" },
@@ -262,6 +279,9 @@ var Search = /** @class */ (function (_super) {
                                                                 React.createElement("div", { className: "panel-body" },
                                                                     React.createElement("ul", null,
                                                                         React.createElement("li", null,
+                                                                            React.createElement("input", { type: "radio", className: "form-check-input", name: "priceInterval", value: "0", checked: this.state.priceInterval === "0", id: "range1", onChange: this.handleChange }),
+                                                                            React.createElement("label", { className: "form-check-label", htmlFor: "range1" }, "All")),
+                                                                        React.createElement("li", null,
                                                                             React.createElement("input", { type: "radio", className: "form-check-input", name: "priceInterval", value: "1", checked: this.state.priceInterval === "1", id: "range1", onChange: this.handleChange }),
                                                                             React.createElement("label", { className: "form-check-label", htmlFor: "range1" },
                                                                                 "Under ",
@@ -310,13 +330,13 @@ var Search = /** @class */ (function (_super) {
                                                             React.createElement("div", { className: "form-group" },
                                                                 React.createElement(Translate, { component: "input", attributes: { value: 'search.Filter', }, type: "submit", className: "btn btn-primary py-3 px-5" }))))))))),
                                 React.createElement("div", { className: "col-md-8 col-lg-10 order-md-last" },
-                                    React.createElement("div", { className: "row" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 product-item filter-app wow fadeInUp" },
+                                    React.createElement("div", { className: "row" }, filteredItems.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 product-item filter-app wow fadeInUp" },
                                         React.createElement("div", { className: "product d-flex flex-column" },
                                             React.createElement("a", { href: "/#/item/" + item.ProductId, className: "img-prod" },
                                                 React.createElement("img", { className: "img-fluid", src: item.Image, alt: "" }),
                                                 React.createElement("div", { className: "overlay" })),
                                             React.createElement("div", { className: "text py-3 pb-4 px-3" },
-                                                React.createElement("h3", null,
+                                                React.createElement("h3", { className: "itemName" },
                                                     React.createElement("a", { href: "/#/item/" + item.ProductId }, item.Name)),
                                                 React.createElement("div", { className: "pricing" },
                                                     React.createElement("p", { className: "price" },
