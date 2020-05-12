@@ -15132,6 +15132,9 @@ pre {
     .short-description {
         display: none;
     }
+    .page-title {
+        padding-top: 30px;
+    }
 }
 
 .carrousel-description{
@@ -15140,4 +15143,6 @@ pre {
     align-content: center;
     flex-direction: column;
 }
+
+
 

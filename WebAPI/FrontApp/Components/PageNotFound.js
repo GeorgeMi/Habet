@@ -28,10 +28,9 @@ var NotFound = /** @class */ (function (_super) {
     NotFound.prototype.render = function () {
         return (React.createElement("div", null,
             React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
-            React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
-                " }}>",
+            React.createElement("div", { className: "hero-wrap page-title", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
                 React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
-                    React.createElement("div", { className: "col-md-9 text-center" },
+                    React.createElement("div", { className: "col-md-12 text-center" },
                         React.createElement("h1", { className: "mb-0 bread" }, "ARE YOU HAPPY NOW?"),
                         React.createElement("h5", null, "Just kidding! Our bad. 404 NOT FOUND"))))));
     };

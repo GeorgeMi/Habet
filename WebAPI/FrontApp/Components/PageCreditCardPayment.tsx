@@ -154,7 +154,7 @@ export class CreditCardPayment extends React.Component<any, any> {
                 <div id="PaymentForm">>
                     <Header reloadPage={this.reloadPage} />
 
-                    <div className="hero-wrap hero-bread" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" }}> }}>
+                    <div className="hero-wrap hero-bread" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" }}>
                         <div className="container">
                             <div className="row no-gutters slider-text align-items-center justify-content-center">
                                 <Cards

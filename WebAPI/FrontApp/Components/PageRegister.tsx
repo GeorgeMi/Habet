@@ -81,12 +81,10 @@ export class Register extends React.Component<any, any> {
                 <div>
                     <Header reloadPage={this.reloadPage} />
 
-                    <div className="hero-wrap hero-bread" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" }}> }}>
-                        <div className="container">
-                            <div className="row no-gutters slider-text align-items-center justify-content-center">
-                                <div className="col-md-9 text-center">
-                                    <h1 className="mb-0 bread"><Translate content='user.Register' /></h1>
-                                </div>
+                    <div className="hero-wrap page-title" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" }}>
+                        <div className="row justify-content-center">
+                            <div className="col-md-12 heading-section text-center">
+                                <h1 className="mb-4"><Translate content={'user.Register'} /></h1>
                             </div>
                         </div>
                     </div>

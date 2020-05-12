@@ -141,9 +141,8 @@ var Cart = /** @class */ (function (_super) {
         else if (!isLoaded) {
             return (React.createElement("div", null,
                 React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
-                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
-                    "}}>",
-                    React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
+                React.createElement("div", { className: "hero-wrap page-title", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
+                    React.createElement("div", { className: "row justify-content-center" },
                         React.createElement("div", { className: "col-md-12 heading-section text-center" },
                             React.createElement("h1", { className: "mb-4" },
                                 React.createElement(Translate, { content: 'checkout.Checkout' }))))),
@@ -156,8 +155,8 @@ var Cart = /** @class */ (function (_super) {
             }
             return (React.createElement("div", null,
                 React.createElement(Header_1.Header, { Active: 'Cart', reloadPage: this.reloadPage }),
-                React.createElement("div", { className: "hero-wrap hero-bread", style: { backgroundImage: "url('images/background.jpg')" } },
-                    React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
+                React.createElement("div", { className: "hero-wrap page-title", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
+                    React.createElement("div", { className: "row justify-content-center" },
                         React.createElement("div", { className: "col-md-12 heading-section text-center" },
                             React.createElement("h1", { className: "mb-4" },
                                 React.createElement(Translate, { content: 'checkout.MyCart' }))))),

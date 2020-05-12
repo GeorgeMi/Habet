@@ -142,8 +142,8 @@ export class Cart extends React.Component<any, any>{
                 <div>
                     <Header reloadPage={this.reloadPage} />
 
-                    <div className="hero-wrap hero-bread" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" }}>}}>
-                        <div className="row justify-content-center mb-3 pb-3">
+                    <div className="hero-wrap page-title" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" }}>
+                        <div className="row justify-content-center">
                             <div className="col-md-12 heading-section text-center">
                                 <h1 className="mb-4"><Translate content='checkout.Checkout' /></h1>
                             </div>
@@ -160,10 +160,10 @@ export class Cart extends React.Component<any, any>{
                 <div>
                     <Header Active={'Cart'} reloadPage={this.reloadPage} />
 
-                    <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
-                        <div className="row justify-content-center mb-3 pb-3">
+                    <div className="hero-wrap page-title" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" }}>
+                        <div className="row justify-content-center">
                             <div className="col-md-12 heading-section text-center">
-                                <h1 className="mb-4"><Translate content='checkout.MyCart' /></h1>
+                                <h1 className="mb-4"><Translate content={'checkout.MyCart'} /></h1>
                             </div>
                         </div>
                     </div>

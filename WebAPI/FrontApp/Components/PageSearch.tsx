@@ -194,7 +194,7 @@ export class Search extends React.Component<any, any>
                     <div>
                         <Header Active={'Search'} reloadPage={this.reloadPage} />
 
-                        <div className="hero-wrap hero-bread" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" }}> }}>
+                        <div className="hero-wrap page-title">
                             <div className="row justify-content-center mb-3 pb-3">
                                 <div className="col-md-12 heading-section text-center">
                                     <h1 className="mb-4"><Translate content={'search.SearchProducts'} /></h1>

@@ -114,7 +114,7 @@ export class Order extends React.Component<any, any> {
             return (
                 <div>
                     <Header reloadPage={this.reloadPage} />
-                    <div className="hero-wrap hero-bread" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" }}> }}>
+                    <div className="hero-wrap hero-bread" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" }}>
                         <div className="row no-gutters slider-text align-items-center justify-content-center">
                             <div className="col-md-9 text-center">
                                 <h1 className="mb-0 bread">ARE YOU HAPPY NOW?</h1>
@@ -136,10 +136,10 @@ export class Order extends React.Component<any, any> {
                     <div>
                         <Header reloadPage={this.reloadPage} />
 
-                        <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
-                            <div className="row justify-content-center mb-3 pb-3">
+                        <div className="hero-wrap page-title" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" }}>
+                            <div className="row justify-content-center">
                                 <div className="col-md-12 heading-section text-center">
-                                    <h1 className="mb-4"><Translate content='order.OrderNo' /></h1>
+                                    <h1 className="mb-4"><Translate content={'order.OrderNo'} /></h1>
                                 </div>
                             </div>
                         </div>
@@ -157,12 +157,10 @@ export class Order extends React.Component<any, any> {
                     <div>
                         <Header reloadPage={this.reloadPage} />
 
-                        <div className="hero-wrap hero-bread" style={{ backgroundImage: "url('images/background.jpg')" }}>
-                            <div className="container">
-                                <div className="row no-gutters slider-text align-items-center justify-content-center">
-                                    <div className="col-md-9 text-center">
-                                        <h1 className="mb-0 bread"><Translate content='order.OrderDetails' /></h1>
-                                    </div>
+                        <div className="hero-wrap page-title" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" }}>
+                            <div className="row justify-content-center">
+                                <div className="col-md-12 heading-section text-center">
+                                    <h1 className="mb-4"><Translate content={'order.OrderDetails'} /></h1>
                                 </div>
                             </div>
                         </div>
