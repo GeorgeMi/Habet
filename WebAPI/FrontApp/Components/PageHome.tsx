@@ -1,7 +1,7 @@
 ﻿import * as React from 'react';
 import { Suspense } from 'react';
 const SectionProducts = React.lazy(() => import("./SectionProducts").then(m => ({ default: m.SectionProducts })));
-
+import ScrollableAnchor from "react-scrollable-anchor";
 import { SectionIntro } from "./SectionIntro";
 import { Header } from './Header';
 import { KeyedCollection } from './Dictionary';
@@ -25,6 +25,8 @@ export class Home extends React.Component<any, any> {
         this.reloadPage = this.reloadPage.bind(this);
         this.minimizeDescription = this.minimizeDescription.bind(this);
         this.maximizeDescription = this.maximizeDescription.bind(this);
+
+        console.log(this.props.match.params.section);
     }
 
    public setLoadedComponentsArray(component: string, loaded: string) {
@@ -34,7 +36,7 @@ export class Home extends React.Component<any, any> {
             dictionary = new KeyedCollection<string>();
         }
         dictionary.Add(component, loaded);
-        this.setState({loadedComponentsDictionary: dictionary});
+       this.setState({ loadedComponentsDictionary: dictionary });     
     }
 
     public reloadPage() {
@@ -53,8 +55,13 @@ export class Home extends React.Component<any, any> {
    
     render() {
         var hideLoader = false;
-        if (this.state.loadedComponentsDictionary != null && this.state.loadedComponentsDictionary.Count() == 1) {
+        if (this.state.loadedComponentsDictionary != null && this.state.loadedComponentsDictionary.Count() == 4) {
             hideLoader = true;
+
+            if (this.props.match.params.section != null) {
+                const element = document.getElementById(this.props.match.params.section);
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
         }
 
         return (
@@ -67,18 +74,31 @@ export class Home extends React.Component<any, any> {
                     <SectionIntro />
 
                     <section className="ftco-section bg-light">
-                        <Suspense fallback={<div>Loading...</div>}>
+                        <Suspense fallback={<div>Loading...</div>}> 
 
+                            <div id="women">
 
-                            <SectionProducts Gender={'Women'} Type={'Bags'} reloadPage={this.reloadPage} setLoadedComponentsArray={this.setLoadedComponentsArray}/>
+                                <div id="women-bags">
+                                    <SectionProducts Gender={'Women'} Type={'Bags'} reloadPage={this.reloadPage} setLoadedComponentsArray={this.setLoadedComponentsArray}/>
+                                 </div>
 
-                            <SectionProducts Gender={'Women'} Type={'Accessories'} reloadPage={this.reloadPage}  />
+                                <div id="women-accessories">
+                                    <SectionProducts Gender={'Women'} Type={'Accessories'} reloadPage={this.reloadPage} setLoadedComponentsArray={this.setLoadedComponentsArray}/>
+                                </div>
 
+                            </div>
 
-                            <SectionProducts Gender={'Men'} Type={'Bags'} reloadPage={this.reloadPage} />
+                            <div id="men">
+                            
+                                <div id="men-bags">
+                                    <SectionProducts Gender={'Men'} Type={'Bags'} reloadPage={this.reloadPage} setLoadedComponentsArray={this.setLoadedComponentsArray}/>
+                                </div>
 
+                                <div id="men-accessories">
+                                    <SectionProducts Gender={'Men'} Type={'Accessories'} reloadPage={this.reloadPage} setLoadedComponentsArray={this.setLoadedComponentsArray}/>
+                                </div>
 
-                            <SectionProducts Gender={'Men'} Type={'Accessories'} reloadPage={this.reloadPage} />
+                            </div>
 
                         </Suspense>
                     </section>

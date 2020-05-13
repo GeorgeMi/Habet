@@ -173,6 +173,8 @@ F:\workspace\Habet\WebAPI\Api\obj\Debug\Api.csproj.CoreCompileInputs.cache
 F:\workspace\Habet\WebAPI\Api\obj\Debug\Api.csproj.CopyComplete
 F:\workspace\Habet\WebAPI\Api\obj\Debug\Api.dll
 F:\workspace\Habet\WebAPI\Api\obj\Debug\Api.pdb
+D:\project\Habet\WebAPI\Api\bin\Microsoft.EntityFrameworkCore.dll
+D:\project\Habet\WebAPI\Api\bin\Microsoft.EntityFrameworkCore.xml
 D:\project\Habet\WebAPI\Api\bin\Api.dll.config
 D:\project\Habet\WebAPI\Api\bin\Api.dll
 D:\project\Habet\WebAPI\Api\bin\Api.pdb
@@ -243,7 +245,6 @@ D:\project\Habet\WebAPI\Api\bin\Microsoft.AspNetCore.Http.Features.dll
 D:\project\Habet\WebAPI\Api\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 D:\project\Habet\WebAPI\Api\bin\Microsoft.EntityFrameworkCore.Abstractions.dll
 D:\project\Habet\WebAPI\Api\bin\Microsoft.EntityFrameworkCore.Design.dll
-D:\project\Habet\WebAPI\Api\bin\Microsoft.EntityFrameworkCore.dll
 D:\project\Habet\WebAPI\Api\bin\Microsoft.EntityFrameworkCore.Relational.dll
 D:\project\Habet\WebAPI\Api\bin\Microsoft.EntityFrameworkCore.SqlServer.dll
 D:\project\Habet\WebAPI\Api\bin\Microsoft.Extensions.Caching.Abstractions.dll
@@ -304,7 +305,6 @@ D:\project\Habet\WebAPI\Api\bin\itext.styledxmlparser.xml
 D:\project\Habet\WebAPI\Api\bin\itext.svg.xml
 D:\project\Habet\WebAPI\Api\bin\MassTransit.xml
 D:\project\Habet\WebAPI\Api\bin\Microsoft.AspNetCore.Http.Features.xml
-D:\project\Habet\WebAPI\Api\bin\Microsoft.EntityFrameworkCore.xml
 D:\project\Habet\WebAPI\Api\bin\Microsoft.EntityFrameworkCore.Abstractions.xml
 D:\project\Habet\WebAPI\Api\bin\Microsoft.EntityFrameworkCore.Design.xml
 D:\project\Habet\WebAPI\Api\bin\Microsoft.EntityFrameworkCore.Relational.xml

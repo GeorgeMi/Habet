@@ -47,7 +47,7 @@ var App = /** @class */ (function (_super) {
         return (React.createElement(react_router_dom_1.HashRouter, null,
             React.createElement("div", null,
                 React.createElement(react_router_1.Switch, null,
-                    React.createElement(react_router_1.Route, { exact: true, path: "/home", component: PageHome_1.Home }),
+                    React.createElement(react_router_1.Route, { exact: true, path: "/home/:section", component: PageHome_1.Home }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/", component: PageLanding_1.Landing }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/item/:id", component: PageProduct_1.Product }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/contact", component: PageContact_1.Contact }),

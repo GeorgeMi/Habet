@@ -463,20 +463,20 @@ var Header = /** @class */ (function (_super) {
                                 React.createElement("a", { href: "/", className: "nav-link" },
                                     React.createElement(Translate, { content: "nav.Home" }))),
                             React.createElement("li", { className: "nav-item dropdown " + headerDictionary.Item('Women') },
-                                React.createElement(react_router_hash_link_1.HashLink, { className: "nav-link dropdown-toggle", to: "/#Women-section", id: "dropdown04", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
+                                React.createElement("a", { className: "nav-link dropdown-toggle", href: "/#/home/women", id: "dropdown04", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
                                     React.createElement(Translate, { content: "nav.Women" })),
                                 React.createElement("div", { className: "dropdown-content", "aria-labelledby": "dropdown04" },
-                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/home/#Women-Bags-section", onClick: this.minimizeMenu },
+                                    React.createElement("a", { className: "dropdown-item", href: "/#/home/women-bags", onClick: this.minimizeMenu },
                                         React.createElement(Translate, { content: "nav.Bags" })),
-                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/home/#Women-Accessories-section", onClick: this.minimizeMenu },
+                                    React.createElement("a", { className: "dropdown-item", href: "/#/home/women-accessories", onClick: this.minimizeMenu },
                                         React.createElement(Translate, { content: "nav.Accessories" })))),
                             React.createElement("li", { className: "nav-item dropdown " + headerDictionary.Item('Men') },
-                                React.createElement(react_router_hash_link_1.HashLink, { className: "nav-link dropdown-toggle", to: "/#Men-section", id: "dropdown04", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
+                                React.createElement("a", { className: "nav-link dropdown-toggle", href: "/#/home/men", id: "dropdown04", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
                                     React.createElement(Translate, { content: "nav.Men" })),
                                 React.createElement("div", { className: "dropdown-content", "aria-labelledby": "dropdown04" },
-                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/home/#Men-Bags-section", onClick: this.minimizeMenu },
+                                    React.createElement("a", { className: "dropdown-item", href: "/#/home/men-bags", onClick: this.minimizeMenu },
                                         React.createElement(Translate, { content: "nav.Bags" })),
-                                    React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/home/#Men-Accessories-section", onClick: this.minimizeMenu },
+                                    React.createElement("a", { className: "dropdown-item", href: "/#/home/men-accessories", onClick: this.minimizeMenu },
                                         React.createElement(Translate, { content: "nav.Accessories" })))),
                             React.createElement("li", { className: "nav-item " + headerDictionary.Item('Search') },
                                 React.createElement("a", { href: "/#/search", className: "nav-link" },
@@ -518,19 +518,19 @@ var Header = /** @class */ (function (_super) {
                                         React.createElement(Translate, { content: "nav.Account" }),
                                         React.createElement("span", { className: "caret" })),
                                     React.createElement("div", { className: "dropdown-content", "aria-labelledby": "dropdown04" },
-                                        React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/user_details" },
+                                        React.createElement(react_router_hash_link_1.NavHashLink, { className: "dropdown-item", to: "/user_details" },
                                             React.createElement(Translate, { content: "nav.EditDetails" })),
-                                        React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/change_password" },
+                                        React.createElement(react_router_hash_link_1.NavHashLink, { className: "dropdown-item", to: "/change_password" },
                                             React.createElement(Translate, { content: "nav.ChangePassword" })),
-                                        React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/orders" },
+                                        React.createElement(react_router_hash_link_1.NavHashLink, { className: "dropdown-item", to: "/orders" },
                                             React.createElement(Translate, { content: "nav.Orders" })),
                                         api_response.role.toUpperCase() === 'ADMIN' ?
-                                            React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/add_product" },
+                                            React.createElement(react_router_hash_link_1.NavHashLink, { className: "dropdown-item", to: "/add_product" },
                                                 React.createElement(Translate, { content: "nav.AddProduct" }))
                                             :
                                                 React.createElement("div", null),
                                         api_response.role.toUpperCase() === 'ADMIN' ?
-                                            React.createElement(react_router_hash_link_1.HashLink, { className: "dropdown-item", to: "/admin_orders" },
+                                            React.createElement(react_router_hash_link_1.NavHashLink, { className: "dropdown-item", to: "/admin_orders" },
                                                 React.createElement(Translate, { content: "order.UsersOrders" }))
                                             :
                                                 React.createElement("div", null),
@@ -1990,6 +1990,7 @@ var Home = /** @class */ (function (_super) {
         _this.reloadPage = _this.reloadPage.bind(_this);
         _this.minimizeDescription = _this.minimizeDescription.bind(_this);
         _this.maximizeDescription = _this.maximizeDescription.bind(_this);
+        console.log(_this.props.match.params.section);
         return _this;
     }
     Home.prototype.setLoadedComponentsArray = function (component, loaded) {
@@ -2013,8 +2014,12 @@ var Home = /** @class */ (function (_super) {
     };
     Home.prototype.render = function () {
         var hideLoader = false;
-        if (this.state.loadedComponentsDictionary != null && this.state.loadedComponentsDictionary.Count() == 1) {
+        if (this.state.loadedComponentsDictionary != null && this.state.loadedComponentsDictionary.Count() == 4) {
             hideLoader = true;
+            if (this.props.match.params.section != null) {
+                var element = document.getElementById(this.props.match.params.section);
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
         }
         return (React.createElement("main", { id: "main" },
             hideLoader ? React.createElement("div", null) : React.createElement("div", { className: "loading" }, "Loading\u2026"),
@@ -2023,10 +2028,16 @@ var Home = /** @class */ (function (_super) {
                 React.createElement(SectionIntro_1.SectionIntro, null),
                 React.createElement("section", { className: "ftco-section bg-light" },
                     React.createElement(react_1.Suspense, { fallback: React.createElement("div", null, "Loading...") },
-                        React.createElement(SectionProducts, { Gender: 'Women', Type: 'Bags', reloadPage: this.reloadPage, setLoadedComponentsArray: this.setLoadedComponentsArray }),
-                        React.createElement(SectionProducts, { Gender: 'Women', Type: 'Accessories', reloadPage: this.reloadPage }),
-                        React.createElement(SectionProducts, { Gender: 'Men', Type: 'Bags', reloadPage: this.reloadPage }),
-                        React.createElement(SectionProducts, { Gender: 'Men', Type: 'Accessories', reloadPage: this.reloadPage }))))));
+                        React.createElement("div", { id: "women" },
+                            React.createElement("div", { id: "women-bags" },
+                                React.createElement(SectionProducts, { Gender: 'Women', Type: 'Bags', reloadPage: this.reloadPage, setLoadedComponentsArray: this.setLoadedComponentsArray })),
+                            React.createElement("div", { id: "women-accessories" },
+                                React.createElement(SectionProducts, { Gender: 'Women', Type: 'Accessories', reloadPage: this.reloadPage, setLoadedComponentsArray: this.setLoadedComponentsArray }))),
+                        React.createElement("div", { id: "men" },
+                            React.createElement("div", { id: "men-bags" },
+                                React.createElement(SectionProducts, { Gender: 'Men', Type: 'Bags', reloadPage: this.reloadPage, setLoadedComponentsArray: this.setLoadedComponentsArray })),
+                            React.createElement("div", { id: "men-accessories" },
+                                React.createElement(SectionProducts, { Gender: 'Men', Type: 'Accessories', reloadPage: this.reloadPage, setLoadedComponentsArray: this.setLoadedComponentsArray }))))))));
     };
     return Home;
 }(React.Component));
@@ -2119,7 +2130,7 @@ var Landing = /** @class */ (function (_super) {
                 React.createElement("div", { className: "container" },
                     React.createElement("div", { className: "row" },
                         React.createElement("div", { className: "col-lg-6 col-md-10 product-item filter-app wow fadeInUp" },
-                            React.createElement(react_router_hash_link_1.HashLink, { to: "/home/#Women-Accessories-section" },
+                            React.createElement(react_router_hash_link_1.HashLink, { to: "/home/women-accessories" },
                                 React.createElement("div", { className: "product d-flex flex-column" },
                                     React.createElement("div", { className: "img-prod" },
                                         React.createElement("img", { className: "img-fluid", src: "images/home2_women_accesories_2.jpg", alt: "" }),
@@ -2129,7 +2140,7 @@ var Landing = /** @class */ (function (_super) {
                                             React.createElement("a", { href: "javascript:void(0)", onClick: function () { return 1; }, className: "buy-now text-center py-2" },
                                                 React.createElement(Translate, { content: "products.WomenAccessories" }))))))),
                         React.createElement("div", { className: "col-lg-6 col-md-10 product-item filter-app wow fadeInUp" },
-                            React.createElement(react_router_hash_link_1.HashLink, { to: "/home/#Women-Bags-section" },
+                            React.createElement(react_router_hash_link_1.HashLink, { to: "/home/women-bags" },
                                 React.createElement("div", { className: "product d-flex flex-column" },
                                     React.createElement("div", { className: "img-prod" },
                                         React.createElement("img", { className: "img-fluid", src: "images/home2_women_bags.jpg", alt: "" }),
@@ -2139,7 +2150,7 @@ var Landing = /** @class */ (function (_super) {
                                             React.createElement("a", { href: "javascript:void(0)", onClick: function () { return 1; }, className: "buy-now text-center py-2" },
                                                 React.createElement(Translate, { content: "products.WomenBags" }))))))),
                         React.createElement("div", { className: "col-lg-6 col-md-10 product-item filter-app wow fadeInUp" },
-                            React.createElement(react_router_hash_link_1.HashLink, { to: "/home/#Men-Bags-section" },
+                            React.createElement(react_router_hash_link_1.HashLink, { to: "/home/men-bags" },
                                 React.createElement("div", { className: "product d-flex flex-column" },
                                     React.createElement("div", { className: "img-prod" },
                                         React.createElement("img", { className: "img-fluid", src: "images/home2_men_bags.jpg", alt: "" }),
@@ -2149,7 +2160,7 @@ var Landing = /** @class */ (function (_super) {
                                             React.createElement("a", { href: "javascript:void(0)", onClick: function () { return 1; }, className: "buy-now text-center py-2" },
                                                 React.createElement(Translate, { content: "products.MenBags" }))))))),
                         React.createElement("div", { className: "col-lg-6 col-md-10 product-item filter-app wow fadeInUp" },
-                            React.createElement(react_router_hash_link_1.HashLink, { to: "/home/#Men-Accessories-section" },
+                            React.createElement(react_router_hash_link_1.HashLink, { to: "/home/men-accessories" },
                                 React.createElement("div", { className: "product d-flex flex-column" },
                                     React.createElement("div", { className: "img-prod" },
                                         React.createElement("img", { className: "img-fluid", src: "images/home2_men_accesories.jpg", alt: "" }),
@@ -4566,12 +4577,12 @@ var SectionProducts = /** @class */ (function (_super) {
                 React.createElement("div", { className: "container" },
                     React.createElement("div", { className: "jumbotron", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url('images/banner_" + gender + "_" + type + ".jpg')" } },
                         React.createElement("div", { className: "col-md-12 heading-section text-center", style: { fontFamily: 'Brush Script St', opacity: 1 } },
-                            type == 'Bags' ? React.createElement("h2", { className: "mb-4", id: gender + "-section" },
-                                React.createElement(Translate, { content: 'products.' + gender })) : React.createElement("h2", { className: "mb-4", id: gender + "-section", style: { opacity: 0 } },
+                            type == 'Bags' ? React.createElement("h2", { className: "mb-4" },
+                                React.createElement(Translate, { content: 'products.' + gender })) : React.createElement("h2", { className: "mb-4", style: { opacity: 0 } },
                                 React.createElement(Translate, { content: 'products.' + gender })),
                             React.createElement("h2", null,
                                 React.createElement(Translate, { content: 'products.' + type })))),
-                    React.createElement("div", { className: "row", id: gender + "-" + type + "-section" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 product-item filter-app wow fadeInUp" },
+                    React.createElement("div", { className: "row" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 product-item filter-app wow fadeInUp" },
                         React.createElement("div", { className: "product d-flex flex-column" },
                             React.createElement("a", { href: "/#/item/" + item.ProductId, className: "img-prod" },
                                 React.createElement("img", { className: "img-fluid", src: item.Image, alt: "", style: { width: '350px', height: '466px' } }),
@@ -5167,7 +5178,7 @@ var App = /** @class */ (function (_super) {
         return (React.createElement(react_router_dom_1.HashRouter, null,
             React.createElement("div", null,
                 React.createElement(react_router_1.Switch, null,
-                    React.createElement(react_router_1.Route, { exact: true, path: "/home", component: PageHome_1.Home }),
+                    React.createElement(react_router_1.Route, { exact: true, path: "/home/:section", component: PageHome_1.Home }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/", component: PageLanding_1.Landing }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/item/:id", component: PageProduct_1.Product }),
                     React.createElement(react_router_1.Route, { exact: true, path: "/contact", component: PageContact_1.Contact }),
@@ -45781,7 +45792,7 @@ if(false) {}
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

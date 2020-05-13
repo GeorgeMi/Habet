@@ -6,7 +6,7 @@ import { SectionIntro } from "./SectionIntro";
 import { Header } from './Header';
 import { KeyedCollection } from './Dictionary';
 import * as Translate from 'react-translate-component';
-import { HashLink as Link } from 'react-router-hash-link';
+import { HashLink  as Link } from 'react-router-hash-link';
 import en from './languages/en';
 import it from './languages/it';
 import ro from './languages/ro';
@@ -77,8 +77,7 @@ export class Landing extends React.Component<any, any> {
                         <div className="row">        
                             
                             <div className="col-lg-6 col-md-10 product-item filter-app wow fadeInUp">
-                                <Link to="/home/#Women-Accessories-section">
-
+                                <Link to="/home/women-accessories">
                                     <div className="product d-flex flex-column">
                                         <div  className="img-prod"><img className="img-fluid" src="images/home2_women_accesories_2.jpg" alt="" />
                                             <div className="overlay"></div>
@@ -90,13 +89,12 @@ export class Landing extends React.Component<any, any> {
                                         </div>
                                     </div>
 
-                               </Link>
-
+                                </Link>
                             </div>
 
                             <div className="col-lg-6 col-md-10 product-item filter-app wow fadeInUp">
 
-                                <Link to="/home/#Women-Bags-section">
+                                <Link to="/home/women-bags">
                                     <div className="product d-flex flex-column">
                                         <div className="img-prod"><img className="img-fluid" src="images/home2_women_bags.jpg" alt="" />
                                             <div className="overlay"></div>
@@ -113,7 +111,7 @@ export class Landing extends React.Component<any, any> {
 
                             <div className="col-lg-6 col-md-10 product-item filter-app wow fadeInUp">
 
-                                <Link to="/home/#Men-Bags-section">
+                                <Link to="/home/men-bags">
                                     <div className="product d-flex flex-column">
                                         <div className="img-prod"><img className="img-fluid" src="images/home2_men_bags.jpg" alt="" />
                                             <div className="overlay"></div>
@@ -130,7 +128,7 @@ export class Landing extends React.Component<any, any> {
 
                             <div className="col-lg-6 col-md-10 product-item filter-app wow fadeInUp">
 
-                                <Link to="/home/#Men-Accessories-section">
+                                <Link to="/home/men-accessories">
                                 <div className="product d-flex flex-column">
                                     <div className="img-prod"><img className="img-fluid" src="images/home2_men_accesories.jpg" alt="" />
                                         <div className="overlay"></div>

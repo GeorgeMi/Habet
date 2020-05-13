@@ -35,6 +35,7 @@ var Home = /** @class */ (function (_super) {
         _this.reloadPage = _this.reloadPage.bind(_this);
         _this.minimizeDescription = _this.minimizeDescription.bind(_this);
         _this.maximizeDescription = _this.maximizeDescription.bind(_this);
+        console.log(_this.props.match.params.section);
         return _this;
     }
     Home.prototype.setLoadedComponentsArray = function (component, loaded) {
@@ -58,8 +59,12 @@ var Home = /** @class */ (function (_super) {
     };
     Home.prototype.render = function () {
         var hideLoader = false;
-        if (this.state.loadedComponentsDictionary != null && this.state.loadedComponentsDictionary.Count() == 1) {
+        if (this.state.loadedComponentsDictionary != null && this.state.loadedComponentsDictionary.Count() == 4) {
             hideLoader = true;
+            if (this.props.match.params.section != null) {
+                var element = document.getElementById(this.props.match.params.section);
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
         }
         return (React.createElement("main", { id: "main" },
             hideLoader ? React.createElement("div", null) : React.createElement("div", { className: "loading" }, "Loading\u2026"),
@@ -68,10 +73,16 @@ var Home = /** @class */ (function (_super) {
                 React.createElement(SectionIntro_1.SectionIntro, null),
                 React.createElement("section", { className: "ftco-section bg-light" },
                     React.createElement(react_1.Suspense, { fallback: React.createElement("div", null, "Loading...") },
-                        React.createElement(SectionProducts, { Gender: 'Women', Type: 'Bags', reloadPage: this.reloadPage, setLoadedComponentsArray: this.setLoadedComponentsArray }),
-                        React.createElement(SectionProducts, { Gender: 'Women', Type: 'Accessories', reloadPage: this.reloadPage }),
-                        React.createElement(SectionProducts, { Gender: 'Men', Type: 'Bags', reloadPage: this.reloadPage }),
-                        React.createElement(SectionProducts, { Gender: 'Men', Type: 'Accessories', reloadPage: this.reloadPage }))))));
+                        React.createElement("div", { id: "women" },
+                            React.createElement("div", { id: "women-bags" },
+                                React.createElement(SectionProducts, { Gender: 'Women', Type: 'Bags', reloadPage: this.reloadPage, setLoadedComponentsArray: this.setLoadedComponentsArray })),
+                            React.createElement("div", { id: "women-accessories" },
+                                React.createElement(SectionProducts, { Gender: 'Women', Type: 'Accessories', reloadPage: this.reloadPage, setLoadedComponentsArray: this.setLoadedComponentsArray }))),
+                        React.createElement("div", { id: "men" },
+                            React.createElement("div", { id: "men-bags" },
+                                React.createElement(SectionProducts, { Gender: 'Men', Type: 'Bags', reloadPage: this.reloadPage, setLoadedComponentsArray: this.setLoadedComponentsArray })),
+                            React.createElement("div", { id: "men-accessories" },
+                                React.createElement(SectionProducts, { Gender: 'Men', Type: 'Accessories', reloadPage: this.reloadPage, setLoadedComponentsArray: this.setLoadedComponentsArray }))))))));
     };
     return Home;
 }(React.Component));

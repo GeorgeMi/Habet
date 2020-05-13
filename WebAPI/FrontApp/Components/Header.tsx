@@ -1,6 +1,6 @@
 ﻿import * as React from 'react';
 import { KeyedCollection } from './Dictionary';
-import { HashLink as Link } from 'react-router-hash-link';
+import { NavHashLink as NavLink } from 'react-router-hash-link';
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
 import { NotificationManager, NotificationContainer } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
@@ -187,17 +187,17 @@ export class Header extends React.Component<any, any> {
                                 }
                                 <li className={"nav-item " + headerDictionary.Item('Home')}><a href="/" className="nav-link"><Translate content="nav.Home" /></a></li>
                                 <li className={"nav-item dropdown " + headerDictionary.Item('Women')}>
-                                    <Link className="nav-link dropdown-toggle" to="/#Women-section" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><Translate content="nav.Women" /></Link>
+                                    <a className="nav-link dropdown-toggle" href="/#/home/women" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><Translate content="nav.Women" /></a>
                                     <div className="dropdown-content" aria-labelledby="dropdown04">
-                                        <Link className="dropdown-item" to="/home/#Women-Bags-section" onClick={this.minimizeMenu}><Translate content="nav.Bags" /></Link>
-                                        <Link className="dropdown-item" to="/home/#Women-Accessories-section" onClick={this.minimizeMenu}><Translate content="nav.Accessories" /></Link>
+                                        <a className="dropdown-item" href="/#/home/women-bags" onClick={this.minimizeMenu}><Translate content="nav.Bags" /></a>
+                                        <a className="dropdown-item" href="/#/home/women-accessories" onClick={this.minimizeMenu}><Translate content="nav.Accessories" /></a>
                                     </div>
                                 </li>
                                 <li className={"nav-item dropdown " + headerDictionary.Item('Men')}>
-                                    <Link className="nav-link dropdown-toggle" to="/#Men-section" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><Translate content="nav.Men" /></Link>
+                                    <a className="nav-link dropdown-toggle" href="/#/home/men" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><Translate content="nav.Men" /></a>
                                     <div className="dropdown-content" aria-labelledby="dropdown04">
-                                        <Link className="dropdown-item" to="/home/#Men-Bags-section" onClick={this.minimizeMenu}><Translate content="nav.Bags" /></Link>
-                                        <Link className="dropdown-item" to="/home/#Men-Accessories-section" onClick={this.minimizeMenu}><Translate content="nav.Accessories" /></Link>
+                                        <a className="dropdown-item" href="/#/home/men-bags" onClick={this.minimizeMenu}><Translate content="nav.Bags" /></a>
+                                        <a className="dropdown-item" href="/#/home/men-accessories" onClick={this.minimizeMenu}><Translate content="nav.Accessories" /></a>
                                     </div>
                                 </li>
                                 <li className={"nav-item " + headerDictionary.Item('Search')}><a href="/#/search" className="nav-link"><Translate content="nav.Search" /></a></li>
@@ -236,18 +236,18 @@ export class Header extends React.Component<any, any> {
                                         <li className={"nav-item dropdown " + headerDictionary.Item('Account')}>
                                             <div id="dropdownMenu" data-toggle="dropdown" className="nav-link dropdown"><Translate content="nav.Account" /><span className="caret"></span></div>
                                             <div className="dropdown-content" aria-labelledby="dropdown04">
-                                                <Link className="dropdown-item" to="/user_details"><Translate content="nav.EditDetails" /></Link>
-                                                <Link className="dropdown-item" to="/change_password"><Translate content="nav.ChangePassword" /></Link>
-                                                <Link className="dropdown-item" to="/orders"><Translate content="nav.Orders" /></Link>
+                                                <NavLink className="dropdown-item" to="/user_details"><Translate content="nav.EditDetails" /></NavLink>
+                                                <NavLink className="dropdown-item" to="/change_password"><Translate content="nav.ChangePassword" /></NavLink>
+                                                <NavLink className="dropdown-item" to="/orders"><Translate content="nav.Orders" /></NavLink>
                                                 {
                                                     api_response.role.toUpperCase() === 'ADMIN' ?
-                                                        <Link className="dropdown-item" to="/add_product"><Translate content="nav.AddProduct" /></Link>
+                                                        <NavLink className="dropdown-item" to="/add_product"><Translate content="nav.AddProduct" /></NavLink>
                                                         :
                                                         <div></div>
                                                 }
                                                 {
                                                     api_response.role.toUpperCase() === 'ADMIN' ?
-                                                        <Link className="dropdown-item" to="/admin_orders"><Translate content="order.UsersOrders" /></Link>
+                                                        <NavLink className="dropdown-item" to="/admin_orders"><Translate content="order.UsersOrders" /></NavLink>
                                                         :
                                                         <div></div>
                                                 }
