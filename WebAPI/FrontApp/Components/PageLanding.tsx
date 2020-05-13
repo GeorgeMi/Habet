@@ -1,7 +1,7 @@
 ﻿import * as React from 'react';
 import { Suspense } from 'react';
 const SectionProducts = React.lazy(() => import("./SectionProducts").then(m => ({ default: m.SectionProducts })));
-
+import { Player, ControlBar } from 'video-react';
 import { SectionIntro } from "./SectionIntro";
 import { Header } from './Header';
 import { KeyedCollection } from './Dictionary';
@@ -21,7 +21,12 @@ export class Landing extends React.Component<any, any> {
     constructor(props) {
         super(props);
 
-        this.state = { loadedComponentsDictionary: null };
+        this.state = {
+            loadedComponentsDictionary: null,
+            source: 'video/video.mp4',
+        };
+        
+
         this.setLoadedComponentsArray = this.setLoadedComponentsArray.bind(this);
         this.reloadPage = this.reloadPage.bind(this);
         this.minimizeDescription = this.minimizeDescription.bind(this);
@@ -68,7 +73,7 @@ export class Landing extends React.Component<any, any> {
                     <SectionIntro setLoadedComponentsArray={this.setLoadedComponentsArray} />
 
                     <div className="container">
-                       
+                      
                         <div className="row">        
                             
                             <div className="col-lg-6 col-md-10 product-item filter-app wow fadeInUp">
@@ -88,7 +93,6 @@ export class Landing extends React.Component<any, any> {
                                </Link>
 
                             </div>
-
 
                             <div className="col-lg-6 col-md-10 product-item filter-app wow fadeInUp">
 
@@ -139,6 +143,18 @@ export class Landing extends React.Component<any, any> {
                                     </div>
                                 </Link>
                             </div>
+
+                            <div className="col-lg-12 col-md-20">
+                                <Player
+                                    src={this.state.source}
+                                    fluid={true}
+                                    muted={true}
+                                    autoPlay={true}
+                                >
+                                    <ControlBar autoHide={false} disableDefaultControls={true} />
+                                </Player>
+                            </div>
+
                         </div>
                     </div>
 

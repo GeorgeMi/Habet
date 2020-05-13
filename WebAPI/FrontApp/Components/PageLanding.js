@@ -15,6 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var SectionProducts = React.lazy(function () { return Promise.resolve().then(function () { return require("./SectionProducts"); }).then(function (m) { return ({ default: m.SectionProducts }); }); });
+var video_react_1 = require("video-react");
 var SectionIntro_1 = require("./SectionIntro");
 var Header_1 = require("./Header");
 var Dictionary_1 = require("./Dictionary");
@@ -31,7 +32,10 @@ var Landing = /** @class */ (function (_super) {
     __extends(Landing, _super);
     function Landing(props) {
         var _this = _super.call(this, props) || this;
-        _this.state = { loadedComponentsDictionary: null };
+        _this.state = {
+            loadedComponentsDictionary: null,
+            source: 'video/video.mp4',
+        };
         _this.setLoadedComponentsArray = _this.setLoadedComponentsArray.bind(_this);
         _this.reloadPage = _this.reloadPage.bind(_this);
         _this.minimizeDescription = _this.minimizeDescription.bind(_this);
@@ -108,7 +112,10 @@ var Landing = /** @class */ (function (_super) {
                                     React.createElement("div", { className: "text py-3 pb-4 px-3" },
                                         React.createElement("p", { className: "bottom-area d-flex px-3" },
                                             React.createElement("a", { href: "javascript:void(0)", onClick: function () { return 1; }, className: "buy-now text-center py-2" },
-                                                React.createElement(Translate, { content: "products.MenAccessories" }))))))))),
+                                                React.createElement(Translate, { content: "products.MenAccessories" }))))))),
+                        React.createElement("div", { className: "col-lg-12 col-md-20" },
+                            React.createElement(video_react_1.Player, { src: this.state.source, fluid: true, muted: true, autoPlay: true },
+                                React.createElement(video_react_1.ControlBar, { autoHide: false, disableDefaultControls: true }))))),
                 React.createElement("section", { className: "ftco-section-2 bg-light" },
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row" },

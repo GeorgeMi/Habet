@@ -2,7 +2,7 @@
     nav: {
         Account: 'Cont',
         AddProduct: 'Adaugă produs',
-        Bags: 'Poşete',
+        Bags: 'Genți',
         Accessories: 'Accesorii',
         ChangePassword: 'Schimbă parola',
         Contact: 'Contact',
@@ -26,13 +26,13 @@
 
     products: {
         AddToCart: 'Adaugă în coș',
-        Bags: 'Poşete',
+        Bags: 'Genți',
         Accessories: 'Accesorii',
         BuyNow: 'Cumpară acum',
         Men: 'Bărbați',
         Women: 'Femei',
         WomenAccessories: 'Accesorii pentru femei',
-        WomenBags: 'Poşete pentru femei',
+        WomenBags: 'Genți pentru femei',
         MenAccessories: 'Accesorii pentru bărbați',
         MenBags: 'Genți pentru bărbați'
     },
@@ -59,7 +59,7 @@
         Men: 'Bărbați',
         Women: 'Femei',
         Products: 'Produse',
-        Bags: 'Poşete',
+        Bags: 'Genți',
         Accessories: 'Accesorii',
         PriceRange: 'Gama de prețuri',
         Filter: 'Filtrează'

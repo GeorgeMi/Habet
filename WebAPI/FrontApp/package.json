@@ -44,6 +44,7 @@
     "react-search-input": "^0.11.3",
     "react-translate-component": "^0.15.1",
     "sfcookies": "^1.0.2",
-    "style-loader": "^0.23.1"
+    "style-loader": "^0.23.1",
+    "video-react": "^0.14.1"
   }
 }

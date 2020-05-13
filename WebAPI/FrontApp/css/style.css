@@ -15168,3 +15168,15 @@ pre {
             outline: none;
         }
 
+
+.video-react-controls-enabled {
+    padding-top:0 !important; 
+}
+
+.video-react-video {
+    width: 100% !important;
+}
+
+.video-react-big-play-button {
+    display: none !important;
+}
