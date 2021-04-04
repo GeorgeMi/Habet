@@ -4,3 +4,4 @@
 
 /WebAPI/FrontApp/obj/Debug/FrontApp.njsprojAssemblyReference.cache
 /WebAPI/Api/obj/Debug/Api.csproj.CoreCompileInputs.cache
+/WebAPI/Api/*.config
