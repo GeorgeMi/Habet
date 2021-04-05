@@ -101,8 +101,11 @@ namespace Api.Controllers
                     Price = ExchangePrice(product.Price, currency),
                     ProductId = product.ProductId,
                     Description = ComputeDescription(product, lang),
-                    Image = new ProductsImagesController().GetProductsImages(product.ProductId)
-                };
+                    Image = new ProductsImagesController().GetProductsImages(product.ProductId),
+                    StyleCode = product.StyleCode,
+                    LeatherType = product.LeatherType,
+                    Colour = product.Colour
+    };
 
                 responseMessage = Request.CreateResponse(HttpStatusCode.OK, productDetail);
             }

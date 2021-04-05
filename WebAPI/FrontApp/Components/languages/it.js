@@ -128,7 +128,10 @@
         Men: 'Uomini',
         Women: 'Donne',
         Type: 'Tipo',
-        AddProduct: 'Aggiungi prodotto'
+        AddProduct: 'Aggiungi prodotto',
+        StyleCode: 'Codice di stile',
+        Leather: 'Pelle',
+        Colour: 'Colore'
     },
 
     updateDetails: {

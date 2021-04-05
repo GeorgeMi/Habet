@@ -19,7 +19,10 @@ namespace Api.Models
         public string Description_IT { get; set; }
         public string Gender { get; set; }
         public string Type { get; set; }
-
+        public string StyleCode { get; set; }
+        public string LeatherType { get; set; }
+        public string Colour { get; set; }
+ 
         public virtual ICollection<ProductsOrders> ProductsOrders { get; set; }
     }
 }

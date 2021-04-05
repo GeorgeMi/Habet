@@ -38,7 +38,7 @@ var AddProduct = /** @class */ (function (_super) {
         dictionary.Add(props.Active, 'cta cta-colored');
         counterpart.setLocale(sfcookies_1.read_cookie('lang'));
         _this.state = {
-            name_ro: '', name_it: '', name_en: '', price: '', file1: null, file2: null, file3: null, description_ro: '', description_it: '', description_en: '', gender: '', type: '', image: '', api_response: '', loggedIn: false, headerDictionary: dictionary, waitingResponse: false, language: sfcookies_1.read_cookie('lang')
+            name_ro: '', name_it: '', name_en: '', price: '', file1: null, file2: null, file3: null, description_ro: '', description_it: '', description_en: '', gender: '', type: '', image: '', style_code: '', leather_type: '', colour: '', api_response: '', loggedIn: false, headerDictionary: dictionary, waitingResponse: false, language: sfcookies_1.read_cookie('lang')
         };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
@@ -81,7 +81,10 @@ var AddProduct = /** @class */ (function (_super) {
             description_it: this.escapeHTML(this.state.description_it),
             description_en: this.escapeHTML(this.state.description_en),
             gender: this.state.gender,
-            type: this.state.type
+            type: this.state.type,
+            style_code: this.state.style_code,
+            leather_type: this.state.leather_type,
+            colour: this.state.colour
         }));
         var config = {
             headers: { token: sfcookies_1.read_cookie('token') }
@@ -152,6 +155,21 @@ var AddProduct = /** @class */ (function (_super) {
                                                     React.createElement(Translate, { content: 'product.Name' }),
                                                     " (EN)"),
                                                 React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.name_en, onChange: this.handleChange, name: "name_en", id: "name_en", maxLength: 32, required: true }))),
+                                        React.createElement("div", { className: "col-md-6" },
+                                            React.createElement("div", { className: "form-group" },
+                                                React.createElement("label", { htmlFor: "style_code" },
+                                                    React.createElement(Translate, { content: 'product.StyleCode' })),
+                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.style_code, onChange: this.handleChange, name: "style_code", id: "style_code", maxLength: 32, required: true }))),
+                                        React.createElement("div", { className: "col-md-6" },
+                                            React.createElement("div", { className: "form-group" },
+                                                React.createElement("label", { htmlFor: "leather_type" },
+                                                    React.createElement(Translate, { content: 'product.Leather' })),
+                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.leather_type, onChange: this.handleChange, name: "leather_type", id: "leather_type", maxLength: 32, required: true }))),
+                                        React.createElement("div", { className: "col-md-6" },
+                                            React.createElement("div", { className: "form-group" },
+                                                React.createElement("label", { htmlFor: "colour" },
+                                                    React.createElement(Translate, { content: 'product.Colour' })),
+                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.colour, onChange: this.handleChange, name: "colour", id: "colour", maxLength: 32, required: true }))),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
                                                 React.createElement("label", { htmlFor: "price" },

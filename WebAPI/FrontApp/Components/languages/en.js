@@ -128,7 +128,10 @@
         Men: 'Men',
         Women: 'Women',
         Type: 'Type',
-        AddProduct: 'Add product'
+        AddProduct: 'Add product',
+        StyleCode: 'Style code',
+        Leather: 'Leather',
+        Colour: 'Colour'
     },
 
     updateDetails: {

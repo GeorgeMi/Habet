@@ -128,7 +128,10 @@
         Men: 'Bărbați',
         Women: 'Femei',
         Type: 'Tip',
-        AddProduct: 'Adaugă produs'
+        AddProduct: 'Adaugă produs',
+        StyleCode: 'Cod produs',
+        Leather: 'Piele',
+        Colour: 'Culoare'
     },
 
     updateDetails: {
