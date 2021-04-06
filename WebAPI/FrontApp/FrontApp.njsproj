@@ -187,6 +187,8 @@
     <Folder Include="lib\touchSwipe\" />
     <Folder Include="lib\waypoints\" />
     <Folder Include="lib\wow\" />
+    <Folder Include="Properties\" />
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>

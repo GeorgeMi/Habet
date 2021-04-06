@@ -62076,13 +62076,13 @@ module.exports = function(originalModule) {
 /***/ }),
 
 /***/ "config":
-/*!****************************************************************!*\
-  !*** external "{\"API_Path\":\"http://localhost:65315/api\"}" ***!
-  \****************************************************************/
+/*!*********************************************************************!*\
+  !*** external "{\"API_Path\":\"http://api.gabrielhabet.com/api\"}" ***!
+  \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = {"API_Path":"http://localhost:65315/api"};
+module.exports = {"API_Path":"http://api.gabrielhabet.com/api"};
 
 /***/ })
 

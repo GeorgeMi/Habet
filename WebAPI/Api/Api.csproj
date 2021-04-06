@@ -323,7 +323,7 @@
   <ItemGroup>
     <Content Include="Invoice\invoice.pdf" />
     <None Include="packages.config" />
-    <None Include="Properties\PublishProfiles\api.gabrielhabet.co.uk - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\api.gabrielhabet.com - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
