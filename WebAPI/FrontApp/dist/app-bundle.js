@@ -45866,7 +45866,7 @@ if(false) {}
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -62123,13 +62123,13 @@ module.exports = function(originalModule) {
 /***/ }),
 
 /***/ "config":
-/*!**********************************************************************!*\
-  !*** external "{\"API_Path\":\"https://api.gabrielhabet.com/api\"}" ***!
-  \**********************************************************************/
+/*!****************************************************************!*\
+  !*** external "{\"API_Path\":\"http://localhost:65315/api\"}" ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = {"API_Path":"https://api.gabrielhabet.com/api"};
+module.exports = {"API_Path":"http://localhost:65315/api"};
 
 /***/ })
 

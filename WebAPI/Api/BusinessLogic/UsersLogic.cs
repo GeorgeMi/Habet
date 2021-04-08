@@ -295,35 +295,25 @@ namespace Api.BusinessLogic
         public void SendAuthEmail(string token, string firstName, string email)
         {
             MailMessage mail = new MailMessage();
-           // SmtpClient SmtpServer = new SmtpClient(ConfigurationManager.AppSettings["mail_smtp"]);
             SmtpClient SmtpServer = new SmtpClient();
             mail.From = new MailAddress(ConfigurationManager.AppSettings["mail_user"]);
             mail.To.Add(email);
             mail.Subject = "Welcome to GabrielHabet";
             mail.Body = "<h3>Hello " + firstName + ", </h3>";
             mail.Body +=
-                "<p>Thanks for signing up! Before you start, please verify your email address by clicking <a href=\"http://gabrielhabet.co.uk/#/verify/" +
+                "<p>Thanks for signing up! Before you start, please verify your email address by clicking <a href=\"https://www.gabrielhabet.com/#/verify/" +
                 token + "\">here</a>.</p>";
             mail.Body += "<p>This link will expire in 24 hours if it's not activated.</p>";
             mail.Body += "<h5>The GabrielHabet team</h5>";
             mail.IsBodyHtml = true;
 
-            SmtpServer.Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["mail_user"], ConfigurationManager.AppSettings["mail_password"]);
-            SmtpServer.EnableSsl = true;
+            SmtpServer.EnableSsl = false;
             SmtpServer.UseDefaultCredentials = false;
-            SmtpServer.Port = 587;
+            SmtpServer.Port = 26;
             SmtpServer.Host = ConfigurationManager.AppSettings["mail_smtp"];
+            SmtpServer.Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["mail_user"], ConfigurationManager.AppSettings["mail_password"]);
 
             SmtpServer.Send(mail);
-
-            //var smtpClient = new SmtpClient(ConfigurationManager.AppSettings["mail_smtp"])
-            //{
-            //    Port = 587,
-            //    Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["mail_user"], ConfigurationManager.AppSettings["mail_password"]),
-            //    EnableSsl = true,
-            //};
-
-            //smtpClient.Send(mail);
         }
 
         /// <summary>
@@ -335,34 +325,25 @@ namespace Api.BusinessLogic
         public void SendRecoverEmail(string token, string firstName, string email)
         {
             MailMessage mail = new MailMessage();
-          //  SmtpClient SmtpServer = new SmtpClient();
+            SmtpClient SmtpServer = new SmtpClient();
             mail.From = new MailAddress(ConfigurationManager.AppSettings["mail_user"]);
             mail.To.Add(email);
             mail.Subject = "Reset password";
             mail.Body = "<h3>Hello " + firstName + ", </h3>";
             mail.Body +=
-                "<p>Let's reset your password. Reset password by clicking <a href=\"http://gabrielhabet.co.uk/#/reset_password/" +
+                "<p>Let's reset your password. Reset password by clicking <a href=\"https://www.gabrielhabet.com/#/reset_password/" +
                 token + "\">here</a>.</p>";
             mail.Body += "<p>If you did not ask to reset your password you may want to review your recent account access for any unusual activity. We're here to help if you need it. Visit the Help Center for more info or contact us.</ p>";
             mail.Body += "<h5>The GabrielHabet team</h5>";
             mail.IsBodyHtml = true;
 
-            //SmtpServer.Credentials = new System.Net.NetworkCredential("habetgabriel@gmail.com", "habetpassword");
-            //SmtpServer.EnableSsl = false;
-            //SmtpServer.UseDefaultCredentials = false;
-            //SmtpServer.Port = 25;
-            //SmtpServer.Host = "relay-hosting.secureserver.net";
+            SmtpServer.EnableSsl = false;
+            SmtpServer.UseDefaultCredentials = false;
+            SmtpServer.Port = 26;
+            SmtpServer.Host = ConfigurationManager.AppSettings["mail_smtp"];
+            SmtpServer.Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["mail_user"], ConfigurationManager.AppSettings["mail_password"]);
 
-            //SmtpServer.Send(mail);
-
-            var smtpClient = new SmtpClient(ConfigurationManager.AppSettings["mail_smtp"])
-            {
-                Port = 587,
-                Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["mail_user"], ConfigurationManager.AppSettings["mail_password"]),
-                EnableSsl = true,
-            };
-
-            smtpClient.Send(mail);
+            SmtpServer.Send(mail);
         }
 
         /// <summary>
@@ -372,7 +353,7 @@ namespace Api.BusinessLogic
         public void StoreMessageEmail(SendMessageDTO messageDTO)
         {
             MailMessage mail = new MailMessage();
-          //  SmtpClient SmtpServer = new SmtpClient();
+            SmtpClient SmtpServer = new SmtpClient();
             mail.From = new MailAddress(ConfigurationManager.AppSettings["mail_user"]);
             mail.To.Add("george.miron2003@gmail.com");
             mail.Subject = $"Message from {messageDTO.Name}";
@@ -383,22 +364,13 @@ namespace Api.BusinessLogic
 
             mail.IsBodyHtml = true;
 
-            //SmtpServer.Credentials = new System.Net.NetworkCredential("habetgabriel@gmail.com", "habetpassword");
-            //SmtpServer.EnableSsl = false;
-            //SmtpServer.UseDefaultCredentials = false;
-            //SmtpServer.Port = 25;
-            //SmtpServer.Host = "relay-hosting.secureserver.net";
+            SmtpServer.EnableSsl = false;
+            SmtpServer.UseDefaultCredentials = false;
+            SmtpServer.Port = 26;
+            SmtpServer.Host = ConfigurationManager.AppSettings["mail_smtp"];
+            SmtpServer.Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["mail_user"], ConfigurationManager.AppSettings["mail_password"]);
 
-            //SmtpServer.Send(mail);
-
-            var smtpClient = new SmtpClient(ConfigurationManager.AppSettings["mail_smtp"])
-            {
-                Port = 587,
-                Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["mail_user"], ConfigurationManager.AppSettings["mail_password"]),
-                EnableSsl = true,
-            };
-
-            smtpClient.Send(mail);
+            SmtpServer.Send(mail);
         }
 
         /// <summary>

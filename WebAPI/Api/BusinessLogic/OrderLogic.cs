@@ -33,13 +33,13 @@ namespace Api.BusinessLogic
         public void SendOrderEmail(Orders order, List<Products> products, Stream invoice)
         {
             MailMessage mail = new MailMessage();
-          //  SmtpClient SmtpServer = new SmtpClient();
+            SmtpClient SmtpServer = new SmtpClient();
             mail.From = new MailAddress(ConfigurationManager.AppSettings["mail_user"]);
             mail.To.Add(order.Email);
             mail.Subject = "Information for your Order ";
             mail.Body = "<h3>Hello " + order.FirstName + ", </h3>";
             //string orderId = DateTime.Now.Year + "" + DateTime.Now.Month + "" + DateTime.Now.Day + "" + order.OrderId;
-            mail.Body += "<p>Thank you so much for your recent purchase on <a href=\"http://gabrielhabet.co.uk/\">gabrielhabet.co.uk</a>. Your order number is <a href=\"http://gabrielhabet.co.uk/#/order/" + order.OrderId + "\">" + order.OrderId + "</a>.</p>";
+            mail.Body += "<p>Thank you so much for your recent purchase on <a href=\"https://www.gabrielhabet.com/\">www.gabrielhabet.com</a>. Your order number is <a href=\"https://www.gabrielhabet.com/#/order/" + order.OrderId + "\">" + order.OrderId + "</a>.</p>";
             mail.Body += "<p>Your order information is:</ p>";
             mail.Body += "<p><table class=\"table\"><tr><th>Shipping Information:</th><th>Payment Method:</th></tr><tr><td>"
                                    + "Name: " + order.FirstName + " "
@@ -64,32 +64,13 @@ namespace Api.BusinessLogic
             mail.IsBodyHtml = true;
             mail.Attachments.Add(new Attachment(invoice, "invoice_" + order.OrderId + ".pdf"));
 
-            //SmtpServer.Credentials = new System.Net.NetworkCredential("habetgabriel@gmail.com", "habetpassword");
-            //SmtpServer.EnableSsl = false;
-            //SmtpServer.UseDefaultCredentials = false;
-            //SmtpServer.Port = 25;
-            //SmtpServer.Host = "relay-hosting.secureserver.net";
+            SmtpServer.EnableSsl = false;
+            SmtpServer.UseDefaultCredentials = false;
+            SmtpServer.Port = 26;
+            SmtpServer.Host = ConfigurationManager.AppSettings["mail_smtp"];
+            SmtpServer.Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["mail_user"], ConfigurationManager.AppSettings["mail_password"]);
 
-
-            //SmtpServer.Host = "smtp.gmail.com";
-            //SmtpServer.Port = 587;
-            //SmtpServer.EnableSsl = true;
-            //SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
-            //SmtpServer.UseDefaultCredentials = false;
-            //SmtpServer.Credentials = new System.Net.NetworkCredential("habetgabriel@gmail.com", "habetpassword");
-
-
-            //SmtpServer.Send(mail);
-
-
-            var smtpClient = new SmtpClient(ConfigurationManager.AppSettings["mail_smtp"])
-            {
-                Port = 587,
-                Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["mail_user"], ConfigurationManager.AppSettings["mail_password"]),
-                EnableSsl = true,
-            };
-
-            smtpClient.Send(mail);
+            SmtpServer.Send(mail);
         }
 
         /// <summary>
@@ -101,13 +82,13 @@ namespace Api.BusinessLogic
         public void SendOrderEmailToAdmin(Orders order, List<Products> products, Stream invoice)
         {
             MailMessage mail = new MailMessage();
-          //  SmtpClient SmtpServer = new SmtpClient();
+            SmtpClient SmtpServer = new SmtpClient();
             mail.From = new MailAddress(ConfigurationManager.AppSettings["mail_user"]);
-            mail.To.Add("habetgabriel@gmail.com");
+            mail.To.Add(ConfigurationManager.AppSettings["admin_mail"]);
             mail.Subject = "New order received";
             mail.Body = "<h3>New order from " + order.Email + ", </h3>";
             //string orderId = DateTime.Now.Year + "" + DateTime.Now.Month + "" + DateTime.Now.Day + "" + order.OrderId;
-            mail.Body += "<p>Order number: <a href=\"http://gabrielhabet.co.uk/#/order/" + order.OrderId + "\">" + order.OrderId + "</a>.</p>";
+            mail.Body += "<p>Order number: <a href=\"https://www.gabrielhabet.com/#/order/" + order.OrderId + "\">" + order.OrderId + "</a>.</p>";
             mail.Body += "<p>Order information:</ p>";
             mail.Body += "<p><table class=\"table\"><tr><th>Shipping Information:</th><th>Payment Method:</th></tr><tr><td>"
                                    + "Name: " + order.FirstName + " "
@@ -130,30 +111,13 @@ namespace Api.BusinessLogic
             mail.IsBodyHtml = true;
             mail.Attachments.Add(new Attachment(invoice, "invoice_" + order.OrderId + ".pdf"));
 
-            //SmtpServer.Credentials = new System.Net.NetworkCredential("habetgabriel@gmail.com", "habetpassword");
-            //SmtpServer.EnableSsl = false;
-            //SmtpServer.UseDefaultCredentials = false;
-            //SmtpServer.Port = 25;
-            //SmtpServer.Host = "relay-hosting.secureserver.net";
+            SmtpServer.EnableSsl = false;
+            SmtpServer.UseDefaultCredentials = false;
+            SmtpServer.Port = 26;
+            SmtpServer.Host = ConfigurationManager.AppSettings["mail_smtp"];
+            SmtpServer.Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["mail_user"], ConfigurationManager.AppSettings["mail_password"]);
 
-
-            //SmtpServer.Host = "smtp.gmail.com";
-            //SmtpServer.Port = 587;
-            //SmtpServer.EnableSsl = true;
-            //SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
-            //SmtpServer.UseDefaultCredentials = false;
-            //SmtpServer.Credentials = new System.Net.NetworkCredential("habetgabriel@gmail.com", "habetpassword");
-
-            // SmtpServer.Send(mail);
-
-            var smtpClient = new SmtpClient(ConfigurationManager.AppSettings["mail_smtp"])
-            {
-                Port = 587,
-                Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["mail_user"], ConfigurationManager.AppSettings["mail_password"]),
-                EnableSsl = true,
-            };
-
-            smtpClient.Send(mail);
+            SmtpServer.Send(mail);
         }
     }
 }

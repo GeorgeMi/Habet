@@ -32,7 +32,7 @@ namespace Api
 
             // Activeaza cross origin
             var cors = new EnableCorsAttribute("*", "*", "*");
-           // var cors = new EnableCorsAttribute("http://www.gabrielhabet.co.uk", "*", "*"); 
+            // var cors = new EnableCorsAttribute("https://www.gabrielhabet.com", "*", "*"); 
             config.EnableCors(cors);
         }
     }
