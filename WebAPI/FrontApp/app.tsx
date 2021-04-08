@@ -2,6 +2,7 @@
 import * as ReactDOM from 'react-dom';
 import { HashRouter as Router } from 'react-router-dom'
 import { Switch, Route } from 'react-router'
+import HttpsRedirect from 'react-https-redirect'
 
 import { Home } from "./Components/PageHome";
 import { Landing } from "./Components/PageLanding";
@@ -29,34 +30,38 @@ import { CreditCardPayment } from "./Components/PageCreditCardPayment";
 class App extends React.Component {
     render() {
         return (
-            <Router>
-                <div>
-                    <Switch>
-                        <Route exact path="/home/:section" component={Home} />
-                        <Route exact path="/" component={Landing} />
-                        <Route exact path="/item/:id" component={Product} />
-                        <Route exact path="/contact" component={Contact} />
-                        <Route exact path="/checkout" component={Checkout} />
-                        <Route exact path="/search" component={Search} />
-                        <Route exact path="/cart" component={Cart} />
-                        <Route exact path="/register" component={Register} />
-                        <Route exact path="/cookie_policy" component={CookiePolicy} />
-                        <Route exact path="/verify/:id" component={Verify} />
-                        <Route exact path="/recover_password" component={RecoverPassword} />
-                        <Route exact path="/reset_password/:id" component={ResetPassword} />
-                        <Route exact path="/change_password" component={ChangePassword} />
-                        <Route exact path="/user_details" component={UpdateUserDetails} />   
-                        <Route exact path="/add_product" component={AddProduct} />   
-                        <Route exact path="/add_product" component={AddProduct} />   
-                        <Route exact path="/orders" component={OrderHistory} />     
-                        <Route exact path="/admin_orders" component={OrderAdminHistory} />     
-                        <Route exact path="/order/:id" component={Order} />   
-                        <Route exact path="/card_payment" component={CreditCardPayment} />   
-                        <Route component={NotFound} />  
-                    </Switch>
-                    <Footer />
-                </div>
-            </Router>
+            <HttpsRedirect>
+     
+                <Router>
+                    <div>
+                        <Switch>
+                            <Route exact path="/home/:section" component={Home} />
+                            <Route exact path="/" component={Landing} />
+                            <Route exact path="/item/:id" component={Product} />
+                            <Route exact path="/contact" component={Contact} />
+                            <Route exact path="/checkout" component={Checkout} />
+                            <Route exact path="/search" component={Search} />
+                            <Route exact path="/cart" component={Cart} />
+                            <Route exact path="/register" component={Register} />
+                            <Route exact path="/cookie_policy" component={CookiePolicy} />
+                            <Route exact path="/verify/:id" component={Verify} />
+                            <Route exact path="/recover_password" component={RecoverPassword} />
+                            <Route exact path="/reset_password/:id" component={ResetPassword} />
+                            <Route exact path="/change_password" component={ChangePassword} />
+                            <Route exact path="/user_details" component={UpdateUserDetails} />   
+                            <Route exact path="/add_product" component={AddProduct} />   
+                            <Route exact path="/add_product" component={AddProduct} />   
+                            <Route exact path="/orders" component={OrderHistory} />     
+                            <Route exact path="/admin_orders" component={OrderAdminHistory} />     
+                            <Route exact path="/order/:id" component={Order} />   
+                            <Route exact path="/card_payment" component={CreditCardPayment} />   
+                            <Route component={NotFound} />  
+                        </Switch>
+                        <Footer />
+                    </div>
+                </Router>
+
+            </HttpsRedirect>
         );
     }
 }

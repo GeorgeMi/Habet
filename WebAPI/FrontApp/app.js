@@ -17,6 +17,7 @@ var React = require("react");
 var ReactDOM = require("react-dom");
 var react_router_dom_1 = require("react-router-dom");
 var react_router_1 = require("react-router");
+var react_https_redirect_1 = require("react-https-redirect");
 var PageHome_1 = require("./Components/PageHome");
 var PageLanding_1 = require("./Components/PageLanding");
 var PageContact_1 = require("./Components/PageContact");
@@ -44,31 +45,32 @@ var App = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     App.prototype.render = function () {
-        return (React.createElement(react_router_dom_1.HashRouter, null,
-            React.createElement("div", null,
-                React.createElement(react_router_1.Switch, null,
-                    React.createElement(react_router_1.Route, { exact: true, path: "/home/:section", component: PageHome_1.Home }),
-                    React.createElement(react_router_1.Route, { exact: true, path: "/", component: PageLanding_1.Landing }),
-                    React.createElement(react_router_1.Route, { exact: true, path: "/item/:id", component: PageProduct_1.Product }),
-                    React.createElement(react_router_1.Route, { exact: true, path: "/contact", component: PageContact_1.Contact }),
-                    React.createElement(react_router_1.Route, { exact: true, path: "/checkout", component: PageCheckout_1.Checkout }),
-                    React.createElement(react_router_1.Route, { exact: true, path: "/search", component: PageSearch_1.Search }),
-                    React.createElement(react_router_1.Route, { exact: true, path: "/cart", component: PageCart_1.Cart }),
-                    React.createElement(react_router_1.Route, { exact: true, path: "/register", component: PageRegister_1.Register }),
-                    React.createElement(react_router_1.Route, { exact: true, path: "/cookie_policy", component: PageCookiePolicy_1.CookiePolicy }),
-                    React.createElement(react_router_1.Route, { exact: true, path: "/verify/:id", component: PageVerify_1.Verify }),
-                    React.createElement(react_router_1.Route, { exact: true, path: "/recover_password", component: PageRecoverPassword_1.RecoverPassword }),
-                    React.createElement(react_router_1.Route, { exact: true, path: "/reset_password/:id", component: PageResetPassword_1.ResetPassword }),
-                    React.createElement(react_router_1.Route, { exact: true, path: "/change_password", component: PageChangePassword_1.ChangePassword }),
-                    React.createElement(react_router_1.Route, { exact: true, path: "/user_details", component: PageUpdateUserDetails_1.UpdateUserDetails }),
-                    React.createElement(react_router_1.Route, { exact: true, path: "/add_product", component: PageAddProduct_1.AddProduct }),
-                    React.createElement(react_router_1.Route, { exact: true, path: "/add_product", component: PageAddProduct_1.AddProduct }),
-                    React.createElement(react_router_1.Route, { exact: true, path: "/orders", component: PageOrderHistory_1.OrderHistory }),
-                    React.createElement(react_router_1.Route, { exact: true, path: "/admin_orders", component: PageOrderAdminHistory_1.OrderAdminHistory }),
-                    React.createElement(react_router_1.Route, { exact: true, path: "/order/:id", component: PageOrder_1.Order }),
-                    React.createElement(react_router_1.Route, { exact: true, path: "/card_payment", component: PageCreditCardPayment_1.CreditCardPayment }),
-                    React.createElement(react_router_1.Route, { component: PageNotFound_1.NotFound })),
-                React.createElement(Footer_1.Footer, null))));
+        return (React.createElement(react_https_redirect_1.default, null,
+            React.createElement(react_router_dom_1.HashRouter, null,
+                React.createElement("div", null,
+                    React.createElement(react_router_1.Switch, null,
+                        React.createElement(react_router_1.Route, { exact: true, path: "/home/:section", component: PageHome_1.Home }),
+                        React.createElement(react_router_1.Route, { exact: true, path: "/", component: PageLanding_1.Landing }),
+                        React.createElement(react_router_1.Route, { exact: true, path: "/item/:id", component: PageProduct_1.Product }),
+                        React.createElement(react_router_1.Route, { exact: true, path: "/contact", component: PageContact_1.Contact }),
+                        React.createElement(react_router_1.Route, { exact: true, path: "/checkout", component: PageCheckout_1.Checkout }),
+                        React.createElement(react_router_1.Route, { exact: true, path: "/search", component: PageSearch_1.Search }),
+                        React.createElement(react_router_1.Route, { exact: true, path: "/cart", component: PageCart_1.Cart }),
+                        React.createElement(react_router_1.Route, { exact: true, path: "/register", component: PageRegister_1.Register }),
+                        React.createElement(react_router_1.Route, { exact: true, path: "/cookie_policy", component: PageCookiePolicy_1.CookiePolicy }),
+                        React.createElement(react_router_1.Route, { exact: true, path: "/verify/:id", component: PageVerify_1.Verify }),
+                        React.createElement(react_router_1.Route, { exact: true, path: "/recover_password", component: PageRecoverPassword_1.RecoverPassword }),
+                        React.createElement(react_router_1.Route, { exact: true, path: "/reset_password/:id", component: PageResetPassword_1.ResetPassword }),
+                        React.createElement(react_router_1.Route, { exact: true, path: "/change_password", component: PageChangePassword_1.ChangePassword }),
+                        React.createElement(react_router_1.Route, { exact: true, path: "/user_details", component: PageUpdateUserDetails_1.UpdateUserDetails }),
+                        React.createElement(react_router_1.Route, { exact: true, path: "/add_product", component: PageAddProduct_1.AddProduct }),
+                        React.createElement(react_router_1.Route, { exact: true, path: "/add_product", component: PageAddProduct_1.AddProduct }),
+                        React.createElement(react_router_1.Route, { exact: true, path: "/orders", component: PageOrderHistory_1.OrderHistory }),
+                        React.createElement(react_router_1.Route, { exact: true, path: "/admin_orders", component: PageOrderAdminHistory_1.OrderAdminHistory }),
+                        React.createElement(react_router_1.Route, { exact: true, path: "/order/:id", component: PageOrder_1.Order }),
+                        React.createElement(react_router_1.Route, { exact: true, path: "/card_payment", component: PageCreditCardPayment_1.CreditCardPayment }),
+                        React.createElement(react_router_1.Route, { component: PageNotFound_1.NotFound })),
+                    React.createElement(Footer_1.Footer, null)))));
     };
     return App;
 }(React.Component));
