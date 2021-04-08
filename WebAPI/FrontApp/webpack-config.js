@@ -28,7 +28,7 @@
         ]
     },
     externals: {
-       //'config': JSON.stringify({ API_Path: "http://localhost:65315/api" }) 
-        'config': JSON.stringify({ API_Path: "http://api.gabrielhabet.com/api" }) 
+      // 'config': JSON.stringify({ API_Path: "http://localhost:65315/api" }) 
+        'config': JSON.stringify({ API_Path: "https://api.gabrielhabet.com/api" }) 
         }
 }

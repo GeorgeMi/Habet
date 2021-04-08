@@ -308,6 +308,10 @@
     <Compile Include="Migrations\20200124091200_test.Designer.cs">
       <DependentUpon>20200124091200_test.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20210407134004_MyFirstMigration.cs" />
+    <Compile Include="Migrations\20210407134004_MyFirstMigration.designer.cs">
+      <DependentUpon>20210407134004_MyFirstMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\GHContextModelSnapshot.cs" />
     <Compile Include="Models\GHContext.cs" />
     <Compile Include="Models\MigrationHistory.cs" />
