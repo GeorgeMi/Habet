@@ -1680,7 +1680,7 @@ var Contact = /** @class */ (function (_super) {
                                     React.createElement("div", { className: "form-group" },
                                         React.createElement("label", { htmlFor: "message" },
                                             React.createElement(Translate, { content: 'contact.Message' })),
-                                        React.createElement("textarea", { className: "form-control", placeholder: "", value: this.state.message, onChange: this.handleChange, name: "message", id: "message", required: true })),
+                                        React.createElement("textarea", { className: "form-control", placeholder: "", value: this.state.message, onChange: this.handleChange, name: "message", id: "message", rows: 10, required: true })),
                                     React.createElement("div", { className: "form-group" },
                                         React.createElement(Translate, { component: "input", attributes: { value: 'contact.SendMessage' }, type: "submit", className: "btn btn-primary py-3 px-5" }))))))))));
     };
@@ -62176,13 +62176,13 @@ module.exports = function(originalModule) {
 /***/ }),
 
 /***/ "config":
-/*!****************************************************************!*\
-  !*** external "{\"API_Path\":\"http://localhost:65315/api\"}" ***!
-  \****************************************************************/
+/*!**********************************************************************!*\
+  !*** external "{\"API_Path\":\"https://api.gabrielhabet.com/api\"}" ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = {"API_Path":"http://localhost:65315/api"};
+module.exports = {"API_Path":"https://api.gabrielhabet.com/api"};
 
 /***/ })
 
