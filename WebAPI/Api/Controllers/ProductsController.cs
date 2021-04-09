@@ -19,7 +19,7 @@ using WebAPI.ActionFilters;
 
 namespace Api.Controllers
 {
-   //  [AuthorizeApiIPAddressAttribute]
+    //  [AuthorizeApiIPAddressAttribute]
     public class ProductsController : ApiController
     {
         private GHContext db = new GHContext();
@@ -79,7 +79,7 @@ namespace Api.Controllers
             HttpResponseMessage responseMessage;
             JSend json;
             var product = db.Products.Find(productId);
-           
+
             //Random rnd = new Random();
             //var product = new Products
             //{
@@ -105,7 +105,7 @@ namespace Api.Controllers
                     StyleCode = product.StyleCode,
                     LeatherType = product.LeatherType,
                     Colour = product.Colour
-    };
+                };
 
                 responseMessage = Request.CreateResponse(HttpStatusCode.OK, productDetail);
             }
@@ -125,7 +125,7 @@ namespace Api.Controllers
         public HttpResponseMessage GetCartProducts(GetCartProductsDTO request)
         {
             HttpResponseMessage responseMessage;
-            var productList = db.Products.Where(p=> request.ProductIds.Contains(p.ProductId)).ToList();
+            var productList = db.Products.Where(p => request.ProductIds.Contains(p.ProductId)).ToList();
 
             //var productList = new List<Products>();
             //Random rnd = new Random();
@@ -236,7 +236,7 @@ namespace Api.Controllers
                 return BadRequest();
             }
 
-           // db.Entry(products).State = EntityState.Modified;
+            // db.Entry(products).State = EntityState.Modified;
 
             try
             {
@@ -265,7 +265,7 @@ namespace Api.Controllers
         {
             HttpResponseMessage responseMessage;
             try
-            {            
+            {
                 var httpRequest = HttpContext.Current.Request;
                 var productToAdd = Newtonsoft.Json.JsonConvert.DeserializeObject<Products>(httpRequest.Form["data"]);
                 db.Products.Add(productToAdd);
@@ -315,18 +315,30 @@ namespace Api.Controllers
         // DELETE: api/Products/5
         [RequireAdminToken]
         [ResponseType(typeof(Products))]
-        public async Task<IHttpActionResult> DeleteProducts(int id)
+        public async Task<HttpResponseMessage> DeleteProducts(int id)
         {
-            Products products = await db.Products.FindAsync(id);
-            if (products == null)
+            HttpResponseMessage responseMessage;
+            try
             {
-                return NotFound();
+                Products products = await db.Products.FindAsync(id);
+                if (products == null)
+                {
+                    responseMessage = Request.CreateResponse(HttpStatusCode.BadRequest);
+                    return responseMessage;
+                }
+
+                db.Products.Remove(products);
+                await db.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                responseMessage = Request.CreateResponse(HttpStatusCode.BadRequest);
+                return responseMessage;
             }
 
-            db.Products.Remove(products);
-            await db.SaveChangesAsync();
-
-            return Ok(products);
+            var json = new JSendMessage("success", "Product successfully removed");
+            responseMessage = Request.CreateResponse(HttpStatusCode.OK, json);
+            return responseMessage;
         }
 
         protected override void Dispose(bool disposing)
@@ -350,13 +362,13 @@ namespace Api.Controllers
             switch (toCurrency)
             {
                 case "RON":
-                    result= value * EUR_RON_rate;
+                    result = value * EUR_RON_rate;
                     break;
                 case "GBP":
-                    result= value * EUR_GBP_rate;
+                    result = value * EUR_GBP_rate;
                     break;
                 default:
-                    result= value;
+                    result = value;
                     break;
             }
 

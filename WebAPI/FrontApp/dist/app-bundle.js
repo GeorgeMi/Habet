@@ -2973,13 +2973,18 @@ var Product = /** @class */ (function (_super) {
         };
         var dictionary = new Dictionary_1.KeyedCollection();
         counterpart.setLocale(sfcookies_1.read_cookie('lang'));
-        _this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary, productId: props.match.params.id, quantity: 1, language: sfcookies_1.read_cookie('lang'), currency: sfcookies_1.read_cookie('currency') };
+        _this.state = { isLoaded: false, item: null, error: null, imageDictionary: dictionary, productId: props.match.params.id, quantity: 1, language: sfcookies_1.read_cookie('lang'), currency: sfcookies_1.read_cookie('currency'), api_response: '', loggedIn: false };
+        if (sfcookies_1.read_cookie('token') != null && sfcookies_1.read_cookie('token').length !== 0) {
+            _this.checkIfTokenIsValid();
+        }
         _this.getImageForProduct = _this.getImageForProduct.bind(_this);
         _this.handleChange = _this.handleChange.bind(_this);
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.reloadPage = _this.reloadPage.bind(_this);
         _this.addProductToCart = _this.addProductToCart.bind(_this);
         _this.buyProduct = _this.buyProduct.bind(_this);
         _this.unescape = _this.unescape.bind(_this);
+        _this.checkIfTokenIsValid = _this.checkIfTokenIsValid.bind(_this);
         return _this;
     }
     Product.prototype.componentWillMount = function () {
@@ -3005,6 +3010,30 @@ var Product = /** @class */ (function (_super) {
         this.setState((_a = {}, _a[event.target.name] = event.target.value, _a));
         this.setState({ isChanged: true });
     };
+    Product.prototype.handleSubmit = function (event) {
+        var _this = this;
+        if (confirm('Are you sure you want to delete this product?')) {
+            event.preventDefault();
+            if (this.state.waitingResponse == false) {
+                this.setState({ waitingResponse: true });
+            }
+            var config_1 = {
+                headers: { token: sfcookies_1.read_cookie('token') }
+            };
+            axios.delete(API_Path + '/Products/' + this.state.productId, config_1)
+                .then(function (response) {
+                react_notifications_1.NotificationManager.success(response.data.message);
+            })
+                .catch(function (error) {
+                _this.setState({ isLoaded: true, error: error });
+                react_notifications_1.NotificationManager.error("Request failed. Please, try again later.");
+            })
+                .then(this.setState({ waitingResponse: false }));
+        }
+        else {
+            // Do nothing!
+        }
+    };
     Product.prototype.getImageForProduct = function (productId) {
         var _this = this;
         axios.get(API_Path + '/ProductsImages/' + productId)
@@ -3016,6 +3045,19 @@ var Product = /** @class */ (function (_super) {
             console.log(productId + " .... " + _this.state.imageDictionary);
             //console.log(err);        
         });
+    };
+    Product.prototype.checkIfTokenIsValid = function () {
+        var _this = this;
+        axios.post(API_Path + '/AuthToken', {
+            token: sfcookies_1.read_cookie('token')
+        })
+            .then(function (response) {
+            _this.setState({ loggedIn: true, api_response: response.data });
+        })
+            .catch(function (error) {
+            sfcookies_1.delete_cookie('token');
+        })
+            .then();
     };
     Product.prototype.readCartFromCookie = function (cookie) {
         var cartProducts = new Dictionary_1.KeyedCollection();
@@ -3068,6 +3110,7 @@ var Product = /** @class */ (function (_super) {
     Product.prototype.render = function () {
         var _this = this;
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, item = _a.item, quantity = _a.quantity, currency = _a.currency;
+        var _b = this.state, loggedIn = _b.loggedIn, api_response = _b.api_response;
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
         if (currency == 'RON') {
@@ -3098,6 +3141,13 @@ var Product = /** @class */ (function (_super) {
                 React.createElement("div", { className: "hero-wrap page-title", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
                     React.createElement("div", { className: "row justify-content-center" },
                         React.createElement("div", { className: "col-md-12 heading-section text-center" },
+                            loggedIn && api_response.role.toUpperCase() === 'ADMIN' ?
+                                React.createElement("form", { action: "", onSubmit: this.handleSubmit },
+                                    React.createElement("div", { className: "form-group col-md-12" },
+                                        React.createElement("button", { type: "submit", className: "close", "aria-label": "Close" },
+                                            React.createElement("span", { "aria-hidden": "true" }, "\u00D7"))))
+                                :
+                                    React.createElement("div", null),
                             React.createElement("h1", { className: "mb-4" },
                                 React.createElement(Translate, { content: 'product.ProductDetails' }))))),
                 React.createElement("section", { className: "ftco-section" },
@@ -4771,7 +4821,8 @@ __webpack_require__.r(__webpack_exports__);
         AddProduct: 'Add product',
         StyleCode: 'Style code',
         Leather: 'Leather',
-        Colour: 'Colour'
+        Colour: 'Colour',
+        Delete: 'Delete product'
     },
 
     updateDetails: {
@@ -4944,7 +4995,8 @@ __webpack_require__.r(__webpack_exports__);
         AddProduct: 'Aggiungi prodotto',
         StyleCode: 'Codice di stile',
         Leather: 'Pelle',
-        Colour: 'Colore'
+        Colour: 'Colore',
+        Delete: 'Elimina prodotto'
     },
 
     updateDetails: {
@@ -5117,7 +5169,8 @@ __webpack_require__.r(__webpack_exports__);
         AddProduct: 'Adaugă produs',
         StyleCode: 'Cod produs',
         Leather: 'Piele',
-        Colour: 'Culoare'
+        Colour: 'Culoare',
+        Delete: 'Șterge produsul'
     },
 
     updateDetails: {

@@ -131,7 +131,8 @@
         AddProduct: 'Aggiungi prodotto',
         StyleCode: 'Codice di stile',
         Leather: 'Pelle',
-        Colour: 'Colore'
+        Colour: 'Colore',
+        Delete: 'Elimina prodotto'
     },
 
     updateDetails: {

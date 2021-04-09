@@ -131,7 +131,8 @@
         AddProduct: 'Add product',
         StyleCode: 'Style code',
         Leather: 'Leather',
-        Colour: 'Colour'
+        Colour: 'Colour',
+        Delete: 'Delete product'
     },
 
     updateDetails: {

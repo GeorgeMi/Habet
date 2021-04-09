@@ -131,7 +131,8 @@
         AddProduct: 'Adaugă produs',
         StyleCode: 'Cod produs',
         Leather: 'Piele',
-        Colour: 'Culoare'
+        Colour: 'Culoare',
+        Delete: 'Șterge produsul'
     },
 
     updateDetails: {
