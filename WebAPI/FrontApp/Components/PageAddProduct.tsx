@@ -27,7 +27,7 @@ export class AddProduct extends React.Component<any, any> {
 
         counterpart.setLocale(read_cookie('lang'));
         this.state = {
-            name_ro: '', name_it: '', name_en: '', price: '', file1: null, file2: null, file3: null, description_ro: '', description_it: '', description_en: '', gender: '', type: '', image: '', style_code: '', leather_type: '', colour: '', api_response: '', loggedIn: false, headerDictionary: dictionary, waitingResponse: false, language: read_cookie('lang')
+            name_ro: '', name_it: '', name_en: '', price: '', file1: null, file2: null, file3: null, description_ro: '', description_it: '', description_en: '', gender: '', type: '', image: '', styleCode: '', leatherType: '', colour: '', api_response: '', loggedIn: false, headerDictionary: dictionary, waitingResponse: false, language: read_cookie('lang')
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -76,8 +76,8 @@ export class AddProduct extends React.Component<any, any> {
             description_en: this.escapeHTML(this.state.description_en),
             gender: this.state.gender,
             type: this.state.type,
-            style_code: this.state.style_code,
-            leather_type: this.state.leather_type,
+            styleCode: this.state.styleCode,
+            leatherType: this.state.leatherType,
             colour: this.state.colour
         }));
 
@@ -162,14 +162,14 @@ export class AddProduct extends React.Component<any, any> {
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group">
-                                                    <label htmlFor="style_code"><Translate content='product.StyleCode' /></label>
-                                                    <input type="text" className="form-control" placeholder="" value={this.state.style_code} onChange={this.handleChange} name="style_code" id="style_code" maxLength={32} required />
+                                                    <label htmlFor="styleCode"><Translate content='product.StyleCode' /></label>
+                                                    <input type="text" className="form-control" placeholder="" value={this.state.styleCode} onChange={this.handleChange} name="styleCode" id="styleCode" maxLength={32} required />
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group">
-                                                    <label htmlFor="leather_type"><Translate content='product.Leather' /></label>
-                                                    <input type="text" className="form-control" placeholder="" value={this.state.leather_type} onChange={this.handleChange} name="leather_type" id="leather_type" maxLength={32} required />
+                                                    <label htmlFor="leatherType"><Translate content='product.Leather' /></label>
+                                                    <input type="text" className="form-control" placeholder="" value={this.state.leatherType} onChange={this.handleChange} name="leatherType" id="leatherType" maxLength={32} required />
                                                 </div>
                                             </div>
                                             <div className="col-md-6">

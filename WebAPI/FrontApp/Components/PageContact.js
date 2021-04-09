@@ -109,7 +109,7 @@ var Contact = /** @class */ (function (_super) {
                                             React.createElement(Translate, { content: 'contact.Email' }),
                                             ":"),
                                         " ",
-                                        React.createElement("a", { href: "mailto:habetgabriel@gmail.com" }, "habetgabriel@gmail.com"))))),
+                                        React.createElement("a", { href: "mailto:contact@gabrielhabet.com" }, "contact@gabrielhabet.com"))))),
                         React.createElement("div", { className: "row block-9" },
                             React.createElement("div", { className: "col-md-12 order-md-last d-flex" },
                                 React.createElement("form", { action: "", className: "bg-white p-5 contact-form", onSubmit: this.handleSubmit },

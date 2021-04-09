@@ -98,7 +98,7 @@ export class Contact extends React.Component<any, any>{
                                 </div>
                                 <div className="col-md-4 d-flex">
                                     <div className="info bg-white p-4">
-                                        <p><span><Translate content='contact.Email' />:</span> <a href="mailto:habetgabriel@gmail.com">habetgabriel@gmail.com</a></p>
+                                        <p><span><Translate content='contact.Email' />:</span> <a href="mailto:contact@gabrielhabet.com">contact@gabrielhabet.com</a></p>
                                     </div>
                                 </div>
                             </div>

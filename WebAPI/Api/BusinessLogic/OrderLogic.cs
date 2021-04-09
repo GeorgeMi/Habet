@@ -84,7 +84,8 @@ namespace Api.BusinessLogic
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient();
             mail.From = new MailAddress(ConfigurationManager.AppSettings["mail_user"]);
-            mail.To.Add(ConfigurationManager.AppSettings["admin_mail"]);
+            mail.To.Add(ConfigurationManager.AppSettings["admin_mail_to"]);
+            mail.CC.Add(ConfigurationManager.AppSettings["admin_mail_cc"]);
             mail.Subject = "New order received";
             mail.Body = "<h3>New order from " + order.Email + ", </h3>";
             //string orderId = DateTime.Now.Year + "" + DateTime.Now.Month + "" + DateTime.Now.Day + "" + order.OrderId;

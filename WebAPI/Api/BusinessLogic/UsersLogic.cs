@@ -355,7 +355,8 @@ namespace Api.BusinessLogic
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient();
             mail.From = new MailAddress(ConfigurationManager.AppSettings["mail_user"]);
-            mail.To.Add("george.miron2003@gmail.com");
+            mail.To.Add(ConfigurationManager.AppSettings["admin_mail_to"]);
+            mail.CC.Add(ConfigurationManager.AppSettings["admin_mail_cc"]);
             mail.Subject = $"Message from {messageDTO.Name}";
             mail.Body = "<p>name: " + messageDTO.Name + ", </p>";
             mail.Body += "<p>email: " + messageDTO.Email + ", </p>";
