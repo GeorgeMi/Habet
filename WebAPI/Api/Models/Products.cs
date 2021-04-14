@@ -13,7 +13,9 @@ namespace Api.Models
         public string Name_RO { get; set; }
         public string Name_EN { get; set; }
         public string Name_IT { get; set; }
-        public double Price { get; set; }
+        public double Price_RON { get; set; }
+        public double Price_EUR { get; set; }
+        public double Price_GBP { get; set; }
         public string Description_RO { get; set; }
         public string Description_EN { get; set; }
         public string Description_IT { get; set; }

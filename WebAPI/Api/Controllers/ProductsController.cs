@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Api.DTOs;
+using Api.Messages;
+using Api.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity.Infrastructure;
@@ -12,9 +15,6 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Api.DTOs;
-using Api.Messages;
-using Api.Models;
 using WebAPI.ActionFilters;
 
 namespace Api.Controllers
@@ -23,8 +23,6 @@ namespace Api.Controllers
     public class ProductsController : ApiController
     {
         private GHContext db = new GHContext();
-        double EUR_RON_rate = double.Parse(ConfigurationManager.AppSettings["EUR_RON_rate"], System.Globalization.CultureInfo.InvariantCulture);
-        double EUR_GBP_rate = double.Parse(ConfigurationManager.AppSettings["EUR_GBP_rate"], System.Globalization.CultureInfo.InvariantCulture);
 
         // GET: api/Products
         public HttpResponseMessage GetProducts(int top, int from, string gender, string type, string lang, string currency)
@@ -60,7 +58,7 @@ namespace Api.Controllers
                 result.Add(new ProductInfo
                 {
                     Name = ComputeName(product, lang),
-                    Price = ExchangePrice(product.Price, currency),
+                    Price = GetCurrencyPrice(product, currency),
                     ProductId = product.ProductId,
                     Image = new ProductsImagesController().GetProductsImage(product.ProductId)
                 });
@@ -98,7 +96,7 @@ namespace Api.Controllers
                 var productDetail = new ProductDetail
                 {
                     Name = ComputeName(product, lang),
-                    Price = ExchangePrice(product.Price, currency),
+                    Price = GetCurrencyPrice(product, currency),
                     ProductId = product.ProductId,
                     Description = ComputeDescription(product, lang),
                     Image = new ProductsImagesController().GetProductsImages(product.ProductId),
@@ -147,7 +145,7 @@ namespace Api.Controllers
                 result.Add(new ProductInfo
                 {
                     Name = ComputeName(product, request.Lang),
-                    Price = ExchangePrice(product.Price, request.Currency),
+                    Price = GetCurrencyPrice(product, request.Currency),
                     ProductId = product.ProductId,
                     Image = new ProductsImagesController().GetProductsImage(product.ProductId)
                 });
@@ -169,18 +167,21 @@ namespace Api.Controllers
             double priceFrom = request.PriceFrom;
             double priceTo = request.PriceTo;
 
-            if (request.Currency != null)
+            List<Products> productList;
+
+            switch (request.Currency)
             {
-                priceFrom = ConvertPriceToEur(request.PriceFrom, request.Currency);
-                priceTo = ConvertPriceToEur(request.PriceTo, request.Currency);
-            }
-            else
-            {
-                priceFrom = request.PriceFrom;
-                priceTo = request.PriceTo;
+                case "RON":
+                    productList = db.Products.Where(p => p.Gender == request.Gender && p.Type == request.Type && p.Price_RON >= priceFrom && p.Price_RON <= priceTo).ToList();
+                    break;
+                case "GBP":
+                    productList = db.Products.Where(p => p.Gender == request.Gender && p.Type == request.Type && p.Price_GBP >= priceFrom && p.Price_GBP <= priceTo).ToList();
+                    break;
+                default:
+                    productList = db.Products.Where(p => p.Gender == request.Gender && p.Type == request.Type && p.Price_EUR >= priceFrom && p.Price_EUR <= priceTo).ToList();
+                    break;
             }
 
-            var productList = db.Products.Where(p => p.Gender == request.Gender && p.Type == request.Type && p.Price >= priceFrom && p.Price <= priceTo).ToList();
             var responseProductList = productList.OrderBy(p => p.ProductId).Skip(request.From).Take(request.Top).ToList();
 
             //var responseProductList = new List<Products>();
@@ -208,7 +209,7 @@ namespace Api.Controllers
                 result.Products.Add(new ProductInfo
                 {
                     Name = ComputeName(product, request.Lang),
-                    Price = ExchangePrice(product.Price, request.Currency),
+                    Price = GetCurrencyPrice(product, request.Currency),
                     ProductId = product.ProductId,
                     Image = new ProductsImagesController().GetProductsImage(product.ProductId)
                 });
@@ -355,47 +356,20 @@ namespace Api.Controllers
             return db.Products.Count(e => e.ProductId == id) > 0;
         }
 
-        private double ExchangePrice(double value, string toCurrency)
+        public double GetCurrencyPrice(Products product, string toCurrency)
         {
-            double result = 0;
-
             switch (toCurrency)
             {
                 case "RON":
-                    result = value * EUR_RON_rate;
-                    break;
+                    return product.Price_RON;
                 case "GBP":
-                    result = value * EUR_GBP_rate;
-                    break;
+                    return product.Price_GBP;
                 default:
-                    result = value;
-                    break;
+                    return product.Price_EUR;
             }
-
-            return (double)System.Math.Round(result, 2);
         }
 
-        private double ConvertPriceToEur(double value, string fromCurrency)
-        {
-            double result = 0;
-
-            switch (fromCurrency)
-            {
-                case "RON":
-                    result = value / EUR_RON_rate;
-                    break;
-                case "GBP":
-                    result = value / EUR_GBP_rate;
-                    break;
-                default:
-                    result = value;
-                    break;
-            }
-
-            return (double)System.Math.Round(result, 2);
-        }
-
-
+   
         private string ComputeName(Products product, string lang)
         {
             string name;

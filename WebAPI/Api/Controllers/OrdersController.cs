@@ -23,8 +23,6 @@ namespace Api.Controllers
     public class OrdersController : ApiController
     {
         private GHContext db = new GHContext();
-        double EUR_RON_rate = double.Parse(ConfigurationManager.AppSettings["EUR_RON_rate"], System.Globalization.CultureInfo.InvariantCulture);
-        double EUR_GBP_rate = double.Parse(ConfigurationManager.AppSettings["EUR_GBP_rate"], System.Globalization.CultureInfo.InvariantCulture);
 
         // GET: api/Orders
         public HttpResponseMessage GetOrders()
@@ -273,7 +271,7 @@ namespace Api.Controllers
                             var productsOrders = new ProductsOrders
                             {
                                 ProductId = product.ProductId,
-                                ProductPrice = ExchangePrice(product.Price, order.Currency),
+                                ProductPrice = GetCurrencyPrice(product, order.Currency),
                                 Amount = requestProduct.Value,
                                 OrderId = order.OrderId,
                                 Currency = order.Currency,
@@ -420,24 +418,20 @@ namespace Api.Controllers
             return description;
         }
 
-        private double ExchangePrice(double value, string toCurrency)
+        public double GetCurrencyPrice(Products product, string toCurrency)
         {
-            double result = 0;
-
             switch (toCurrency)
             {
                 case "RON":
-                    result = value * EUR_RON_rate;
+                    return product.Price_RON;
                     break;
                 case "GBP":
-                    result = value * EUR_GBP_rate;
+                    return product.Price_GBP;
                     break;
                 default:
-                    result = value;
+                    return product.Price_EUR;
                     break;
             }
-
-            return (double)System.Math.Round(result, 2);
         }
     }
 }

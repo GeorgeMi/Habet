@@ -27,7 +27,7 @@ export class AddProduct extends React.Component<any, any> {
 
         counterpart.setLocale(read_cookie('lang'));
         this.state = {
-            name_ro: '', name_it: '', name_en: '', price: '', file1: null, file2: null, file3: null, description_ro: '', description_it: '', description_en: '', gender: '', type: '', image: '', styleCode: '', leatherType: '', colour: '', api_response: '', loggedIn: false, headerDictionary: dictionary, waitingResponse: false, language: read_cookie('lang')
+            name_ro: '', name_it: '', name_en: '', price_RON: '', price_EUR: '', price_GBP: '', file1: null, file2: null, file3: null, description_ro: '', description_it: '', description_en: '', gender: '', type: '', image: '', styleCode: '', leatherType: '', colour: '', api_response: '', loggedIn: false, headerDictionary: dictionary, waitingResponse: false, language: read_cookie('lang')
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -37,6 +37,18 @@ export class AddProduct extends React.Component<any, any> {
         this.handleFileChange3 = this.handleFileChange3.bind(this);
         this.escapeHTML = this.escapeHTML.bind(this);
         this.reloadPage = this.reloadPage.bind(this);
+        this.changePrice = this.changePrice.bind(this);
+    }
+
+    changePrice(e) {
+        if (e.target.validity.valid) {
+            var newNum1 = +(e.target.value)
+            this.setState({
+                price_RON: newNum1,
+                price_EUR: Math.round(newNum1 * 0.2),
+                price_GBP: Math.round(newNum1 * 0.18)
+            });
+        }
     }
 
     handleChange(event) {
@@ -57,7 +69,7 @@ export class AddProduct extends React.Component<any, any> {
 
     handleSubmit(event) {
         event.preventDefault();
-        
+
         if (this.state.waitingResponse == false) {
             this.setState({ waitingResponse: true });
         }
@@ -70,7 +82,9 @@ export class AddProduct extends React.Component<any, any> {
             name_ro: this.state.name_ro,
             name_it: this.state.name_it,
             name_en: this.state.name_en,
-            price: this.state.price,
+            price_RON: this.state.price_RON,
+            price_EUR: this.state.price_EUR,
+            price_GBP: this.state.price_GBP,
             description_ro: this.escapeHTML(this.state.description_ro),
             description_it: this.escapeHTML(this.state.description_it),
             description_en: this.escapeHTML(this.state.description_en),
@@ -82,12 +96,12 @@ export class AddProduct extends React.Component<any, any> {
         }));
 
         const config = {
-             headers: { token: read_cookie('token') } 
+            headers: { token: read_cookie('token') }
         }
 
         axios.post(API_Path + '/Products', formData, config)
             .then((response) => {
-                this.setState({ name_ro: '', name_it: '', name_en: '', price: '', description_ro: '', description_it: '', description_en: '', file: null, api_response: response.data, loggedIn: true });
+                this.setState({ name_ro: '', name_it: '', name_en: '', price_RON: '', price_EUR: '', price_GBP: '', description_ro: '', description_it: '', description_en: '', file: null, api_response: response.data, loggedIn: true });
                 NotificationManager.success(response.data.message);
             })
             .catch((error) => {
@@ -99,20 +113,20 @@ export class AddProduct extends React.Component<any, any> {
             );
     }
 
-    escapeHTML (unsafe) {
-    return unsafe.replace(/[&<"']/g, function (m) {
-        switch (m) {
-            case '&':
-                return '&amp;';
-            case '<':
-                return '&lt;';
-            case '"':
-                return '&quot;';
-            default:
-                return '&apos;';
-        }
-    });
-};
+    escapeHTML(unsafe) {
+        return unsafe.replace(/[&<"']/g, function (m) {
+            switch (m) {
+                case '&':
+                    return '&amp;';
+                case '<':
+                    return '&lt;';
+                case '"':
+                    return '&quot;';
+                default:
+                    return '&apos;';
+            }
+        });
+    };
 
     public reloadPage() {
         //do nothing
@@ -145,7 +159,7 @@ export class AddProduct extends React.Component<any, any> {
                                             <div className="col-md-6">
                                                 <div className="form-group">
                                                     <label htmlFor="name_ro"><Translate content='product.Name' /> (RO)</label>
-                                                    <input type="text" className="form-control" placeholder="" value={this.state.name_ro} onChange={this.handleChange} name="name_ro" id="name_ro" maxLength={32} required/>
+                                                    <input type="text" className="form-control" placeholder="" value={this.state.name_ro} onChange={this.handleChange} name="name_ro" id="name_ro" maxLength={32} required />
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
@@ -180,14 +194,27 @@ export class AddProduct extends React.Component<any, any> {
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group">
-                                                    <label htmlFor="price"><Translate content='product.Price' /></label>
-                                                    <input type="text" className="form-control" placeholder="" value={this.state.price} onChange={this.handleChange} name="price" id="price" maxLength={32} required />
+                                                    <label htmlFor="price_RON"><Translate content='product.Price' /> RON</label>
+                                                    <input type="number" className="form-control" placeholder="" value={this.state.price_RON} onChange={this.changePrice} name="price_RON" id="price_RON" maxLength={32} required />
+                                                </div>
+                                            </div>
+
+                                            <div className="col-md-6">
+                                                <div className="form-group">
+                                                    <label htmlFor="price_EUR"><Translate content='product.Price' /> EUR</label>
+                                                    <input type="text" className="form-control" placeholder="" value={this.state.price_EUR} onChange={this.handleChange} name="price_EUR" id="price_EUR" maxLength={32} required />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group">
+                                                    <label htmlFor="price_GBP"><Translate content='product.Price' /> GBP</label>
+                                                    <input type="text" className="form-control" placeholder="" value={this.state.price_GBP} onChange={this.handleChange} name="price_GBP" id="price_GBP" maxLength={32} required />
                                                 </div>
                                             </div>
                                             <div className="col-md-12">
                                                 <div className="form-group">
                                                     <label htmlFor="description_ro"><Translate content='product.Description' /> (RO)</label>
-                                                    <textarea className="form-control" value={this.state.description_ro} onChange={this.handleChange} name="description_ro" id="description_ro" rows={10} style={{ resize: 'vertical'}} required></textarea>
+                                                    <textarea className="form-control" value={this.state.description_ro} onChange={this.handleChange} name="description_ro" id="description_ro" rows={10} style={{ resize: 'vertical' }} required></textarea>
                                                 </div>
                                             </div>
                                             <div className="col-md-12">
@@ -206,19 +233,19 @@ export class AddProduct extends React.Component<any, any> {
                                                 <div className="form-group">
                                                     <input type="file" onChange={this.handleFileChange1} accept="image/*" required />
                                                 </div>
-                                            </div> 
+                                            </div>
 
                                             <div className="col-md-12">
                                                 <div className="form-group">
                                                     <input type="file" onChange={this.handleFileChange2} accept="image/*" required />
                                                 </div>
-                                            </div> 
+                                            </div>
 
                                             <div className="col-md-12">
                                                 <div className="form-group">
                                                     <input type="file" onChange={this.handleFileChange3} accept="image/*" required />
                                                 </div>
-                                            </div> 
+                                            </div>
 
                                             <div className="w-100"></div>
                                             <div className="col-md-6">

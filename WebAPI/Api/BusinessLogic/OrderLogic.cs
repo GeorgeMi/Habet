@@ -54,7 +54,18 @@ namespace Api.BusinessLogic
             {
                 int qty = order.ProductsOrders.FirstOrDefault(p => p.ProductId == product.ProductId).Amount;
 
-                mail.Body += "<tr><td>" + product.Name_EN + "</td><td>" + qty + "</td><td>" + (qty * product.Price) + " " + order.Currency + " </td></tr>";
+                switch (order.Currency)
+                {
+                    case "RON":
+                        mail.Body += "<tr><td>" + product.Name_EN + "</td><td>" + qty + "</td><td>" + (qty * product.Price_RON) + " " + order.Currency + " </td></tr>";
+                        break;
+                    case "GBP":
+                        mail.Body += "<tr><td>" + product.Name_EN + "</td><td>" + qty + "</td><td>" + (qty * product.Price_GBP) + " " + order.Currency + " </td></tr>";
+                        break;
+                    default:
+                        mail.Body += "<tr><td>" + product.Name_EN + "</td><td>" + qty + "</td><td>" + (qty * product.Price_EUR) + " " + order.Currency + " </td></tr>";
+                        break;
+                }              
             }
 
             mail.Body += "</table></p>";               
@@ -104,7 +115,18 @@ namespace Api.BusinessLogic
             {
                 int qty = order.ProductsOrders.FirstOrDefault(p => p.ProductId == product.ProductId).Amount;
 
-                mail.Body += "<tr><td>" + product.Name_EN + "</td><td>" + qty + "</td><td>" + (qty * product.Price) + " " + order.Currency + " </td></tr>";
+                switch (order.Currency)
+                {
+                    case "RON":
+                        mail.Body += "<tr><td>" + product.Name_EN + "</td><td>" + qty + "</td><td>" + (qty * product.Price_RON) + " " + order.Currency + " </td></tr>";
+                        break;
+                    case "GBP":
+                        mail.Body += "<tr><td>" + product.Name_EN + "</td><td>" + qty + "</td><td>" + (qty * product.Price_GBP) + " " + order.Currency + " </td></tr>";
+                        break;
+                    default:
+                        mail.Body += "<tr><td>" + product.Name_EN + "</td><td>" + qty + "</td><td>" + (qty * product.Price_EUR) + " " + order.Currency + " </td></tr>";
+                        break;
+                }
             }
 
             mail.Body += "</table></p>";

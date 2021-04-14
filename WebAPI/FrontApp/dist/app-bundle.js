@@ -604,7 +604,7 @@ var AddProduct = /** @class */ (function (_super) {
         dictionary.Add(props.Active, 'cta cta-colored');
         counterpart.setLocale(sfcookies_1.read_cookie('lang'));
         _this.state = {
-            name_ro: '', name_it: '', name_en: '', price: '', file1: null, file2: null, file3: null, description_ro: '', description_it: '', description_en: '', gender: '', type: '', image: '', styleCode: '', leatherType: '', colour: '', api_response: '', loggedIn: false, headerDictionary: dictionary, waitingResponse: false, language: sfcookies_1.read_cookie('lang')
+            name_ro: '', name_it: '', name_en: '', price_RON: '', price_EUR: '', price_GBP: '', file1: null, file2: null, file3: null, description_ro: '', description_it: '', description_en: '', gender: '', type: '', image: '', styleCode: '', leatherType: '', colour: '', api_response: '', loggedIn: false, headerDictionary: dictionary, waitingResponse: false, language: sfcookies_1.read_cookie('lang')
         };
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
@@ -613,8 +613,19 @@ var AddProduct = /** @class */ (function (_super) {
         _this.handleFileChange3 = _this.handleFileChange3.bind(_this);
         _this.escapeHTML = _this.escapeHTML.bind(_this);
         _this.reloadPage = _this.reloadPage.bind(_this);
+        _this.changePrice = _this.changePrice.bind(_this);
         return _this;
     }
+    AddProduct.prototype.changePrice = function (e) {
+        if (e.target.validity.valid) {
+            var newNum1 = +(e.target.value);
+            this.setState({
+                price_RON: newNum1,
+                price_EUR: Math.round(newNum1 * 0.2),
+                price_GBP: Math.round(newNum1 * 0.18)
+            });
+        }
+    };
     AddProduct.prototype.handleChange = function (event) {
         var _a;
         this.setState((_a = {}, _a[event.target.name] = event.target.value, _a));
@@ -642,7 +653,9 @@ var AddProduct = /** @class */ (function (_super) {
             name_ro: this.state.name_ro,
             name_it: this.state.name_it,
             name_en: this.state.name_en,
-            price: this.state.price,
+            price_RON: this.state.price_RON,
+            price_EUR: this.state.price_EUR,
+            price_GBP: this.state.price_GBP,
             description_ro: this.escapeHTML(this.state.description_ro),
             description_it: this.escapeHTML(this.state.description_it),
             description_en: this.escapeHTML(this.state.description_en),
@@ -657,7 +670,7 @@ var AddProduct = /** @class */ (function (_super) {
         };
         axios.post(API_Path + '/Products', formData, config)
             .then(function (response) {
-            _this.setState({ name_ro: '', name_it: '', name_en: '', price: '', description_ro: '', description_it: '', description_en: '', file: null, api_response: response.data, loggedIn: true });
+            _this.setState({ name_ro: '', name_it: '', name_en: '', price_RON: '', price_EUR: '', price_GBP: '', description_ro: '', description_it: '', description_en: '', file: null, api_response: response.data, loggedIn: true });
             react_notifications_1.NotificationManager.success(response.data.message);
         })
             .catch(function (error) {
@@ -738,9 +751,22 @@ var AddProduct = /** @class */ (function (_super) {
                                                 React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.colour, onChange: this.handleChange, name: "colour", id: "colour", maxLength: 32, required: true }))),
                                         React.createElement("div", { className: "col-md-6" },
                                             React.createElement("div", { className: "form-group" },
-                                                React.createElement("label", { htmlFor: "price" },
-                                                    React.createElement(Translate, { content: 'product.Price' })),
-                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.price, onChange: this.handleChange, name: "price", id: "price", maxLength: 32, required: true }))),
+                                                React.createElement("label", { htmlFor: "price_RON" },
+                                                    React.createElement(Translate, { content: 'product.Price' }),
+                                                    " RON"),
+                                                React.createElement("input", { type: "number", className: "form-control", placeholder: "", value: this.state.price_RON, onChange: this.changePrice, name: "price_RON", id: "price_RON", maxLength: 32, required: true }))),
+                                        React.createElement("div", { className: "col-md-6" },
+                                            React.createElement("div", { className: "form-group" },
+                                                React.createElement("label", { htmlFor: "price_EUR" },
+                                                    React.createElement(Translate, { content: 'product.Price' }),
+                                                    " EUR"),
+                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.price_EUR, onChange: this.handleChange, name: "price_EUR", id: "price_EUR", maxLength: 32, required: true }))),
+                                        React.createElement("div", { className: "col-md-6" },
+                                            React.createElement("div", { className: "form-group" },
+                                                React.createElement("label", { htmlFor: "price_GBP" },
+                                                    React.createElement(Translate, { content: 'product.Price' }),
+                                                    " GBP"),
+                                                React.createElement("input", { type: "text", className: "form-control", placeholder: "", value: this.state.price_GBP, onChange: this.handleChange, name: "price_GBP", id: "price_GBP", maxLength: 32, required: true }))),
                                         React.createElement("div", { className: "col-md-12" },
                                             React.createElement("div", { className: "form-group" },
                                                 React.createElement("label", { htmlFor: "description_ro" },
@@ -62176,13 +62202,13 @@ module.exports = function(originalModule) {
 /***/ }),
 
 /***/ "config":
-/*!**********************************************************************!*\
-  !*** external "{\"API_Path\":\"https://api.gabrielhabet.com/api\"}" ***!
-  \**********************************************************************/
+/*!****************************************************************!*\
+  !*** external "{\"API_Path\":\"http://localhost:65315/api\"}" ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = {"API_Path":"https://api.gabrielhabet.com/api"};
+module.exports = {"API_Path":"http://localhost:65315/api"};
 
 /***/ })
 

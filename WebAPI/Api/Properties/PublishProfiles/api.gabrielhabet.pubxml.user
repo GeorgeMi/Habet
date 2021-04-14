@@ -8,14 +8,14 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAYv0joJc9xkKYYg6hsA7JIgAAAAACAAAAAAAQZgAAAAEAACAAAAAabVzYhCydc82Ka5ol0HrYgJQUnzz6oGYB2jZPB+Ah9wAAAAAOgAAAAAIAACAAAACecKFUXko1JiKdc5wccnfACh0YRjs6t+zp5LimEsaezCAAAADOA8+nCPu574HDud7oLE86RPpRRwp0LqHTVRUB6ut0nkAAAAATci14WUxD5zvCMEwqpx325VOimXPxvSV1mNZYqUzvXXT4QLP9/TMR1ki6Wfejn4XIuZbMjo28+iwc/WwXZ6w+</EncryptedPassword>
     <_PublishTargetUrl>ftp://www.gabrielhabet.com/api.gabrielhabet.com</_PublishTargetUrl>
-    <History>True|2021-04-08T14:41:14.4951634Z;True|2021-04-08T17:33:22.0915323+03:00;True|2021-04-08T16:45:42.2861102+03:00;True|2021-04-08T12:53:17.9628772+03:00;True|2021-04-08T11:56:42.4655929+03:00;True|2021-04-07T16:42:20.2447889+03:00;True|2021-04-06T16:20:24.1839525+03:00;True|2021-04-06T15:06:06.2983567+03:00;True|2021-04-06T15:02:54.3907191+03:00;</History>
+    <History>True|2021-04-14T13:10:06.0155783Z;True|2021-04-08T17:41:14.4951634+03:00;True|2021-04-08T17:33:22.0915323+03:00;True|2021-04-08T16:45:42.2861102+03:00;True|2021-04-08T12:53:17.9628772+03:00;True|2021-04-08T11:56:42.4655929+03:00;True|2021-04-07T16:42:20.2447889+03:00;True|2021-04-06T16:20:24.1839525+03:00;True|2021-04-06T15:06:06.2983567+03:00;True|2021-04-06T15:02:54.3907191+03:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Api.dll">
-      <publishTime>04/09/2021 15:59:22</publishTime>
+      <publishTime>04/14/2021 16:07:58</publishTime>
     </File>
     <File Include="bin/Api.pdb">
-      <publishTime>04/09/2021 15:59:22</publishTime>
+      <publishTime>04/14/2021 16:07:58</publishTime>
     </File>
     <File Include="bin/BouncyCastle.Crypto.dll">
       <publishTime>08/17/2017 18:20:54</publishTime>
@@ -354,7 +354,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/20/2019 10:08:47</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/09/2021 09:15:31</publishTime>
+      <publishTime>04/14/2021 16:09:59</publishTime>
     </File>
   </ItemGroup>
 </Project>
