@@ -165,6 +165,6 @@
     },
 
     privacyPolicy: {
-        Title: 'Privacy policy',
+        Title: 'Politica sulla riservatezza',
     },
 }
