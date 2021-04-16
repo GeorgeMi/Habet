@@ -64,24 +64,18 @@ export class Footer extends React.Component {
                         </div>
                         <div className="col-md-3">
                             <div className="ftco-footer-widget mb-4">
-                                <h2 className="ftco-heading-2"><Translate content='nav.OurNewsletter' /></h2>
-                                <div className="block-23 mb-3">
-                                    <Translate content='nav.NewsletterResume' component="p" />
-                                    <form action="" method="post">
-                                        <div className="input-group">
-                                            <input type="email" name="email" />
-                                            <span className="input-group-btn">
-                                                <button className="btn btn-info"><Translate content='nav.Subscribe' /></button>
-                                            </span>
-                                        </div>
-                                    </form>                                 
-                                </div>
+                                <h2 className="ftco-heading-2"><Translate content='nav.CustomerInfo' /></h2>
+                                <ul className="list-unstyled">
+                                    <li><a href="/#/privacy_policy" className="py-2 d-block"><Translate content='nav.Privacy_policy' /></a></li>
+                                    <li><a href="/#/return_policy" className="py-2 d-block"><Translate content='nav.Return_policy' /></a></li>
+                                    <li><a href="/#/terms_and_conditions" className="py-2 d-block"><Translate content='nav.Terms_and_conditions' /></a></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-12 text-center">
-                             <div className="copyright">
+                            <div className="copyright">
                                 &copy; Made by <strong>George Miron</strong> © 2019. All Rights Reserved
                              </div>
                         </div>

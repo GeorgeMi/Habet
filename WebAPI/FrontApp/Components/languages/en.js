@@ -21,7 +21,11 @@
         Subscribe: 'Subscribe',
         FooterResume: 'Butterfly Gabriel Habet is a fashion brand mainly known for its bag and accessory designs for both women and men.',
         NewsletterResume: 'I would like to receive emails from GabrielHabet with updates and special offers of GabrielHabet. I can unsubscribe any time by clicking the unsubscribe link in the email.',
-        Orders: 'Orders'
+        Orders: 'Orders',
+        Privacy_policy: 'Privacy policy',
+        Return_policy: 'Return policy',
+        Terms_and_conditions: 'Terms and conditions',
+        CustomerInfo: 'Customer information'
     },
 
     products: {
@@ -158,5 +162,9 @@
         UsersOrders: 'Users orders',
         ShowOrders: 'Show orders',
         OrderIsDelivered: 'Order is delivered'
+    },
+
+    privacyPolicy: {
+        Title: 'Privacy policy',
     },
 }

@@ -15,15 +15,19 @@ export class NotFound extends React.Component {
     render() {
         return (
             <div>
-                <Header reloadPage={this.reloadPage}/>
-                <div className="hero-wrap page-title" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" }}>
-                    <div className="row no-gutters slider-text align-items-center justify-content-center">
-                        <div className="col-md-12 text-center">
-                            <h1 className="mb-0 bread">ARE YOU HAPPY NOW?</h1>
-                            <h5>Just kidding! Our bad. 404 NOT FOUND</h5>
+                <Header />
+                <section className="ftco-section contact-section bg-light">
+                    <div className="container">
+                        <div className="bg-white p-5" style={{ textAlign: 'justify' }}>
+                            <div className="row justify-content-center mb-3 pb-3">
+                                <div className="col-md-12 heading-section text-center">
+                                    <h2 className="mb-4">ARE YOU HAPPY NOW?</h2>
+                                    <h5>Just kidding! Our bad. 404 NOT FOUND</h5>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </section>
             </div>
         );
     }

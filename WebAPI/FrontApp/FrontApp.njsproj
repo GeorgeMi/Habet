@@ -130,6 +130,7 @@
     <TypeScriptCompile Include="Components\PageAddProduct.tsx" />
     <TypeScriptCompile Include="Components\PageCreditCardPayment.tsx" />
     <TypeScriptCompile Include="Components\PageLanding.tsx" />
+    <TypeScriptCompile Include="Components\PagePrivacyPolicy.tsx" />
     <TypeScriptCompile Include="Components\PageOrder.tsx" />
     <TypeScriptCompile Include="Components\PageOrderAdminHistory.tsx" />
     <TypeScriptCompile Include="Components\PageOrderHistory.tsx" />

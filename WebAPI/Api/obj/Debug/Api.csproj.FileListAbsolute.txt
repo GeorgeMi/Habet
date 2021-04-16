@@ -524,4 +524,3 @@ D:\workspace\gabrielhabet.com\WebAPI\Api\obj\Debug\Api.csproj.CoreCompileInputs.
 D:\workspace\gabrielhabet.com\WebAPI\Api\obj\Debug\Api.csproj.CopyComplete
 D:\workspace\gabrielhabet.com\WebAPI\Api\obj\Debug\Api.dll
 D:\workspace\gabrielhabet.com\WebAPI\Api\obj\Debug\Api.pdb
-D:\project\Habet\WebAPI\Api\obj\Debug\Api.csprojAssemblyReference.cache

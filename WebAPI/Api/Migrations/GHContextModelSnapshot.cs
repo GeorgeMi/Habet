@@ -160,7 +160,7 @@ namespace Api.Migrations
 
             modelBuilder.Entity("Api.Models.ProductsOrders", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -170,19 +170,19 @@ namespace Api.Migrations
 
                     b.Property<int>("OrderId");
 
-                    b.Property<double>("ProductPrice");
-
-                    b.Property<int?>("ProductProductId")
+                    b.Property<int>("ProductId")
                         .HasColumnName("Product_ProductId");
 
-                    b.HasKey("ProductId")
+                    b.Property<double>("ProductPrice");
+
+                    b.HasKey("Id")
                         .HasName("PK_dbo.ProductsOrders");
 
                     b.HasIndex("OrderId")
                         .HasName("IX_OrderId");
 
-                    b.HasIndex("ProductProductId")
-                        .HasName("IX_Product_ProductId");
+                    b.HasIndex("ProductId")
+                        .HasName("IX_ProductId");
 
                     b.ToTable("ProductsOrders","dbo");
                 });
@@ -287,8 +287,9 @@ namespace Api.Migrations
 
                     b.HasOne("Api.Models.Products", "ProductProduct")
                         .WithMany("ProductsOrders")
-                        .HasForeignKey("ProductProductId")
-                        .HasConstraintName("FK_dbo.ProductsOrders_dbo.Products_Product_ProductId");
+                        .HasForeignKey("ProductId")
+                        .HasConstraintName("FK_dbo.ProductsOrders_dbo.Products_ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Api.Models.Tokens", b =>

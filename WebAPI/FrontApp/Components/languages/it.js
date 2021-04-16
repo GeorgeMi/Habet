@@ -21,7 +21,11 @@
         Subscribe: 'Iscriviti',
         FooterResume: 'Butterfly Gabriel Habet è un marchio di moda noto principalmente per i suoi design di borse e cinture sia per donna che per uomo.',
         NewsletterResume: 'I would like to receive emails from GabrielHabet with updates and special offers of GabrielHabet. I can unsubscribe any time by clicking the unsubscribe link in the email.',
-        Orders: 'Ordini'
+        Orders: 'Ordini',
+        Privacy_policy: 'Politica sulla riservatezza',
+        Return_policy: 'Politica di ritorno',
+        Terms_and_conditions: 'Termini e condizioni',
+        CustomerInfo: 'Informazioni per il cliente'
     },
 
     products: {
@@ -158,5 +162,9 @@
         UsersOrders: 'Ordini degli utenti',
         ShowOrders: 'Mostra ordini',
         OrderIsDelivered: 'L\'ordine è stato consegnato'
+    },
+
+    privacyPolicy: {
+        Title: 'Privacy policy',
     },
 }

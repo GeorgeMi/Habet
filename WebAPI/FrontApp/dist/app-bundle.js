@@ -253,15 +253,17 @@ var Footer = /** @class */ (function (_super) {
                     React.createElement("div", { className: "col-md-3" },
                         React.createElement("div", { className: "ftco-footer-widget mb-4" },
                             React.createElement("h2", { className: "ftco-heading-2" },
-                                React.createElement(Translate, { content: 'nav.OurNewsletter' })),
-                            React.createElement("div", { className: "block-23 mb-3" },
-                                React.createElement(Translate, { content: 'nav.NewsletterResume', component: "p" }),
-                                React.createElement("form", { action: "", method: "post" },
-                                    React.createElement("div", { className: "input-group" },
-                                        React.createElement("input", { type: "email", name: "email" }),
-                                        React.createElement("span", { className: "input-group-btn" },
-                                            React.createElement("button", { className: "btn btn-info" },
-                                                React.createElement(Translate, { content: 'nav.Subscribe' }))))))))),
+                                React.createElement(Translate, { content: 'nav.CustomerInfo' })),
+                            React.createElement("ul", { className: "list-unstyled" },
+                                React.createElement("li", null,
+                                    React.createElement("a", { href: "/#/privacy_policy", className: "py-2 d-block" },
+                                        React.createElement(Translate, { content: 'nav.Privacy_policy' }))),
+                                React.createElement("li", null,
+                                    React.createElement("a", { href: "/#/return_policy", className: "py-2 d-block" },
+                                        React.createElement(Translate, { content: 'nav.Return_policy' }))),
+                                React.createElement("li", null,
+                                    React.createElement("a", { href: "/#/terms_and_conditions", className: "py-2 d-block" },
+                                        React.createElement(Translate, { content: 'nav.Terms_and_conditions' }))))))),
                 React.createElement("div", { className: "row" },
                     React.createElement("div", { className: "col-md-12 text-center" },
                         React.createElement("div", { className: "copyright" },
@@ -1750,46 +1752,50 @@ var CookiePolicy = /** @class */ (function (_super) {
     CookiePolicy.prototype.render = function () {
         return (React.createElement("div", null,
             React.createElement(Header_1.Header, null),
-            React.createElement("section", { className: "ftco-section bg-light" },
-                React.createElement("h1", null, "Cookie Policy for gabrielhabet"),
-                React.createElement("p", null, "This is the Cookie Policy for gabrielhabet, accessible from www.gabrielhabet.co.uk"),
-                React.createElement("p", null,
-                    React.createElement("strong", null, "What Are Cookies")),
-                React.createElement("p", null, "As is common practice with almost all professional websites this site uses cookies, which are tiny files that are downloaded to your computer, to improve your experience. This page describes what information they gather, how we use it and why we sometimes need to store these cookies. We will also share how you can prevent these cookies from being stored however this may downgrade or 'break' certain elements of the sites functionality."),
-                React.createElement("p", null, "For more general information on cookies see the Wikipedia article on HTTP Cookies."),
-                React.createElement("p", null,
-                    React.createElement("strong", null, "How We Use Cookies")),
-                React.createElement("p", null, "We use cookies for a variety of reasons detailed below. Unfortunately in most cases there are no industry standard options for disabling cookies without completely disabling the functionality and features they add to this site. It is recommended that you leave on all cookies if you are not sure whether you need them or not in case they are used to provide a service that you use."),
-                React.createElement("p", null,
-                    React.createElement("strong", null, "Disabling Cookies")),
-                React.createElement("p", null, "You can prevent the setting of cookies by adjusting the settings on your browser (see your browser Help for how to do this). Be aware that disabling cookies will affect the functionality of this and many other websites that you visit. Disabling cookies will usually result in also disabling certain functionality and features of the this site. Therefore it is recommended that you do not disable cookies."),
-                React.createElement("p", null,
-                    React.createElement("strong", null, "The Cookies We Set")),
-                React.createElement("ul", null,
-                    React.createElement("li", null,
-                        React.createElement("p", null, "Account related cookies"),
-                        React.createElement("p", null, "If you create an account with us then we will use cookies for the management of the signup process and general administration. These cookies will usually be deleted when you log out however in some cases they may remain afterwards to remember your site preferences when logged out.")),
-                    React.createElement("li", null,
-                        React.createElement("p", null, "Login related cookies"),
-                        React.createElement("p", null, "We use cookies when you are logged in so that we can remember this fact. This prevents you from having to log in every single time you visit a new page. These cookies are typically removed or cleared when you log out to ensure that you can only access restricted features and areas when logged in."))),
-                React.createElement("p", null,
-                    React.createElement("strong", null, "Third Party Cookies")),
-                React.createElement("p", null, "In some special cases we also use cookies provided by trusted third parties. The following section details which third party cookies you might encounter through this site."),
-                React.createElement("ul", null,
-                    React.createElement("li", null,
-                        React.createElement("p", null, "From time to time we test new features and make subtle changes to the way that the site is delivered. When we are still testing new features these cookies may be used to ensure that you receive a consistent experience whilst on the site whilst ensuring we understand which optimisations our users appreciate the most."))),
-                React.createElement("p", null,
-                    React.createElement("strong", null, "More Information")),
-                React.createElement("p", null,
-                    "Hopefully that has clarified things for you and as was previously mentioned if there is something that you aren't sure whether you need or not it's usually safer to leave cookies enabled in case it does interact with one of the features you use on our site. This Cookies Policy was created with the help of the ",
-                    React.createElement("a", { href: "https://www.cookiepolicygenerator.com" }, "Cookies Policy Template Generator"),
-                    " and the ",
-                    React.createElement("a", { href: "https://www.termsandcondiitionssample.com" }, "Terms and Conditions Template"),
-                    "."),
-                React.createElement("p", null, "However if you are still looking for more information then you can contact us through one of our preferred contact methods:"),
-                React.createElement("ul", null,
-                    React.createElement("li", null, "Email: "),
-                    React.createElement("li", null, "By visiting this link: ")))));
+            React.createElement("section", { className: "ftco-section contact-section bg-light" },
+                React.createElement("div", { className: "container" },
+                    React.createElement("div", { className: "bg-white p-5" },
+                        React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
+                            React.createElement("div", { className: "col-md-12 heading-section text-center" },
+                                React.createElement("h2", { className: "mb-4" }, "Cookie Policy"))),
+                        React.createElement("p", null, "This is the Cookie Policy for gabrielhabet, accessible from www.gabrielhabet.co.uk"),
+                        React.createElement("p", null,
+                            React.createElement("strong", null, "What Are Cookies")),
+                        React.createElement("p", null, "As is common practice with almost all professional websites this site uses cookies, which are tiny files that are downloaded to your computer, to improve your experience. This page describes what information they gather, how we use it and why we sometimes need to store these cookies. We will also share how you can prevent these cookies from being stored however this may downgrade or 'break' certain elements of the sites functionality."),
+                        React.createElement("p", null, "For more general information on cookies see the Wikipedia article on HTTP Cookies."),
+                        React.createElement("p", null,
+                            React.createElement("strong", null, "How We Use Cookies")),
+                        React.createElement("p", null, "We use cookies for a variety of reasons detailed below. Unfortunately in most cases there are no industry standard options for disabling cookies without completely disabling the functionality and features they add to this site. It is recommended that you leave on all cookies if you are not sure whether you need them or not in case they are used to provide a service that you use."),
+                        React.createElement("p", null,
+                            React.createElement("strong", null, "Disabling Cookies")),
+                        React.createElement("p", null, "You can prevent the setting of cookies by adjusting the settings on your browser (see your browser Help for how to do this). Be aware that disabling cookies will affect the functionality of this and many other websites that you visit. Disabling cookies will usually result in also disabling certain functionality and features of the this site. Therefore it is recommended that you do not disable cookies."),
+                        React.createElement("p", null,
+                            React.createElement("strong", null, "The Cookies We Set")),
+                        React.createElement("ul", null,
+                            React.createElement("li", null,
+                                React.createElement("p", null, "Account related cookies"),
+                                React.createElement("p", null, "If you create an account with us then we will use cookies for the management of the signup process and general administration. These cookies will usually be deleted when you log out however in some cases they may remain afterwards to remember your site preferences when logged out.")),
+                            React.createElement("li", null,
+                                React.createElement("p", null, "Login related cookies"),
+                                React.createElement("p", null, "We use cookies when you are logged in so that we can remember this fact. This prevents you from having to log in every single time you visit a new page. These cookies are typically removed or cleared when you log out to ensure that you can only access restricted features and areas when logged in."))),
+                        React.createElement("p", null,
+                            React.createElement("strong", null, "Third Party Cookies")),
+                        React.createElement("p", null, "In some special cases we also use cookies provided by trusted third parties. The following section details which third party cookies you might encounter through this site."),
+                        React.createElement("ul", null,
+                            React.createElement("li", null,
+                                React.createElement("p", null, "From time to time we test new features and make subtle changes to the way that the site is delivered. When we are still testing new features these cookies may be used to ensure that you receive a consistent experience whilst on the site whilst ensuring we understand which optimisations our users appreciate the most."))),
+                        React.createElement("p", null,
+                            React.createElement("strong", null, "More Information")),
+                        React.createElement("p", null,
+                            "Hopefully that has clarified things for you and as was previously mentioned if there is something that you aren't sure whether you need or not it's usually safer to leave cookies enabled in case it does interact with one of the features you use on our site. This Cookies Policy was created with the help of the ",
+                            React.createElement("a", { href: "https://www.cookiepolicygenerator.com" }, "Cookies Policy Template Generator"),
+                            " and the ",
+                            React.createElement("a", { href: "https://www.termsandcondiitionssample.com" }, "Terms and Conditions Template"),
+                            "."),
+                        React.createElement("p", null, "However if you are still looking for more information then you can contact us through one of our preferred contact methods:"),
+                        React.createElement("ul", null,
+                            React.createElement("li", null, "Email: "),
+                            React.createElement("li", null, "By visiting this link: ")))))));
     };
     return CookiePolicy;
 }(React.Component));
@@ -2271,12 +2277,14 @@ var NotFound = /** @class */ (function (_super) {
     };
     NotFound.prototype.render = function () {
         return (React.createElement("div", null,
-            React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
-            React.createElement("div", { className: "hero-wrap page-title", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
-                React.createElement("div", { className: "row no-gutters slider-text align-items-center justify-content-center" },
-                    React.createElement("div", { className: "col-md-12 text-center" },
-                        React.createElement("h1", { className: "mb-0 bread" }, "ARE YOU HAPPY NOW?"),
-                        React.createElement("h5", null, "Just kidding! Our bad. 404 NOT FOUND"))))));
+            React.createElement(Header_1.Header, null),
+            React.createElement("section", { className: "ftco-section contact-section bg-light" },
+                React.createElement("div", { className: "container" },
+                    React.createElement("div", { className: "bg-white p-5", style: { textAlign: 'justify' } },
+                        React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
+                            React.createElement("div", { className: "col-md-12 heading-section text-center" },
+                                React.createElement("h2", { className: "mb-4" }, "ARE YOU HAPPY NOW?"),
+                                React.createElement("h5", null, "Just kidding! Our bad. 404 NOT FOUND"))))))));
     };
     return NotFound;
 }(React.Component));
@@ -2937,6 +2945,65 @@ var OrderHistory = /** @class */ (function (_super) {
 }(React.Component));
 exports.OrderHistory = OrderHistory;
 //# sourceMappingURL=PageOrderHistory.js.map
+
+/***/ }),
+
+/***/ "./Components/PagePrivacyPolicy.js":
+/*!*****************************************!*\
+  !*** ./Components/PagePrivacyPolicy.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
+var Translate = __webpack_require__(/*! react-translate-component */ "./node_modules/react-translate-component/index.js");
+var react_html_parser_1 = __webpack_require__(/*! react-html-parser */ "./node_modules/react-html-parser/lib/index.js");
+var PrivacyPolicy = /** @class */ (function (_super) {
+    __extends(PrivacyPolicy, _super);
+    function PrivacyPolicy(props) {
+        var _this = _super.call(this, props) || this;
+        _this.reloadPage = _this.reloadPage.bind(_this);
+        return _this;
+    }
+    PrivacyPolicy.prototype.reloadPage = function () {
+        //do nothing
+    };
+    PrivacyPolicy.prototype.render = function () {
+        var html = React.createElement(Translate, { content: 'privacyPolicy.Title' });
+        return (React.createElement("div", null,
+            React.createElement("main", { id: "main" },
+                React.createElement("div", null,
+                    React.createElement(Header_1.Header, null),
+                    React.createElement("section", { className: "ftco-section contact-section bg-light" },
+                        React.createElement("div", { className: "container" },
+                            React.createElement("div", { className: "bg-white p-5", style: { textAlign: 'justify' } },
+                                React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
+                                    React.createElement("div", { className: "col-md-12 heading-section text-center" },
+                                        React.createElement("h2", { className: "mb-4" },
+                                            React.createElement(Translate, { content: 'privacyPolicy.Title' })))),
+                                React.createElement("div", null, react_html_parser_1.default(html)))))))));
+    };
+    return PrivacyPolicy;
+}(React.Component));
+exports.PrivacyPolicy = PrivacyPolicy;
+//# sourceMappingURL=PagePrivacyPolicy.js.map
 
 /***/ }),
 
@@ -4737,7 +4804,11 @@ __webpack_require__.r(__webpack_exports__);
         Subscribe: 'Subscribe',
         FooterResume: 'Butterfly Gabriel Habet is a fashion brand mainly known for its bag and accessory designs for both women and men.',
         NewsletterResume: 'I would like to receive emails from GabrielHabet with updates and special offers of GabrielHabet. I can unsubscribe any time by clicking the unsubscribe link in the email.',
-        Orders: 'Orders'
+        Orders: 'Orders',
+        Privacy_policy: 'Privacy policy',
+        Return_policy: 'Return policy',
+        Terms_and_conditions: 'Terms and conditions',
+        CustomerInfo: 'Customer information'
     },
 
     products: {
@@ -4875,6 +4946,10 @@ __webpack_require__.r(__webpack_exports__);
         ShowOrders: 'Show orders',
         OrderIsDelivered: 'Order is delivered'
     },
+
+    privacyPolicy: {
+        Title: 'Privacy policy',
+    },
 });
 
 /***/ }),
@@ -4911,7 +4986,11 @@ __webpack_require__.r(__webpack_exports__);
         Subscribe: 'Iscriviti',
         FooterResume: 'Butterfly Gabriel Habet è un marchio di moda noto principalmente per i suoi design di borse e cinture sia per donna che per uomo.',
         NewsletterResume: 'I would like to receive emails from GabrielHabet with updates and special offers of GabrielHabet. I can unsubscribe any time by clicking the unsubscribe link in the email.',
-        Orders: 'Ordini'
+        Orders: 'Ordini',
+        Privacy_policy: 'Politica sulla riservatezza',
+        Return_policy: 'Politica di ritorno',
+        Terms_and_conditions: 'Termini e condizioni',
+        CustomerInfo: 'Informazioni per il cliente'
     },
 
     products: {
@@ -5049,6 +5128,10 @@ __webpack_require__.r(__webpack_exports__);
         ShowOrders: 'Mostra ordini',
         OrderIsDelivered: 'L\'ordine è stato consegnato'
     },
+
+    privacyPolicy: {
+        Title: 'Privacy policy',
+    },
 });
 
 /***/ }),
@@ -5085,7 +5168,11 @@ __webpack_require__.r(__webpack_exports__);
         Subscribe: 'Abonează-te',
         FooterResume: 'Butterfly Gabriel Habet este un brand de modă cunoscut în principal pentru design-ul geanților și curelelor atât pentru femei, cât și pentru bărbați.',
         NewsletterResume: 'Aș dori să primesc e-mailuri de la GabrielHabet cu actualizări și oferte speciale. Ma pot dezabona oricand dand click pe linkul de dezabonare din e-mail.',
-        Orders: 'Comenzi'
+        Orders: 'Comenzi',
+        Privacy_policy: 'Politica de confidențialitate',
+        Return_policy: 'Politica de returnare',
+        Terms_and_conditions: 'Termeni și condiții',
+        CustomerInfo: 'Informații clienți'
     },
 
     products: {
@@ -5223,6 +5310,11 @@ __webpack_require__.r(__webpack_exports__);
         ShowOrders: 'Afișează comenzile',
         OrderIsDelivered: 'Comanda este livrată'
     },
+
+    privacyPolicy: {
+        Title: 'Politica de confidențialitate',
+        Text: '<p>Aplicând cerințele legilor în vigoare nr. 677/2001 și 506/2014 privind protecția persoanelor cu privire la prelucrarea datelor cu caracter personal și protecția vieții private în sectorul comunicațiilor electronice. Proprietarul, Gabriel Habet SRL având sediul social în Județul Iași, Sat Țigănași, Comuna Țigănași, Strada Principală, Nr. 126 cu număr de ordine în Registrul Comerțului J22/2726/2019, cod unic de înregistrare fiscală RO41533477 are obligația de a administra în condiții de siguranță și numai în scopuri precis specificate datele dumeavoastră personale pe care le furnizați în momentul realizări comenzilor.</p> <p>Clientul nu este obligat să furnizeze datele cerute, dar acest lucru fiind totuși necesar pentru finalizarea comenzii și plasarea de noi oferte și reduceri din partea magazinului nostru. În cazul în care refuzați să furnizați aceste date, apare imposibilitatea procesării și livrării comenzilor către client, lucru ce oprește comandă dumneavoastră. Modificarea sau ștergerea datelor personale este garantată conform legii nr. 677/2001, iar accesul asupra acestor modificări este realizat pe baza de user și parolă predate în momentul realizării contului. Drepturile de opunere asupra prelucrării datelor dumneavoastră sunt la fel garantate prin lege, iar solicitarea ștergerii datelor este realizată de către Proprietar, printr-o cerere înregistrată.<br /> În momentul în care unele din datele dumeavoastră sunt incorecte va rugăm să ne anunțați imediat prin orice mijloc de comunicare posibil. </p> <h3>Politică de confidențialitate GDPR cu privire la prelucrarea datelor cuprinde următoarele informații:</h3> <h4>1. Ce reprezintă datele cu caracter general?</h4> <p>Datele cu caracter personal, sunt datele pe care, de regulă le colectăm direct de la dumneavoastră astfel încât să aveți controlul asupra informațiilor pe care ni le oferiți.</p> <p>De exemplu, primim informații de la dumneavoastră astfel:<br /> Atunci când vă creați un cont pe site-ul nostru www.gabrielhabet.com, ne transmiteți: adresa de e-mail.<br /> În secțiunea dumneavoastră personală (Contul meu) aveți posibilitatea să adăugați informații suplimentare cum ar fi: numele, prenumele, număr de telefon, adrese de livrare.<br /> În momentul când plasați o comandă, ne furnizați informații precum: produsul dorit, numele și prenumele, adresa de livrare, detalii de facturare, metodă de plată, număr de telefon, datele cardului bancar etc.</p> <h4>2. Ce tipuri de date cu caracter personal colectăm?</h4> <p>Colectăm urmăroarele date cu caracter personal pentru anumite scopuri și servicii cum ar fi:</p> <ul> <li><b>nume și prenume:</b> pentru a putea realiza livrarea produselor comandate, avem nevoie de aceste date;</li> <li><b>e-mail:</b> pentru a realiza o comunicare între platforma și user, adresa de e-mail o folosim pentru a vă confirmă comandă și pentru a vă informa despre stadiul comenzilor;</li> <li><b>număr de telefon:</b> avem nevoie de numărul de telefon pentru confirmarea comenzii și pentru a stabili și alte detalii legate de comandă plasată.</li> <li><b>adresa de livrare:</b> pentru a reuși să livrăm comandă, avem nevoie de comunicarea adresei corecte, în procesul de comandă</li> <li><b>adresa de facturare:</b> pentru a reuși să facem factură fiscală, avem nevoie de comunicare corectă a datelor de facturare </li> <li><b>prelucrarea comenzilor și soluționarea lor:</b> prelucrarea, validarea, soluționare sau anularea comenzilor și/sau a bunurilor și serviciilor achiziționate. </li> <li><b>rambursarea banilor:</b> contravaloarea produselor conform prevederilor legalee existente</li> <li><b>rambursarea produselor:</b> returnarea produselor conform prevederilor legale existente </li> </ul> <h4>3. Care este scopul și temeiul prelucrării datelor și cum folosim informațiile tale personale ?</h4> <p>Datele pe care "user/clientul" ni le oferi voluntar, cele pe care le trimite prin plasarea unei comenzi în temeiul legal este acela de a face demersuri la cererea persoanei vizate înainte de încheierea unui contract (art. 6 alin. (1) lit. b din Regulamentul (UE) 679/2016).<br /> Aceste date, le folosim pentru a reuși să emite factură fiscală și să face livrarea corectă și corespunzătoare a produselor.</p> <p>În acest sens, ne asigurăm întotdeauna că aceste prelucrări sunt efectuate cu respectarea drepturilor și libertăților dumneavoastră, iar deciziile luate pe baza acestora nu au efecte legale asupra dumneavoastră și nu vă afectează similar într-o măsură semnificativă. Comunicările de marketing sunt transmise pe consimțământul dumneavoastră prealabil. </p> <p>De asemenea, vă puteți răzgândi și retrage consimțământul în orice moment, prin:<br /> - Modificarea setărilor din contul de client;<br /> - Dezabonarea de la mesajel/email-urile pe care le primiți de la noi;<br /> - Contactarea gabrielhabet.com.<br /> </p> <p>Sunt și anumite situații în care ne desfășurăm activitățile de marketing pe interesul nostru legitim de a ne promova și dezvoltă activitatea comercială, conform Legii nr 506/2004, Art.12 (2). În situațiile de așa natură, unde folosim informații cu privire la dumneavoastră pentru un interes legitim al nostru, avem în vedere să luăm toate măsurile necesare pentru că drepturile și libertățile dumneavoastră fundamentale să nu fie afectate.</p> <h4>4. Care este temeiul legal prin care colectăm aceste date personale ?</h4> <p>Temeiul legal este acela de a face demersuri la cererea persoanei vizate prin accesare, înainte de încheierea unui contract (art. 6 alin. (1) lit. b din Regulamentul (UE) 679/2016).</p> <p>Datele pe care le colectăm automat prin folosirea cookie-urilor sau a altor tehnologii similare, temeiul pentru prelucrare este consimțământul. Odată cu accesarea site-ului, îți dai în mod valabil consimțământul asupra prelucrării informațiilor necesare pentru utilizare.</p> <h4>5. Partajarea datelor cu caracter personal.</h4> <p>În funcție de cazul care se impune, putem transmite sau oferi acces la anumite date cu caracter personal ale dumneavoastră, următoarelor categorii de destinatari: firmelor de curierat DPD și Fan Curier care asigură expediția produselor comandate. De asemenea, există și cazul în care pentru a ne apăra un interes legitim, putem de asemenea divulgă anumite date cu caracter personal unor autorități publice. În acest sens, ne asigurăm că accesul la datele dumneavoastră de către terții persoane juridice de drept privat este realizat, în baza unor contracte încheiate cu aceștia, așa cum specifică legea privind protecția datelor și confidențialitatea informațiilor. </p> <h4>6. Perioada de retenție a datelor cu caracter personal?</h4> <p>Datele cu caracter personal sunt stocate cât timp contul de pe gabrielhabet.com este activ. Bineînțeles, ne puteți solicită ștergerea anumitor date, ori închiderea contului, în funcție de preferințele dumneavoastră. În cazul comenzilor plasate pe www.gabrielhabet.com datele dumneavoastră personale, dintre cele care sunt cuprinse în documentele financiar-contabile sau în documente anexate acestora, vor fi păstrate 10 ani conform dispozițiilor art. 38 din Anexă 1 la Ordinul nr. 2634/2015 privind documentele financiar-contabile, emis de Ministerul Finanțelor Publice. <br />Implicit, nu vor fi accesate în niciun alt scop decât scopul legal pentru care au fost arhivate. După termenul de 10 ani, aceste date vor fi distruse.</p> <h4>7. Drepturile persoanei vizate de colectarea datelor personale.</h4> <p>Regulamentul general privind protecția datelor vă recunoaște o serie drepturi în ceea ce privește utilizarea datelor dumneavoastră cu caracter personal. <br /> Puteți solicită accesul la datele dumneavoastră, corectarea greșelilor din fișierele noastre (dacă există) și/sau vă puteți opune la prelucrarea datelor dumneavoastră cu caracter personal. De asemenea, aveți dreptul de a vă plânge autorității de supraveghere competențe sau de a vă adresa justiției. După caz, puteți beneficia și de dreptul de a solicită ștergerea datelor dumneavoastră cu caracter personal, dreptul la restricționarea prelucrării datelor dumneavoastră și dreptul la portabilitatea datelor. O listare a fiecărui drept îl puteți consulta mai jos:<br /> </p><ul> <li>- accesul la datele personale</li> <li>- rectificare informațiilor sau a datele personale</li> <li>- ștergerea datelor personale sau a informațiilor. Realizarea acestui drept, aduce cu sine și eliminarea tuturor informațiilor despre user iar gabrielhabet.com nu este vinovat de pierderile suferite de user.</li> <li>- restricționarea datelor cu caracter personal</li> <li>- portabilitatea sau opoziția datelor cu caracter personal</li> <li>- depunerea deplânge la autoritatea de supraveghere</li> </ul> <h4>8. Politică de utilizare a cookies-urilor.</h4> <p> Așa cum la rândul nostru, suntem clienți online, apreciem și respectăm importanța confidențialității și securității datelor de pe internet. gabrielhabet.com stochează și prelucrează datele cu caracter personal, în conformitate cu Legea privind protecția datelor cu caracter personal </p> <p>Mai multe detalii despre cookies și modalitatea lor de folosire, puteți să citiți: <a href="/#/cookie_policy" title="Cookies">AICI</a></p> <h4>9. Cum ne poți contacta?</h4> <p>Dacă ești în situația în care ai de adresat vreo întrbare cu privire la podusele noastre, ne poți contacta prin intermediul formularului de contact de pe site-ul nostru: https://www.gabrielhabet.com/contact, iar noi îți vom răspunde în cel mai scurt timp. </p> <p>De asemenea ai la dispoziție numărul de telefon: +40 753 696 163 , ori adesa de email: contact@gabrielhabet.com pentru întrebările extra. </p> <p>Pagină de facebook: https://www.facebook.com/butterflygabrielhabet îți stă, de asemenea, la dispoziție pentru a rezolva cu eficiență orice neclaritate ai mai avea. Ține minte, de luni până vineri, între orele 09:00 – 17:00 ne poți adresa întrebările tale, iar noi cu plăcere îți vom răspunde.</p> <h3>Politică de confidențialitate GDPR cu privire la prelucrarea datelor.</h3><p></p> <p><a href="https://eur-lex.europa.eu/legal-content/RO/TXT/PDF/?uri=CELEX:32016R0679&from=RO" target="_blank">Regulamentul (UE) 2016/679</a> al Parlamentului European și al Consiliului din 27 aprilie 2016 privind protecția persoanelor fizice în ceea ce privește prelucrarea datelor cu caracter personal și privind liberă circulație a acestora. gabrielhabet.com consideră asigurarea dreptului la protecția datelor cu caracter personal că un angajament fundamental în colaborarea noastră și respectă regulamentul UE.<br /> Vom încerca să depunem toate eforturile necesare pentru a preleva și prelucra datele personale ale utilizatorilor în deplină sigurata. Pentru că dorim o transparent totală în acest angajament, am pregătit această pagină <a href="https://www.gabrielhabet/#/privacy_policy">GDPR - Politică de confidențialitate</a>, pentru a prezența toate informațiile cât mai detaliat și transparent, după cum urmează:</p> <ol> <li><h5><b>Cine suntem și cum putem fi contactați:</b></h5></li> <ol> <li>gabrielhabet.com este un magazin online www.gabrielhabet.com deținut de firma GABRIEL HABET SRL, în calitate de persoană juridică CUI: RO41533477, J22/2726/2019 cu domeniul de activitate în comerțul online. În angajamentul de colaborare, Gabriel Habet, reprezintă un operator atunci când prelucrează datele dumneavostră cu caracter personal. </li> <li>Pentru orice informații suplimentare despre GDPR sau calitatea de operator în prelucrarea datelor dumneavostră personale, va rugăm să ne contactați peadresa de e-mail: contact@gabrielhabet.com sau telefonic la numărul: +40 753 696 163 </li> </ol> <li><h5><b>Ce informații și date cu caracter personal păstrăm și prelucrăm despre dumneavoastră:</b></h5> <p>Aceste date cu caracter personal, sunt de regulă colectate direct de la utilizator, astfel încât aveți controlul total sau parțial (acolo unde tehnică nu ne permite) asupra tipurilor de informații oferite. </p></li> </ol>',
+    },
 });
 
 /***/ }),
@@ -5276,6 +5368,7 @@ var PageOrderHistory_1 = __webpack_require__(/*! ./Components/PageOrderHistory *
 var PageOrderAdminHistory_1 = __webpack_require__(/*! ./Components/PageOrderAdminHistory */ "./Components/PageOrderAdminHistory.js");
 var PageOrder_1 = __webpack_require__(/*! ./Components/PageOrder */ "./Components/PageOrder.js");
 var PageCreditCardPayment_1 = __webpack_require__(/*! ./Components/PageCreditCardPayment */ "./Components/PageCreditCardPayment.js");
+var PagePrivacyPolicy_1 = __webpack_require__(/*! ./Components/PagePrivacyPolicy */ "./Components/PagePrivacyPolicy.js");
 var App = /** @class */ (function (_super) {
     __extends(App, _super);
     function App() {
@@ -5306,6 +5399,7 @@ var App = /** @class */ (function (_super) {
                         React.createElement(react_router_1.Route, { exact: true, path: "/admin_orders", component: PageOrderAdminHistory_1.OrderAdminHistory }),
                         React.createElement(react_router_1.Route, { exact: true, path: "/order/:id", component: PageOrder_1.Order }),
                         React.createElement(react_router_1.Route, { exact: true, path: "/card_payment", component: PageCreditCardPayment_1.CreditCardPayment }),
+                        React.createElement(react_router_1.Route, { exact: true, path: "/privacy_policy", component: PagePrivacyPolicy_1.PrivacyPolicy }),
                         React.createElement(react_router_1.Route, { component: PageNotFound_1.NotFound })),
                     React.createElement(Footer_1.Footer, null)))));
     };
@@ -11970,26 +12064,59 @@ function renderComment(elem) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Doctype = exports.CDATA = exports.Tag = exports.Style = exports.Script = exports.Comment = exports.Directive = exports.Text = exports.Root = exports.isTag = exports.ElementType = void 0;
+/** Types of elements found in htmlparser2's DOM */
+var ElementType;
+(function (ElementType) {
+    /** Type for the root element of a document */
+    ElementType["Root"] = "root";
+    /** Type for Text */
+    ElementType["Text"] = "text";
+    /** Type for <? ... ?> */
+    ElementType["Directive"] = "directive";
+    /** Type for <!-- ... --> */
+    ElementType["Comment"] = "comment";
+    /** Type for <script> tags */
+    ElementType["Script"] = "script";
+    /** Type for <style> tags */
+    ElementType["Style"] = "style";
+    /** Type for Any tag */
+    ElementType["Tag"] = "tag";
+    /** Type for <![CDATA[ ... ]]> */
+    ElementType["CDATA"] = "cdata";
+    /** Type for <!doctype ...> */
+    ElementType["Doctype"] = "doctype";
+})(ElementType = exports.ElementType || (exports.ElementType = {}));
 /**
  * Tests whether an element is a tag or not.
  *
  * @param elem Element to test
  */
 function isTag(elem) {
-    return (elem.type === "tag" /* Tag */ ||
-        elem.type === "script" /* Script */ ||
-        elem.type === "style" /* Style */);
+    return (elem.type === ElementType.Tag ||
+        elem.type === ElementType.Script ||
+        elem.type === ElementType.Style);
 }
 exports.isTag = isTag;
 // Exports for backwards compatibility
-exports.Text = "text" /* Text */; //Text
-exports.Directive = "directive" /* Directive */; //<? ... ?>
-exports.Comment = "comment" /* Comment */; //<!-- ... -->
-exports.Script = "script" /* Script */; //<script> tags
-exports.Style = "style" /* Style */; //<style> tags
-exports.Tag = "tag" /* Tag */; //Any tag
-exports.CDATA = "cdata" /* CDATA */; //<![CDATA[ ... ]]>
-exports.Doctype = "doctype" /* Doctype */;
+/** Type for the root element of a document */
+exports.Root = ElementType.Root;
+/** Type for Text */
+exports.Text = ElementType.Text;
+/** Type for <? ... ?> */
+exports.Directive = ElementType.Directive;
+/** Type for <!-- ... --> */
+exports.Comment = ElementType.Comment;
+/** Type for <script> tags */
+exports.Script = ElementType.Script;
+/** Type for <style> tags */
+exports.Style = ElementType.Style;
+/** Type for Any tag */
+exports.Tag = ElementType.Tag;
+/** Type for <![CDATA[ ... ]]> */
+exports.CDATA = ElementType.CDATA;
+/** Type for <!doctype ...> */
+exports.Doctype = ElementType.Doctype;
 
 
 /***/ }),
@@ -12007,18 +12134,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.decodeHTML = exports.decodeHTMLStrict = exports.decodeXML = void 0;
 var entities_json_1 = __importDefault(__webpack_require__(/*! ./maps/entities.json */ "./node_modules/dom-serializer/node_modules/entities/lib/maps/entities.json"));
 var legacy_json_1 = __importDefault(__webpack_require__(/*! ./maps/legacy.json */ "./node_modules/dom-serializer/node_modules/entities/lib/maps/legacy.json"));
 var xml_json_1 = __importDefault(__webpack_require__(/*! ./maps/xml.json */ "./node_modules/dom-serializer/node_modules/entities/lib/maps/xml.json"));
 var decode_codepoint_1 = __importDefault(__webpack_require__(/*! ./decode_codepoint */ "./node_modules/dom-serializer/node_modules/entities/lib/decode_codepoint.js"));
+var strictEntityRe = /&(?:[a-zA-Z0-9]+|#[xX][\da-fA-F]+|#\d+);/g;
 exports.decodeXML = getStrictDecoder(xml_json_1.default);
 exports.decodeHTMLStrict = getStrictDecoder(entities_json_1.default);
 function getStrictDecoder(map) {
-    var keys = Object.keys(map).join("|");
     var replace = getReplacer(map);
-    keys += "|#[xX][\\da-fA-F]+|#\\d+";
-    var re = new RegExp("&(?:" + keys + ");", "g");
-    return function (str) { return String(str).replace(re, replace); };
+    return function (str) { return String(str).replace(strictEntityRe, replace); };
 }
 var sorter = function (a, b) { return (a < b ? 1 : -1); };
 exports.decodeHTML = (function () {
@@ -12040,20 +12166,20 @@ exports.decodeHTML = (function () {
             str += ";";
         return replace(str);
     }
-    //TODO consider creating a merged map
-    return function (str) {
-        return String(str).replace(re, replacer);
-    };
+    // TODO consider creating a merged map
+    return function (str) { return String(str).replace(re, replacer); };
 })();
 function getReplacer(map) {
     return function replace(str) {
         if (str.charAt(1) === "#") {
-            if (str.charAt(2) === "X" || str.charAt(2) === "x") {
+            var secondChar = str.charAt(2);
+            if (secondChar === "X" || secondChar === "x") {
                 return decode_codepoint_1.default(parseInt(str.substr(3), 16));
             }
             return decode_codepoint_1.default(parseInt(str.substr(2), 10));
         }
-        return map[str.slice(1, -1)];
+        // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+        return map[str.slice(1, -1)] || str;
     };
 }
 
@@ -12074,23 +12200,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var decode_json_1 = __importDefault(__webpack_require__(/*! ./maps/decode.json */ "./node_modules/dom-serializer/node_modules/entities/lib/maps/decode.json"));
-// modified version of https://github.com/mathiasbynens/he/blob/master/src/he.js#L94-L119
+// Adapted from https://github.com/mathiasbynens/he/blob/master/src/he.js#L94-L119
+var fromCodePoint = 
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+String.fromCodePoint ||
+    function (codePoint) {
+        var output = "";
+        if (codePoint > 0xffff) {
+            codePoint -= 0x10000;
+            output += String.fromCharCode(((codePoint >>> 10) & 0x3ff) | 0xd800);
+            codePoint = 0xdc00 | (codePoint & 0x3ff);
+        }
+        output += String.fromCharCode(codePoint);
+        return output;
+    };
 function decodeCodePoint(codePoint) {
     if ((codePoint >= 0xd800 && codePoint <= 0xdfff) || codePoint > 0x10ffff) {
         return "\uFFFD";
     }
     if (codePoint in decode_json_1.default) {
-        // @ts-ignore
         codePoint = decode_json_1.default[codePoint];
     }
-    var output = "";
-    if (codePoint > 0xffff) {
-        codePoint -= 0x10000;
-        output += String.fromCharCode(((codePoint >>> 10) & 0x3ff) | 0xd800);
-        codePoint = 0xdc00 | (codePoint & 0x3ff);
-    }
-    output += String.fromCharCode(codePoint);
-    return output;
+    return fromCodePoint(codePoint);
 }
 exports.default = decodeCodePoint;
 
@@ -12110,14 +12241,40 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.escapeUTF8 = exports.escape = exports.encodeNonAsciiHTML = exports.encodeHTML = exports.encodeXML = void 0;
 var xml_json_1 = __importDefault(__webpack_require__(/*! ./maps/xml.json */ "./node_modules/dom-serializer/node_modules/entities/lib/maps/xml.json"));
 var inverseXML = getInverseObj(xml_json_1.default);
 var xmlReplacer = getInverseReplacer(inverseXML);
-exports.encodeXML = getInverse(inverseXML, xmlReplacer);
+/**
+ * Encodes all non-ASCII characters, as well as characters not valid in XML
+ * documents using XML entities.
+ *
+ * If a character has no equivalent entity, a
+ * numeric hexadecimal reference (eg. `&#xfc;`) will be used.
+ */
+exports.encodeXML = getASCIIEncoder(inverseXML);
 var entities_json_1 = __importDefault(__webpack_require__(/*! ./maps/entities.json */ "./node_modules/dom-serializer/node_modules/entities/lib/maps/entities.json"));
 var inverseHTML = getInverseObj(entities_json_1.default);
 var htmlReplacer = getInverseReplacer(inverseHTML);
+/**
+ * Encodes all entities and non-ASCII characters in the input.
+ *
+ * This includes characters that are valid ASCII characters in HTML documents.
+ * For example `#` will be encoded as `&num;`. To get a more compact output,
+ * consider using the `encodeNonAsciiHTML` function.
+ *
+ * If a character has no equivalent entity, a
+ * numeric hexadecimal reference (eg. `&#xfc;`) will be used.
+ */
 exports.encodeHTML = getInverse(inverseHTML, htmlReplacer);
+/**
+ * Encodes all non-ASCII characters, as well as characters not valid in HTML
+ * documents using HTML entities.
+ *
+ * If a character has no equivalent entity, a
+ * numeric hexadecimal reference (eg. `&#xfc;`) will be used.
+ */
+exports.encodeNonAsciiHTML = getASCIIEncoder(inverseHTML);
 function getInverseObj(obj) {
     return Object.keys(obj)
         .sort()
@@ -12129,49 +12286,92 @@ function getInverseObj(obj) {
 function getInverseReplacer(inverse) {
     var single = [];
     var multiple = [];
-    Object.keys(inverse).forEach(function (k) {
-        return k.length === 1
-            ? // Add value to single array
-                single.push("\\" + k)
-            : // Add value to multiple array
-                multiple.push(k);
-    });
-    //TODO add ranges
+    for (var _i = 0, _a = Object.keys(inverse); _i < _a.length; _i++) {
+        var k = _a[_i];
+        if (k.length === 1) {
+            // Add value to single array
+            single.push("\\" + k);
+        }
+        else {
+            // Add value to multiple array
+            multiple.push(k);
+        }
+    }
+    // Add ranges to single characters.
+    single.sort();
+    for (var start = 0; start < single.length - 1; start++) {
+        // Find the end of a run of characters
+        var end = start;
+        while (end < single.length - 1 &&
+            single[end].charCodeAt(1) + 1 === single[end + 1].charCodeAt(1)) {
+            end += 1;
+        }
+        var count = 1 + end - start;
+        // We want to replace at least three characters
+        if (count < 3)
+            continue;
+        single.splice(start, count, single[start] + "-" + single[end]);
+    }
     multiple.unshift("[" + single.join("") + "]");
     return new RegExp(multiple.join("|"), "g");
 }
-var reNonASCII = /[^\0-\x7F]/g;
-var reAstralSymbols = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
+// /[^\0-\x7F]/gu
+var reNonASCII = /(?:[\x80-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])/g;
+var getCodePoint = 
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+String.prototype.codePointAt != null
+    ? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        function (str) { return str.codePointAt(0); }
+    : // http://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae
+        function (c) {
+            return (c.charCodeAt(0) - 0xd800) * 0x400 +
+                c.charCodeAt(1) -
+                0xdc00 +
+                0x10000;
+        };
 function singleCharReplacer(c) {
-    return "&#x" + c
-        .charCodeAt(0)
+    return "&#x" + (c.length > 1 ? getCodePoint(c) : c.charCodeAt(0))
         .toString(16)
         .toUpperCase() + ";";
-}
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
-function astralReplacer(c, _) {
-    // http://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae
-    var high = c.charCodeAt(0);
-    var low = c.charCodeAt(1);
-    var codePoint = (high - 0xd800) * 0x400 + low - 0xdc00 + 0x10000;
-    return "&#x" + codePoint.toString(16).toUpperCase() + ";";
 }
 function getInverse(inverse, re) {
     return function (data) {
         return data
             .replace(re, function (name) { return inverse[name]; })
-            .replace(reAstralSymbols, astralReplacer)
             .replace(reNonASCII, singleCharReplacer);
     };
 }
-var reXmlChars = getInverseReplacer(inverseXML);
+var reEscapeChars = new RegExp(xmlReplacer.source + "|" + reNonASCII.source, "g");
+/**
+ * Encodes all non-ASCII characters, as well as characters not valid in XML
+ * documents using numeric hexadecimal reference (eg. `&#xfc;`).
+ *
+ * Have a look at `escapeUTF8` if you want a more concise output at the expense
+ * of reduced transportability.
+ *
+ * @param data String to escape.
+ */
 function escape(data) {
-    return data
-        .replace(reXmlChars, singleCharReplacer)
-        .replace(reAstralSymbols, astralReplacer)
-        .replace(reNonASCII, singleCharReplacer);
+    return data.replace(reEscapeChars, singleCharReplacer);
 }
 exports.escape = escape;
+/**
+ * Encodes all characters not valid in XML documents using numeric hexadecimal
+ * reference (eg. `&#xfc;`).
+ *
+ * Note that the output will be character-set dependent.
+ *
+ * @param data String to escape.
+ */
+function escapeUTF8(data) {
+    return data.replace(xmlReplacer, singleCharReplacer);
+}
+exports.escapeUTF8 = escapeUTF8;
+function getASCIIEncoder(obj) {
+    return function (data) {
+        return data.replace(reEscapeChars, function (c) { return obj[c] || singleCharReplacer(c); });
+    };
+}
 
 
 /***/ }),
@@ -12186,37 +12386,61 @@ exports.escape = escape;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.decodeXMLStrict = exports.decodeHTML5Strict = exports.decodeHTML4Strict = exports.decodeHTML5 = exports.decodeHTML4 = exports.decodeHTMLStrict = exports.decodeHTML = exports.decodeXML = exports.encodeHTML5 = exports.encodeHTML4 = exports.escapeUTF8 = exports.escape = exports.encodeNonAsciiHTML = exports.encodeHTML = exports.encodeXML = exports.encode = exports.decodeStrict = exports.decode = void 0;
 var decode_1 = __webpack_require__(/*! ./decode */ "./node_modules/dom-serializer/node_modules/entities/lib/decode.js");
 var encode_1 = __webpack_require__(/*! ./encode */ "./node_modules/dom-serializer/node_modules/entities/lib/encode.js");
+/**
+ * Decodes a string with entities.
+ *
+ * @param data String to decode.
+ * @param level Optional level to decode at. 0 = XML, 1 = HTML. Default is 0.
+ * @deprecated Use `decodeXML` or `decodeHTML` directly.
+ */
 function decode(data, level) {
     return (!level || level <= 0 ? decode_1.decodeXML : decode_1.decodeHTML)(data);
 }
 exports.decode = decode;
+/**
+ * Decodes a string with entities. Does not allow missing trailing semicolons for entities.
+ *
+ * @param data String to decode.
+ * @param level Optional level to decode at. 0 = XML, 1 = HTML. Default is 0.
+ * @deprecated Use `decodeHTMLStrict` or `decodeXML` directly.
+ */
 function decodeStrict(data, level) {
     return (!level || level <= 0 ? decode_1.decodeXML : decode_1.decodeHTMLStrict)(data);
 }
 exports.decodeStrict = decodeStrict;
+/**
+ * Encodes a string with entities.
+ *
+ * @param data String to encode.
+ * @param level Optional level to encode at. 0 = XML, 1 = HTML. Default is 0.
+ * @deprecated Use `encodeHTML`, `encodeXML` or `encodeNonAsciiHTML` directly.
+ */
 function encode(data, level) {
     return (!level || level <= 0 ? encode_1.encodeXML : encode_1.encodeHTML)(data);
 }
 exports.encode = encode;
 var encode_2 = __webpack_require__(/*! ./encode */ "./node_modules/dom-serializer/node_modules/entities/lib/encode.js");
-exports.encodeXML = encode_2.encodeXML;
-exports.encodeHTML = encode_2.encodeHTML;
-exports.escape = encode_2.escape;
-// Legacy aliases
-exports.encodeHTML4 = encode_2.encodeHTML;
-exports.encodeHTML5 = encode_2.encodeHTML;
+Object.defineProperty(exports, "encodeXML", { enumerable: true, get: function () { return encode_2.encodeXML; } });
+Object.defineProperty(exports, "encodeHTML", { enumerable: true, get: function () { return encode_2.encodeHTML; } });
+Object.defineProperty(exports, "encodeNonAsciiHTML", { enumerable: true, get: function () { return encode_2.encodeNonAsciiHTML; } });
+Object.defineProperty(exports, "escape", { enumerable: true, get: function () { return encode_2.escape; } });
+Object.defineProperty(exports, "escapeUTF8", { enumerable: true, get: function () { return encode_2.escapeUTF8; } });
+// Legacy aliases (deprecated)
+Object.defineProperty(exports, "encodeHTML4", { enumerable: true, get: function () { return encode_2.encodeHTML; } });
+Object.defineProperty(exports, "encodeHTML5", { enumerable: true, get: function () { return encode_2.encodeHTML; } });
 var decode_2 = __webpack_require__(/*! ./decode */ "./node_modules/dom-serializer/node_modules/entities/lib/decode.js");
-exports.decodeXML = decode_2.decodeXML;
-exports.decodeHTML = decode_2.decodeHTML;
-exports.decodeHTMLStrict = decode_2.decodeHTMLStrict;
-// Legacy aliases
-exports.decodeHTML4 = decode_2.decodeHTML;
-exports.decodeHTML5 = decode_2.decodeHTML;
-exports.decodeHTML4Strict = decode_2.decodeHTMLStrict;
-exports.decodeHTML5Strict = decode_2.decodeHTMLStrict;
-exports.decodeXMLStrict = decode_2.decodeXML;
+Object.defineProperty(exports, "decodeXML", { enumerable: true, get: function () { return decode_2.decodeXML; } });
+Object.defineProperty(exports, "decodeHTML", { enumerable: true, get: function () { return decode_2.decodeHTML; } });
+Object.defineProperty(exports, "decodeHTMLStrict", { enumerable: true, get: function () { return decode_2.decodeHTMLStrict; } });
+// Legacy aliases (deprecated)
+Object.defineProperty(exports, "decodeHTML4", { enumerable: true, get: function () { return decode_2.decodeHTML; } });
+Object.defineProperty(exports, "decodeHTML5", { enumerable: true, get: function () { return decode_2.decodeHTML; } });
+Object.defineProperty(exports, "decodeHTML4Strict", { enumerable: true, get: function () { return decode_2.decodeHTMLStrict; } });
+Object.defineProperty(exports, "decodeHTML5Strict", { enumerable: true, get: function () { return decode_2.decodeHTMLStrict; } });
+Object.defineProperty(exports, "decodeXMLStrict", { enumerable: true, get: function () { return decode_2.decodeXML; } });
 
 
 /***/ }),
@@ -45945,7 +46169,7 @@ if(false) {}
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -62202,13 +62426,13 @@ module.exports = function(originalModule) {
 /***/ }),
 
 /***/ "config":
-/*!**********************************************************************!*\
-  !*** external "{\"API_Path\":\"https://api.gabrielhabet.com/api\"}" ***!
-  \**********************************************************************/
+/*!****************************************************************!*\
+  !*** external "{\"API_Path\":\"http://localhost:65315/api\"}" ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = {"API_Path":"https://api.gabrielhabet.com/api"};
+module.exports = {"API_Path":"http://localhost:65315/api"};
 
 /***/ })
 

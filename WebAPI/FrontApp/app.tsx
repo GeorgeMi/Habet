@@ -25,6 +25,7 @@ import { OrderHistory } from "./Components/PageOrderHistory";
 import { OrderAdminHistory } from "./Components/PageOrderAdminHistory";
 import { Order } from "./Components/PageOrder";
 import { CreditCardPayment } from "./Components/PageCreditCardPayment";
+import { PrivacyPolicy } from "./Components/PagePrivacyPolicy";
 
 
 class App extends React.Component {
@@ -55,6 +56,7 @@ class App extends React.Component {
                             <Route exact path="/admin_orders" component={OrderAdminHistory} />     
                             <Route exact path="/order/:id" component={Order} />   
                             <Route exact path="/card_payment" component={CreditCardPayment} />   
+                            <Route exact path="/privacy_policy" component={PrivacyPolicy} />   
                             <Route component={NotFound} />  
                         </Switch>
                         <Footer />

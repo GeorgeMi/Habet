@@ -89,18 +89,18 @@ namespace Api.Models
 
             modelBuilder.Entity<ProductsOrders>(entity =>
             {
-                entity.HasKey(e => e.ProductId)
-                    .HasName("PK_dbo.ProductsOrders");
-
                 entity.ToTable("ProductsOrders", "dbo");
+
+                entity.HasKey(e => e.Id)
+                  .HasName("PK_dbo.ProductsOrders");
 
                 entity.HasIndex(e => e.OrderId)
                     .HasName("IX_OrderId");
 
-                entity.HasIndex(e => e.ProductProductId)
-                    .HasName("IX_Product_ProductId");
+                entity.HasIndex(e => e.ProductId)
+                    .HasName("IX_ProductId");
 
-                entity.Property(e => e.ProductProductId).HasColumnName("Product_ProductId");
+                entity.Property(e => e.ProductId).HasColumnName("Product_ProductId");
 
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.ProductsOrders)
@@ -109,8 +109,8 @@ namespace Api.Models
 
                 entity.HasOne(d => d.ProductProduct)
                     .WithMany(p => p.ProductsOrders)
-                    .HasForeignKey(d => d.ProductProductId)
-                    .HasConstraintName("FK_dbo.ProductsOrders_dbo.Products_Product_ProductId");
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK_dbo.ProductsOrders_dbo.Products_ProductId");
             });
 
             modelBuilder.Entity<Tokens>(entity =>

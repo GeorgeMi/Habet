@@ -122,52 +122,10 @@ namespace Api.Controllers
             var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
 
             var order = db.Orders.FirstOrDefault(o => o.OrderId == orderId && o.UserId == userId);
-            //var order = new Orders
-            //{
-            //    FirstName = "FirstName",
-            //    LastName = "LastName",
-            //    State = "State",
-            //    Address = "Address",
-            //    City = "City",
-            //    ZipCode = "ZipCode",
-            //    Phone = "Phone",
-            //    Email = "Email",
-            //    PaymentMethod = "Cash",
-            //    Currency = "RON",
-            //    ProductsOrders = new List<ProductsOrders>(),
-            //    Subtotal = 123,
-            //    Shipping = 20
-            //};
-
-            //for (int i = 0; i < 3; i++)
-            //{
-            //    order.ProductsOrders.Add(new ProductsOrders
-            //    {
-            //        OrderId = orderId,
-            //        ProductId = i,
-            //        ProductPrice = i + 1,
-            //        Amount = i + 1,
-
-            //    });
-            //}
-
             if (order != null)
             {
                  var productsOrdersList = db.ProductsOrders.Where(o => o.OrderId == order.OrderId);
                  var productList = productsOrdersList.Select(product => db.Products.FirstOrDefault(p => p.ProductId == product.ProductId && product.OrderId == order.OrderId)).ToList();
-
-                //var productList = new List<Products>();
-                //for (int i = 0; i < 3; i++)
-                //{
-                //    productList.Add(new Products
-                //    {
-                //        Name_RO = "Name_RO" + i,
-                //        Name_EN = "Name_EN" + i,
-                //        Name_IT = "Name_IT" + i,
-                //        Price = i + 1,
-                //        ProductId = i
-                //    });
-                //}
 
                 var result = new GetOrderDTO()
                 {
@@ -254,18 +212,6 @@ namespace Api.Controllers
                     foreach (var requestProduct in request.CartProducts)
                     {
                         var product = db.Products.Find(requestProduct.Key);
-                        //var product = new Products
-                        //{
-                        //    Name_RO = "Name_RO" + 1,
-                        //    Name_EN = "Name_EN" + 1,
-                        //    Name_IT = "Name_IT" + 1,
-                        //    Price = 100,
-                        //    Description_RO = "Description_RO",
-                        //    Description_EN = "Description_EN",
-                        //    Description_IT = "Description_IT",
-                        //    ProductId = requestProduct.Key
-                        //};
-
                         if (product?.ProductId > 0)
                         {
                             var productsOrders = new ProductsOrders
@@ -275,7 +221,7 @@ namespace Api.Controllers
                                 Amount = requestProduct.Value,
                                 OrderId = order.OrderId,
                                 Currency = order.Currency,
-                                ProductProduct = product
+                                ProductProduct = product,
                             };
 
                             subtotal += productsOrders.ProductPrice * productsOrders.Amount;

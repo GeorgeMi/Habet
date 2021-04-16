@@ -304,17 +304,13 @@
     <Compile Include="Messages\JSendMessage.cs" />
     <Compile Include="Messages\RoleMessage.cs" />
     <Compile Include="Messages\TokenMessage.cs" />
-    <Compile Include="Migrations\20200124091200_test.cs" />
-    <Compile Include="Migrations\20200124091200_test.Designer.cs">
-      <DependentUpon>20200124091200_test.cs</DependentUpon>
+    <Compile Include="Migrations\20210416075824_Migration2.cs" />
+    <Compile Include="Migrations\20210416075824_Migration2.designer.cs">
+      <DependentUpon>20210416075824_Migration2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20210407134004_MyFirstMigration.cs" />
-    <Compile Include="Migrations\20210407134004_MyFirstMigration.designer.cs">
-      <DependentUpon>20210407134004_MyFirstMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20210414124554_Migration4.cs" />
-    <Compile Include="Migrations\20210414124554_Migration4.designer.cs">
-      <DependentUpon>20210414124554_Migration4.cs</DependentUpon>
+    <Compile Include="Migrations\20210416084641_Migration3.cs" />
+    <Compile Include="Migrations\20210416084641_Migration3.designer.cs">
+      <DependentUpon>20210416084641_Migration3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\GHContextModelSnapshot.cs" />
     <Compile Include="Models\GHContext.cs" />
