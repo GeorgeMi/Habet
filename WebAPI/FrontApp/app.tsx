@@ -26,6 +26,8 @@ import { OrderAdminHistory } from "./Components/PageOrderAdminHistory";
 import { Order } from "./Components/PageOrder";
 import { CreditCardPayment } from "./Components/PageCreditCardPayment";
 import { PrivacyPolicy } from "./Components/PagePrivacyPolicy";
+import { TermsAndConditions } from "./Components/PageTermsAndConditions";
+import { ReturnPolicy } from "./Components/PageReturnPolicy";
 
 
 class App extends React.Component {
@@ -57,6 +59,8 @@ class App extends React.Component {
                             <Route exact path="/order/:id" component={Order} />   
                             <Route exact path="/card_payment" component={CreditCardPayment} />   
                             <Route exact path="/privacy_policy" component={PrivacyPolicy} />   
+                            <Route exact path="/terms_and_conditions" component={TermsAndConditions} />   
+                            <Route exact path="/return_policy" component={ReturnPolicy} />   
                             <Route component={NotFound} />  
                         </Switch>
                         <Footer />

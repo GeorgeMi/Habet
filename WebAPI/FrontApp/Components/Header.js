@@ -253,12 +253,12 @@ var Header = /** @class */ (function (_super) {
                                 :
                                     React.createElement("div", null),
                             React.createElement("li", { className: "nav-item dropdown header-selector" },
-                                React.createElement("select", { style: { backgroundColor: 'transparent', transform: 'translateY(22 %)' }, value: this.state.language, onChange: this.onLangChange, name: "language", id: "language" },
+                                React.createElement("select", { style: { backgroundColor: 'transparent', transform: 'translateY(22 %)', border: '0px' }, value: this.state.language, onChange: this.onLangChange, name: "language", id: "language" },
                                     React.createElement("option", { value: "en" }, "En"),
                                     React.createElement("option", { value: "it" }, "It"),
                                     React.createElement("option", { value: "ro" }, "Ro"))),
                             React.createElement("li", { className: "nav-item dropdown header-selector" },
-                                React.createElement("select", { style: { backgroundColor: 'transparent', transform: 'translateY(22 %)' }, value: this.state.currency, onChange: this.onCurrencyChange, name: "currency", id: "currency" },
+                                React.createElement("select", { style: { backgroundColor: 'transparent', transform: 'translateY(22 %)', border: '0px' }, value: this.state.currency, onChange: this.onCurrencyChange, name: "currency", id: "currency" },
                                     React.createElement("option", { value: "GBP" }, "\u20A4"),
                                     React.createElement("option", { value: "EUR" }, "\u20AC"),
                                     React.createElement("option", { value: "RON" }, "RON")))))))));

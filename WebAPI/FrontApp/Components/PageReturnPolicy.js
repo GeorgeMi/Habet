@@ -17,17 +17,17 @@ var React = require("react");
 var Header_1 = require("./Header");
 var Translate = require("react-translate-component");
 var sfcookies_1 = require("sfcookies");
-var PrivacyPolicy = /** @class */ (function (_super) {
-    __extends(PrivacyPolicy, _super);
-    function PrivacyPolicy(props) {
+var ReturnPolicy = /** @class */ (function (_super) {
+    __extends(ReturnPolicy, _super);
+    function ReturnPolicy(props) {
         var _this = _super.call(this, props) || this;
         _this.reloadPage = _this.reloadPage.bind(_this);
         return _this;
     }
-    PrivacyPolicy.prototype.reloadPage = function () {
+    ReturnPolicy.prototype.reloadPage = function () {
         window.location.reload(false);
     };
-    PrivacyPolicy.prototype.render = function () {
+    ReturnPolicy.prototype.render = function () {
         var lang = sfcookies_1.read_cookie('lang');
         return (React.createElement("div", null,
             React.createElement("main", { id: "main" },
@@ -420,7 +420,7 @@ var PrivacyPolicy = /** @class */ (function (_super) {
                                                 React.createElement("p", null, " Questi dati personali vengono solitamente raccolti direttamente dall'utente, in modo che tu abbia il controllo totale o parziale (laddove la tecnologia non ci consente) sui tipi di informazioni fornite. "),
                                                 " "))))))))));
     };
-    return PrivacyPolicy;
+    return ReturnPolicy;
 }(React.Component));
-exports.PrivacyPolicy = PrivacyPolicy;
-//# sourceMappingURL=PagePrivacyPolicy.js.map
+exports.ReturnPolicy = ReturnPolicy;
+//# sourceMappingURL=PageReturnPolicy.js.map

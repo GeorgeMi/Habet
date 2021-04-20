@@ -83,7 +83,7 @@ export class SectionIntro extends React.Component<any, any> {
                                                 <div className="carrousel-description col-md-6">
                                                     <div className="text-deal">
                                                         <h2><a href="#">{item.Name}</a></h2>
-                                                        <p className="price"><span>{currencyBeforeSign + " " + item.Price + " " + currencyAfterSign}</span></p>
+                                                        <p className="price" style={{ fontWeight: 100 }}><span>{currencyBeforeSign + " " + item.Price + " " + currencyAfterSign}</span></p>
                                                         <p><a href={"/#/item/" + item.ProductId} className="btn btn-primary py-3 px-5"><Translate content='product.Details' /></a></p>
                                                     </div>
                                                 </div>

@@ -99,7 +99,7 @@ var SectionIntro = /** @class */ (function (_super) {
                                         React.createElement("div", { className: "text-deal" },
                                             React.createElement("h2", null,
                                                 React.createElement("a", { href: "#" }, item.Name)),
-                                            React.createElement("p", { className: "price" },
+                                            React.createElement("p", { className: "price", style: { fontWeight: 100 } },
                                                 React.createElement("span", null, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign)),
                                             React.createElement("p", null,
                                                 React.createElement("a", { href: "/#/item/" + item.ProductId, className: "btn btn-primary py-3 px-5" },

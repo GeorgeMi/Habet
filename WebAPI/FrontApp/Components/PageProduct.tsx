@@ -248,7 +248,6 @@ export class Product extends React.Component<any, any>
                                         :
                                         <div></div>
                                 }
-                                <h1 className="mb-4"><Translate content={'product.ProductDetails'} /></h1>
                             </div>
                         </div>
                     </div>
@@ -262,10 +261,10 @@ export class Product extends React.Component<any, any>
                                 <div className="col-lg-6 product-details pl-md-5">
                                     <h3>{item.Name}</h3>
                                     <p className="price"><span>{currencyBeforeSign + " " + item.Price + " " + currencyAfterSign}</span></p>
-                                    <div> {ReactHtmlParser(this.unescape(item.Description))} </div>
-                                    <div className="row mt-4">
+                                    <div style={{ textAlign: 'justify' }}> {ReactHtmlParser(this.unescape(item.Description))} </div>
+                                    <div className="row mt-4" style={{ textAlign: 'center' }}>
                                         <div className="w-100"></div>
-                                        <div className="input-group col-md-6 d-flex mb-3">
+                                        <div className="input-group col-md-12 d-flex mb-3">
                                             <span className="input-group-btn mr-2">
                                                 <button type="button" className="quantity-left-minus btn" data-type="minus" data-field="" onClick={this.decreaseQuantity}>
                                                     -
@@ -279,10 +278,10 @@ export class Product extends React.Component<any, any>
                                             </span>
                                         </div>
                                         <div className="w-100"></div>
-                                        <div className="col-md-12">
+                                        <div className="col-md-12 mt-4">
                                             <p onClick={() => this.addProductToCart(item.ProductId, quantity)}>
                                                 <a className="btn btn-black py-3 px-5 mr-2"><Translate content='product.AddToCart' /></a>
-                                                <a href="javascript:void(0)" onClick={() => this.buyProduct(item.ProductId)} className="btn btn-primary py-3 px-5"><Translate content='product.BuyNow' /></a>
+                                                <a href="javascript:void(0)" onClick={() => this.buyProduct(item.ProductId)} className="btn btn-primary py-3 px-5 ml-2"><Translate content='product.BuyNow' /></a>
                                             </p>
                                         </div>
                                     </div>

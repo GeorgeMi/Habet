@@ -216,16 +216,13 @@ var Product = /** @class */ (function (_super) {
                 React.createElement(Header_1.Header, { reloadPage: this.reloadPage }),
                 React.createElement("div", { className: "hero-wrap page-title", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
                     React.createElement("div", { className: "row justify-content-center" },
-                        React.createElement("div", { className: "col-md-12 heading-section text-center" },
-                            loggedIn && api_response.role.toUpperCase() === 'ADMIN' ?
-                                React.createElement("form", { action: "", onSubmit: this.handleSubmit },
-                                    React.createElement("div", { className: "form-group col-md-12" },
-                                        React.createElement("button", { type: "submit", className: "close", "aria-label": "Close" },
-                                            React.createElement("span", { "aria-hidden": "true" }, "\u00D7"))))
-                                :
-                                    React.createElement("div", null),
-                            React.createElement("h1", { className: "mb-4" },
-                                React.createElement(Translate, { content: 'product.ProductDetails' }))))),
+                        React.createElement("div", { className: "col-md-12 heading-section text-center" }, loggedIn && api_response.role.toUpperCase() === 'ADMIN' ?
+                            React.createElement("form", { action: "", onSubmit: this.handleSubmit },
+                                React.createElement("div", { className: "form-group col-md-12" },
+                                    React.createElement("button", { type: "submit", className: "close", "aria-label": "Close" },
+                                        React.createElement("span", { "aria-hidden": "true" }, "\u00D7"))))
+                            :
+                                React.createElement("div", null)))),
                 React.createElement("section", { className: "ftco-section" },
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row" },
@@ -235,24 +232,24 @@ var Product = /** @class */ (function (_super) {
                                 React.createElement("h3", null, item.Name),
                                 React.createElement("p", { className: "price" },
                                     React.createElement("span", null, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign)),
-                                React.createElement("div", null,
+                                React.createElement("div", { style: { textAlign: 'justify' } },
                                     " ",
                                     react_html_parser_1.default(this.unescape(item.Description)),
                                     " "),
-                                React.createElement("div", { className: "row mt-4" },
+                                React.createElement("div", { className: "row mt-4", style: { textAlign: 'center' } },
                                     React.createElement("div", { className: "w-100" }),
-                                    React.createElement("div", { className: "input-group col-md-6 d-flex mb-3" },
+                                    React.createElement("div", { className: "input-group col-md-12 d-flex mb-3" },
                                         React.createElement("span", { className: "input-group-btn mr-2" },
                                             React.createElement("button", { type: "button", className: "quantity-left-minus btn", "data-type": "minus", "data-field": "", onClick: this.decreaseQuantity }, "-")),
                                         React.createElement("input", { type: "text", id: "quantity", name: "quantity", className: "quantity form-control input-number", min: "1", max: "100", value: quantity, onChange: this.handleChange, disabled: true }),
                                         React.createElement("span", { className: "input-group-btn ml-2" },
                                             React.createElement("button", { type: "button", className: "quantity-right-plus btn", "data-type": "plus", "data-field": "", onClick: this.increaseQuantity }, "+"))),
                                     React.createElement("div", { className: "w-100" }),
-                                    React.createElement("div", { className: "col-md-12" },
+                                    React.createElement("div", { className: "col-md-12 mt-4" },
                                         React.createElement("p", { onClick: function () { return _this.addProductToCart(item.ProductId, quantity); } },
                                             React.createElement("a", { className: "btn btn-black py-3 px-5 mr-2" },
                                                 React.createElement(Translate, { content: 'product.AddToCart' })),
-                                            React.createElement("a", { href: "javascript:void(0)", onClick: function () { return _this.buyProduct(item.ProductId); }, className: "btn btn-primary py-3 px-5" },
+                                            React.createElement("a", { href: "javascript:void(0)", onClick: function () { return _this.buyProduct(item.ProductId); }, className: "btn btn-primary py-3 px-5 ml-2" },
                                                 React.createElement(Translate, { content: 'product.BuyNow' })))))))))));
         }
     };

@@ -259,7 +259,7 @@ export class Header extends React.Component<any, any> {
                                 }
 
                                 <li className="nav-item dropdown header-selector">
-                                    <select style={{ backgroundColor: 'transparent', transform: 'translateY(22 %)' }} value={this.state.language} onChange={this.onLangChange} name="language" id="language">
+                                    <select style={{ backgroundColor: 'transparent', transform: 'translateY(22 %)', border: '0px' }} value={this.state.language} onChange={this.onLangChange} name="language" id="language">
                                         <option value="en">En</option>
                                         <option value="it">It</option>
                                         <option value="ro">Ro</option>
@@ -267,7 +267,7 @@ export class Header extends React.Component<any, any> {
                                 </li>
 
                                 <li className="nav-item dropdown header-selector">
-                                    <select style={{ backgroundColor: 'transparent', transform: 'translateY(22 %)' }} value={this.state.currency} onChange={this.onCurrencyChange} name="currency" id="currency">
+                                    <select style={{ backgroundColor: 'transparent', transform: 'translateY(22 %)', border: '0px'}} value={this.state.currency} onChange={this.onCurrencyChange} name="currency" id="currency">
                                         <option value="GBP">₤</option>
                                         <option value="EUR">€</option>
                                         <option value="RON">RON</option>

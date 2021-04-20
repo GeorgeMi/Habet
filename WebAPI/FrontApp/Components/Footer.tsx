@@ -15,7 +15,7 @@ export class Footer extends React.Component {
     render() {
         return (
 
-            <footer className="ftco-footer ftco-section">
+            <footer className="ftco-footer ftco-section mt-4">
                 <div className="container">
                     <div className="row">
                         <div className="mouse">

@@ -6,7 +6,7 @@ import it from './languages/it';
 import ro from './languages/ro';
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
 
-export class PrivacyPolicy extends React.Component {
+export class ReturnPolicy extends React.Component {
     constructor(props) {
         super(props);
 

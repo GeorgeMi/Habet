@@ -29,7 +29,7 @@ var Footer = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Footer.prototype.render = function () {
-        return (React.createElement("footer", { className: "ftco-footer ftco-section" },
+        return (React.createElement("footer", { className: "ftco-footer ftco-section mt-4" },
             React.createElement("div", { className: "container" },
                 React.createElement("div", { className: "row" },
                     React.createElement("div", { className: "mouse" },

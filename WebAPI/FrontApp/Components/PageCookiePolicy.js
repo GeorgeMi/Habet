@@ -25,7 +25,7 @@ var CookiePolicy = /** @class */ (function (_super) {
             React.createElement(Header_1.Header, null),
             React.createElement("section", { className: "ftco-section contact-section bg-light" },
                 React.createElement("div", { className: "container" },
-                    React.createElement("div", { className: "bg-white p-5" },
+                    React.createElement("div", { className: "bg-white p-3" },
                         React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                             React.createElement("div", { className: "col-md-12 heading-section text-center" },
                                 React.createElement("h2", { className: "mb-4" }, "Cookie Policy"))),
