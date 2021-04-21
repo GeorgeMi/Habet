@@ -41,7 +41,6 @@ var PageOrder_1 = require("./Components/PageOrder");
 var PageCreditCardPayment_1 = require("./Components/PageCreditCardPayment");
 var PagePrivacyPolicy_1 = require("./Components/PagePrivacyPolicy");
 var PageTermsAndConditions_1 = require("./Components/PageTermsAndConditions");
-var PageReturnPolicy_1 = require("./Components/PageReturnPolicy");
 var App = /** @class */ (function (_super) {
     __extends(App, _super);
     function App() {
@@ -74,7 +73,6 @@ var App = /** @class */ (function (_super) {
                         React.createElement(react_router_1.Route, { exact: true, path: "/card_payment", component: PageCreditCardPayment_1.CreditCardPayment }),
                         React.createElement(react_router_1.Route, { exact: true, path: "/privacy_policy", component: PagePrivacyPolicy_1.PrivacyPolicy }),
                         React.createElement(react_router_1.Route, { exact: true, path: "/terms_and_conditions", component: PageTermsAndConditions_1.TermsAndConditions }),
-                        React.createElement(react_router_1.Route, { exact: true, path: "/return_policy", component: PageReturnPolicy_1.ReturnPolicy }),
                         React.createElement(react_router_1.Route, { component: PageNotFound_1.NotFound })),
                     React.createElement(Footer_1.Footer, null)))));
     };

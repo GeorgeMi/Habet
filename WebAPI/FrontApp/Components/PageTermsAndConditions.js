@@ -38,7 +38,7 @@ var TermsAndConditions = /** @class */ (function (_super) {
                             React.createElement("div", { className: "bg-white p-3", style: { textAlign: 'justify' } },
                                 React.createElement("div", { className: "row justify-content-center mb-3 pb-3" },
                                     React.createElement("div", { className: "col-md-12 heading-section text-center" },
-                                        React.createElement("h2", { className: "mb-4" },
+                                        React.createElement("h3", { className: "mb-4" },
                                             React.createElement(Translate, { content: 'termsAndCond.Title' })))),
                                 lang == 'ro' &&
                                     React.createElement("div", null,

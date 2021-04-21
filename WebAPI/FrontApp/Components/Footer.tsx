@@ -67,7 +67,6 @@ export class Footer extends React.Component {
                                 <h2 className="ftco-heading-2"><Translate content='nav.CustomerInfo' /></h2>
                                 <ul className="list-unstyled">
                                     <li><a href="/#/privacy_policy" className="py-2 d-block"><Translate content='nav.Privacy_policy' /></a></li>
-                                    <li><a href="/#/return_policy" className="py-2 d-block"><Translate content='nav.Return_policy' /></a></li>
                                     <li><a href="/#/terms_and_conditions" className="py-2 d-block"><Translate content='nav.Terms_and_conditions' /></a></li>
                                 </ul>
                             </div>
