@@ -167,4 +167,8 @@
     privacyPolicy: {
         Title: 'Privacy policy',
     },
+
+    termsAndCond: {
+        Title: 'Terms and conditions',
+    },
 }

@@ -31,7 +31,7 @@ export class TermsAndConditions extends React.Component {
                                 <div className="bg-white p-3" style={{ textAlign: 'justify' }}>
                                     <div className="row justify-content-center mb-3 pb-3">
                                         <div className="col-md-12 heading-section text-center">
-                                            <h2 className="mb-4">Termeni și condiții</h2>
+                                            <h2 className="mb-4"><Translate content='termsAndCond.Title' /></h2>
                                         </div>
                                     </div>
 
