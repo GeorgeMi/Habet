@@ -136,7 +136,8 @@
         StyleCode: 'Cod produs',
         Leather: 'Piele',
         Colour: 'Culoare',
-        Delete: 'Șterge produsul'
+        Delete: 'Șterge produsul',
+        Code: 'Cod'
     },
 
     updateDetails: {

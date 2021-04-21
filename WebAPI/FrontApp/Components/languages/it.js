@@ -136,7 +136,8 @@
         StyleCode: 'Codice di stile',
         Leather: 'Pelle',
         Colour: 'Colore',
-        Delete: 'Elimina prodotto'
+        Delete: 'Elimina prodotto',
+        Code: 'Codice'
     },
 
     updateDetails: {

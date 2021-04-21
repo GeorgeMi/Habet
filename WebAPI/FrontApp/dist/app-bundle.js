@@ -3627,6 +3627,12 @@ var Product = /** @class */ (function (_super) {
                                 React.createElement("h3", null, item.Name),
                                 React.createElement("p", { className: "price" },
                                     React.createElement("span", null, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign)),
+                                React.createElement("p", null,
+                                    React.createElement("b", null,
+                                        React.createElement(Translate, { content: 'product.Code' }),
+                                        ":"),
+                                    " ",
+                                    item.StyleCode + " " + item.Colour),
                                 React.createElement("div", { style: { textAlign: 'justify' } },
                                     " ",
                                     react_html_parser_1.default(this.unescape(item.Description)),
@@ -6146,7 +6152,8 @@ __webpack_require__.r(__webpack_exports__);
         StyleCode: 'Style code',
         Leather: 'Leather',
         Colour: 'Colour',
-        Delete: 'Delete product'
+        Delete: 'Delete product',
+        Code: 'Code'
     },
 
     updateDetails: {
@@ -6332,7 +6339,8 @@ __webpack_require__.r(__webpack_exports__);
         StyleCode: 'Codice di stile',
         Leather: 'Pelle',
         Colour: 'Colore',
-        Delete: 'Elimina prodotto'
+        Delete: 'Elimina prodotto',
+        Code: 'Codice'
     },
 
     updateDetails: {
@@ -6518,7 +6526,8 @@ __webpack_require__.r(__webpack_exports__);
         StyleCode: 'Cod produs',
         Leather: 'Piele',
         Colour: 'Culoare',
-        Delete: 'Șterge produsul'
+        Delete: 'Șterge produsul',
+        Code: 'Cod'
     },
 
     updateDetails: {

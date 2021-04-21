@@ -261,6 +261,7 @@ export class Product extends React.Component<any, any>
                                 <div className="col-lg-6 product-details pl-md-5">
                                     <h3>{item.Name}</h3>
                                     <p className="price"><span>{currencyBeforeSign + " " + item.Price + " " + currencyAfterSign}</span></p>
+                                    <p><b><Translate content='product.Code' />:</b> {item.StyleCode + " " + item.Colour}</p>
                                     <div style={{ textAlign: 'justify' }}> {ReactHtmlParser(this.unescape(item.Description))} </div>
                                     <div className="row mt-4" style={{ textAlign: 'center' }}>
                                         <div className="w-100"></div>
