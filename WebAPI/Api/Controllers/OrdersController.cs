@@ -147,69 +147,95 @@ namespace Api.Controllers
         {
             HttpResponseMessage responseMessage;
             var token = Request.Headers.SingleOrDefault(x => x.Key == "token").Value.First();
+            int? userId;
+            double subtotal = 0;
 
             try
             {
-                var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
-                if (userId > 0)
-                {
-                    var order = new Orders
-                    {
-                        Date = DateTime.Now,
-                        UserId = userId.Value,
-                        FirstName = request.UserDetails.FirstName,
-                        LastName = request.UserDetails.LastName,
-                        State = request.UserDetails.State,
-                        Address = request.UserDetails.StreetAddress,
-                        City = request.UserDetails.City,
-                        ZipCode = request.UserDetails.ZipCode,
-                        Phone = request.UserDetails.Phone,
-                        Email = request.UserDetails.Email,
-                        Currency = request.Currency,
-                        Lang = request.Lang,
-                        TransactionId = request.TransactionId,
-                        ProductsOrders = new List<ProductsOrders>()
-                    };
+                userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
+            }
+            catch (Exception)
+            {
+                responseMessage = Request.CreateResponse(HttpStatusCode.BadRequest);
+                return responseMessage;
+            }
 
+            if (userId > 0)
+            {
+                var order = new Orders
+                {
+                    Date = DateTime.Now,
+                    UserId = userId.Value,
+                    FirstName = request.UserDetails.FirstName,
+                    LastName = request.UserDetails.LastName,
+                    State = request.UserDetails.State,
+                    Address = request.UserDetails.StreetAddress,
+                    City = request.UserDetails.City,
+                    ZipCode = request.UserDetails.ZipCode,
+                    Phone = request.UserDetails.Phone,
+                    Email = request.UserDetails.Email,
+                    Currency = request.Currency,
+                    Lang = request.Lang,
+                    TransactionId = request.TransactionId,
+                    ProductsOrders = new List<ProductsOrders>()
+                };
+
+                try
+                {
                     db.Orders.Add(order);
                     db.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    responseMessage = Request.CreateResponse(HttpStatusCode.BadRequest);
+                    return responseMessage;
+                }
 
-                    double subtotal = 0;
-                    var productList = new List<Products>();
-                    foreach (var requestProduct in request.CartProducts)
+                var productList = new List<Products>();
+                foreach (var requestProduct in request.CartProducts)
+                {
+                    var product = db.Products.Find(requestProduct.Key);
+                    if (product?.ProductId > 0)
                     {
-                        var product = db.Products.Find(requestProduct.Key);
-                        if (product?.ProductId > 0)
+                        var productsOrders = new ProductsOrders
                         {
-                            var productsOrders = new ProductsOrders
-                            {
-                                ProductId = product.ProductId,
-                                ProductPrice = GetCurrencyPrice(product, order.Currency),
-                                Amount = requestProduct.Value,
-                                OrderId = order.OrderId,
-                                Currency = order.Currency,
-                                ProductProduct = product,
-                                Code = product.StyleCode + " " + product.Colour
-                            };
+                            ProductId = product.ProductId,
+                            ProductPrice = GetCurrencyPrice(product, order.Currency),
+                            Amount = requestProduct.Value,
+                            OrderId = order.OrderId,
+                            Currency = order.Currency,
+                            ProductProduct = product,
+                            Code = product.StyleCode + " " + product.Colour
+                        };
 
-                            subtotal += productsOrders.ProductPrice * productsOrders.Amount;
+                        subtotal += productsOrders.ProductPrice * productsOrders.Amount;
 
-                            order.ProductsOrders.Add(productsOrders);
-                            productList.Add(product);
-                        }
+                        order.ProductsOrders.Add(productsOrders);
+                        productList.Add(product);
                     }
+                }
 
-                    order.Subtotal = subtotal;
-                    order.Shipping = 0;
-                    order.PaymentMethod = request.PaymentMethod;
+                order.Subtotal = subtotal;
+                order.Shipping = 0;
+                order.PaymentMethod = request.PaymentMethod;
 
+                try
+                {
                     db.Orders.Update(order);
                     db.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    responseMessage = Request.CreateResponse(HttpStatusCode.BadRequest);
+                    return responseMessage;
+                }
 
-                    var InvoiceLogic = new InvoiceLogic(db);
-                    var invoice = InvoiceLogic.CreateInvoice(order);
-                    order.Invoice = invoice.ToArray();
+                var InvoiceLogic = new InvoiceLogic(db);
+                var invoice = InvoiceLogic.CreateInvoice(order);
+                order.Invoice = invoice.ToArray();
 
+                try
+                {
                     db.Orders.Update(order);
                     db.SaveChanges();
 
@@ -223,15 +249,68 @@ namespace Api.Controllers
 
                     OrderLogic.SendOrderEmailToAdmin(order, productList, invoice);
                 }
+                catch (Exception)
+                {
+                    responseMessage = Request.CreateResponse(HttpStatusCode.BadRequest);
+                    return responseMessage;
+                }
+
+                var json = new JSendMessage("success", "Order successfully added");
+                responseMessage = Request.CreateResponse(HttpStatusCode.OK, json);
+
             }
-            catch (DbUpdateException)
+            else
             {
-                responseMessage = Request.CreateResponse(HttpStatusCode.BadRequest);
-                return responseMessage;
+                var order = new Orders
+                {
+                    Date = DateTime.Now,
+                    UserId = userId.Value,
+                    FirstName = request.UserDetails.FirstName,
+                    LastName = request.UserDetails.LastName,
+                    State = request.UserDetails.State,
+                    Address = request.UserDetails.StreetAddress,
+                    City = request.UserDetails.City,
+                    ZipCode = request.UserDetails.ZipCode,
+                    Phone = request.UserDetails.Phone,
+                    Email = request.UserDetails.Email,
+                    Currency = request.Currency,
+                    Lang = request.Lang,
+                    TransactionId = request.TransactionId,
+                    ProductsOrders = new List<ProductsOrders>()
+                };
+
+                var productList = new List<Products>();
+                foreach (var requestProduct in request.CartProducts)
+                {
+                    var product = db.Products.Find(requestProduct.Key);
+                    if (product?.ProductId > 0)
+                    {
+                        var productsOrders = new ProductsOrders
+                        {
+                            ProductId = product.ProductId,
+                            ProductPrice = GetCurrencyPrice(product, order.Currency),
+                            Amount = requestProduct.Value,
+                            OrderId = order.OrderId,
+                            Currency = order.Currency,
+                            ProductProduct = product,
+                            Code = product.StyleCode + " " + product.Colour
+                        };
+
+                        subtotal += productsOrders.ProductPrice * productsOrders.Amount;
+
+                        order.ProductsOrders.Add(productsOrders);
+                        productList.Add(product);
+                    }
+                }
+
+                var OrderLogic = new OrderLogic(db);
+                OrderLogic.SendFailedOrderEmailToAdmin(order, productList);
+
+                var json = new JSendMessage("success", "Order failed");
+                responseMessage = Request.CreateResponse(HttpStatusCode.BadRequest, json);
             }
 
-            var json = new JSendMessage("success", "Order successfully added");
-            responseMessage = Request.CreateResponse(HttpStatusCode.OK, json);
+           
             return responseMessage;
         }
 
@@ -265,6 +344,8 @@ namespace Api.Controllers
         }
 
         // DELETE: api/Orders/5
+        [RequireAdminToken]
+        [System.Web.Http.HttpDelete]
         [ResponseType(typeof(Orders))]
         public async Task<IHttpActionResult> DeleteOrders(int id)
         {
