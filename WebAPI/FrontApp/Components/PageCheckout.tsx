@@ -120,6 +120,7 @@ export class Checkout extends React.Component<any, any> {
                     paymentMethod: state.paymentMethod,
                     transactionId: returnValue,
                     currency: state.currency,
+                    lang: state.language,
                 }, {
                     headers: {
                         token: read_cookie('token') //the token is a variable which holds the token

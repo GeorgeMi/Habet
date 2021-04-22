@@ -1324,6 +1324,7 @@ var Checkout = /** @class */ (function (_super) {
                     paymentMethod: state.paymentMethod,
                     transactionId: returnValue,
                     currency: state.currency,
+                    lang: state.language,
                 }, {
                     headers: {
                         token: sfcookies_1.read_cookie('token') //the token is a variable which holds the token

@@ -16,6 +16,7 @@ namespace Api.Models
         public double Subtotal { get; set; }
         public double Shipping { get; set; }
         public string Currency { get; set; }
+        public string Lang { get; set; }
         public string PaymentMethod { get; set; }
         public DateTime Date { get; set; }
         public string TransactionId { get; set; }

@@ -32,21 +32,6 @@ namespace Api.Controllers
             var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
 
             var orderList = db.Orders.Where(o => o.UserId == userId).OrderByDescending(o => o.Date).ToList();
-            //var orderList = new List<Orders>();
-
-            //Random rnd = new Random();
-            //for (int i = 0; i < 3; i++)
-            //{
-            //    orderList.Add(new Orders
-            //    {
-            //        Subtotal = i ^ 3,
-            //        Shipping = i,
-            //        Date = DateTime.Now.AddMonths(-i),
-            //        OrderId = rnd.Next(1, 4),
-            //        Currency = "RON"
-            //    });
-            //}
-
             var responseOrderList = new List<ListOrdersDTO>();
 
             foreach (var order in orderList)
@@ -78,22 +63,6 @@ namespace Api.Controllers
             {
                 orderList = db.Orders.Where(o => o.Sent != true).OrderByDescending(o => o.Date).ToList();
             }
-
-            //var orderList = new List<Orders>();
-
-            //Random rnd = new Random();
-            //for (int i = 0; i < 3; i++)
-            //{
-            //    orderList.Add(new Orders
-            //    {
-            //        Subtotal = i ^ 3,
-            //        Shipping = i,
-            //        Date = DateTime.Now.AddMonths(-i),
-            //        OrderId = rnd.Next(1, 4),
-            //        Currency = "RON",
-            //        Email = "test@mail.com"
-            //    });
-            //}
 
             var responseOrderList = new List<ListOrdersDTO>();
 
@@ -182,7 +151,6 @@ namespace Api.Controllers
             try
             {
                 var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
-                //int? userId = 1;
                 if (userId > 0)
                 {
                     var order = new Orders
@@ -198,14 +166,13 @@ namespace Api.Controllers
                         Phone = request.UserDetails.Phone,
                         Email = request.UserDetails.Email,
                         Currency = request.Currency,
+                        Lang = request.Lang,
                         TransactionId = request.TransactionId,
                         ProductsOrders = new List<ProductsOrders>()
                     };
 
                     db.Orders.Add(order);
                     db.SaveChanges();
-
-                    var x = order.OrderId;
 
                     double subtotal = 0;
                     var productList = new List<Products>();
@@ -222,6 +189,7 @@ namespace Api.Controllers
                                 OrderId = order.OrderId,
                                 Currency = order.Currency,
                                 ProductProduct = product,
+                                Code = product.StyleCode + " " + product.Colour
                             };
 
                             subtotal += productsOrders.ProductPrice * productsOrders.Amount;

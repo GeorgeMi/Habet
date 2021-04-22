@@ -312,6 +312,10 @@
     <Compile Include="Migrations\20210416084641_Migration3.designer.cs">
       <DependentUpon>20210416084641_Migration3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20210422070723_migration4.cs" />
+    <Compile Include="Migrations\20210422070723_migration4.designer.cs">
+      <DependentUpon>20210422070723_migration4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\GHContextModelSnapshot.cs" />
     <Compile Include="Models\GHContext.cs" />
     <Compile Include="Models\MigrationHistory.cs" />
