@@ -127,7 +127,6 @@ var Checkout = /** @class */ (function (_super) {
         })
             .then(function (response) {
             _this.cardPay(function (returnValue) {
-                var _this = this;
                 var order = response.data;
                 if (returnValue != false) {
                     axios.post(API_Path + '/CompleteOrder', {
@@ -148,7 +147,7 @@ var Checkout = /** @class */ (function (_super) {
                         .catch(function (error) {
                         react_notifications_1.NotificationManager.error("Request failed. Please, try again later.");
                     })
-                        .then(function () { _this.setState({ waitingResponse: false }); });
+                        .then(function () { });
                 }
             });
         })
