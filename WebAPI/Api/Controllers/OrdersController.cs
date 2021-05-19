@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.Entity.Infrastructure;
-using System.IO;
-using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using System.Web.Mvc;
 using Api.BusinessLogic;
 using Api.DTOs;
 using Api.Messages;
@@ -93,8 +88,8 @@ namespace Api.Controllers
             var order = db.Orders.FirstOrDefault(o => o.OrderId == orderId && o.UserId == userId);
             if (order != null)
             {
-                 var productsOrdersList = db.ProductsOrders.Where(o => o.OrderId == order.OrderId);
-                 var productList = productsOrdersList.Select(product => db.Products.FirstOrDefault(p => p.ProductId == product.ProductId && product.OrderId == order.OrderId)).ToList();
+                var productsOrdersList = db.ProductsOrders.Where(o => o.OrderId == order.OrderId);
+                var productList = productsOrdersList.Select(product => db.Products.FirstOrDefault(p => p.ProductId == product.ProductId && product.OrderId == order.OrderId)).ToList();
 
                 var result = new GetOrderDTO()
                 {
@@ -235,6 +230,160 @@ namespace Api.Controllers
             return responseMessage;
         }
 
+
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/CreateOrder")]
+        [ResponseType(typeof(HttpResponseMessage))]
+        public HttpResponseMessage CreateOrder(AddOrderDTO request)
+        {
+            HttpResponseMessage responseMessage;
+            var token = Request.Headers.SingleOrDefault(x => x.Key == "token").Value.First();
+
+            try
+            {
+                var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
+                if (userId > 0)
+                {
+                    var order = new Orders
+                    {
+                        Date = DateTime.Now,
+                        UserId = userId.Value,
+                        FirstName = request.UserDetails.FirstName,
+                        LastName = request.UserDetails.LastName,
+                        State = request.UserDetails.State,
+                        Address = request.UserDetails.StreetAddress,
+                        City = request.UserDetails.City,
+                        ZipCode = request.UserDetails.ZipCode,
+                        Phone = request.UserDetails.Phone,
+                        Email = request.UserDetails.Email,
+                        Currency = request.Currency,
+                        Lang = request.Lang,
+                        ProductsOrders = new List<ProductsOrders>()
+                    };
+
+                    db.Orders.Add(order);
+                    db.SaveChanges();
+
+                    double subtotal = 0;
+                    foreach (var requestProduct in request.CartProducts)
+                    {
+                        var product = db.Products.Find(requestProduct.Key);
+                        if (product?.ProductId > 0)
+                        {
+                            var productsOrders = new ProductsOrders
+                            {
+                                ProductId = product.ProductId,
+                                ProductPrice = GetCurrencyPrice(product, order.Currency),
+                                Amount = requestProduct.Value,
+                                OrderId = order.OrderId,
+                                Currency = order.Currency,
+                                ProductProduct = product,
+                                Code = product.StyleCode + " " + product.Colour
+                            };
+
+                            subtotal += productsOrders.ProductPrice * productsOrders.Amount;
+
+                            order.ProductsOrders.Add(productsOrders);
+                        }
+                    }
+
+                    order.Subtotal = subtotal;
+                    order.Shipping = 0;
+
+                    db.Orders.Update(order);
+                    db.SaveChanges();
+
+                    responseMessage = Request.CreateResponse(HttpStatusCode.OK, new CreateOrderDTO { OrderId = order.OrderId });
+                }
+                else
+                {
+                    responseMessage = Request.CreateResponse(HttpStatusCode.BadRequest);
+                }
+            }
+            catch (Exception)
+            {
+                responseMessage = Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+
+            return responseMessage;
+        }
+
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/CompleteOrder")]
+        [ResponseType(typeof(HttpResponseMessage))]
+        public HttpResponseMessage CompleteOrder(CompleteOrderDTO request)
+        {
+            HttpResponseMessage responseMessage;
+            JSendMessage json;
+            var token = Request.Headers.SingleOrDefault(x => x.Key == "token").Value.First();
+
+            try
+            {
+                var userId = db.Tokens.First(u => u.TokenString.Equals(token))?.UserId;
+                if (userId > 0)
+                {
+                    var order = db.Orders.FirstOrDefault(o => o.OrderId == request.OrderId);
+
+                    if (request.PaymentStatus)
+                    {
+                        order.TransactionId = request.TransactionId;
+                        order.PaymentMethod = request.PaymentMethod;
+
+                        db.Orders.Update(order);
+                        db.SaveChanges();
+
+                        var InvoiceLogic = new InvoiceLogic(db);
+                        var invoice = InvoiceLogic.CreateInvoice(order);
+                        order.Invoice = invoice.ToArray();
+
+                        db.Orders.Update(order);
+                        db.SaveChanges();
+
+                        var productList = new List<Products>();
+                        var productOrdersList = db.ProductsOrders.Where(p => p.OrderId == request.OrderId).ToList();
+                        foreach (var requestProduct in productOrdersList)
+                        {
+                            var product = db.Products.Find(requestProduct.ProductId);
+                            if (product?.ProductId > 0)
+                            {
+                                productList.Add(product);
+                            }
+                        }
+
+                        var OrderLogic = new OrderLogic(db);
+                        OrderLogic.SendOrderEmail(order, productList, invoice);
+
+                        order.MailSent = true;
+
+                        db.Orders.Update(order);
+                        db.SaveChanges();
+
+                        OrderLogic.SendOrderEmailToAdmin(order, productList, invoice);
+                        json = new JSendMessage("success", "Order successfully added");
+
+                    }
+                    else
+                    {
+                        db.Orders.Remove(order);
+                        json = new JSendMessage("success", "Order canceled");
+                    }
+
+                    responseMessage = Request.CreateResponse(HttpStatusCode.OK, json);
+                }
+                else
+                {
+                    responseMessage = Request.CreateResponse(HttpStatusCode.BadRequest);
+                }
+            }
+            catch (Exception)
+            {
+                responseMessage = Request.CreateResponse(HttpStatusCode.BadRequest);
+                return responseMessage;
+            }
+
+            return responseMessage;
+        }
+
         // POST: api/Orders
         [RequireAdminToken]
         [System.Web.Http.HttpPost]
@@ -260,7 +409,7 @@ namespace Api.Controllers
                 json = new JSendMessage("success", "Order not found");
                 responseMessage = Request.CreateResponse(HttpStatusCode.NotFound, json);
             }
-           
+
             return responseMessage;
         }
 

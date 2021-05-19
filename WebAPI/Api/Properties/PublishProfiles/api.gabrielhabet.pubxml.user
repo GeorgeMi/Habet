@@ -12,10 +12,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Api.dll">
-      <publishTime>04/22/2021 16:19:07</publishTime>
+      <publishTime>04/22/2021 16:34:08</publishTime>
     </File>
     <File Include="bin/Api.pdb">
-      <publishTime>04/22/2021 16:19:07</publishTime>
+      <publishTime>04/22/2021 16:34:08</publishTime>
     </File>
     <File Include="bin/BouncyCastle.Crypto.dll">
       <publishTime>08/17/2017 18:20:54</publishTime>
