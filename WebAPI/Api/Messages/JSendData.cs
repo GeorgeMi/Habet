@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Api.DTOs;
+using System.Collections.Generic;
 
 namespace Api.Messages
 {

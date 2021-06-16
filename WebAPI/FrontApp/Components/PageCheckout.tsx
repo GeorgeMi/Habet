@@ -59,6 +59,7 @@ export class Checkout extends React.Component<any, any> {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.reloadPage = this.reloadPage.bind(this);
         this.cardPay = this.cardPay.bind(this);
+        this.createOrder = this.createOrder.bind(this);
     }
 
     componentWillMount() {
@@ -101,45 +102,64 @@ export class Checkout extends React.Component<any, any> {
 
         var state = this.state;
 
-        this.cardPay(function (returnValue) {
-            
-            if (returnValue != false)
-            {
-                axios.post(API_Path + '/Orders', {
-                    userDetails: {
-                        firstName: state.firstName,
-                        lastName: state.lastName,
-                        state: state.state,
-                        city: state.city,
-                        streetAddress: state.streetAddress,
-                        zipCode: state.zipCode,
-                        phone: state.phone,
-                        email: state.email
-                    },
-                    cartProducts: state.cartProducts,
-                    paymentMethod: state.paymentMethod,
-                    transactionId: returnValue,
-                    currency: state.currency,
-                }, {
-                    headers: {
-                        token: read_cookie('token') //the token is a variable which holds the token
-                    }
-                })
-                    .then((response) => {
-                        delete_cookie('cartProducts');
-                        NotificationManager.success(response.data.message);
-                        document.location.href = "/#/";
-                    })
-                    .catch((error) => {
-                        NotificationManager.error("Request failed. Please, try again later.");
-                    })
-                    .then(() => {
-                        this.setState({ waitingResponse: false });
-                    }
-                    );
+        this.createOrder(state);
+    }
+
+    createOrder(state) {
+        this.setState({ waitingResponse: true });
+
+        axios.post(API_Path + '/CreateOrder', {
+            userDetails: {
+                firstName: state.firstName,
+                lastName: state.lastName,
+                state: state.state,
+                city: state.city,
+                streetAddress: state.streetAddress,
+                zipCode: state.zipCode,
+                phone: state.phone,
+                email: state.email
+            },
+            cartProducts: state.cartProducts,
+            currency: state.currency,
+            lang: state.language,
+        }, {
+            headers: {
+                token: read_cookie('token')
             }
-           
-        });         
+        })
+            .then((response) => {
+                this.cardPay(function (returnValue) {
+                    var order = response.data
+                    if (returnValue != false) {
+                        axios.post(API_Path + '/CompleteOrder', {
+                            transactionId: returnValue,
+                            paymentMethod: state.paymentMethod,
+                            paymentStatus: true,
+                            orderId: order.OrderId
+                        }, {
+                            headers: {
+                                token: read_cookie('token') //the token is a variable which holds the token
+                            }
+                        })
+                            .then((response) => {
+                                delete_cookie('cartProducts');
+                                NotificationManager.success(response.data.message);
+                                document.location.href = "/#/";
+                            })
+                            .catch((error) => {
+                                NotificationManager.error("Request failed. Please, try again later.");
+                            })
+                            .then(() => { }
+                            );
+                    }
+                });
+
+            })
+            .catch((error) => {
+                NotificationManager.error("Request failed. Please, try again later.");
+            })
+            .then(() => { }
+            );
     }
 
 
@@ -150,7 +170,7 @@ export class Checkout extends React.Component<any, any> {
     public cardPay(callback) {
         window.pay(this.state.currency, this.state.total * 100, function (returnValue) {
             callback(returnValue);
-        });    
+        });
     }
 
     render() {
@@ -222,7 +242,7 @@ export class Checkout extends React.Component<any, any> {
                         <div className="loading">Loading&#8230;</div>;
                 </div>
                 </main>
-            );      
+            );
         } else {
             if (read_cookie('token') == null || read_cookie('token').length == 0) {
                 return <Redirect to='/#/' />;
@@ -381,13 +401,13 @@ export class Checkout extends React.Component<any, any> {
 
                                                         <div className="row col-md-8">
                                                             <div className="column">
-                                                                <img src="images/visa.svg" alt="Visa" style={{ width: '100%'}}/>
-                                                             </div>
-                                                             <div className="column">
-                                                                <img src="images/mastercard.svg" alt="Mastercard" style={{ width: '100%' }}/>
-                                                              </div>
-                                                         </div>
-                                                       
+                                                                <img src="images/visa.svg" alt="Visa" style={{ width: '100%' }} />
+                                                            </div>
+                                                            <div className="column">
+                                                                <img src="images/mastercard.svg" alt="Mastercard" style={{ width: '100%' }} />
+                                                            </div>
+                                                        </div>
+
                                                         {  /* 
                                                         <div className="form-group">
                                                             <div className="col-md-12">
@@ -413,7 +433,7 @@ export class Checkout extends React.Component<any, any> {
                                                                 :
                                                                 <PaypalExpressBtn env={env} client={client} currency={currency} total={total} onError={onError} onSuccess={onSuccess} onCancel={onCancel} />
                                                             }*/ }
-                                                           
+
                                                         </div>
                                                     </div>
                                                 </div>

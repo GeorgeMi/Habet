@@ -1267,6 +1267,7 @@ var Checkout = /** @class */ (function (_super) {
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.reloadPage = _this.reloadPage.bind(_this);
         _this.cardPay = _this.cardPay.bind(_this);
+        _this.createOrder = _this.createOrder.bind(_this);
         return _this;
     }
     Checkout.prototype.componentWillMount = function () {
@@ -1306,42 +1307,60 @@ var Checkout = /** @class */ (function (_super) {
         event.preventDefault();
         this.setState({ waitingResponse: true });
         var state = this.state;
-        this.cardPay(function (returnValue) {
-            var _this = this;
-            if (returnValue != false) {
-                axios.post(API_Path + '/Orders', {
-                    userDetails: {
-                        firstName: state.firstName,
-                        lastName: state.lastName,
-                        state: state.state,
-                        city: state.city,
-                        streetAddress: state.streetAddress,
-                        zipCode: state.zipCode,
-                        phone: state.phone,
-                        email: state.email
-                    },
-                    cartProducts: state.cartProducts,
-                    paymentMethod: state.paymentMethod,
-                    transactionId: returnValue,
-                    currency: state.currency,
-                }, {
-                    headers: {
-                        token: sfcookies_1.read_cookie('token') //the token is a variable which holds the token
-                    }
-                })
-                    .then(function (response) {
-                    sfcookies_1.delete_cookie('cartProducts');
-                    react_notifications_1.NotificationManager.success(response.data.message);
-                    document.location.href = "/#/";
-                })
-                    .catch(function (error) {
-                    react_notifications_1.NotificationManager.error("Request failed. Please, try again later.");
-                })
-                    .then(function () {
-                    _this.setState({ waitingResponse: false });
-                });
+        this.createOrder(state);
+    };
+    Checkout.prototype.createOrder = function (state) {
+        var _this = this;
+        this.setState({ waitingResponse: true });
+        axios.post(API_Path + '/CreateOrder', {
+            userDetails: {
+                firstName: state.firstName,
+                lastName: state.lastName,
+                state: state.state,
+                city: state.city,
+                streetAddress: state.streetAddress,
+                zipCode: state.zipCode,
+                phone: state.phone,
+                email: state.email
+            },
+            cartProducts: state.cartProducts,
+            currency: state.currency,
+            lang: state.language,
+        }, {
+            headers: {
+                token: sfcookies_1.read_cookie('token')
             }
-        });
+        })
+            .then(function (response) {
+            _this.cardPay(function (returnValue) {
+                var order = response.data;
+                if (returnValue != false) {
+                    axios.post(API_Path + '/CompleteOrder', {
+                        transactionId: returnValue,
+                        paymentMethod: state.paymentMethod,
+                        paymentStatus: true,
+                        orderId: order.OrderId
+                    }, {
+                        headers: {
+                            token: sfcookies_1.read_cookie('token') //the token is a variable which holds the token
+                        }
+                    })
+                        .then(function (response) {
+                        sfcookies_1.delete_cookie('cartProducts');
+                        react_notifications_1.NotificationManager.success(response.data.message);
+                        document.location.href = "/#/";
+                    })
+                        .catch(function (error) {
+                        react_notifications_1.NotificationManager.error("Request failed. Please, try again later.");
+                    })
+                        .then(function () { });
+                }
+            });
+        })
+            .catch(function (error) {
+            react_notifications_1.NotificationManager.error("Request failed. Please, try again later.");
+        })
+            .then(function () { });
     };
     Checkout.prototype.reloadPage = function () {
         //do nothing

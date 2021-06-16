@@ -61,15 +61,16 @@ namespace Api.BusinessLogic
                 foreach (var product in order.ProductsOrders)
                 {
                     int productX = 400 - (index - 1) * 22;
+                    var productName = product.ProductProduct.Name_EN + " (" + product.Code + ")";
 
                     // Pos
-                    document.Add(new Paragraph(index.ToString()).SetFixedPosition(25, productX, 50).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
+                    document.Add(new Paragraph(index.ToString()).SetFixedPosition(20, productX, 50).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
                     // Description
-                    document.Add(new Paragraph(product.ProductProduct.Name_EN).SetFixedPosition(77, productX, 215).SetPaddingLeft(5).SetTextAlignment(TextAlignment.LEFT).SetFontSize(10).SetFont(font));
+                    document.Add(new Paragraph(productName).SetFixedPosition(72, productX, 285).SetPaddingLeft(5).SetTextAlignment(TextAlignment.LEFT).SetFontSize(10).SetFont(font));
                     // Quantity
-                    document.Add(new Paragraph(product.Amount.ToString()).SetFixedPosition(336, productX, 90).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
+                    document.Add(new Paragraph(product.Amount.ToString()).SetFixedPosition(385, productX, 50).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
                     // Price
-                    document.Add(new Paragraph(product.ProductPrice.ToString() + " " + order.Currency).SetFixedPosition(426, productX, 79).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
+                    document.Add(new Paragraph(product.ProductPrice.ToString() + " " + order.Currency).SetFixedPosition(435, productX, 79).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
                     // Total
                     document.Add(new Paragraph((product.ProductPrice * product.Amount).ToString() + " " + order.Currency).SetFixedPosition(504, productX, 88).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
 
@@ -79,7 +80,7 @@ namespace Api.BusinessLogic
                 // Subtotal
                 document.Add(new Paragraph(order.Subtotal.ToString() + " " + order.Currency).SetFixedPosition(504, 113, 88).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
                 // Sales tax
-                document.Add(new Paragraph("19%").SetFixedPosition(448, 90, 88).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
+                document.Add(new Paragraph("19%").SetFixedPosition(450, 90, 88).SetTextAlignment(TextAlignment.CENTER).SetFontSize(10).SetFont(font));
                 // Sales
                 var procent = 0.19 * order.Subtotal;
                 procent = (double)System.Math.Round(procent, 2);

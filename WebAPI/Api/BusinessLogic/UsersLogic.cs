@@ -295,7 +295,6 @@ namespace Api.BusinessLogic
         public void SendAuthEmail(string token, string firstName, string email)
         {
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient();
             mail.From = new MailAddress(ConfigurationManager.AppSettings["mail_user"]);
             mail.To.Add(email);
             mail.Subject = "Welcome to GabrielHabet";
@@ -307,13 +306,7 @@ namespace Api.BusinessLogic
             mail.Body += "<h5>The GabrielHabet team</h5>";
             mail.IsBodyHtml = true;
 
-            SmtpServer.EnableSsl = false;
-            SmtpServer.UseDefaultCredentials = false;
-            SmtpServer.Port = 26;
-            SmtpServer.Host = ConfigurationManager.AppSettings["mail_smtp"];
-            SmtpServer.Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["mail_user"], ConfigurationManager.AppSettings["mail_password"]);
-
-            SmtpServer.Send(mail);
+            SendMail(mail);
         }
 
         /// <summary>
@@ -325,7 +318,6 @@ namespace Api.BusinessLogic
         public void SendRecoverEmail(string token, string firstName, string email)
         {
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient();
             mail.From = new MailAddress(ConfigurationManager.AppSettings["mail_user"]);
             mail.To.Add(email);
             mail.Subject = "Reset password";
@@ -337,13 +329,7 @@ namespace Api.BusinessLogic
             mail.Body += "<h5>The GabrielHabet team</h5>";
             mail.IsBodyHtml = true;
 
-            SmtpServer.EnableSsl = false;
-            SmtpServer.UseDefaultCredentials = false;
-            SmtpServer.Port = 26;
-            SmtpServer.Host = ConfigurationManager.AppSettings["mail_smtp"];
-            SmtpServer.Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["mail_user"], ConfigurationManager.AppSettings["mail_password"]);
-
-            SmtpServer.Send(mail);
+            SendMail(mail);
         }
 
         /// <summary>
@@ -353,7 +339,6 @@ namespace Api.BusinessLogic
         public void StoreMessageEmail(SendMessageDTO messageDTO)
         {
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient();
             mail.From = new MailAddress(ConfigurationManager.AppSettings["mail_user"]);
             mail.To.Add(ConfigurationManager.AppSettings["admin_mail_to"]);
             mail.CC.Add(ConfigurationManager.AppSettings["admin_mail_cc"]);
@@ -362,8 +347,14 @@ namespace Api.BusinessLogic
             mail.Body += "<p>email: " + messageDTO.Email + ", </p>";
             mail.Body += "<p>subject: " + messageDTO.Subject + ", </p>";
             mail.Body += "<p>message: " + messageDTO.Message + ", </p>";
-
             mail.IsBodyHtml = true;
+
+            SendMail(mail);
+        }
+
+        public void SendMail(MailMessage mail)
+        {
+            SmtpClient SmtpServer = new SmtpClient();
 
             SmtpServer.EnableSsl = false;
             SmtpServer.UseDefaultCredentials = false;

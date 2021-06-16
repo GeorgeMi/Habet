@@ -273,6 +273,8 @@
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProductsImagesController.cs" />
+    <Compile Include="DTOs\CreateOrderDTO.cs" />
+    <Compile Include="DTOs\CompleteOrderDTO.cs" />
     <Compile Include="DTOs\UpdateOrderDTO.cs" />
     <Compile Include="DTOs\GetOrderDTO.cs" />
     <Compile Include="DTOs\AddOrderDTO.cs" />
@@ -311,6 +313,10 @@
     <Compile Include="Migrations\20210416084641_Migration3.cs" />
     <Compile Include="Migrations\20210416084641_Migration3.designer.cs">
       <DependentUpon>20210416084641_Migration3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20210422070723_migration4.cs" />
+    <Compile Include="Migrations\20210422070723_migration4.designer.cs">
+      <DependentUpon>20210422070723_migration4.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\GHContextModelSnapshot.cs" />
     <Compile Include="Models\GHContext.cs" />

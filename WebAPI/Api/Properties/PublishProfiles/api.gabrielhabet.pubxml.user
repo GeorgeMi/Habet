@@ -8,14 +8,14 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA5BpAY7VWoUKC2w1IpL0PWQAAAAACAAAAAAADZgAAwAAAABAAAACnus2DhvLBdReAJbkD0pk9AAAAAASAAACgAAAAEAAAAM79gQgz+TDcgvrVcCug5PsYAAAA5Kleoc/LRuHvECON4DTZqhqw4194a+JEFAAAAKZ6thBll90z7jK99YsQKt3pENeS</EncryptedPassword>
     <_PublishTargetUrl>ftp://www.gabrielhabet.com/api.gabrielhabet.com</_PublishTargetUrl>
-    <History>True|2021-04-21T10:11:04.4912215Z;True|2021-04-20T17:50:59.3786769+03:00;True|2021-04-16T17:51:40.7795318+03:00;True|2021-04-14T16:10:06.0155783+03:00;True|2021-04-08T17:41:14.4951634+03:00;True|2021-04-08T17:33:22.0915323+03:00;True|2021-04-08T16:45:42.2861102+03:00;True|2021-04-08T12:53:17.9628772+03:00;True|2021-04-08T11:56:42.4655929+03:00;True|2021-04-07T16:42:20.2447889+03:00;True|2021-04-06T16:20:24.1839525+03:00;True|2021-04-06T15:06:06.2983567+03:00;True|2021-04-06T15:02:54.3907191+03:00;</History>
+    <History>True|2021-05-19T12:16:30.5712279Z;True|2021-04-22T15:00:01.3092527+03:00;True|2021-04-21T13:11:04.4912215+03:00;True|2021-04-20T17:50:59.3786769+03:00;True|2021-04-16T17:51:40.7795318+03:00;True|2021-04-14T16:10:06.0155783+03:00;True|2021-04-08T17:41:14.4951634+03:00;True|2021-04-08T17:33:22.0915323+03:00;True|2021-04-08T16:45:42.2861102+03:00;True|2021-04-08T12:53:17.9628772+03:00;True|2021-04-08T11:56:42.4655929+03:00;True|2021-04-07T16:42:20.2447889+03:00;True|2021-04-06T16:20:24.1839525+03:00;True|2021-04-06T15:06:06.2983567+03:00;True|2021-04-06T15:02:54.3907191+03:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Api.dll">
-      <publishTime>04/21/2021 13:10:57</publishTime>
+      <publishTime>05/19/2021 15:16:21</publishTime>
     </File>
     <File Include="bin/Api.pdb">
-      <publishTime>04/21/2021 13:10:57</publishTime>
+      <publishTime>05/19/2021 15:16:21</publishTime>
     </File>
     <File Include="bin/BouncyCastle.Crypto.dll">
       <publishTime>08/17/2017 18:20:54</publishTime>
@@ -351,7 +351,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/22/2019 09:01:47</publishTime>
     </File>
     <File Include="Invoice/invoice.pdf">
-      <publishTime>12/20/2019 10:08:47</publishTime>
+      <publishTime>04/22/2021 12:04:28</publishTime>
     </File>
     <File Include="Web.config">
       <publishTime>04/21/2021 13:11:01</publishTime>
