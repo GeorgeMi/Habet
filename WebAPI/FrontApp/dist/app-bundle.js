@@ -5903,7 +5903,7 @@ var SectionProducts = /** @class */ (function (_super) {
         var _this = this;
         axios.get(API_Path + '/Products', {
             params: {
-                top: 20,
+                top: 50,
                 from: 0,
                 gender: this.state.gender,
                 type: this.state.type,
