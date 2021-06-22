@@ -32,11 +32,11 @@ namespace Api.Controllers
 
             if (type == "intro")
             {
-                productList = db.Products.OrderBy(p => p.ProductId).Skip(Math.Max(0, db.Products.Count() - top)).Take(top).ToList();
+                productList = db.Products.OrderByDescending(p => p.Price_RON).Skip(Math.Max(0, db.Products.Count() - top)).Take(top).ToList();
             }
             else
             {
-                productList = db.Products.Where(p => p.Gender == gender && p.Type == type).OrderBy(p => p.ProductId).Skip(from).Take(top).ToList();
+                productList = db.Products.Where(p => p.Gender == gender && p.Type == type).OrderByDescending(p => p.Price_RON).OrderBy(p => p.Name_RO).Skip(from).Take(top).ToList();
             }
 
             //Random rnd = new Random();
