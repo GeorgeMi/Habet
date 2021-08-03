@@ -69,37 +69,24 @@ export class SectionIntro extends React.Component<any, any> {
 
         } else {
             return (
-                <section className="ftco-section ftco-deal" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')"}}>                
+                <section className="ftco-section ftco-deal" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" }}>
                     <div className="container">
-                        <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
+                        <div id="carouselExampleSlidesOnly" className="carousel slide" data-ride="carousel">
                             <div className="carousel-inner">
-                                {
-                                    items.map((item, i) => (
-                                        <div key={i} className={this.setActiveClassName(i) + " carousel-item"}>
-                                            <div className="row">
-                                                <div className="col-md-6">
-                                                    <img src={item.Image} className="img-fluid" alt="" />
-                                                </div>
-                                                <div className="carrousel-description col-md-6">
-                                                    <div className="text-deal">
-                                                        <h2><a href="#">{item.Name}</a></h2>
-                                                        <p className="price" style={{ fontWeight: 100 }}><span>{currencyBeforeSign + " " + item.Price + " " + currencyAfterSign}</span></p>
-                                                        <p><a href={"/#/item/" + item.ProductId} className="btn btn-primary py-3 px-5"><Translate content='product.Details' /></a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span className="sr-only">Previous</span>
-                                </a>
-                                <a className="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span className="sr-only">Next</span>
-                                </a>
+                                <div className="carousel-item active">
+                                    <img className="d-block w-100" src="images/landing_page_1.jpeg" />
+                                </div>
+                                <div className="carousel-item">
+                                    <img className="d-block w-100" src="images/landing_page_2.jpeg" />
+                                </div>
+                                <div className="carousel-item">
+                                    <img className="d-block w-100" src=" images/landing_page_3.jpeg" />
+                                </div>
+                                <div className="carousel-item">
+                                    <img className="d-block w-100" src=" images/landing_page_4.jpeg" />
+                                </div>
                             </div>
-                        </div >
+                        </div>
                     </div >
                 </section >
             );

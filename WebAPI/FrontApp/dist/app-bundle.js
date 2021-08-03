@@ -5747,7 +5747,6 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var sfcookies_1 = __webpack_require__(/*! sfcookies */ "./node_modules/sfcookies/index.js");
-var Translate = __webpack_require__(/*! react-translate-component */ "./node_modules/react-translate-component/index.js");
 var en_1 = __webpack_require__(/*! ./languages/en */ "./Components/languages/en.js");
 var it_1 = __webpack_require__(/*! ./languages/it */ "./Components/languages/it.js");
 var ro_1 = __webpack_require__(/*! ./languages/ro */ "./Components/languages/ro.js");
@@ -5797,7 +5796,6 @@ var SectionIntro = /** @class */ (function (_super) {
             return "";
     };
     SectionIntro.prototype.render = function () {
-        var _this = this;
         var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, currency = _a.currency;
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
@@ -5821,27 +5819,16 @@ var SectionIntro = /** @class */ (function (_super) {
         else {
             return (React.createElement("section", { className: "ftco-section ftco-deal", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
                 React.createElement("div", { className: "container" },
-                    React.createElement("div", { id: "carouselExampleControls", className: "carousel slide", "data-ride": "carousel" },
+                    React.createElement("div", { id: "carouselExampleSlidesOnly", className: "carousel slide", "data-ride": "carousel" },
                         React.createElement("div", { className: "carousel-inner" },
-                            items.map(function (item, i) { return (React.createElement("div", { key: i, className: _this.setActiveClassName(i) + " carousel-item" },
-                                React.createElement("div", { className: "row" },
-                                    React.createElement("div", { className: "col-md-6" },
-                                        React.createElement("img", { src: item.Image, className: "img-fluid", alt: "" })),
-                                    React.createElement("div", { className: "carrousel-description col-md-6" },
-                                        React.createElement("div", { className: "text-deal" },
-                                            React.createElement("h2", null,
-                                                React.createElement("a", { href: "#" }, item.Name)),
-                                            React.createElement("p", { className: "price", style: { fontWeight: 100 } },
-                                                React.createElement("span", null, currencyBeforeSign + " " + item.Price + " " + currencyAfterSign)),
-                                            React.createElement("p", null,
-                                                React.createElement("a", { href: "/#/item/" + item.ProductId, className: "btn btn-primary py-3 px-5" },
-                                                    React.createElement(Translate, { content: 'product.Details' })))))))); }),
-                            React.createElement("a", { className: "carousel-control-prev", href: "#carouselExampleControls", role: "button", "data-slide": "prev" },
-                                React.createElement("span", { className: "carousel-control-prev-icon", "aria-hidden": "true" }),
-                                React.createElement("span", { className: "sr-only" }, "Previous")),
-                            React.createElement("a", { className: "carousel-control-next", href: "#carouselExampleControls", role: "button", "data-slide": "next" },
-                                React.createElement("span", { className: "carousel-control-next-icon", "aria-hidden": "true" }),
-                                React.createElement("span", { className: "sr-only" }, "Next")))))));
+                            React.createElement("div", { className: "carousel-item active" },
+                                React.createElement("img", { className: "d-block w-100", src: "images/landing_page_1.jpeg" })),
+                            React.createElement("div", { className: "carousel-item" },
+                                React.createElement("img", { className: "d-block w-100", src: "images/landing_page_2.jpeg" })),
+                            React.createElement("div", { className: "carousel-item" },
+                                React.createElement("img", { className: "d-block w-100", src: " images/landing_page_3.jpeg" })),
+                            React.createElement("div", { className: "carousel-item" },
+                                React.createElement("img", { className: "d-block w-100", src: " images/landing_page_4.jpeg" })))))));
         }
     };
     return SectionIntro;
