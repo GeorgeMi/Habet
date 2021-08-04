@@ -428,7 +428,7 @@ var Header = /** @class */ (function (_super) {
             React.createElement("nav", { className: "navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light", id: "ftco-navbar" },
                 React.createElement("div", { className: "container" },
                     React.createElement("a", { className: "navbar-brand", href: "/#/" },
-                        React.createElement("img", { src: "images/logo.png" }),
+                        React.createElement("img", { src: "images/logo.png", width: "50", height: "50" }),
                         " GabrielHabet"),
                     React.createElement("button", { className: "navbar-toggler", type: "button", "data-toggle": "collapse", "data-target": "#ftco-nav", "aria-controls": "ftco-nav", "aria-expanded": "false", "aria-label": "Toggle navigation" },
                         React.createElement("span", { className: "oi oi-menu" }),
