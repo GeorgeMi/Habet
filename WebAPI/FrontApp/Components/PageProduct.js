@@ -227,7 +227,7 @@ var Product = /** @class */ (function (_super) {
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row" },
                             React.createElement("div", { className: "col-lg-6 mb-5" },
-                                React.createElement(react_image_gallery_1.default, { items: images_1, showPlayButton: false, showFullscreenButton: false, showNav: false, autoPlay: true })),
+                                React.createElement(react_image_gallery_1.default, { items: images_1, showPlayButton: false, showFullscreenButton: false, showNav: false, autoPlay: false })),
                             React.createElement("div", { className: "col-lg-6 product-details pl-md-5" },
                                 React.createElement("h3", null, item.Name),
                                 React.createElement("p", { className: "price" },

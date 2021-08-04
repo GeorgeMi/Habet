@@ -256,7 +256,7 @@ export class Product extends React.Component<any, any>
                         <div className="container">
                             <div className="row">
                                 <div className="col-lg-6 mb-5">
-                                    <ImageGallery items={images} showPlayButton={false} showFullscreenButton={false} showNav={false} autoPlay={true} />
+                                    <ImageGallery items={images} showPlayButton={false} showFullscreenButton={false} showNav={false} autoPlay={false} />
                                 </div>
                                 <div className="col-lg-6 product-details pl-md-5">
                                     <h3>{item.Name}</h3>
