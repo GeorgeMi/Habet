@@ -92,7 +92,7 @@ var Footer = /** @class */ (function (_super) {
                                     React.createElement("strong", null,
                                         React.createElement(Translate, { content: 'contact.Email' }),
                                         ":"),
-                                    " habetgabriel@gmail.com",
+                                    " contact@gabrielhabet.com",
                                     React.createElement("br", null))))),
                     React.createElement("div", { className: "col-md-3" },
                         React.createElement("div", { className: "ftco-footer-widget mb-4" },

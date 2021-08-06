@@ -57,7 +57,7 @@ export class Footer extends React.Component {
                                         Manchester M9 8AQ<br />
                                         United Kingdom <br />
                                         <strong><Translate content='contact.Phone' />:</strong> <Translate content='contact.PhoneValue' /><br />
-                                        <strong><Translate content='contact.Email' />:</strong> habetgabriel@gmail.com<br />
+                                        <strong><Translate content='contact.Email' />:</strong> contact@gabrielhabet.com<br />
                                     </p>
                                 </div>
                             </div>

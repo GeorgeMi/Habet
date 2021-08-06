@@ -121,7 +121,7 @@ export class SectionProducts extends React.Component<any, any>
 
                     <div className="container">
 
-                            <div className="jumbotron" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url('images/banner_" + gender + "_" + type+".jpg')" }}>
+                            <div className="jumbotron" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, 0)), url('images/banner_" + gender + "_" + type+".jpg')" }}>
                                 <div className="col-md-12 heading-section text-center" style={{ fontFamily: 'Brush Script St', opacity: 1 }}>
                                     {type == 'Bags' ? <h2 className="mb-4"><Translate content={'products.' + gender} /></h2> : <h2 className="mb-4" style={{ opacity: 0 }}><Translate content={'products.' + gender} /></h2>}
                                     <h2><Translate content={'products.' + type} /></h2>

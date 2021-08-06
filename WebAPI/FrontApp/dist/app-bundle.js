@@ -248,7 +248,7 @@ var Footer = /** @class */ (function (_super) {
                                     React.createElement("strong", null,
                                         React.createElement(Translate, { content: 'contact.Email' }),
                                         ":"),
-                                    " habetgabriel@gmail.com",
+                                    " contact@gabrielhabet.com",
                                     React.createElement("br", null))))),
                     React.createElement("div", { className: "col-md-3" },
                         React.createElement("div", { className: "ftco-footer-widget mb-4" },
@@ -5766,27 +5766,31 @@ var SectionIntro = /** @class */ (function (_super) {
         return _this;
     }
     SectionIntro.prototype.componentWillMount = function () {
-        var _this = this;
-        axios.get(API_Path + '/Products', {
-            params: {
-                top: 5,
-                from: 0,
-                gender: "none",
-                type: "intro",
-                lang: this.state.language,
-                currency: this.state.currency
-            }
-        })
-            .then(function (response) {
-            _this.setState({ isLoaded: true, items: response.data.data });
-            if (null != _this.props.setLoadedComponentsArray) {
-                _this.props.setLoadedComponentsArray("Intro", "true");
-            }
-        })
-            .catch(function (error) {
-            _this.setState({ isLoaded: true, error: error });
-        })
-            .then();
+        //axios.get(API_Path + '/Products',
+        //    {
+        //        params: {
+        //            top: 5,
+        //            from: 0,
+        //            gender: "none",
+        //            type: "intro",
+        //            lang: this.state.language,
+        //            currency: this.state.currency
+        //        }
+        //    })
+        //    .then((response) => {
+        //        this.setState({ isLoaded: true, items: response.data.data });
+        //        if (null != this.props.setLoadedComponentsArray) {
+        //            this.props.setLoadedComponentsArray("Intro", "true");
+        //        }
+        //    })
+        //    .catch((error) => {
+        //        this.setState({ isLoaded: true, error });
+        //    })
+        //    .then();
+        this.setState({ isLoaded: true });
+        if (null != this.props.setLoadedComponentsArray) {
+            this.props.setLoadedComponentsArray("Intro", "true");
+        }
     };
     SectionIntro.prototype.setActiveClassName = function (id) {
         if (id == 0) {
@@ -5975,7 +5979,7 @@ var SectionProducts = /** @class */ (function (_super) {
         else {
             return (React.createElement("div", null,
                 React.createElement("div", { className: "container" },
-                    React.createElement("div", { className: "jumbotron", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url('images/banner_" + gender + "_" + type + ".jpg')" } },
+                    React.createElement("div", { className: "jumbotron", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, 0)), url('images/banner_" + gender + "_" + type + ".jpg')" } },
                         React.createElement("div", { className: "col-md-12 heading-section text-center", style: { fontFamily: 'Brush Script St', opacity: 1 } },
                             type == 'Bags' ? React.createElement("h2", { className: "mb-4" },
                                 React.createElement(Translate, { content: 'products.' + gender })) : React.createElement("h2", { className: "mb-4", style: { opacity: 0 } },
@@ -47424,7 +47428,7 @@ if(false) {}
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

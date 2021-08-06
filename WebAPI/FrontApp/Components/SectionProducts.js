@@ -127,7 +127,7 @@ var SectionProducts = /** @class */ (function (_super) {
         else {
             return (React.createElement("div", null,
                 React.createElement("div", { className: "container" },
-                    React.createElement("div", { className: "jumbotron", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url('images/banner_" + gender + "_" + type + ".jpg')" } },
+                    React.createElement("div", { className: "jumbotron", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, 0)), url('images/banner_" + gender + "_" + type + ".jpg')" } },
                         React.createElement("div", { className: "col-md-12 heading-section text-center", style: { fontFamily: 'Brush Script St', opacity: 1 } },
                             type == 'Bags' ? React.createElement("h2", { className: "mb-4" },
                                 React.createElement(Translate, { content: 'products.' + gender })) : React.createElement("h2", { className: "mb-4", style: { opacity: 0 } },
