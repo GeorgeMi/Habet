@@ -34,31 +34,27 @@ var SectionIntro = /** @class */ (function (_super) {
         return _this;
     }
     SectionIntro.prototype.componentWillMount = function () {
-        //axios.get(API_Path + '/Products',
-        //    {
-        //        params: {
-        //            top: 5,
-        //            from: 0,
-        //            gender: "none",
-        //            type: "intro",
-        //            lang: this.state.language,
-        //            currency: this.state.currency
-        //        }
-        //    })
-        //    .then((response) => {
-        //        this.setState({ isLoaded: true, items: response.data.data });
-        //        if (null != this.props.setLoadedComponentsArray) {
-        //            this.props.setLoadedComponentsArray("Intro", "true");
-        //        }
-        //    })
-        //    .catch((error) => {
-        //        this.setState({ isLoaded: true, error });
-        //    })
-        //    .then();
-        this.setState({ isLoaded: true });
-        if (null != this.props.setLoadedComponentsArray) {
-            this.props.setLoadedComponentsArray("Intro", "true");
-        }
+        var _this = this;
+        axios.get(API_Path + '/Products', {
+            params: {
+                top: 5,
+                from: 0,
+                gender: "none",
+                type: "intro",
+                lang: this.state.language,
+                currency: this.state.currency
+            }
+        })
+            .then(function (response) {
+            _this.setState({ isLoaded: true, items: response.data.data });
+            if (null != _this.props.setLoadedComponentsArray) {
+                _this.props.setLoadedComponentsArray("Intro", "true");
+            }
+        })
+            .catch(function (error) {
+            _this.setState({ isLoaded: true, error: error });
+        })
+            .then();
     };
     SectionIntro.prototype.setActiveClassName = function (id) {
         if (id == 0) {

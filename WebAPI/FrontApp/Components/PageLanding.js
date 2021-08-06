@@ -16,7 +16,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var SectionProducts = React.lazy(function () { return Promise.resolve().then(function () { return require("./SectionProducts"); }).then(function (m) { return ({ default: m.SectionProducts }); }); });
 var video_react_1 = require("video-react");
-var SectionIntro_1 = require("./SectionIntro");
 var Header_1 = require("./Header");
 var Dictionary_1 = require("./Dictionary");
 var Translate = require("react-translate-component");
@@ -62,15 +61,23 @@ var Landing = /** @class */ (function (_super) {
         document.getElementById('intro-full-description').className = "text-deal";
     };
     Landing.prototype.render = function () {
-        var hideLoader = false;
-        if (this.state.loadedComponentsDictionary != null && this.state.loadedComponentsDictionary.Count() == 1) {
-            hideLoader = true;
-        }
+        var hideLoader = true;
         return (React.createElement("main", { id: "main" },
             hideLoader ? React.createElement("div", null) : React.createElement("div", { className: "loading" }, "Loading\u2026"),
             React.createElement("div", null,
                 React.createElement(Header_1.Header, { Active: 'Home', reloadPage: this.reloadPage }),
-                React.createElement(SectionIntro_1.SectionIntro, { setLoadedComponentsArray: this.setLoadedComponentsArray }),
+                React.createElement("section", { className: "ftco-section ftco-deal", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
+                    React.createElement("div", { className: "container" },
+                        React.createElement("div", { id: "carouselExampleSlidesOnly", className: "carousel slide", "data-ride": "carousel" },
+                            React.createElement("div", { className: "carousel-inner" },
+                                React.createElement("div", { className: "carousel-item active" },
+                                    React.createElement("img", { className: "d-block w-100", src: "images/landing_page_1.jpeg" })),
+                                React.createElement("div", { className: "carousel-item" },
+                                    React.createElement("img", { className: "d-block w-100", src: "images/landing_page_2.jpeg" })),
+                                React.createElement("div", { className: "carousel-item" },
+                                    React.createElement("img", { className: "d-block w-100", src: " images/landing_page_3.jpeg" })),
+                                React.createElement("div", { className: "carousel-item" },
+                                    React.createElement("img", { className: "d-block w-100", src: " images/landing_page_4.jpeg" })))))),
                 React.createElement("div", { className: "container" },
                     React.createElement("div", { className: "row" },
                         React.createElement("div", { className: "col-lg-6 col-md-10 product-item filter-app wow fadeInUp" },

@@ -71,7 +71,26 @@ export class Home extends React.Component<any, any> {
                 <div>
                     <Header Active={'Home'} reloadPage={this.reloadPage} />
 
-                    <SectionIntro />
+                    <section className="ftco-section ftco-deal" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" }}>
+                        <div className="container">
+                            <div id="carouselExampleSlidesOnly" className="carousel slide" data-ride="carousel">
+                                <div className="carousel-inner">
+                                    <div className="carousel-item active">
+                                        <img className="d-block w-100" src="images/landing_page_1.jpeg" />
+                                    </div>
+                                    <div className="carousel-item">
+                                        <img className="d-block w-100" src="images/landing_page_2.jpeg" />
+                                    </div>
+                                    <div className="carousel-item">
+                                        <img className="d-block w-100" src=" images/landing_page_3.jpeg" />
+                                    </div>
+                                    <div className="carousel-item">
+                                        <img className="d-block w-100" src=" images/landing_page_4.jpeg" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div >
+                    </section >
 
                     <section className="ftco-section bg-light">
                         <Suspense fallback={<div>Loading...</div>}> 

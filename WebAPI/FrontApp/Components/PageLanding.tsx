@@ -2,7 +2,6 @@
 import { Suspense } from 'react';
 const SectionProducts = React.lazy(() => import("./SectionProducts").then(m => ({ default: m.SectionProducts })));
 import { Player, ControlBar } from 'video-react';
-import { SectionIntro } from "./SectionIntro";
 import { Header } from './Header';
 import { KeyedCollection } from './Dictionary';
 import * as Translate from 'react-translate-component';
@@ -58,10 +57,7 @@ export class Landing extends React.Component<any, any> {
     }
    
     render() {
-        var hideLoader = false;
-        if (this.state.loadedComponentsDictionary != null && this.state.loadedComponentsDictionary.Count() == 1) {
-            hideLoader = true;
-        }
+        var hideLoader = true;
 
         return (
             <main id="main">
@@ -70,7 +66,26 @@ export class Landing extends React.Component<any, any> {
                 <div>
                     <Header Active={'Home'} reloadPage={this.reloadPage} />
 
-                    <SectionIntro setLoadedComponentsArray={this.setLoadedComponentsArray} />
+                    <section className="ftco-section ftco-deal" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" }}>
+                        <div className="container">
+                            <div id="carouselExampleSlidesOnly" className="carousel slide" data-ride="carousel">
+                                <div className="carousel-inner">
+                                    <div className="carousel-item active">
+                                        <img className="d-block w-100" src="images/landing_page_1.jpeg" />
+                                    </div>
+                                    <div className="carousel-item">
+                                        <img className="d-block w-100" src="images/landing_page_2.jpeg" />
+                                    </div>
+                                    <div className="carousel-item">
+                                        <img className="d-block w-100" src=" images/landing_page_3.jpeg" />
+                                    </div>
+                                    <div className="carousel-item">
+                                        <img className="d-block w-100" src=" images/landing_page_4.jpeg" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div >
+                    </section >
 
                     <div className="container">
                       

@@ -2037,7 +2037,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var SectionProducts = React.lazy(function () { return Promise.resolve().then(function () { return __webpack_require__(/*! ./SectionProducts */ "./Components/SectionProducts.js"); }).then(function (m) { return ({ default: m.SectionProducts }); }); });
-var SectionIntro_1 = __webpack_require__(/*! ./SectionIntro */ "./Components/SectionIntro.js");
 var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
 var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
 var en_1 = __webpack_require__(/*! ./languages/en */ "./Components/languages/en.js");
@@ -2091,7 +2090,18 @@ var Home = /** @class */ (function (_super) {
             hideLoader ? React.createElement("div", null) : React.createElement("div", { className: "loading" }, "Loading\u2026"),
             React.createElement("div", null,
                 React.createElement(Header_1.Header, { Active: 'Home', reloadPage: this.reloadPage }),
-                React.createElement(SectionIntro_1.SectionIntro, null),
+                React.createElement("section", { className: "ftco-section ftco-deal", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
+                    React.createElement("div", { className: "container" },
+                        React.createElement("div", { id: "carouselExampleSlidesOnly", className: "carousel slide", "data-ride": "carousel" },
+                            React.createElement("div", { className: "carousel-inner" },
+                                React.createElement("div", { className: "carousel-item active" },
+                                    React.createElement("img", { className: "d-block w-100", src: "images/landing_page_1.jpeg" })),
+                                React.createElement("div", { className: "carousel-item" },
+                                    React.createElement("img", { className: "d-block w-100", src: "images/landing_page_2.jpeg" })),
+                                React.createElement("div", { className: "carousel-item" },
+                                    React.createElement("img", { className: "d-block w-100", src: " images/landing_page_3.jpeg" })),
+                                React.createElement("div", { className: "carousel-item" },
+                                    React.createElement("img", { className: "d-block w-100", src: " images/landing_page_4.jpeg" })))))),
                 React.createElement("section", { className: "ftco-section bg-light" },
                     React.createElement(react_1.Suspense, { fallback: React.createElement("div", null, "Loading...") },
                         React.createElement("div", { id: "women" },
@@ -2138,7 +2148,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var SectionProducts = React.lazy(function () { return Promise.resolve().then(function () { return __webpack_require__(/*! ./SectionProducts */ "./Components/SectionProducts.js"); }).then(function (m) { return ({ default: m.SectionProducts }); }); });
 var video_react_1 = __webpack_require__(/*! video-react */ "./node_modules/video-react/lib/index.js");
-var SectionIntro_1 = __webpack_require__(/*! ./SectionIntro */ "./Components/SectionIntro.js");
 var Header_1 = __webpack_require__(/*! ./Header */ "./Components/Header.js");
 var Dictionary_1 = __webpack_require__(/*! ./Dictionary */ "./Components/Dictionary.js");
 var Translate = __webpack_require__(/*! react-translate-component */ "./node_modules/react-translate-component/index.js");
@@ -2184,15 +2193,23 @@ var Landing = /** @class */ (function (_super) {
         document.getElementById('intro-full-description').className = "text-deal";
     };
     Landing.prototype.render = function () {
-        var hideLoader = false;
-        if (this.state.loadedComponentsDictionary != null && this.state.loadedComponentsDictionary.Count() == 1) {
-            hideLoader = true;
-        }
+        var hideLoader = true;
         return (React.createElement("main", { id: "main" },
             hideLoader ? React.createElement("div", null) : React.createElement("div", { className: "loading" }, "Loading\u2026"),
             React.createElement("div", null,
                 React.createElement(Header_1.Header, { Active: 'Home', reloadPage: this.reloadPage }),
-                React.createElement(SectionIntro_1.SectionIntro, { setLoadedComponentsArray: this.setLoadedComponentsArray }),
+                React.createElement("section", { className: "ftco-section ftco-deal", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
+                    React.createElement("div", { className: "container" },
+                        React.createElement("div", { id: "carouselExampleSlidesOnly", className: "carousel slide", "data-ride": "carousel" },
+                            React.createElement("div", { className: "carousel-inner" },
+                                React.createElement("div", { className: "carousel-item active" },
+                                    React.createElement("img", { className: "d-block w-100", src: "images/landing_page_1.jpeg" })),
+                                React.createElement("div", { className: "carousel-item" },
+                                    React.createElement("img", { className: "d-block w-100", src: "images/landing_page_2.jpeg" })),
+                                React.createElement("div", { className: "carousel-item" },
+                                    React.createElement("img", { className: "d-block w-100", src: " images/landing_page_3.jpeg" })),
+                                React.createElement("div", { className: "carousel-item" },
+                                    React.createElement("img", { className: "d-block w-100", src: " images/landing_page_4.jpeg" })))))),
                 React.createElement("div", { className: "container" },
                     React.createElement("div", { className: "row" },
                         React.createElement("div", { className: "col-lg-6 col-md-10 product-item filter-app wow fadeInUp" },
@@ -5719,126 +5736,6 @@ var Verify = /** @class */ (function (_super) {
 }(React.Component));
 exports.Verify = Verify;
 //# sourceMappingURL=PageVerify.js.map
-
-/***/ }),
-
-/***/ "./Components/SectionIntro.js":
-/*!************************************!*\
-  !*** ./Components/SectionIntro.js ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var sfcookies_1 = __webpack_require__(/*! sfcookies */ "./node_modules/sfcookies/index.js");
-var en_1 = __webpack_require__(/*! ./languages/en */ "./Components/languages/en.js");
-var it_1 = __webpack_require__(/*! ./languages/it */ "./Components/languages/it.js");
-var ro_1 = __webpack_require__(/*! ./languages/ro */ "./Components/languages/ro.js");
-var config = __webpack_require__(/*! config */ "config");
-var API_Path = config.API_Path;
-var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-var counterpart = __webpack_require__(/*! counterpart */ "./node_modules/counterpart/index.js");
-counterpart.registerTranslations('en', en_1.default);
-counterpart.registerTranslations('ro', ro_1.default);
-counterpart.registerTranslations('it', it_1.default);
-var SectionIntro = /** @class */ (function (_super) {
-    __extends(SectionIntro, _super);
-    function SectionIntro(props) {
-        var _this = _super.call(this, props) || this;
-        _this.state = { isLoaded: false, items: null, error: null, language: sfcookies_1.read_cookie('lang'), currency: sfcookies_1.read_cookie('currency') };
-        _this.setActiveClassName = _this.setActiveClassName.bind(_this);
-        return _this;
-    }
-    SectionIntro.prototype.componentWillMount = function () {
-        //axios.get(API_Path + '/Products',
-        //    {
-        //        params: {
-        //            top: 5,
-        //            from: 0,
-        //            gender: "none",
-        //            type: "intro",
-        //            lang: this.state.language,
-        //            currency: this.state.currency
-        //        }
-        //    })
-        //    .then((response) => {
-        //        this.setState({ isLoaded: true, items: response.data.data });
-        //        if (null != this.props.setLoadedComponentsArray) {
-        //            this.props.setLoadedComponentsArray("Intro", "true");
-        //        }
-        //    })
-        //    .catch((error) => {
-        //        this.setState({ isLoaded: true, error });
-        //    })
-        //    .then();
-        this.setState({ isLoaded: true });
-        if (null != this.props.setLoadedComponentsArray) {
-            this.props.setLoadedComponentsArray("Intro", "true");
-        }
-    };
-    SectionIntro.prototype.setActiveClassName = function (id) {
-        if (id == 0) {
-            return "active";
-        }
-        else
-            return "";
-    };
-    SectionIntro.prototype.render = function () {
-        var _a = this.state, error = _a.error, isLoaded = _a.isLoaded, items = _a.items, currency = _a.currency;
-        var currencyBeforeSign = '€';
-        var currencyAfterSign = '';
-        if (currency == 'RON') {
-            currencyBeforeSign = '';
-            currencyAfterSign = 'RON';
-        }
-        else if (currency == 'GBP') {
-            currencyBeforeSign = '₤';
-            currencyAfterSign = '';
-        }
-        if (error) {
-            console.log(error);
-            return React.createElement("div", null,
-                "Error: ",
-                error.message);
-        }
-        else if (!isLoaded) {
-            return React.createElement("div", null);
-        }
-        else {
-            return (React.createElement("section", { className: "ftco-section ftco-deal", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .8)), url('images/background_2.jpg')" } },
-                React.createElement("div", { className: "container" },
-                    React.createElement("div", { id: "carouselExampleSlidesOnly", className: "carousel slide", "data-ride": "carousel" },
-                        React.createElement("div", { className: "carousel-inner" },
-                            React.createElement("div", { className: "carousel-item active" },
-                                React.createElement("img", { className: "d-block w-100", src: "images/landing_page_1.jpeg" })),
-                            React.createElement("div", { className: "carousel-item" },
-                                React.createElement("img", { className: "d-block w-100", src: "images/landing_page_2.jpeg" })),
-                            React.createElement("div", { className: "carousel-item" },
-                                React.createElement("img", { className: "d-block w-100", src: " images/landing_page_3.jpeg" })),
-                            React.createElement("div", { className: "carousel-item" },
-                                React.createElement("img", { className: "d-block w-100", src: " images/landing_page_4.jpeg" })))))));
-        }
-    };
-    return SectionIntro;
-}(React.Component));
-exports.SectionIntro = SectionIntro;
-//# sourceMappingURL=SectionIntro.js.map
 
 /***/ }),
 

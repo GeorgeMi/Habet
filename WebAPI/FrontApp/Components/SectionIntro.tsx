@@ -23,32 +23,27 @@ export class SectionIntro extends React.Component<any, any> {
     }
 
     componentWillMount() {
-        //axios.get(API_Path + '/Products',
-        //    {
-        //        params: {
-        //            top: 5,
-        //            from: 0,
-        //            gender: "none",
-        //            type: "intro",
-        //            lang: this.state.language,
-        //            currency: this.state.currency
-        //        }
-        //    })
-        //    .then((response) => {
-        //        this.setState({ isLoaded: true, items: response.data.data });
-        //        if (null != this.props.setLoadedComponentsArray) {
-        //            this.props.setLoadedComponentsArray("Intro", "true");
-        //        }
-        //    })
-        //    .catch((error) => {
-        //        this.setState({ isLoaded: true, error });
-        //    })
-        //    .then();
-
-        this.setState({ isLoaded: true });
-        if (null != this.props.setLoadedComponentsArray) {
-            this.props.setLoadedComponentsArray("Intro", "true");
-        }
+        axios.get(API_Path + '/Products',
+            {
+                params: {
+                    top: 5,
+                    from: 0,
+                    gender: "none",
+                    type: "intro",
+                    lang: this.state.language,
+                    currency: this.state.currency
+                }
+            })
+            .then((response) => {
+                this.setState({ isLoaded: true, items: response.data.data });
+                if (null != this.props.setLoadedComponentsArray) {
+                    this.props.setLoadedComponentsArray("Intro", "true");
+                }
+            })
+            .catch((error) => {
+                this.setState({ isLoaded: true, error });
+            })
+            .then();
     }
 
     setActiveClassName(id: number) {
