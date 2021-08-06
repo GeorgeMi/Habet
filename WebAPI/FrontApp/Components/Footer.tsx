@@ -75,7 +75,7 @@ export class Footer extends React.Component {
                     <div className="row">
                         <div className="col-md-12 text-center">
                             <div className="copyright">
-                                &copy; Made by <strong>George Miron</strong> © 2019. All Rights Reserved
+                                &copy; Made by <strong>George Miron</strong> © 2021. All Rights Reserved
                              </div>
                         </div>
                     </div>

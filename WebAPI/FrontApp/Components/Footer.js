@@ -110,7 +110,7 @@ var Footer = /** @class */ (function (_super) {
                         React.createElement("div", { className: "copyright" },
                             "\u00A9 Made by ",
                             React.createElement("strong", null, "George Miron"),
-                            " \u00A9 2019. All Rights Reserved"))))));
+                            " \u00A9 2021. All Rights Reserved"))))));
     };
     return Footer;
 }(React.Component));

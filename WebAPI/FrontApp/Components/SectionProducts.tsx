@@ -108,7 +108,12 @@ export class SectionProducts extends React.Component<any, any>
         var currencyBeforeSign = '€';
         var currencyAfterSign = '';
         if (currency == 'RON') { currencyBeforeSign = ''; currencyAfterSign = 'RON' }
-        else if (currency == 'GBP') { currencyBeforeSign = '₤'; currencyAfterSign = ''}
+        else if (currency == 'GBP') { currencyBeforeSign = '₤'; currencyAfterSign = '' }
+
+        var screenWidth = 1200
+        if (window.screen.width < 992) {
+            screenWidth = 500
+        }
        
         if (error) {
             console.log(error);
@@ -121,7 +126,7 @@ export class SectionProducts extends React.Component<any, any>
 
                     <div className="container">
 
-                            <div className="jumbotron" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, 0)), url('images/banner_" + gender + "_" + type+".jpg')" }}>
+                        <div className="jumbotron" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, 0)), url('images/banner_" + gender + "_" + type + "_" + screenWidth + ".jpg')", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
                                 <div className="col-md-12 heading-section text-center" style={{ fontFamily: 'Brush Script St', opacity: 1 }}>
                                     {type == 'Bags' ? <h2 className="mb-4"><Translate content={'products.' + gender} /></h2> : <h2 className="mb-4" style={{ opacity: 0 }}><Translate content={'products.' + gender} /></h2>}
                                     <h2><Translate content={'products.' + type} /></h2>
@@ -135,7 +140,7 @@ export class SectionProducts extends React.Component<any, any>
 
                                     <div key={i} className="col-lg-4 col-md-6 product-item filter-app wow fadeInUp">
                                         <div className="product d-flex flex-column">
-                                            <a href={"/#/item/" + item.ProductId} className="img-prod"><img className="img-fluid" src={item.Image} alt="" style={{ width: '350px', height: '466px' }}/>
+                                            <a href={"/#/item/" + item.ProductId} className="img-prod"><img className="img-fluid" src={item.Image} alt="" style={{ width: '350px', height: '466px', display: 'block', margin: '0 auto' }} />
                                                 <div className="overlay"></div>
                                             </a>
                                             <div className="text py-3 pb-4 px-3">

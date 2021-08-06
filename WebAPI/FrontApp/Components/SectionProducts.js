@@ -115,6 +115,10 @@ var SectionProducts = /** @class */ (function (_super) {
             currencyBeforeSign = '₤';
             currencyAfterSign = '';
         }
+        var screenWidth = 1200;
+        if (window.screen.width < 992) {
+            screenWidth = 500;
+        }
         if (error) {
             console.log(error);
             return React.createElement("div", null,
@@ -127,7 +131,7 @@ var SectionProducts = /** @class */ (function (_super) {
         else {
             return (React.createElement("div", null,
                 React.createElement("div", { className: "container" },
-                    React.createElement("div", { className: "jumbotron", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, 0)), url('images/banner_" + gender + "_" + type + ".jpg')" } },
+                    React.createElement("div", { className: "jumbotron", style: { backgroundImage: "linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, 0)), url('images/banner_" + gender + "_" + type + "_" + screenWidth + ".jpg')", backgroundRepeat: "no-repeat", backgroundSize: "cover" } },
                         React.createElement("div", { className: "col-md-12 heading-section text-center", style: { fontFamily: 'Brush Script St', opacity: 1 } },
                             type == 'Bags' ? React.createElement("h2", { className: "mb-4" },
                                 React.createElement(Translate, { content: 'products.' + gender })) : React.createElement("h2", { className: "mb-4", style: { opacity: 0 } },
@@ -137,7 +141,7 @@ var SectionProducts = /** @class */ (function (_super) {
                     React.createElement("div", { className: "row" }, items.map(function (item, i) { return (React.createElement("div", { key: i, className: "col-lg-4 col-md-6 product-item filter-app wow fadeInUp" },
                         React.createElement("div", { className: "product d-flex flex-column" },
                             React.createElement("a", { href: "/#/item/" + item.ProductId, className: "img-prod" },
-                                React.createElement("img", { className: "img-fluid", src: item.Image, alt: "", style: { width: '350px', height: '466px' } }),
+                                React.createElement("img", { className: "img-fluid", src: item.Image, alt: "", style: { width: '350px', height: '466px', display: 'block', margin: '0 auto' } }),
                                 React.createElement("div", { className: "overlay" })),
                             React.createElement("div", { className: "text py-3 pb-4 px-3" },
                                 React.createElement("h3", null,
