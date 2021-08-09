@@ -66,7 +66,8 @@
         Bags: 'Genți',
         Accessories: 'Accesorii',
         PriceRange: 'Gama de prețuri',
-        Filter: 'Filtrează'
+        Filter: 'Filtrează',
+        All: 'Toate'
     },
 
     checkout: {

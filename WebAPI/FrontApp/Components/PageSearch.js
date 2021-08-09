@@ -20,7 +20,6 @@ var sfcookies_1 = require("sfcookies");
 var react_notifications_1 = require("react-notifications");
 var react_search_input_1 = require("react-search-input");
 require("react-notifications/lib/notifications.css");
-var react_js_pagination_1 = require("react-js-pagination");
 var Translate = require("react-translate-component");
 var en_1 = require("./languages/en");
 var it_1 = require("./languages/it");
@@ -247,6 +246,10 @@ var Search = /** @class */ (function (_super) {
                                                                 React.createElement("div", { className: "panel-body" },
                                                                     React.createElement("ul", null,
                                                                         React.createElement("li", null,
+                                                                            React.createElement("input", { type: "radio", className: "form-check-input", name: "gender", value: "All", checked: this.state.gender === "All", onChange: this.handleChange, id: "gender-all" }),
+                                                                            React.createElement("label", { className: "form-check-label", htmlFor: "gender-all" },
+                                                                                React.createElement(Translate, { content: 'search.All' }))),
+                                                                        React.createElement("li", null,
                                                                             React.createElement("input", { type: "radio", className: "form-check-input", name: "gender", value: "Men", checked: this.state.gender === "Men", onChange: this.handleChange, id: "gender-men" }),
                                                                             React.createElement("label", { className: "form-check-label", htmlFor: "gender-men" },
                                                                                 React.createElement(Translate, { content: 'search.Men' }))),
@@ -350,10 +353,7 @@ var Search = /** @class */ (function (_super) {
                                                     React.createElement("a", { href: "javascript:void(0)", onClick: function () { return _this.buyProduct(item.ProductId); }, className: "buy-now text-center py-2" },
                                                         React.createElement(Translate, { content: 'search.BuyNow' }),
                                                         React.createElement("span", null,
-                                                            React.createElement("i", { className: "ion-ios-cart ml-1" })))))))); })),
-                                    React.createElement("div", { className: "col-sm-3" },
-                                        React.createElement("div", { className: "block-27" },
-                                            React.createElement(react_js_pagination_1.default, { hideNavigation: true, activePage: this.state.activePage, itemsCountPerPage: this.state.itemsPerPage, totalItemsCount: this.state.totalItemsCount, pageRangeDisplayed: 3, onChange: this.handlePageChange }))))))))));
+                                                            React.createElement("i", { className: "ion-ios-cart ml-1" })))))))); })))))))));
         }
     };
     return Search;

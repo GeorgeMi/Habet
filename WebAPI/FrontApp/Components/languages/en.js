@@ -66,7 +66,8 @@
         Bags: 'Bags',
         Accessories: 'Accessories',
         PriceRange: 'Price Range',
-        Filter: 'Filter'
+        Filter: 'Filter',
+        All: 'All'
     },
 
     checkout: {

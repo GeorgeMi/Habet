@@ -66,7 +66,8 @@
         Bags: 'Borse',
         Accessories: 'Accessori',
         PriceRange: 'Fascia di prezzo',
-        Filter: 'Filtra'
+        Filter: 'Filtra',
+        All: 'Tutte'
     },
 
     checkout: {

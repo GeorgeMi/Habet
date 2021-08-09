@@ -169,17 +169,35 @@ namespace Api.Controllers
 
             List<Products> productList;
 
-            switch (request.Currency)
+            if (request.Gender == "All")
             {
-                case "RON":
-                    productList = db.Products.Where(p => p.Gender == request.Gender && p.Type == request.Type && p.Price_RON >= priceFrom && p.Price_RON <= priceTo).ToList();
-                    break;
-                case "GBP":
-                    productList = db.Products.Where(p => p.Gender == request.Gender && p.Type == request.Type && p.Price_GBP >= priceFrom && p.Price_GBP <= priceTo).ToList();
-                    break;
-                default:
-                    productList = db.Products.Where(p => p.Gender == request.Gender && p.Type == request.Type && p.Price_EUR >= priceFrom && p.Price_EUR <= priceTo).ToList();
-                    break;
+                switch (request.Currency)
+                {
+                    case "RON":
+                        productList = db.Products.Where(p => p.Type == request.Type && p.Price_RON >= priceFrom && p.Price_RON <= priceTo).ToList();
+                        break;
+                    case "GBP":
+                        productList = db.Products.Where(p => p.Type == request.Type && p.Price_GBP >= priceFrom && p.Price_GBP <= priceTo).ToList();
+                        break;
+                    default:
+                        productList = db.Products.Where(p => p.Type == request.Type && p.Price_EUR >= priceFrom && p.Price_EUR <= priceTo).ToList();
+                        break;
+                }
+            }
+            else
+            {
+                switch (request.Currency)
+                {
+                    case "RON":
+                        productList = db.Products.Where(p => p.Gender == request.Gender && p.Type == request.Type && p.Price_RON >= priceFrom && p.Price_RON <= priceTo).ToList();
+                        break;
+                    case "GBP":
+                        productList = db.Products.Where(p => p.Gender == request.Gender && p.Type == request.Type && p.Price_GBP >= priceFrom && p.Price_GBP <= priceTo).ToList();
+                        break;
+                    default:
+                        productList = db.Products.Where(p => p.Gender == request.Gender && p.Type == request.Type && p.Price_EUR >= priceFrom && p.Price_EUR <= priceTo).ToList();
+                        break;
+                }
             }
 
             var responseProductList = productList.OrderBy(p => p.ProductId).Skip(request.From).Take(request.Top).ToList();

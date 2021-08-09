@@ -49,10 +49,10 @@ export class Search extends React.Component<any, any>
         this.handleSubmit = this.handleSubmit.bind(this);
         this.reloadPage = this.reloadPage.bind(this);
         this.handlePageChange = this.handlePageChange.bind(this);
-        this.searchProducts = this.searchProducts.bind(this);     
+        this.searchProducts = this.searchProducts.bind(this);
         this.addProductToCart = this.addProductToCart.bind(this);
-        this.buyProduct = this.buyProduct.bind(this); 
-        this.searchUpdated = this.searchUpdated.bind(this); 
+        this.buyProduct = this.buyProduct.bind(this);
+        this.searchUpdated = this.searchUpdated.bind(this);
     }
 
     componentWillMount() {
@@ -141,7 +141,7 @@ export class Search extends React.Component<any, any>
 
     handleSubmit(event) {
         event.preventDefault();
-       
+
         this.searchProducts(1);
     }
 
@@ -193,8 +193,7 @@ export class Search extends React.Component<any, any>
     render() {
         const { error, isLoaded, items, currency } = this.state;
         var filteredItems = null;
-        if (items != null)
-        {
+        if (items != null) {
             filteredItems = items.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
         }
 
@@ -228,117 +227,122 @@ export class Search extends React.Component<any, any>
                                 <div className="row">
                                     <div className="col-md-4 col-lg-2">
                                         <div className="sidebar">
-                                        <div className="sidebar-box-2">
-                                            <h2 className="heading"><Translate content={'search.Categories'} /></h2>
-                                            <div className="fancy-collapse-panel">
-                                                <form action="" className="billing-form" onSubmit={this.handleSubmit}>
-                                                    <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                                        <div className="panel panel-default">
-                                                            <div className="panel-heading" role="tab" id="headingOne">
-                                                                <h4 className="panel-title">
-                                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"><Translate content={'search.Gender'} />
-                                                                    </a>
-                                                                </h4>
-                                                            </div>
-                                                            <div id="collapseOne" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                                                                <div className="panel-body">
-                                                                    <ul>
-                                                                        <li>
-                                                                            <input type="radio" className="form-check-input" name="gender" value="Men"
-                                                                                checked={this.state.gender === "Men"} onChange={this.handleChange} id="gender-men" />
-                                                                            <label className="form-check-label" htmlFor="gender-men"><Translate content={'search.Men'} /></label>
-                                                                        </li>
-                                                                        <li>
-                                                                            <input type="radio" className="form-check-input" name="gender" value="Women"
-                                                                                checked={this.state.gender === "Women"} onChange={this.handleChange} id="gender-women" />
-                                                                            <label className="form-check-label" htmlFor="gender-women"><Translate content={'search.Women'} /></label>
-                                                                        </li>
-                                                                    </ul>
+                                            <div className="sidebar-box-2">
+                                                <h2 className="heading"><Translate content={'search.Categories'} /></h2>
+                                                <div className="fancy-collapse-panel">
+                                                    <form action="" className="billing-form" onSubmit={this.handleSubmit}>
+                                                        <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                                            <div className="panel panel-default">
+                                                                <div className="panel-heading" role="tab" id="headingOne">
+                                                                    <h4 className="panel-title">
+                                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"><Translate content={'search.Gender'} />
+                                                                        </a>
+                                                                    </h4>
+                                                                </div>
+                                                                <div id="collapseOne" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                                                    <div className="panel-body">
+                                                                        <ul>
+                                                                            <li>
+                                                                                <input type="radio" className="form-check-input" name="gender" value="All"
+                                                                                    checked={this.state.gender === "All"} onChange={this.handleChange} id="gender-all" />
+                                                                                <label className="form-check-label" htmlFor="gender-all"><Translate content={'search.All'} /></label>
+                                                                            </li>
+                                                                            <li>
+                                                                                <input type="radio" className="form-check-input" name="gender" value="Men"
+                                                                                    checked={this.state.gender === "Men"} onChange={this.handleChange} id="gender-men" />
+                                                                                <label className="form-check-label" htmlFor="gender-men"><Translate content={'search.Men'} /></label>
+                                                                            </li>
+                                                                            <li>
+                                                                                <input type="radio" className="form-check-input" name="gender" value="Women"
+                                                                                    checked={this.state.gender === "Women"} onChange={this.handleChange} id="gender-women" />
+                                                                                <label className="form-check-label" htmlFor="gender-women"><Translate content={'search.Women'} /></label>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div className="panel panel-default">
-                                                            <div className="panel-heading" role="tab" id="headingTwo">
-                                                                <h4 className="panel-title">
-                                                                    <a className="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"><Translate content={'search.Products'} /></a>
-                                                                </h4>
-                                                            </div>
-                                                            <div id="collapseTwo" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                                                                <div className="panel-body">
-                                                                    <ul>
-                                                                        <li>
-                                                                            <input type="radio" className="form-check-input" name="type" value="Bags"
-                                                                                checked={this.state.type === "Bags"} id="type-bags" onChange={this.handleChange} />
-                                                                            <label className="form-check-label" htmlFor="type-bags"><Translate content={'search.Bags'} /></label>
-                                                                        </li>
-                                                                        <li>
+                                                            <div className="panel panel-default">
+                                                                <div className="panel-heading" role="tab" id="headingTwo">
+                                                                    <h4 className="panel-title">
+                                                                        <a className="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"><Translate content={'search.Products'} /></a>
+                                                                    </h4>
+                                                                </div>
+                                                                <div id="collapseTwo" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                                                    <div className="panel-body">
+                                                                        <ul>
+                                                                            <li>
+                                                                                <input type="radio" className="form-check-input" name="type" value="Bags"
+                                                                                    checked={this.state.type === "Bags"} id="type-bags" onChange={this.handleChange} />
+                                                                                <label className="form-check-label" htmlFor="type-bags"><Translate content={'search.Bags'} /></label>
+                                                                            </li>
+                                                                            <li>
                                                                                 <input type="radio" className="form-check-input" name="type" value="Accessories"
                                                                                     checked={this.state.type === "Accessories"} id="type-accessories" onChange={this.handleChange} />
                                                                                 <label className="form-check-label" htmlFor="type-accessories"><Translate content={'search.Accessories'} /></label>
-                                                                        </li>
-                                                                    </ul>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
 
-                                                        <div className="panel panel-default">
-                                                            <div className="panel-heading" role="tab" id="headingThree">
-                                                                <h4 className="panel-title">
-                                                                    <a className="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="headingThree"><Translate content={'search.PriceRange'} /></a>
-                                                                </h4>
-                                                            </div>
+                                                            <div className="panel panel-default">
+                                                                <div className="panel-heading" role="tab" id="headingThree">
+                                                                    <h4 className="panel-title">
+                                                                        <a className="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="headingThree"><Translate content={'search.PriceRange'} /></a>
+                                                                    </h4>
+                                                                </div>
 
-                                                            <div id="collapseThree" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                                                                <div className="panel-body">
-                                                                    <ul>
-                                                                        <li>
-                                                                            <input type="radio" className="form-check-input" name="priceInterval" value="0"
-                                                                                checked={this.state.priceInterval === "0"} id="range1" onChange={this.handleChange} />
+                                                                <div id="collapseThree" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                                                    <div className="panel-body">
+                                                                        <ul>
+                                                                            <li>
+                                                                                <input type="radio" className="form-check-input" name="priceInterval" value="0"
+                                                                                    checked={this.state.priceInterval === "0"} id="range1" onChange={this.handleChange} />
                                                                                 <label className="form-check-label" htmlFor="range1">All</label>
-                                                                        </li>
-                                                                        <li>
-                                                                            <input type="radio" className="form-check-input" name="priceInterval" value="1"
-                                                                                checked={this.state.priceInterval === "1"} id="range1" onChange={this.handleChange} />
+                                                                            </li>
+                                                                            <li>
+                                                                                <input type="radio" className="form-check-input" name="priceInterval" value="1"
+                                                                                    checked={this.state.priceInterval === "1"} id="range1" onChange={this.handleChange} />
                                                                                 <label className="form-check-label" htmlFor="range1">Under {currencyBeforeSign}50 {currencyAfterSign}</label>
-                                                                        </li>
-                                                                        <li>
-                                                                            <input type="radio" className="form-check-input" name="priceInterval" value="2"
-                                                                                checked={this.state.priceInterval === "2"} id="range2" onChange={this.handleChange} />
+                                                                            </li>
+                                                                            <li>
+                                                                                <input type="radio" className="form-check-input" name="priceInterval" value="2"
+                                                                                    checked={this.state.priceInterval === "2"} id="range2" onChange={this.handleChange} />
                                                                                 <label className="form-check-label" htmlFor="range2"> {currencyBeforeSign}50 {currencyAfterSign} to {currencyBeforeSign}100 {currencyAfterSign}</label>
-                                                                        </li>
-                                                                        <li>
-                                                                            <input type="radio" className="form-check-input" name="priceInterval" value="3"
-                                                                                checked={this.state.priceInterval === "3"} id="range3" onChange={this.handleChange} />
+                                                                            </li>
+                                                                            <li>
+                                                                                <input type="radio" className="form-check-input" name="priceInterval" value="3"
+                                                                                    checked={this.state.priceInterval === "3"} id="range3" onChange={this.handleChange} />
                                                                                 <label className="form-check-label" htmlFor="range3">{currencyBeforeSign}100 {currencyAfterSign} to {currencyBeforeSign}200 {currencyAfterSign}</label>
-                                                                        </li>
-                                                                        <li>
-                                                                            <input type="radio" className="form-check-input" name="priceInterval" value="4"
-                                                                                checked={this.state.priceInterval === "4"} id="range4" onChange={this.handleChange} />
+                                                                            </li>
+                                                                            <li>
+                                                                                <input type="radio" className="form-check-input" name="priceInterval" value="4"
+                                                                                    checked={this.state.priceInterval === "4"} id="range4" onChange={this.handleChange} />
                                                                                 <label className="form-check-label" htmlFor="range4">{currencyBeforeSign}200 {currencyAfterSign} to {currencyBeforeSign}500 {currencyAfterSign}</label>
-                                                                        </li>
-                                                                        <li>
-                                                                            <input type="radio" className="form-check-input" name="priceInterval" value="5"
-                                                                                checked={this.state.priceInterval === "5"} id="range5" onChange={this.handleChange} />
+                                                                            </li>
+                                                                            <li>
+                                                                                <input type="radio" className="form-check-input" name="priceInterval" value="5"
+                                                                                    checked={this.state.priceInterval === "5"} id="range5" onChange={this.handleChange} />
                                                                                 <label className="form-check-label" htmlFor="range5">{currencyBeforeSign}500 {currencyAfterSign} & Above</label>
-                                                                        </li>
-                                                                    </ul>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-md-4">
+                                                                <div className="form-group">
+                                                                    <Translate component="input" attributes={{ value: 'search.Filter', }} type="submit" className="btn btn-primary py-3 px-5" />
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="col-md-4">
-                                                            <div className="form-group">
-                                                                <Translate component="input" attributes={{ value: 'search.Filter', }} type="submit" className="btn btn-primary py-3 px-5" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form >
+                                                    </form >
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                                     <div className="col-md-8 col-lg-10 order-md-last">
                                         <div className="row">
-                                              {
+                                            {
                                                 filteredItems.map((item, i) => (
 
                                                     <div key={i} className="col-lg-4 col-md-6 product-item filter-app wow fadeInUp">
@@ -359,19 +363,6 @@ export class Search extends React.Component<any, any>
                                                         </div>
                                                     </div>
                                                 ))}
-                                        </div>
-
-                                        <div className="col-sm-3">
-                                            <div className="block-27">
-                                                        <Pagination
-                                                            hideNavigation
-                                                            activePage={this.state.activePage}
-                                                            itemsCountPerPage={this.state.itemsPerPage}
-                                                            totalItemsCount={this.state.totalItemsCount}
-                                                            pageRangeDisplayed={3}
-                                                            onChange={this.handlePageChange}
-                                                        />
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
