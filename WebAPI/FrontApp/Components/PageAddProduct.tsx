@@ -38,6 +38,7 @@ export class AddProduct extends React.Component<any, any> {
         this.escapeHTML = this.escapeHTML.bind(this);
         this.reloadPage = this.reloadPage.bind(this);
         this.changePrice = this.changePrice.bind(this);
+        this.cleanPage = this.cleanPage.bind(this);
     }
 
     changePrice(e) {
@@ -101,7 +102,7 @@ export class AddProduct extends React.Component<any, any> {
 
         axios.post(API_Path + '/Products', formData, config)
             .then((response) => {
-                this.setState({ name_ro: '', name_it: '', name_en: '', price_RON: '', price_EUR: '', price_GBP: '', description_ro: '', description_it: '', description_en: '', file: null, api_response: response.data, loggedIn: true });
+                this.setState({ api_response: response.data, loggedIn: true });
                 NotificationManager.success(response.data.message);
             })
             .catch((error) => {
@@ -132,6 +133,12 @@ export class AddProduct extends React.Component<any, any> {
         //do nothing
     }
 
+    public cleanPage() {
+        this.setState({ name_ro: '', name_it: '', name_en: '', price_RON: '', price_EUR: '', price_GBP: '', description_ro: '', description_it: '', description_en: '', file1: null, file2: null, file3: null, gender: '', type: '', image: '', styleCode: '', leatherType: '', colour: '' });
+    }
+
+
+
     render() {
         const { waitingResponse } = this.state;
         return (
@@ -145,6 +152,7 @@ export class AddProduct extends React.Component<any, any> {
                         <div className="row justify-content-center">
                             <div className="col-md-12 heading-section text-center">
                                 <h1 className="mb-4"><Translate content={'product.AddProduct'} /></h1>
+                                <button type="button" className="btn btn-light" onClick={this.cleanPage}> Clear fields </button>
                             </div>
                         </div>
                     </div>

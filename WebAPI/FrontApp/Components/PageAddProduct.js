@@ -48,6 +48,7 @@ var AddProduct = /** @class */ (function (_super) {
         _this.escapeHTML = _this.escapeHTML.bind(_this);
         _this.reloadPage = _this.reloadPage.bind(_this);
         _this.changePrice = _this.changePrice.bind(_this);
+        _this.cleanPage = _this.cleanPage.bind(_this);
         return _this;
     }
     AddProduct.prototype.changePrice = function (e) {
@@ -104,7 +105,7 @@ var AddProduct = /** @class */ (function (_super) {
         };
         axios.post(API_Path + '/Products', formData, config)
             .then(function (response) {
-            _this.setState({ name_ro: '', name_it: '', name_en: '', price_RON: '', price_EUR: '', price_GBP: '', description_ro: '', description_it: '', description_en: '', file: null, api_response: response.data, loggedIn: true });
+            _this.setState({ api_response: response.data, loggedIn: true });
             react_notifications_1.NotificationManager.success(response.data.message);
         })
             .catch(function (error) {
@@ -131,6 +132,9 @@ var AddProduct = /** @class */ (function (_super) {
     AddProduct.prototype.reloadPage = function () {
         //do nothing
     };
+    AddProduct.prototype.cleanPage = function () {
+        this.setState({ name_ro: '', name_it: '', name_en: '', price_RON: '', price_EUR: '', price_GBP: '', description_ro: '', description_it: '', description_en: '', file1: null, file2: null, file3: null, gender: '', type: '', image: '', styleCode: '', leatherType: '', colour: '' });
+    };
     AddProduct.prototype.render = function () {
         var waitingResponse = this.state.waitingResponse;
         return (React.createElement("main", { id: "main" },
@@ -141,7 +145,8 @@ var AddProduct = /** @class */ (function (_super) {
                     React.createElement("div", { className: "row justify-content-center" },
                         React.createElement("div", { className: "col-md-12 heading-section text-center" },
                             React.createElement("h1", { className: "mb-4" },
-                                React.createElement(Translate, { content: 'product.AddProduct' }))))),
+                                React.createElement(Translate, { content: 'product.AddProduct' })),
+                            React.createElement("button", { type: "button", className: "btn btn-light", onClick: this.cleanPage }, " Clear fields ")))),
                 React.createElement("section", { className: "ftco-section" },
                     React.createElement("div", { className: "container" },
                         React.createElement("div", { className: "row justify-content-center" },
