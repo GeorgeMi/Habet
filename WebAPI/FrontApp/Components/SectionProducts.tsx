@@ -32,7 +32,7 @@ export class SectionProducts extends React.Component<any, any>
         axios.get(API_Path + '/Products',
             {
                 params: {
-                    top: 50,
+                    top: 100,
                     from: 0,
                     gender: this.state.gender,
                     type: this.state.type,
